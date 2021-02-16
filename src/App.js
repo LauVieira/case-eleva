@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import SignIn from './pages/SignIn';
+import LandingPage from './pages/LandingPage';
 import GlobalStyle from './components/GlobalStyle';
 
 export default function App() {
@@ -9,7 +10,8 @@ export default function App() {
     <Router>
       <GlobalStyle />
       <Switch>
-        <Route path="/" component={SignIn} />
+        <Route path="/" component={LandingPage} exact />
+        <Route path="/login" component={SignIn} exact />
       </Switch>
     </Router>
   );
