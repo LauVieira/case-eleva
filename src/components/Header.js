@@ -17,22 +17,23 @@ export default function Header() {
         />
       </LinkContainer>
 
-      <Navbar.Collapse className="justify-content-end">
-        <LinkContainer to="/login">
-          <NavbarText>
-            <IoMdLogOut />
-            <p>Sair</p>
-          </NavbarText>
-        </LinkContainer>
-      </Navbar.Collapse>
+      <LinkContainer to="/login">
+        <NavbarText>
+          <IoMdLogOut />
+          <p>Sair</p>
+        </NavbarText>
+      </LinkContainer>
 
     </StyledNavbar>
   );
 }
 
 const StyledNavbar = styled(Navbar)`
+  align-items: center;
   background-color: #25117d;
-  padding: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
 
   img {
     height: 55px;
@@ -49,9 +50,14 @@ const NavbarText = styled(Navbar.Text)`
   font-size: 18px;
   justify-content: center;
   margin-right: 20px;
+  padding: 0;
+
+  p {
+    margin-bottom: 0;
+  }
 
   svg {
     font-size: 22px;
-    margin: 5px 0 -5px 0;
+    margin: 0;
   }
 `;
