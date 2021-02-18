@@ -24,5 +24,7 @@ module.exports = {
     'react/prop-types': 'off',
     'no-alert': 'off',
     'no-restricted-globals': 'off',
+    'no-use-before-define': 'off',
+    'space-before-function-paren': ['error', 'always'],
   },
 };
