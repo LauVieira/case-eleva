@@ -3,8 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Container, ListGroup,
+  Card, CardDeck, Container,
 } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
 
@@ -32,15 +33,20 @@ export default function SectorPage () {
       {schools.length === 0
         ? <p>Carregando...</p>
         : (
-          <StyledListGroup>
-            <SchoolItem>
-              <span>
-                <BsPlusCircleFill />
-                Adicionar Escola
-              </span>
+          <StyledCardDeck>
+
+            <SchoolItem to="/">
+              <StyledCard>
+                <Card.Text className="add-school">
+                  <BsPlusCircleFill />
+                  Adicionar Escola
+                </Card.Text>
+              </StyledCard>
             </SchoolItem>
+
             {schools.map((school) => <SchoolCard key={school.id} school={school} />)}
-          </StyledListGroup>
+
+          </StyledCardDeck>
         )}
 
     </StyledContainer>
@@ -51,8 +57,15 @@ function SchoolCard (props) {
   const { school } = props;
 
   return (
-    <SchoolItem>
-      {school.name}
+    <SchoolItem to="#">
+      <StyledCard style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>{school.name}</Card.Title>
+          <Card.Text>
+            {school.address}
+          </Card.Text>
+        </Card.Body>
+      </StyledCard>
     </SchoolItem>
   );
 }
@@ -61,10 +74,12 @@ const StyledContainer = styled(Container)`
   padding-top: 100px;
 `;
 
-const StyledListGroup = styled(ListGroup)``;
+const StyledCardDeck = styled(CardDeck)`
+`;
 
-const SchoolItem = styled(ListGroup.Item)`
+const SchoolItem = styled(LinkContainer)`
   font-size: 18px;
+  text-align: center;
 
   p {
     margin-bottom: 0;
@@ -72,6 +87,17 @@ const SchoolItem = styled(ListGroup.Item)`
 
   svg {
     font-size: 20px;
-    margin: 0 8px -3px -3px;
+    margin-right: 5px;
+  }
+`;
+
+const StyledCard = styled(Card)`
+  box-shadow: 3px 2px 10px 1px #B7B5B2;
+
+  .add-school {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
   }
 `;

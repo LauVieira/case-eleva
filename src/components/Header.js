@@ -6,7 +6,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { IoMdLogOut } from 'react-icons/io';
 
-export default function Header() {
+export default function Header () {
   return (
     <StyledNavbar fixed="top" expand="md">
 

@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import LoginForm from '../components/LoginForm';
 
-export default function SignIn() {
+export default function SignIn () {
   return (
     <Container fluid>
 
