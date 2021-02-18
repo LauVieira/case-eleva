@@ -11,8 +11,9 @@ export default function App () {
     <Router>
       <GlobalStyle />
       <Switch>
-        <Route path="/" component={LandingPage} exact />
         <Route path="/login" component={SignIn} exact />
+        <Route path="/" component={LandingPage} exact />
+        <Route path="/setor/:id" component={SectorPage} exact />
       </Switch>
     </Router>
   );
