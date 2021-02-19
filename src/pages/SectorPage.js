@@ -33,19 +33,20 @@ export default function SectorPage () {
           <StyledCardDeck>
 
             <Container fluid style={{ marginBottom: '20px' }}>
-              <SchoolItem href="/" tabIndex="0" style={{ height: 'auto' }}>
-                <StyledCard>
-                  <Card.Text className="add-school">
-                    <BsPlusCircleFill />
-                    Adicionar Escola
-                  </Card.Text>
-                </StyledCard>
-              </SchoolItem>
-
               <Row>
+                <Col md={3}>
+                  <SchoolItem href="/" tabIndex="0">
+                    <StyledCard>
+                      <Card.Text className="add-school">
+                        <BsPlusCircleFill />
+                        Adicionar Escola
+                      </Card.Text>
+                    </StyledCard>
+                  </SchoolItem>
+                </Col>
                 {
                   schools.map((school) => (
-                    <Col md={12}>
+                    <Col md={3}>
                       <SchoolCard key={school.id} school={school} />
                     </Col>
                   ))
@@ -87,6 +88,7 @@ const StyledCardDeck = styled(CardDeck)``;
 const SchoolItem = styled.a`
   display: flex;
   font-size: 18px;
+  height: 200px;
   text-align: center;
   margin: 20px 0;
   color: initial;
