@@ -14,6 +14,7 @@ export default function SchoolCard (props) {
   const {
     address, headteacher, id, name, phone,
   } = schoolData;
+  const link = `/escola/${id}/classes`;
 
   return (
     <StyledCard style={{ width: '50rem' }}>
@@ -42,7 +43,7 @@ export default function SchoolCard (props) {
 
       <StyledListGroup className="list-group-flush">
 
-        <SchoolItem>
+        <SchoolItem action href={link}>
           <SiGoogleclassroom /> Ver turmas
         </SchoolItem>
         <SchoolItem>
