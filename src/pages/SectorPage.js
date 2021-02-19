@@ -20,7 +20,6 @@ export default function SectorPage () {
     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
     request.then((response) => {
       setSchools([...response.data]);
-      console.log(response.data);
     });
     request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
   }
@@ -55,9 +54,10 @@ export default function SectorPage () {
 
 function SchoolCard (props) {
   const { school } = props;
+  const link = `/escola/${school.id}`;
 
   return (
-    <SchoolItem to="#">
+    <SchoolItem to={link}>
       <StyledCard style={{ width: '18rem' }}>
         <Card.Body>
           <Card.Title>{school.name}</Card.Title>
@@ -74,10 +74,10 @@ const StyledContainer = styled(Container)`
   padding-top: 100px;
 `;
 
-const StyledCardDeck = styled(CardDeck)`
-`;
+const StyledCardDeck = styled(CardDeck)``;
 
 const SchoolItem = styled(LinkContainer)`
+  cursor: pointer;
   font-size: 18px;
   text-align: center;
 
