@@ -3,3 +3,12 @@
 body {
   font-family: 'Lato', sans-serif;
 }
+
+*:focus {
+  outline: none;
+}
+
+.floating-focus-enabled :focus, .floating-focus-enabled .focus {
+  outline: dodgerblue solid 2px;
+  outline-offset: 8px;
+}

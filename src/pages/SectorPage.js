@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Card, CardDeck, Container,
+  Card, CardDeck, Container, Row, Col,
 } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
 
 export default function SectorPage () {
   const { id } = useParams();
-  // const history = useHistory();
   const [schools, setSchools] = useState([]);
 
   if (id !== 'novo') useEffect(getSectors, []);
@@ -34,16 +32,26 @@ export default function SectorPage () {
         : (
           <StyledCardDeck>
 
-            <SchoolItem to="/">
-              <StyledCard>
-                <Card.Text className="add-school">
-                  <BsPlusCircleFill />
-                  Adicionar Escola
-                </Card.Text>
-              </StyledCard>
-            </SchoolItem>
+            <Container fluid style={{ marginBottom: '20px' }}>
+              <SchoolItem href="/" tabIndex="0" style={{ height: 'auto' }}>
+                <StyledCard>
+                  <Card.Text className="add-school">
+                    <BsPlusCircleFill />
+                    Adicionar Escola
+                  </Card.Text>
+                </StyledCard>
+              </SchoolItem>
 
-            {schools.map((school) => <SchoolCard key={school.id} school={school} />)}
+              <Row>
+                {
+                  schools.map((school) => (
+                    <Col md={12}>
+                      <SchoolCard key={school.id} school={school} />
+                    </Col>
+                  ))
+                }
+              </Row>
+            </Container>
 
           </StyledCardDeck>
         )}
@@ -57,7 +65,7 @@ function SchoolCard (props) {
   const link = `/escola/${school.id}`;
 
   return (
-    <SchoolItem to={link}>
+    <SchoolItem href={link} tabIndex="0">
       <StyledCard style={{ width: '18rem' }}>
         <Card.Body>
           <Card.Title>{school.name}</Card.Title>
@@ -76,10 +84,17 @@ const StyledContainer = styled(Container)`
 
 const StyledCardDeck = styled(CardDeck)``;
 
-const SchoolItem = styled(LinkContainer)`
-  cursor: pointer;
+const SchoolItem = styled.a`
+  display: flex;
   font-size: 18px;
   text-align: center;
+  margin: 20px 0;
+  color: initial;
+
+  :hover {
+    color: initial;
+    text-decoration: none;
+  }
 
   p {
     margin-bottom: 0;

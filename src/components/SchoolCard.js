@@ -17,7 +17,7 @@ export default function SchoolCard (props) {
   const link = `/escola/${id}/classes`;
 
   return (
-    <StyledCard style={{ width: '50rem' }}>
+    <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
 
       <Card.Body>
 

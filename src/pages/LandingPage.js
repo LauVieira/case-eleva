@@ -5,6 +5,8 @@ import {
   Container, ListGroup,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
+import colorContrast from 'color-contrast';
+
 import Header from '../components/Header';
 
 export default function LandingPage () {
@@ -29,7 +31,7 @@ export default function LandingPage () {
         ? <p>Carregando...</p>
         : (
           <StyledListGroup>
-            <SectorItem action href="/setor/novo" color="#fff">
+            <SectorItem action href="/setor/novo" color="#fff" textColor="#000">
               <span>
                 <BsPlusCircleFill />
                 Adicionar Setor
@@ -46,9 +48,11 @@ export default function LandingPage () {
 function SectorCard (props) {
   const { sector } = props;
   const link = `/setor/${sector.id}`;
+  const contrast = colorContrast(sector.color, '#000');
+  const textColor = contrast > 7 ? '#000' : '#FFF';
 
   return (
-    <SectorItem action href={link} color={sector.color}>
+    <SectorItem action href={link} color={sector.color} textColor={textColor}>
       <p>{sector.name}</p>
       <p>{sector.code}</p>
     </SectorItem>
@@ -69,6 +73,11 @@ const SectorItem = styled(ListGroup.Item)`
   justify-content: space-between;
   margin: 0 auto 5px auto;
   width: 90vw;
+  color: ${(props) => props.textColor};
+
+  :hover {
+    color: #000;
+  }
 
   p {
     margin-bottom: 0;
