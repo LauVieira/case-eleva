@@ -1,0 +1,29 @@
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index 7ea4da8..31be8a3 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -14,6 +14,7 @@ import Header from '../components/Header';
+ export default function ClassesPage () {
+   const { id } = useParams();
+   const [classes, setClasses] = useState([]);
++  const [isLoading, setIsLoading] = useState(true);
+ 
+   useEffect(getClasses, []);
+ 
+@@ -21,6 +22,7 @@ export default function ClassesPage () {
+     const request = axios.get(`http://localhost:3000/schools/${id}/classes`);
+     request.then((response) => {
+       setClasses([...response.data]);
++      setIsLoading(false);
+     });
+     request.catch(() => alert('Erro ao buscar as classes da escola selecionada'));
+   }
+@@ -30,7 +32,7 @@ export default function ClassesPage () {
+ 
+       <Header />
+ 
+-      {classes.length === 0
++      {isLoading
+         ? <p>Carregando...</p>
+         : (
+           <StyledCardDeck>

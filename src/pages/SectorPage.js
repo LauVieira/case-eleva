@@ -37,7 +37,7 @@ export default function SectorPage () {
             <Container fluid style={{ marginBottom: '20px' }}>
               <Row>
                 <Col md={3}>
-                  <SchoolItem href="/" tabIndex="0">
+                  <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
                     <StyledCard>
                       <Card.Text className="add-school">
                         <BsPlusCircleFill />

@@ -1,0 +1,33 @@
+diff --git a/src/App.js b/src/App.js
+index 4476c06..629d6a1 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
+ import SectorPage from './pages/SectorPage';
+ import SchoolPage from './pages/SchoolPage';
+ import ClassesPage from './pages/ClassesPage';
++import SchoolCreatePage from './pages/SchoolCreatePage';
+ 
+ export default function App () {
+   return (
+@@ -13,6 +14,7 @@ export default function App () {
+       <Switch>
+         <Route path="/login" component={SignIn} exact />
+         <Route path="/" component={LandingPage} exact />
++        <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
+         <Route path="/setor/:id" component={SectorPage} exact />
+         <Route path="/escola/:id" component={SchoolPage} exact />
+         <Route path="/escola/:id/classes" component={ClassesPage} exact />
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index ea2d3ca..0ed7e5e 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -37,7 +37,7 @@ export default function SectorPage () {
+             <Container fluid style={{ marginBottom: '20px' }}>
+               <Row>
+                 <Col md={3}>
+-                  <SchoolItem href="/" tabIndex="0">
++                  <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+                     <StyledCard>
+                       <Card.Text className="add-school">
+                         <BsPlusCircleFill />

@@ -1,0 +1,15 @@
+Verificação da correção parcial de A012 — r04
+Data: 2026-11-08. Responsável: Codex. Ambiente: Windows, Node v24.16.0, Webpack 5.22.0, Chrome 156.0.8078.49 sem interface.
+Versão: commit base 8de40dbf66d501dc1739124de9b53a75b9640ed2 + REV-03-FE-A012-r04-correcao.patch. Correção em ClassesPage.js ainda sem commit; já estava staged ao exportar o patch, portanto git diff HEAD foi usado para incluir a alteração do index. Nenhuma operação de stage/unstage foi realizada por Codex.
+Antes: REV-03-FE-A012-r04-antes.txt preserva código e respostas HTTP anteriores. A listagem dependia de classes.length === 0 para exibir Carregando..., que permanecia após resposta [].
+Correção inspecionada em src/pages/ClassesPage.js, ClassesPage/getClasses: isLoading inicia true; após sucesso de axios.get, setClasses atualiza a lista e setIsLoading(false) encerra o carregamento; a ramificação passa a usar isLoading. A coleção vazia pode renderizar o card de adição.
+Compilação observada: webpack 5.22.0 compiled successfully in 462 ms. git diff --check sem erros.
+Procedimento: GET /schools/2/classes retornou 200 com []; GET /schools/4/classes retornou 200 com 5 turmas. Não houve mutação de dados. O filtro padrão de ativas do backend foi mantido.
+Navegador: abrir /escola/2/classes e /escola/4/classes em perfis temporários separados do Chrome com --dump-dom --window-size=1280,900 --timeout=10000 --virtual-time-budget=3000; conferir o DOM após a execução dos scripts/consultas. Nenhuma rede foi atrasada artificialmente e não foram gerados prints.
+Esperado na escola 2: só o card de adição na coleção e ausência de Carregando.... Esperado na escola 4: card de adição mais 5 cards de turmas.
+Escola 2: 1 cards; Carregando... ausente; Adicionar Classe presente; passou.
+Escola 4: 6 cards; Carregando... ausente; Adicionar Classe presente; passou.
+Saída do navegador: 0; verificação do DOM: sem falhas. Evidências: REV-03-FE-A012-r04-escola-2.html e REV-03-FE-A012-r04-escola-4.html.
+Limites: sem clique no card, percurso de teclado, erro/404/recuperação, persistência, contraste ou NVDA. Não foi executada ou adicionada uma suíte de testes automatizados.
+Mantidos os textos e destinos existentes: Adicionar Classe ainda aponta para /; cadastro de turma é a lacuna A005, fora desta correção.
+Resultado global A012: persiste. Sucesso vazio foi corrigido em escolas (r02) e turmas (r04), mas LandingPage, detalhe de escola e tratamento/recuperação dos erros continuam pendentes. Alterações em andamento do cadastro de escola foram preservadas.
