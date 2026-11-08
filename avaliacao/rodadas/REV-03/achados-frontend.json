@@ -1117,33 +1117,33 @@
       "prioridade": "alta",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Implementar filtros com padrão Ativas, seleção visual/programática e rótulos Ativa/Encerrada, usando o contrato current/all/completed.",
-      "verificacao_pendente": "A capacidade total da escola continua no A010: esta listagem não calcula nem apresenta esse total. As setas sintéticas não moveram a seleção nativa nesta execução. Contraste, ampliação, percurso completo de teclado e NVDA permanecem para a etapa correspondente. A falha da consulta não foi provocada no navegador. Confirmação da autora pendente.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
+      "verificacao_pendente": "A capacidade total da escola continua no A010: esta listagem não calcula nem apresenta esse total. As setas sintéticas não moveram a seleção nativa nesta execução. Contraste, ampliação, percurso completo de teclado e NVDA permanecem para a etapa correspondente. A falha da consulta não foi provocada no navegador.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora declarou, em 2026-11-08, que confirmou no frontend e que o filtro está funcionando. Informou que o commit já estava feito.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+          "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Filtros versionados em 94dbafc6140e8ea18903271d78322a67daede335. O diff normalizado de src/pages/ClassesPage.js é idêntico a REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
         "descricao": "A listagem de turmas abre em Ativas e envia GET /schools/:id/classes?status=current. Ativas, Todas e Encerradas usam current, all e completed. A opção marcada fica no rádio, em data-selected e em negrito. Cada cartão mostra Situação: Ativa ou Encerrada. Lista vazia do filtro encerra Carregando e mantém Adicionar Classe. Resposta antiga é descartada. Na falha, o alert anterior permanece, o carregamento termina e a página não anuncia o vazio daquele filtro.",
         "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
-        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-antes.txt (SHA-256 8d61ae4fb1111f5ce785824ae0f28ae16ceb8b6be8f74f105adc4c39ca714259). Patch: REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). Compilação exit 0 em REV-03-FE-A009-filtros-compilacao.txt (SHA-256 81e27b9ea47f3f64ec38fef18e72e62c70e31f595a9da3f4087ecd513b5994ed)."
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-antes.txt (SHA-256 8d61ae4fb1111f5ce785824ae0f28ae16ceb8b6be8f74f105adc4c39ca714259). Patch: REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). Compilação exit 0 em REV-03-FE-A009-filtros-compilacao.txt (SHA-256 81e27b9ea47f3f64ec38fef18e72e62c70e31f595a9da3f4087ecd513b5994ed). Commit 94dbafc6140e8ea18903271d78322a67daede335, de 2026-11-08T14:22:56-03:00, mensagem feat: implements class filter by situation. O diff normalizado de ClassesPage.js corresponde ao patch. Conferência em REV-03-FE-A009-vinculacao-94dbafc.txt (SHA-256 0534d8f38ea0e16fbf7306c83debcd1272eacf803d441d6cf7950ca85ae61636). Sem novos testes."
       },
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+          "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Filtros versionados em 94dbafc6140e8ea18903271d78322a67daede335. O diff normalizado de src/pages/ClassesPage.js é idêntico a REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
-        "metodo": "Compilação e navegador com GET real na API local. Sem escrita, seed ou migration.",
+        "metodo": "Compilação e navegador com GET real na API local, já registrados. A vinculação do commit e a confirmação visual da autora não repetem esses testes.",
         "responsavel": "Grok, no Cursor.",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "Execução em 2026-11-08. Frontend http://127.0.0.1:9000/ e API http://localhost:3000/. Seis percursos passaram: escola 6 abriu em Ativas com status=current e rótulos Ativa; Encerradas enviou status=completed e mostrou a turma encerrada; Todas enviou status=all com Ativa e Encerrada juntas; escola 4 abriu com cinco ativas e Encerradas mostrou Nenhuma turma encerrada; escola 2 mostrou os três vazios, inclusive Nenhuma turma ativa e Nenhuma turma nesta escola. A seleção marcada usava o rádio, data-selected e negrito. ArrowLeft e ArrowRight não mudaram a opção. Sem NVDA, contraste, ampliação ou falha provocada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-verificacao.txt (SHA-256 61945b6ffac05739f28d76cb4293224823b5f2532d0578fb249877226b14ab39). Confirmação da autora pendente."
+        "evidencia": "Execução em 2026-11-08. Frontend http://127.0.0.1:9000/ e API http://localhost:3000/. Seis percursos passaram: escola 6 abriu em Ativas com status=current e rótulos Ativa; Encerradas enviou status=completed e mostrou a turma encerrada; Todas enviou status=all com Ativa e Encerrada juntas; escola 4 abriu com cinco ativas e Encerradas mostrou Nenhuma turma encerrada; escola 2 mostrou os três vazios, inclusive Nenhuma turma ativa e Nenhuma turma nesta escola. A seleção marcada usava o rádio, data-selected e negrito. ArrowLeft e ArrowRight não mudaram a opção. Sem NVDA, contraste, ampliação ou falha provocada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-verificacao.txt (SHA-256 61945b6ffac05739f28d76cb4293224823b5f2532d0578fb249877226b14ab39). A autora confirmou visualmente o filtro em 2026-11-08. Commit 94dbafc6140e8ea18903271d78322a67daede335 conferido em REV-03-FE-A009-vinculacao-94dbafc.txt (SHA-256 0534d8f38ea0e16fbf7306c83debcd1272eacf803d441d6cf7950ca85ae61636), sem novos testes."
       },
       "historico": [
         {
@@ -1184,6 +1184,32 @@
           },
           "resultado": "resolveu_no_recorte; seis percursos passaram com GET real. Setas sintéticas não moveram a seleção.",
           "evidencia": "C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-verificacao.txt (SHA-256 61945b6ffac05739f28d76cb4293224823b5f2532d0578fb249877226b14ab39). Escola 6: current com duas Ativa, completed com uma Encerrada e all com as três. Escola 4: cinco Ativa e vazio de encerradas. Escola 2: vazios de ativas, todas e encerradas. Nenhuma mutação. NVDA, contraste, ampliação, falha provocada e total da escola não foram executados. Confirmação da autora pendente."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Filtros versionados em 94dbafc6140e8ea18903271d78322a67daede335. O diff normalizado de src/pages/ClassesPage.js é idêntico a REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado",
+          "evidencia": "A autora declarou, em 2026-11-08, que confirmou no frontend e que o filtro está funcionando. Pediu para associar o commit à solução e à confirmação visual."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit e confirmação visual; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Filtros versionados em 94dbafc6140e8ea18903271d78322a67daede335. O diff normalizado de src/pages/ClassesPage.js é idêntico a REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "Commit 94dbafc6140e8ea18903271d78322a67daede335 associado aos filtros já verificados e confirmados visualmente pela autora. Sem novos testes.",
+          "evidencia": "Commit 94dbafc6140e8ea18903271d78322a67daede335, de 2026-11-08T14:22:56-03:00, mensagem feat: implements class filter by situation. O diff 94dbafc~1..94dbafc de src/pages/ClassesPage.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-vinculacao-94dbafc.txt (SHA-256 0534d8f38ea0e16fbf7306c83debcd1272eacf803d441d6cf7950ca85ae61636). A autora confirmou o filtro no frontend."
         }
       ]
     },
@@ -1217,14 +1243,101 @@
       "prioridade": "alta",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Apresentar totalCapacity como capacidade total da escola, incluindo zero e sem vinculá-lo ao filtro visual de turmas.",
-      "verificacao_pendente": "Conferir em execução os totais com zero/uma/várias turmas ativas e encerradas e sua invariância ao alternar filtros.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "Não havia escola com exatamente uma turma ativa nos dados locais e nenhuma foi criada. Contraste, ampliação e NVDA permanecem para a etapa correspondente. Vagas ocupadas e Dados avançados continuam no A011.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora declarou, em 2026-11-08, que confirmou no site do sistema. Informou que o commit já estava feito.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "a92231aeb6b59228851aaacbfb237eaab8035f2d",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Capacidade total versionada em a92231aeb6b59228851aaacbfb237eaab8035f2d. O diff normalizado de src/components/SchoolCard.js é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "O detalhe da escola mostra Capacidade total com o totalCapacity recebido em GET /schools/:id, inclusive zero. O número não é recalculado pela lista filtrada de turmas. Vagas ocupadas e Dados avançados permanecem.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-antes.txt (SHA-256 8a6c86e75c7051506f4f62e1e7588e5f20240719b8d14df5e593cae3b7481de5). Patch: REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). Compilação exit 0 em REV-03-FE-A010-capacidade-compilacao.txt (SHA-256 6c3a7fd9d2f23cdb88d3b6a27e97b4f9512fefa5f3b99a399390f9a888351168). Commit a92231aeb6b59228851aaacbfb237eaab8035f2d, de 2026-11-08T14:35:40-03:00, mensagem feat: implements school capacity. O diff normalizado de SchoolCard.js corresponde ao patch. Conferência em REV-03-FE-A010-vinculacao-a92231a.txt (SHA-256 4de99bc04ec9ba4dd7c997bebff6b291104dde37c6dfd052d22340b0776db2d7). Sem novos testes."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "a92231aeb6b59228851aaacbfb237eaab8035f2d",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Capacidade total versionada em a92231aeb6b59228851aaacbfb237eaab8035f2d. O diff normalizado de src/components/SchoolCard.js é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador com GET real na API local, já registrados. A vinculação do commit e a confirmação visual da autora não repetem esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Execução em 2026-11-08. Antes, /escola/6 mostrava Capacidade máxima de alunos: -. Depois: escola 6 mostrou Capacidade total: 15, mesmo após a lista Encerradas exibir limite 25; escola 2 mostrou 0; escola 4 mostrou 98. GET /schools/6 não levou status. Os valores coincidem com totalCapacity da API e com a soma só das turmas current. Não havia escola com uma única turma ativa. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-verificacao.txt (SHA-256 920443df0120781e4bf765b6b06eed406969b673bc402ca8aea35740ba6d672c). A autora confirmou no site em 2026-11-08. Commit a92231aeb6b59228851aaacbfb237eaab8035f2d conferido em REV-03-FE-A010-vinculacao-a92231a.txt (SHA-256 4de99bc04ec9ba4dd7c997bebff6b291104dde37c6dfd052d22340b0776db2d7), sem novos testes."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "solicitacao_implementacao",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Antes da edição, src/components/SchoolCard.js correspondia a 94dbafc6140e8ea18903271d78322a67daede335. package-lock.json já estava modificado. HANDOVER.md não rastreado. A vinculação documental do A009 estava em andamento. Backend sem alteração de código além do package-lock.json preexistente."
+          },
+          "resultado": "Autorizada a implementação da capacidade total depois da vinculação do A009.",
+          "evidencia": "Em 2026-11-08, a autora pediu para associar o commit do A009 e, em seguida, seguir com o REV-03-FE-A010. Estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-antes.txt (SHA-256 8a6c86e75c7051506f4f62e1e7588e5f20240719b8d14df5e593cae3b7481de5)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Capacidade total ainda sem commit, sobre 94dbafc6140e8ea18903271d78322a67daede335. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b): src/components/SchoolCard.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. A vinculação documental do A009 está local e fora desta correção. Backend sem alteração de código."
+          },
+          "resultado": "Capacidade total implementada no detalhe da escola, ainda sem commit.",
+          "evidencia": "src/components/SchoolCard.js lê totalCapacity e mostra Capacidade total, inclusive zero. SchoolPage continua repassando response.data. Patch SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b. Compilação exit 0, SHA-256 da saída 6c3a7fd9d2f23cdb88d3b6a27e97b4f9512fefa5f3b99a399390f9a888351168."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_capacidade",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "94dbafc6140e8ea18903271d78322a67daede335",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Capacidade total ainda sem commit, sobre 94dbafc6140e8ea18903271d78322a67daede335. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b): src/components/SchoolCard.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. A vinculação documental do A009 está local e fora desta correção. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte; zero, várias ativas e exclusão da encerrada passaram com GET real.",
+          "evidencia": "C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-capacidade-verificacao.txt (SHA-256 920443df0120781e4bf765b6b06eed406969b673bc402ca8aea35740ba6d672c). Escola 6: 15, estável depois do filtro Encerradas, cuja turma visível tem limite 25. Escola 2: 0. Escola 4: 98. Nenhuma mutação. Sem escola de uma única turma ativa. Confirmação da autora pendente."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "a92231aeb6b59228851aaacbfb237eaab8035f2d",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Capacidade total versionada em a92231aeb6b59228851aaacbfb237eaab8035f2d. O diff normalizado de src/components/SchoolCard.js é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado",
+          "evidencia": "A autora declarou, em 2026-11-08, que confirmou no site do sistema. Pediu para atualizar o achado depois do commit."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit e confirmação visual; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "a92231aeb6b59228851aaacbfb237eaab8035f2d",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Capacidade total versionada em a92231aeb6b59228851aaacbfb237eaab8035f2d. O diff normalizado de src/components/SchoolCard.js é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "Commit a92231aeb6b59228851aaacbfb237eaab8035f2d associado à capacidade total já verificada e confirmada visualmente pela autora. Sem novos testes.",
+          "evidencia": "Commit a92231aeb6b59228851aaacbfb237eaab8035f2d, de 2026-11-08T14:35:40-03:00, mensagem feat: implements school capacity. O diff a92231a~1..a92231a de src/components/SchoolCard.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-vinculacao-a92231a.txt (SHA-256 4de99bc04ec9ba4dd7c997bebff6b291104dde37c6dfd052d22340b0776db2d7). A autora confirmou a capacidade no site."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A011",

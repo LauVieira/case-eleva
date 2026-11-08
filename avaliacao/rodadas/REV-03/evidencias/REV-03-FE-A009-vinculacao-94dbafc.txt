@@ -1,0 +1,13 @@
+REV-03 / REV-03-FE-A009 — vinculação do commit dos filtros de turma
+Data: 2026-11-08
+Commit: 94dbafc6140e8ea18903271d78322a67daede335
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T14:22:56-03:00
+Mensagem: feat: implements class filter by situation
+Pedido da autora: associar o commit à solução e à confirmação visual. Ela declarou que confirmou no frontend e que o filtro está funcionando.
+
+Conferência, sem nova execução de testes:
+- git diff 94dbafc~1 94dbafc -- src/pages/ClassesPage.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A009-filtros-correcao.patch. SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012. Tamanho normalizado 5261 nos dois lados.
+- O commit também versiona as evidências e o acompanhamento já registrados: achados-frontend.json, relatorio-frontend.md e os quatro arquivos REV-03-FE-A009-filtros-*.
+
+A associação não repete a compilação nem os seis percursos. A confirmação visual é declaração da autora.
