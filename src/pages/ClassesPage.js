@@ -10,7 +10,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
-import { formatClassStatus } from '../utils/classForm';
+import { formatClassName, formatClassStatus } from '../utils/classForm';
 import { formatSchoolName } from '../utils/schoolForm';
 
 const STATUS_FILTERS = [
@@ -96,7 +96,7 @@ export default function ClassesPage () {
 
       {deletedClass && (
         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
-          Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
+          Turma <strong>{formatClassName(deletedClass.name)}</strong> excluída com sucesso.
         </Alert>
       )}
 
@@ -176,7 +176,7 @@ function ClassCard (props) {
       <StyledCard>
         <Card.Body>
           <Card.Title>
-            Turma {classs.name}
+            Turma {formatClassName(classs.name)}
           </Card.Title>
           <Card.Text>
             Situação: {formatClassStatus(classs.status)}

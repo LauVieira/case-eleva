@@ -1,0 +1,31 @@
+REV-03 / REV-03-FE-A014
+Data: 2026-11-08
+Método: compilação e navegador com GET real. A confirmação de exclusão foi aberta e cancelada. Sem escrita, seed ou migration. Sem prints.
+Ambiente: Windows, Chrome pelo navegador do Cursor, frontend http://127.0.0.1:9000/, API http://localhost:3000/. Frontend 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc com SectorPage.js, SchoolCard.js, ClassesPage.js e SchoolDeleteModal.js locais. Backend a023d1eea2093d5511c22cfc444e11dfef704e4f.
+Compilação: exit 0. Saída em REV-03-FE-A014-nomes-compilacao.txt.
+
+Caso 1 — /setor/2, quatro escolas com nomes canônicos em minúsculas, acentos e várias palavras.
+Esperado: primeira letra de cada palavra em maiúscula, acentos preservados, sem alterar o texto do endereço.
+Observado: Centro Integrado De Educação Pública 455 Municipalizado Maringá; Colégio Estadual Municipalizado Coquinho; Colégio Municipal Ancyra Gonçalves Pimentel; Escola Municipal Amil Tanos. Os endereços continuaram como recebidos. Passou.
+
+Caso 2 — /escola/6.
+Esperado: o título do cartão com a mesma apresentação.
+Observado: Escola De Demonstração. Limite de alunos 15 e as datas permaneceram. Passou.
+
+Caso 3 — abrir Excluir escola em /escola/6 e cancelar.
+Esperado: o nome apresentado na confirmação, sem DELETE.
+Observado: "Deseja excluir a escola Escola De Demonstração?". Cancelar fechou o diálogo e a escola continuou na página. Passou.
+
+Caso 4 — /escola/6/classes, filtro Ativas e depois Todas.
+Esperado: nomes de turma em maiúsculas. O rótulo Turma permanece antes do nome.
+Observado: Turma JARDIM e Turma TURMA A nas ativas. Em Todas, a encerrada também apareceu como Turma TURMA A, com Situação Encerrada. O contexto da escola continuou Escola De Demonstração. Passou.
+
+Caso 5 — /turma/8.
+Esperado: o detalhe, que já formatava o nome, continua JARDIM.
+Observado: título JARDIM e Escola: Escola De Demonstração. Passou.
+
+O valor enviado à API não foi alterado. Nenhuma escrita foi observada.
+
+Resultado: listagem de escolas, detalhe, confirmação cancelada e listagem de turmas passaram com nomes canônicos reais, inclusive acentos.
+
+Limites: NVDA e compreensão com usuários não foram executados. Confirmação da autora pendente. O cartão diz Turma TURMA A quando o nome canônico já é turma a, porque o rótulo Turma foi mantido e o nome foi para maiúsculas.

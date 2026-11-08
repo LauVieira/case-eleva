@@ -1817,16 +1817,16 @@
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Apresentar nome do setor/escola no contexto correspondente e links de retorno ao pai, preservando o vínculo Setor → Escola → Turma.",
       "verificacao_pendente": "Compreensão do contexto com usuários ao final. Teclado completo, contraste, ampliação e NVDA não foram exercitados.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que o cartão centralizado da escola ficou ótimo, que a página da turma ficou ótima e, em seguida, que já confirmou tudo e commitou. A confirmação cobre o contexto, o retorno e os ajustes de posição que ela viu nesse commit. Não inclui teclado completo, contraste, ampliação, NVDA nem sessão com usuários.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+          "frontend": "04a5bb4de0fe7f55fe4bc002607cf6e47da18afc",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Contexto e retorno ainda sem commit, sobre e6c52f4ebff4916ec500ee74136ac2581a0af4d1, em src/pages/SectorPage.js, src/pages/ClassesPage.js e src/pages/SchoolPage.js. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Contexto, retorno e os ajustes de posição versionados em 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc. O diff das três páginas não é idêntico ao patch REV-03-FE-A013-contexto-correcao.patch (SHA-256 718c5e59cf8265b8e4e9cab4095020163eac30c7c77d5456593a78a8d6290aff): a faixa de contexto de SchoolPage.js foi centralizada depois. SchoolCard.js e ClassDetailPage.js entram no commit e não estão no patch. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
         "descricao": "A listagem do setor mostra nome e código e o link Voltar aos setores. O detalhe da escola mostra o setor, com nome e código, e Voltar ao setor. A listagem de turmas mostra o nome da escola e Voltar para a escola. Setor ou escola ausentes ou com id inválido informam que o registro não foi encontrado e oferecem retorno, sem a coleção. O cabeçalho permanece com início e sair.",
         "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
@@ -1835,14 +1835,14 @@
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+          "frontend": "04a5bb4de0fe7f55fe4bc002607cf6e47da18afc",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Mesmas três páginas locais da correção, ainda sem commit. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Contexto, retorno e os ajustes de posição versionados em 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc. O diff das três páginas não é idêntico ao patch inicial. SchoolCard.js e ClassDetailPage.js entram no commit e não estão no patch. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
-        "metodo": "Compilação e navegador com GET real nas três telas, inclusive abertura direta e ids ausentes ou inválidos. Sem escrita.",
+        "metodo": "Compilação e navegador com GET real nas três telas, inclusive abertura direta e ids ausentes ou inválidos. Sem escrita. A vinculação do commit não repete esses testes.",
         "responsavel": "Grok, no Cursor.",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "Em 2026-11-08, /setor/1 mostrou Setor Azul e SA-1 e voltou à lista; /setor/2 mostrou Setor Amarelo, SA-2 e quatro escolas; /escola/6 mostrou o setor e voltou a /setor/1; /escola/6/classes mostrou Escola De Demonstração, manteve os filtros e voltou a /escola/6. Ids 999999999 e abc de setor e escola, e a listagem de turmas da escola 999999999, informaram o registro ausente e ofereceram retorno, sem a coleção. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-contexto-verificacao.txt (SHA-256 8f8d1214b2d2b7696e8888c04a00de6f8677fb1cc50464bab35f11a46f6433c2). Teclado completo, contraste, ampliação, NVDA e compreensão com usuários não foram executados. Confirmação da autora pendente."
+        "evidencia": "Em 2026-11-08, /setor/1 mostrou Setor Azul e SA-1 e voltou à lista; /setor/2 mostrou Setor Amarelo, SA-2 e quatro escolas; /escola/6 mostrou o setor e voltou a /setor/1; /escola/6/classes mostrou Escola De Demonstração, manteve os filtros e voltou a /escola/6. Ids 999999999 e abc de setor e escola, e a listagem de turmas da escola 999999999, informaram o registro ausente e ofereceram retorno, sem a coleção. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-contexto-verificacao.txt (SHA-256 8f8d1214b2d2b7696e8888c04a00de6f8677fb1cc50464bab35f11a46f6433c2). Teclado completo, contraste, ampliação, NVDA e compreensão com usuários não foram executados. A autora depois declarou que confirmou tudo e commitou 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc. Conferência em REV-03-FE-A013-vinculacao-04a5bb4.txt (SHA-256 620812df7138a50e3711998445dbff2e03fcea07ea2111fa496fb9dae7d8c742). A associação não repetiu os testes."
       },
       "historico": [
         {
@@ -1870,6 +1870,19 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "Compilação exit 0 e sete percursos de navegador com GET real, registrados em REV-03-FE-A013-contexto-verificacao.txt (SHA-256 8f8d1214b2d2b7696e8888c04a00de6f8677fb1cc50464bab35f11a46f6433c2). Sem escrita. Compreensão com usuários, teclado completo, contraste, ampliação e NVDA continuam pendentes."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_contexto_e_posicao",
+          "responsavel": "Autora Laura Vieira: commit e confirmação visual; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "04a5bb4de0fe7f55fe4bc002607cf6e47da18afc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Contexto, retorno e os ajustes de posição versionados em 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc. O diff das três páginas não é idêntico ao patch REV-03-FE-A013-contexto-correcao.patch (SHA-256 718c5e59cf8265b8e4e9cab4095020163eac30c7c77d5456593a78a8d6290aff). SchoolCard.js e ClassDetailPage.js não estão no patch. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado. Commit 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc associado ao contexto, ao retorno e aos ajustes de posição. Sem novos testes.",
+          "evidencia": "Commit 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc, de 2026-11-08T17:47:53-03:00, mensagem fix: adjust context visualization. A autora declarou que o cartão da escola ficou ótimo, que a página da turma ficou ótima e que já confirmou tudo. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-vinculacao-04a5bb4.txt (SHA-256 620812df7138a50e3711998445dbff2e03fcea07ea2111fa496fb9dae7d8c742)."
         }
       ]
     },
@@ -1903,14 +1916,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Aplicar a formatação de apresentação exigida sem alterar o valor canônico persistido; manter acentos e não expandir siglas automaticamente.",
-      "verificacao_pendente": "Conferir nomes retornados em minúsculas, com acentos e várias palavras nas listagens e detalhes.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "NVDA e compreensão com usuários não foram executados nesta verificação.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que já confirmou e commitou. A confirmação cobre a apresentação dos nomes verificada neste recorte. Não inclui NVDA nem sessão com usuários.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff normalizado de SectorPage.js, SchoolCard.js, ClassesPage.js e SchoolDeleteModal.js corresponde integralmente ao patch REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "Os nomes de escola passam a usar a capitalização de apresentação já existente, e os nomes de turma passam a maiúsculas, na listagem, no detalhe da escola, na confirmação de exclusão e nos cartões de turma. O valor canônico enviado à API não muda. O rótulo Turma permanece antes do nome.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A014-nomes-antes.txt (SHA-256 1c5d944c0becca8c218e122d4cda63ce03c554bd7305eb830dbcdf969d41afc3). Patch: REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474). Compilação exit 0 em REV-03-FE-A014-nomes-compilacao.txt (SHA-256 c06164dff7e2cf3296aace22719871b12fa4c277703932a6d07afc55a14bfc0e)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff das quatro fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador com GET real. A confirmação de exclusão foi aberta e cancelada. Sem escrita. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, /setor/2 mostrou os quatro nomes com acentos e várias palavras capitalizados. /escola/6 mostrou Escola De Demonstração no cartão e na confirmação cancelada. /escola/6/classes mostrou Turma JARDIM e Turma TURMA A, inclusive a encerrada. /turma/8 continuou JARDIM. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A014-nomes-verificacao.txt (SHA-256 afb7d5057ce9cfa8f7f512368256025d223411bfbafa7f5eb7299fdca97d28bc). NVDA e compreensão com usuários não foram executados. A autora depois declarou que já confirmou e commitou c400b98f9cb12a8e487192c444b001b600f0ebc4. Conferência em REV-03-FE-A014-vinculacao-c400b98.txt (SHA-256 129660c4e44bc9907b5c0d7b6465c036bf24c446ac64af2993f281415d0637f5). A associação não repetiu os testes."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "04a5bb4de0fe7f55fe4bc002607cf6e47da18afc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Apresentação dos nomes ainda sem commit, sobre 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc, em src/pages/SectorPage.js, src/components/SchoolCard.js, src/pages/ClassesPage.js e src/components/SchoolDeleteModal.js. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "Nomes de escola e turma passam a usar a apresentação do contrato. Ainda sem commit.",
+          "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A014-nomes-antes.txt (SHA-256 1c5d944c0becca8c218e122d4cda63ce03c554bd7305eb830dbcdf969d41afc3). Patch: REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "04a5bb4de0fe7f55fe4bc002607cf6e47da18afc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas quatro fontes locais da correção, ainda sem commit. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "Compilação exit 0 e cinco percursos de navegador com GET real, registrados em REV-03-FE-A014-nomes-verificacao.txt (SHA-256 afb7d5057ce9cfa8f7f512368256025d223411bfbafa7f5eb7299fdca97d28bc). Sem escrita. Confirmação da autora pendente."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_nomes",
+          "responsavel": "Autora Laura Vieira: commit e confirmação; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff normalizado das quatro fontes corresponde integralmente ao patch REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado. Commit c400b98f9cb12a8e487192c444b001b600f0ebc4 associado à apresentação dos nomes. Sem novos testes.",
+          "evidencia": "Commit c400b98f9cb12a8e487192c444b001b600f0ebc4, de 2026-11-08T18:14:06-03:00, mensagem fix: name capitalization. A autora declarou que já confirmou e commitou. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A014-vinculacao-c400b98.txt (SHA-256 129660c4e44bc9907b5c0d7b6465c036bf24c446ac64af2993f281415d0637f5)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A015",

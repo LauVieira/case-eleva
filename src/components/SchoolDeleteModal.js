@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Alert, Button, Modal } from 'react-bootstrap';
 
 import api from '../services/api';
+import { formatSchoolName } from '../utils/schoolForm';
 
 export default function SchoolDeleteModal ({ school, show, onHide, onDeleted }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -73,7 +74,7 @@ export default function SchoolDeleteModal ({ school, show, onHide, onDeleted }) 
       </Modal.Header>
       <Modal.Body>
         <p id="delete-school-description" style={{ overflowWrap: 'anywhere' }}>
-          Deseja excluir a escola <strong>{school.name}</strong>?
+          Deseja excluir a escola <strong>{formatSchoolName(school.name || '')}</strong>?
           {' '}Esta ação não pode ser desfeita.
         </p>
         <p>A escola só pode ser excluída quando não houver turmas vinculadas.</p>

@@ -1,0 +1,103 @@
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index fde5b53..12b6eca 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -9,6 +9,7 @@ import { SiGoogleclassroom } from 'react-icons/si';
+ import { BiEdit } from 'react-icons/bi';
+ import { ImBin } from 'react-icons/im';
+ import { formatClassDate } from '../utils/classForm';
++import { formatSchoolName } from '../utils/schoolForm';
+ 
+ function formatTotalCapacity (value) {
+   if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+@@ -31,7 +32,7 @@ export default function SchoolCard (props) {
+ 
+       <Card.Body>
+ 
+-        <Card.Title>{name}</Card.Title>
++        <Card.Title>{formatSchoolName(name || '')}</Card.Title>
+ 
+         <CardText>
+           Endereço: {address}
+diff --git a/src/components/SchoolDeleteModal.js b/src/components/SchoolDeleteModal.js
+index 3fcc1b1..795da69 100644
+--- a/src/components/SchoolDeleteModal.js
++++ b/src/components/SchoolDeleteModal.js
+@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
+ import { Alert, Button, Modal } from 'react-bootstrap';
+ 
+ import api from '../services/api';
++import { formatSchoolName } from '../utils/schoolForm';
+ 
+ export default function SchoolDeleteModal ({ school, show, onHide, onDeleted }) {
+   const [isDeleting, setIsDeleting] = useState(false);
+@@ -73,7 +74,7 @@ export default function SchoolDeleteModal ({ school, show, onHide, onDeleted })
+       </Modal.Header>
+       <Modal.Body>
+         <p id="delete-school-description" style={{ overflowWrap: 'anywhere' }}>
+-          Deseja excluir a escola <strong>{school.name}</strong>?
++          Deseja excluir a escola <strong>{formatSchoolName(school.name || '')}</strong>?
+           {' '}Esta ação não pode ser desfeita.
+         </p>
+         <p>A escola só pode ser excluída quando não houver turmas vinculadas.</p>
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index 73b4ed1..bf80f52 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -10,7 +10,7 @@ import {
+ import { LinkContainer } from 'react-router-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
+-import { formatClassStatus } from '../utils/classForm';
++import { formatClassName, formatClassStatus } from '../utils/classForm';
+ import { formatSchoolName } from '../utils/schoolForm';
+ 
+ const STATUS_FILTERS = [
+@@ -96,7 +96,7 @@ export default function ClassesPage () {
+ 
+       {deletedClass && (
+         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+-          Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
++          Turma <strong>{formatClassName(deletedClass.name)}</strong> excluída com sucesso.
+         </Alert>
+       )}
+ 
+@@ -176,7 +176,7 @@ function ClassCard (props) {
+       <StyledCard>
+         <Card.Body>
+           <Card.Title>
+-            Turma {classs.name}
++            Turma {formatClassName(classs.name)}
+           </Card.Title>
+           <Card.Text>
+             Situação: {formatClassStatus(classs.status)}
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index 2199f51..d1822d8 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -7,6 +7,7 @@ import {
+ } from 'react-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
++import { formatSchoolName } from '../utils/schoolForm';
+ 
+ export default function SectorPage () {
+   const { id } = useParams();
+@@ -83,7 +84,7 @@ export default function SectorPage () {
+ 
+       {deletedSchool && (
+         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+-          Escola <strong>{deletedSchool.name}</strong> excluída com sucesso.
++          Escola <strong>{formatSchoolName(deletedSchool.name || '')}</strong> excluída com sucesso.
+         </Alert>
+       )}
+ 
+@@ -142,7 +143,7 @@ function SchoolCard (props) {
+     <SchoolItem href={link} tabIndex="0">
+       <StyledCard>
+         <Card.Body>
+-          <Card.Title>{school.name}</Card.Title>
++          <Card.Title>{formatSchoolName(school.name || '')}</Card.Title>
+           <Card.Text>
+             {school.address}
+           </Card.Text>

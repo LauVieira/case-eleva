@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import { formatSchoolName } from '../utils/schoolForm';
 
 export default function SectorPage () {
   const { id } = useParams();
@@ -83,7 +84,7 @@ export default function SectorPage () {
 
       {deletedSchool && (
         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
-          Escola <strong>{deletedSchool.name}</strong> excluída com sucesso.
+          Escola <strong>{formatSchoolName(deletedSchool.name || '')}</strong> excluída com sucesso.
         </Alert>
       )}
 
@@ -142,7 +143,7 @@ function SchoolCard (props) {
     <SchoolItem href={link} tabIndex="0">
       <StyledCard>
         <Card.Body>
-          <Card.Title>{school.name}</Card.Title>
+          <Card.Title>{formatSchoolName(school.name || '')}</Card.Title>
           <Card.Text>
             {school.address}
           </Card.Text>

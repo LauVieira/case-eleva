@@ -9,6 +9,7 @@ import { SiGoogleclassroom } from 'react-icons/si';
 import { BiEdit } from 'react-icons/bi';
 import { ImBin } from 'react-icons/im';
 import { formatClassDate } from '../utils/classForm';
+import { formatSchoolName } from '../utils/schoolForm';
 
 function formatTotalCapacity (value) {
   if (typeof value === 'number' && Number.isFinite(value)) return String(value);
@@ -31,7 +32,7 @@ export default function SchoolCard (props) {
 
       <Card.Body>
 
-        <Card.Title>{name}</Card.Title>
+        <Card.Title>{formatSchoolName(name || '')}</Card.Title>
 
         <CardText>
           Endereço: {address}

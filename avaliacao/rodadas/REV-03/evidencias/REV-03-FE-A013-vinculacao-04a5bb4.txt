@@ -1,0 +1,21 @@
+REV-03 / REV-03-FE-A013 — vinculação do commit de contexto e posição
+Data: 2026-11-08
+Commit: 04a5bb4de0fe7f55fe4bc002607cf6e47da18afc
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T17:47:53-03:00
+Mensagem: fix: adjust context visualization
+Base: e6c52f4ebff4916ec500ee74136ac2581a0af4d1
+
+Arquivos do commit: achados-frontend.json, relatorio-frontend.md, as quatro evidências REV-03-FE-A013-contexto-*, src/pages/SectorPage.js, src/pages/ClassesPage.js, src/pages/SchoolPage.js, src/components/SchoolCard.js e src/pages/ClassDetailPage.js.
+
+O diff do commit das três páginas não é idêntico ao patch REV-03-FE-A013-contexto-correcao.patch (SHA-256 718c5e59cf8265b8e4e9cab4095020163eac30c7c77d5456593a78a8d6290aff, 13024 bytes). O diff e6c52f4..04a5bb4 dessas páginas tem 13060 bytes. A diferença está na faixa de contexto de SchoolPage.js: o patch usa margin-bottom: 20px; o commit centraliza essa faixa com margin: 0 auto 20px, max-width: 95% e width: 50rem.
+
+Fora do patch, e aprovados visualmente pela autora depois da verificação:
+- src/components/SchoolCard.js: margin-left e margin-right auto, para centralizar o cartão.
+- src/pages/ClassDetailPage.js: a coluna passou de max-width 720px para width max-content e max-width 95%, centralizada.
+
+A autora declarou que o cartão da escola ficou ótimo, que a página da turma ficou ótimo e, em seguida, que já confirmou tudo e commitou.
+
+package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Backend sem alteração de código.
+
+A associação não repete a compilação nem os percursos. A confirmação é declaração da autora.
