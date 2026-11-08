@@ -1,0 +1,145 @@
+{
+  "data": "2026-11-08T05:05:06.562Z",
+  "metodo": "Interação em Chrome sem interface via CDP, sem prints; API interceptada com respostas fictícias antes do servidor.",
+  "gravacoes_reais": false,
+  "dados": {
+    "id": 990002,
+    "sectorId": 10,
+    "name": "escola fictícia de exclusão",
+    "address": "Rua Fictícia, 10",
+    "headteacher": null,
+    "phone": null
+  },
+  "resultados": [
+    {
+      "caso": "confirmacao_identifica_registro_sem_envio",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Diálogo nomeado, escola identificada, foco inicial em Cancelar, zero DELETE ao abrir."
+    },
+    {
+      "caso": "teclado_cancelar_sem_mutacao",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Tab, Shift+Tab e Enter em Cancelar fecharam sem DELETE e devolveram foco ao botão Excluir escola."
+    },
+    {
+      "caso": "reabrir_por_teclado_e_cancelar_escape",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Enter reabriu confirmação; Escape fechou sem DELETE."
+    },
+    {
+      "caso": "resposta_409_cenario_active",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "409 simulado manteve escola e diálogo, focou orientação e ofereceu Ver turmas; não comprova bloqueio real da API."
+    },
+    {
+      "caso": "resposta_409_cenario_completed",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "409 simulado manteve escola e diálogo, focou orientação e ofereceu Ver turmas; não comprova bloqueio real da API."
+    },
+    {
+      "caso": "destino_ver_turmas",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Link abriu a listagem da mesma escola sem mutação adicional; filtro Encerradas ainda ausente."
+    },
+    {
+      "caso": "falha_500_recuperacao_204",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Erro manteve contexto e permitiu reenviar; 204 levou ao setor 10, nova listagem vazia exibiu criação e aviso de sucesso focado."
+    },
+    {
+      "caso": "aviso_sucesso_consumido",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Recarregar listagem não repetiu aviso de exclusão."
+    },
+    {
+      "caso": "falha_rede_e_cancelamento",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Falha simulada comunicou ausência de confirmação, manteve contexto e permitiu cancelar sem novo DELETE."
+    },
+    {
+      "caso": "escola_removida_404",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Não afirmou sucesso: informou escola ausente, desabilitou repetição e ofereceu retorno ao setor."
+    },
+    {
+      "caso": "envio_unico_e_estado_pendente",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Dois acionamentos síncronos produziram um DELETE; resposta retida apenas para inspecionar estado pendente; botões desabilitados e Escape não encerrou requisição em andamento."
+    },
+    {
+      "caso": "dialogo_320px",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": {
+        "largura": 320,
+        "conteudo": 320,
+        "dialogo": 304
+      }
+    },
+    {
+      "caso": "sem_exclusao_antes_de_carregar",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Antes da resposta GET havia somente Carregando escola, sem botão de exclusão; após resposta a ação ficou disponível."
+    },
+    {
+      "caso": "carregamento_falha_e_recuperacao",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Erro GET não ofereceu exclusão nem manteve carregando; Tentar novamente recuperou o detalhe."
+    },
+    {
+      "caso": "carregamento_404",
+      "resultado": "passou_com_respostas_simuladas",
+      "observado": "Escola inexistente apresentou orientação e nenhum botão de exclusão."
+    }
+  ],
+  "requisicoes_de_escrita": [
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "active"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "completed"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "serverError"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "ok"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "networkError"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "delete404"
+    },
+    {
+      "method": "DELETE",
+      "path": "/schools/990002",
+      "payload": null,
+      "scenario": "holdDelete"
+    }
+  ],
+  "documentos_dom": [
+    "avaliacao\\rodadas\\REV-03\\evidencias\\REV-03-FE-A004-r06-confirmacao-1794114304488.html",
+    "avaliacao\\rodadas\\REV-03\\evidencias\\REV-03-FE-A004-r06-bloqueio-1794114304488.html",
+    "avaliacao\\rodadas\\REV-03\\evidencias\\REV-03-FE-A004-r06-sucesso-1794114304488.html"
+  ],
+  "limites": "Não comprova DELETE/persistência reais, bloqueio real por turmas, integridade do banco, filtro Encerradas ausente (A009), teclado completo, contraste, texto 200%, NVDA ou usuários. Retenção pontual de resposta só para conferir envio único, sem teste de desempenho/conexão lenta.",
+  "resultado": "passou_nos_casos_verificados"
+}

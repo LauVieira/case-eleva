@@ -1,5 +1,7 @@
 # Revisão inicial do frontend — REV-03 / r01
 
+> Documento de acompanhamento contínuo por decisão da autora em 08/11/2026. A inspeção, a cobertura e as declarações de não execução abaixo descrevem a emissão inicial r01. As intervenções posteriores estão na seção “Acompanhamento das implementações e correções” ao final e no histórico de achados-frontend.json; elas não constituem novas revisões.
+
 ## Identificação, objetivo e versão
 
 - Rodada: REV-03. Execução: r01. Data de identificação: 2026-11-07, conforme contexto America/Sao_Paulo.
@@ -245,3 +247,41 @@ Na última etapa, somente após gerar os dois documentos e conferir sua estrutur
 ### Fechamento pela autora
 
 Não realizado nesta execução. Nenhum ID foi confirmado, rejeitado ou reavaliado pela autora; não houve intervenção ou decisão de fechamento. Todos os IDs REV-03-FE-A001 a REV-03-FE-A021 aguardam conferência humana. As verificações pendentes têm destino descrito acima; as correções serão tratadas em etapa separada.
+
+## Acompanhamento das implementações e correções
+
+Atualizado em 08/11/2026 por Codex, a pedido da autora. Esta seção acompanha as intervenções após a inspeção inicial, sem reescrever sua cobertura ou atribuir suas limitações à versão atual. A autora determinou que implementações e correções sejam registradas no histórico do mesmo JSON, com atualização deste relatório, sem gerar um novo relatório/JSON por correção.
+
+O registro ativo do frontend é [achados-frontend.json](achados-frontend.json). A raiz REV-03/r01 identifica a emissão inicial; cada intervenção conserva data, versão, evidências e resultado em correcao, reavaliacao e historico. Os campos da primeira identificação foram preservados. O arquivo reúne 22 IDs: os 21 da inspeção inicial e A022, apontado posteriormente pela autora.
+
+### Organização dos registros
+
+- A001 e A022 já possuíam acompanhamento neste arquivo e foram preservados.
+- A002, A003, A004 e A012 receberam os históricos completos que estavam no consolidado do backend, incluindo vínculos de commits posteriores aos arquivos rXX.
+- O registro do backend em case-eleva-api/avaliacao/achados.json mantém seus 13 achados de backend; os quatro registros de frontend transferidos passam a ser mantidos exclusivamente no arquivo principal acima. As referências cruzadas entre IDs permanecem válidas.
+- Os JSONs r02–r06 e relatorio-frontend-r06.md ficam preservados como registros históricos das intervenções e verificações anteriores. Seus identificadores são usados apenas para localizar os produtos já existentes; não são arquivos ativos de acompanhamento.
+- As evidências existentes permanecem nos caminhos referenciados. A mesma evidência de A004 foi relacionada ao aspecto de carregamento do detalhe em A012, com indicação dos três casos pertinentes.
+- O estado anterior desta organização, incluindo o relatório, o JSON principal, o instrumento 04 e o consolidado do backend, está preservado em [evidencias/organizacao-acompanhamento-2026-11-08/](evidencias/organizacao-acompanhamento-2026-11-08/), com manifesto de hashes.
+
+### Situação do acompanhamento
+
+| ID | Versão da intervenção | Verificação registrada e evidência | Situação mantida |
+|---|---|---|---|
+| REV-03-FE-A001 | 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 | Inspeção e evidências referenciadas no JSON; confirmação da autora já registrada | resolvido_no_recorte |
+| REV-03-FE-A002 | 2aeca1b0a36095c608bc982a90c1386aa9c0f9bc | Inspeção, compilação e verificações anteriores com respostas de escrita simuladas; evidências A002-r03 | aguardando_reavaliacao |
+| REV-03-FE-A003 | 44e57e7b3bf58796ab9b76ed664002754d14a489 | Evidências A003-r05: 13 casos de navegador com API simulada e 14 conferências pontuais dos utilitários; patch/fontes conferidos contra o commit nesta atualização | aguardando_reavaliacao |
+| REV-03-FE-A004 | 14177b25954507fc0d2d3c5658c4169a6651a070 | Evidências A004-r06: compilação e 15 casos de navegador com API simulada, sete DELETEs interceptados e nenhuma exclusão real | aguardando_reavaliacao |
+| REV-03-FE-A012 | Escolas: 8de40dbf66d501dc1739124de9b53a75b9640ed2; turmas: 2aeca1b0a36095c608bc982a90c1386aa9c0f9bc; detalhe: 14177b25954507fc0d2d3c5658c4169a6651a070 | Evidências A012-r02/r04 e três casos já executados em A004-r06 para o detalhe, compartilhados no JSON | persistente |
+| REV-03-FE-A022 | e60fa6502bf43f37603b2f887c7ec7643f477026 | Inspeção e evidência fornecida pela autora, conforme acompanhamento já registrado no JSON | resolvido_no_recorte |
+
+Os demais 16 IDs conservam os estados e registros anteriores. As descrições individuais dos achados e das intervenções ficam no JSON. A confirmação de A003 e A004 permanece pendente; a organização documental e a manifestação de satisfação não foram convertidas em aprovação humana das verificações.
+
+Em 08/11/2026, por solicitação da autora, o commit 14177b25954507fc0d2d3c5658c4169a6651a070 foi associado a A004 e ao complemento de A012. O patch dos três arquivos alterados e a nova SchoolDeleteModal.js correspondem integralmente às evidências já verificadas. Essa associação documental não representa nova execução de testes ou validação de persistência. Preservação e conferência em [evidencias/vinculacao-commit-14177b2/](evidencias/vinculacao-commit-14177b2/).
+
+### Verificações e pendências atuais
+
+Nesta atualização documental não foram executados testes, build, lint, navegador ou mutações de dados. Foram conferidos o contrato do JSON, a preservação dos registros/históricos, as referências documentais e a correspondência do commit de edição com as evidências já verificadas. A compilação e as interações citadas na tabela ocorreram nas intervenções anteriores, com os métodos e limites descritos nos respectivos registros.
+
+Continuam pendentes a integração/persistência reais do cadastro, edição e exclusão em banco isolado e as verificações de integridade pertinentes. Os pontos adiados do cadastro permanecem registrados em A002. A012 conserva suas ocorrências em LandingPage e nos erros/recuperação das listagens. O percurso completo de desbloqueio de exclusão depende também de A008/A009. Contraste medido, ampliação de texto, percurso completo de teclado, NVDA e sessões com usuários permanecem pendentes conforme o recorte aplicável.
+
+Não foi realizada nova revisão nem encerramento global. As próximas intervenções atualizarão este relatório e os campos de acompanhamento do JSON principal, preservando a identificação original e as evidências antes/depois.

@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Card, CardDeck, Container, Row, Col,
+  Alert, Card, CardDeck, Container, Row, Col,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
 
 export default function SectorPage () {
   const { id } = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const [deletedSchool] = useState(() => location.state && location.state.deletedSchool);
+  const noticeRef = useRef(null);
   const [schools, setSchools] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(getSectors, []);
+
+  useEffect(() => {
+    if (deletedSchool && noticeRef.current) {
+      noticeRef.current.focus();
+      history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
+    }
+  }, []);
 
   function getSectors () {
     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
@@ -28,6 +39,12 @@ export default function SectorPage () {
     <StyledContainer fluid>
 
       <Header />
+
+      {deletedSchool && (
+        <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+          Escola <strong>{deletedSchool.name}</strong> excluída com sucesso.
+        </Alert>
+      )}
 
       {isLoading
         ? <p>Carregando...</p>

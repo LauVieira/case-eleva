@@ -1,0 +1,1051 @@
+{
+  "tipo_documento": "revisao",
+  "versao_formato": "1.0",
+  "rodada": "REV-03",
+  "execucao": "r01",
+  "achados": [
+    {
+      "id": "REV-03-FE-A001",
+      "titulo": "Adicionar Setor oferece operação excluída do escopo",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "R01",
+        "FE01",
+        "H08"
+      ],
+      "localizacao": "src/pages/LandingPage.js:30–40, LandingPage; src/pages/SectorPage.js:15,30–32; src/App.js:16.",
+      "descricao": "A listagem oferece Adicionar Setor e encaminha a /setor/novo, embora setores devam ser previamente cadastrados. A rota é tratada como consulta de setor; quando id é novo, não há requisição nem formulário e o estado permanece na ramificação de carregamento.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. LandingPage renderiza SectorItem action href=\"/setor/novo\" com o texto Adicionar Setor. SectorPage só chama useEffect se id !== 'novo' e usa schools.length === 0 para apresentar Carregando.... App registra apenas /setor/:id para esse destino. Constatação por leitura, sem navegação executada. Evidência visual complementar de antes/depois: Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. A evidência e a versão da primeira identificação por inspeção permanecem preservadas; a intervenção e a última verificação estão nos campos correcao, reavaliacao e historico.",
+      "impacto": "A interface promete uma tarefa fora do escopo e oferece um destino que não disponibiliza essa operação.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Remover a ação Adicionar Setor do percurso público previsto em R01.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora confirmou o achado e a resolução ao solicitar explicitamente nesta conversa, em 2026-11-08, a atualização de sua confirmação e do encerramento, após fornecer as capturas avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png. A confirmação humana é distinta da constatação original por inspeção de código.",
+      "situacao": "resolvido_no_recorte",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+          "backend": null,
+          "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+        },
+        "descricao": "Removidos o item Adicionar Setor da listagem inicial, o import de BsPlusCircleFill e o estilo de SVG utilizado por esse item em LandingPage. Removido o tratamento especial de id novo em SectorPage, mantendo a consulta dos setores existentes. Intervenção realizada no turno anterior desta conversa, por solicitação da autora; a data exata da execução da correção não foi registrada. A autora versionou a correção no commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, em 2026-11-08T00:08:14-03:00; a data de versionamento não substitui a data não registrada da intervenção.",
+        "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch (SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D); src/pages/LandingPage.js:4–7,29–34,61–78, LandingPage/SectorItem; src/pages/SectorPage.js:15, SectorPage. O diff registra a remoção do controle, importação do ícone e estilo exclusivo, além da retirada da condição id !== 'novo'. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png complementa a evidência de código. Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+          "backend": null,
+          "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+        },
+        "metodo": "Inspeção de código e do diff da correção, comparação visual dos dois prints de navegador fornecidos pela autora e registro da confirmação humana nesta conversa, em 2026-11-08. Sem nova execução de testes ou interação no navegador.",
+        "responsavel": "Codex: inspeção do código, diff e capturas; autora Laura Vieira: fornecimento dos prints e confirmação do achado e da resolução.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Esperado no recorte R01: a listagem oferece consulta dos setores previamente cadastrados sem comando Adicionar Setor. Observado na comparação visual: o comando existe na captura anterior e está ausente na posterior; os cartões dos setores existentes continuam visíveis. Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. Inspeção atual de src/pages/LandingPage.js:29–34,43–50 e src/pages/SectorPage.js:15, confrontada com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch: não restam a ação, o destino literal /setor/novo ou o tratamento especial de novo em src/. Resultado limitado à remoção prevista em R01; não comprova percursos de teclado, navegação completa, acessibilidade, contraste ou ausência de outros defeitos. Nenhum teste automatizado ou interação no navegador foi executado nesta atualização. Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit. O vínculo identifica em commit o mesmo conteúdo de código já reavaliado; não representa nova execução dos testes ou dos percursos de interface."
+      },
+      "historico": [
+        {
+          "data": "2026-11-07",
+          "rodada": "REV-03",
+          "evento": "identificacao_inicial",
+          "responsavel": "Codex, revisão por IA.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+          },
+          "resultado": "confirmado_no_codigo; confirmação humana pendente e situação aguardando_confirmacao na emissão original da revisão.",
+          "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. LandingPage renderiza SectorItem action href=\"/setor/novo\" com o texto Adicionar Setor. SectorPage só chama useEffect se id !== 'novo' e usa schools.length === 0 para apresentar Carregando.... App registra apenas /setor/:id para esse destino. Constatação por leitura, sem navegação executada."
+        },
+        {
+          "data": null,
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit, aplicada sobre o commit frontend informado: src/pages/LandingPage.js e src/pages/SectorPage.js; diff completo em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch, SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D. package-lock.json já estava modificado antes da correção, conforme avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; não foi alterado pela intervenção. Arquivos de avaliação e capturas não rastreados em avaliacao/."
+          },
+          "resultado": "Correção implementada por solicitação da autora no turno anterior desta conversa. A compilação de desenvolvimento foi concluída e o bundle servido foi conferido sem a ação e o destino removidos naquele turno. Data exata da intervenção não registrada; nenhum teste automatizado foi executado.",
+          "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch (SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D); src/pages/LandingPage.js:4–7,29–34,61–78, LandingPage/SectorItem; src/pages/SectorPage.js:15, SectorPage. O diff registra a remoção do controle, importação do ícone e estilo exclusivo, além da retirada da condição id !== 'novo'. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png complementa a evidência de código. A compilação e a conferência HTTP/bundle constam do registro desta conversa, no turno da correção; não foram repetidas nesta atualização documental."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Codex.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+          },
+          "resultado": "confirmado",
+          "evidencia": "A autora confirmou o achado e a resolução ao solicitar explicitamente nesta conversa, em 2026-11-08, a atualização de sua confirmação e do encerramento, após fornecer as capturas avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png. A confirmação humana é distinta da constatação original por inspeção de código."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_e_resolucao",
+          "responsavel": "Codex: inspeção do código, diff e capturas; autora Laura Vieira: fornecimento dos prints e confirmação do achado e da resolução.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit, aplicada sobre o commit frontend informado: src/pages/LandingPage.js e src/pages/SectorPage.js; diff completo em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch, SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D. package-lock.json já estava modificado antes da correção, conforme avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; não foi alterado pela intervenção. Arquivos de avaliação e capturas não rastreados em avaliacao/."
+          },
+          "resultado": "resolveu_no_recorte; situacao atualizada para resolvido_no_recorte e verificacao_pendente encerrada para a remoção da ação em R01.",
+          "evidencia": "Esperado no recorte R01: a listagem oferece consulta dos setores previamente cadastrados sem comando Adicionar Setor. Observado na comparação visual: o comando existe na captura anterior e está ausente na posterior; os cartões dos setores existentes continuam visíveis. Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. Inspeção atual de src/pages/LandingPage.js:29–34,43–50 e src/pages/SectorPage.js:15, confrontada com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch: não restam a ação, o destino literal /setor/novo ou o tratamento especial de novo em src/. Resultado limitado à remoção prevista em R01; não comprova percursos de teclado, navegação completa, acessibilidade, contraste ou ausência de outros defeitos. Nenhum teste automatizado ou interação no navegador foi executado nesta atualização. Atualização do registro no JSON da rodada realizada por solicitação expressa da autora nesta conversa."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit da correção; Codex: conferência do diff e atualização do registro, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+          },
+          "resultado": "Commit de correção associado aos campos correcao e reavaliacao; confirmação e situação resolvido_no_recorte preservadas. Versão da primeira identificação e eventos anteriores mantidos.",
+          "evidencia": "Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit. Os eventos históricos anteriores descrevem o estado ainda sem commit observado naquelas etapas e não foram reescritos."
+        }
+      ]
+    },
+    {
+      "id": "REV-03-FE-A002",
+      "titulo": "Cadastro de escola não implementado",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "CT01: Escola",
+        "CT02: Escola.name",
+        "CT03",
+        "R10",
+        "FE01",
+        "FE05",
+        "FE06",
+        "FE07"
+      ],
+      "localizacao": "src/pages/SectorPage.js:35–45, Adicionar Escola; src/App.js:14–18; conjunto de src/.",
+      "descricao": "A ação Adicionar Escola aponta para a página inicial. Não existe formulário, estado de preenchimento ou envio para criar escola no setor, inclusive para os contratos de campos, telefone opcional e validação antes de salvar.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SectorPage define SchoolItem href=\"/\" para Adicionar Escola. As rotas de App não incluem cadastro. A leitura de todos os módulos de src/ localizou somente requisições axios.get no domínio; o único formulário está em LoginForm, fora do escopo administrativo. A lacuna é de implementação, sem alegação de falha de um formulário inexistente. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A003 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação de contrato do cadastro de escola (CT01–CT03). O registro anterior trata de regras do cadastro na API; este apontamento trata da ausência do formulário/envio no frontend. São responsabilidades e causas distintas. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa não consegue cadastrar escolas pelo frontend.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar em etapa posterior o cadastro de escola com setor existente, contratos CT01–CT03, validação e preservação de preenchimento.",
+      "verificacao_pendente": "Quando o cadastro existir, verificar payloads, opcionais null, telefone canônico, normalização, duplicidade global, erros por campo e reenvio.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A003",
+      "titulo": "Edição de escola e mudança de setor não implementadas",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R02",
+        "R10",
+        "CT01: Escola",
+        "CT02",
+        "CT03",
+        "FE05",
+        "FE06",
+        "FE07"
+      ],
+      "localizacao": "src/components/SchoolCard.js:52–54, Editar informações; src/App.js:14–18; conjunto de src/.",
+      "descricao": "Editar informações é apenas um item visual, sem destino nem manipulador que abra edição. Não há formulário ou PATCH para alterar dados, limpar opcionais ou mudar a escola para outro setor existente.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard renderiza SchoolItem contendo BiEdit e Editar informações, sem href, to ou onClick. SchoolItem deriva de ListGroup.Item; App só registra consulta de escola e listagem de turmas. Os arquivos examinados não contêm operação de atualização de escola. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A005 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na edição de escola e mudança de setor (R02/CT01). A operação da API foi tratada no achado anterior; este apontamento registra a interface de edição ainda ausente. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "Dados cadastrados não podem ser corrigidos e R02 não pode ser realizado pela interface.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar a edição da escola e seleção de setor conforme os contratos, mantendo turmas vinculadas à mesma escola.",
+      "verificacao_pendente": "Após implementação, verificar alteração de setor, preservação das turmas, limpeza de telefone/diretor, duplicidade e recuperação de erro.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A004",
+      "titulo": "Exclusão de escola não implementada",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R07",
+        "R09",
+        "R10",
+        "FE08",
+        "H03",
+        "H05",
+        "H09"
+      ],
+      "localizacao": "src/components/SchoolCard.js:55–57, Apagar informações; src/App.js:14–18; conjunto de src/.",
+      "descricao": "O item que sugere apagar dados da escola não executa ação. Não existe fluxo de exclusão com identificação do registro, confirmação, cancelamento, DELETE ou tratamento do bloqueio por turmas ativas ou encerradas.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard contém SchoolItem com ImBin e Apagar informações sem destino ou manipulador. Não há diálogo de confirmação ou axios.delete em src/. A ausência de proteção na interface é parte da operação ausente; esta revisão não afirma que uma exclusão existente contorne a proteção da API. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A006 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na exclusão de escola e orientação sobre turmas vinculadas (R07/R09/R10). O registro anterior se refere ao endpoint; este se refere ao fluxo de interface e confirmação ainda ausentes. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa não pode excluir escola sem vínculos nem receber, pelo fluxo previsto, a orientação sobre escolas com turmas.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar o fluxo Excluir escola com confirmação/cancelamento e apresentação da orientação recebida da API, sem exclusão em cascata.",
+      "verificacao_pendente": "Após implementação, conferir cancelamento sem mutação, identificação da escola e bloqueio com turma ativa ou encerrada; conferir persistência em ambiente isolado.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A005",
+      "titulo": "Cadastro de turma não implementado",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R03",
+        "R04",
+        "R10",
+        "CT01: Turma",
+        "CT02: Turma.name",
+        "CT04",
+        "FE01",
+        "FE05",
+        "FE06",
+        "FE07"
+      ],
+      "localizacao": "src/pages/ClassesPage.js:38–45, Adicionar Classe; src/App.js:14–18; conjunto de src/.",
+      "descricao": "O controle de adição de turma aponta para /. Não existe formulário ou POST associado à escola para cadastrar nome, segmento, grupo/ano, turno, situação e capacidade.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. ClassesPage usa ClassItem to=\"/\" no cartão Adicionar Classe. App não registra cadastro de turma e src/ contém somente GETs administrativos. Não há menus dependentes, estado inicial current no formulário ou serialização de capacidade zero porque o cadastro está ausente. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A007, REV-01-BE-A009 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional/contratual no cadastro de turma e suas regras (R03/R04, CT01/CT02/CT04). Os registros anteriores tratam de operações e validações da API/banco; este registra formulário e envio ausentes no frontend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A escola não pode receber novas turmas pelo frontend.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar cadastro de turma vinculada à escola do contexto, com current inicial enviado pelo frontend, menus dependentes e capacidade inteira maior ou igual a zero.",
+      "verificacao_pendente": "Após implementação, verificar escola existente, zero, limites técnicos, segmentos/grupos, nomes normalizados e duplicidade de ativas.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A006",
+      "titulo": "Consulta de detalhes de turma não implementada e cartão aponta para início",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R12",
+        "CT01: IDs e datas",
+        "FE01",
+        "H06"
+      ],
+      "localizacao": "src/pages/ClassesPage.js:56–84, ClassCard; src/App.js:14–18.",
+      "descricao": "Todos os cartões de turma têm o destino /. Não existe rota de detalhe por turma; as datas de criação e atualização previstas não são apresentadas em nenhuma tela do domínio.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. ClassCard define const link = '/' e passa to={link} a ClassItem. A listagem exibe name, grade, segment, shift e maxOccupancy, sem createdAt/updatedAt. App não registra /turma/:id nem equivalente. Não se inferiu execução do cartão. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A007 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na consulta individual de turma e dados previstos (R12). A ausência histórica do endpoint é distinta da ausência atual de rota/tela e do destino do cartão no frontend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa sai da tarefa ao acionar o cartão e não consegue consultar os detalhes completos ou as datas da turma.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar consulta de turma com identificação própria, vínculo compreensível com escola e apresentação consistente das datas gerenciadas pelo sistema.",
+      "verificacao_pendente": "Após implementação, conferir o destino por turma, dados retornados, nome da escola e apresentação das datas; R12 de persistência depende da API/banco.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A007",
+      "titulo": "Edição de turma e de sua situação não implementadas",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R03",
+        "R04",
+        "R10",
+        "R12",
+        "CT01: Turma",
+        "CT02",
+        "CT04",
+        "FE05",
+        "FE06",
+        "FE07"
+      ],
+      "localizacao": "src/pages/ClassesPage.js:56–84, ClassCard; src/App.js:14–18; conjunto de src/.",
+      "descricao": "Não existe ação, rota, formulário ou PATCH de turma. Não é possível corrigir os campos, encerrar ou reativar a turma pela interface.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. ClassCard limita-se a textos de consulta e navegação para /. As cinco rotas de App não incluem edição e nenhum módulo do domínio contém envio de atualização. Escola imutável, validação de combinação segmento/grade e conflitos de reativação não puderam ser avaliados em formulário porque ele não existe. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A007, REV-01-BE-A009 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional/contratual na edição, situação, vínculo e regras da turma (R03/R04/R12, CT02/CT04). A implementação da API/banco é distinta do formulário de edição ainda ausente no frontend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa não consegue manter os dados e a situação das turmas.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar edição conforme CT01, CT02 e CT04, com escola somente informativa, situação editável, validação e preservação dos dados após erro.",
+      "verificacao_pendente": "Após implementação, verificar edição parcial, impossibilidade de transferir turma, reativação conflitante e preservação de createdAt com atualização de updatedAt.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A008",
+      "titulo": "Exclusão de turma não implementada",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R10",
+        "R11",
+        "FE08",
+        "H03",
+        "H05"
+      ],
+      "localizacao": "src/pages/ClassesPage.js:56–84, ClassCard; src/App.js:14–18; conjunto de src/.",
+      "descricao": "Não há ação ou fluxo para excluir turma, confirmar o registro e cancelar sem mutação.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. ClassCard não contém comando de exclusão; App não oferece rota relacionada e os módulos de src/ não contêm DELETE de turma ou confirmação. Trata-se de operação ausente; não se pressupuseram dependências de matrículas. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A007 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na exclusão de turma (R11). O registro histórico cobre o endpoint; este cobre a ação, confirmação e cancelamento ainda ausentes na interface. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa não consegue remover turmas e, no percurso previsto, liberar uma escola para exclusão após remover seus vínculos.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar Excluir turma com confirmação que identifique o registro e permita cancelar sem alteração.",
+      "verificacao_pendente": "Após implementação, verificar confirmação, cancelamento, remoção correta e retorno ao contexto da escola com dados atualizados.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A009",
+      "titulo": "Filtros de situação e identificação de Ativa/Encerrada não implementados",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Backend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/backend-package-lock.patch; fontes consultadas sem alterações locais. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R04",
+        "R05",
+        "FE09",
+        "H01",
+        "H04",
+        "H07"
+      ],
+      "localizacao": "src/pages/ClassesPage.js:16–25,33–49,56–84, ClassesPage e ClassCard; backend src/controllers/SchoolController.js:11–14 e src/services/SchoolService.js:21–28.",
+      "descricao": "A interface não oferece Ativas, Todas e Encerradas, não guarda seleção nem apresenta situação traduzida nos cartões. A consulta sem parâmetro usa current por padrão no backend consultado; não há evidência de que o padrão atual seja Todas.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. ClassesPage chama GET /schools/${id}/classes sem query de situação e armazena apenas classes. O JSX não contém controles de filtro ou leitura de classs.status. Backend a023d1eea2093d5511c22cfc444e11dfef704e4f: SchoolController repassa req.query.status e SchoolService.getClassesBySchool(id, status = 'current') aplica o padrão. Nenhuma requisição foi executada. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A008 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional nos filtros de situação (R04/R05). O registro histórico trata da seleção no backend; o código backend atualmente consultado já tem padrão current e filtro, enquanto este apontamento se refere aos controles e rótulos ausentes no frontend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "Turmas encerradas não são localizáveis por esse percurso, inclusive quando for necessário removê-las antes de excluir a escola.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar filtros com padrão Ativas, seleção visual/programática e rótulos Ativa/Encerrada, usando o contrato current/all/completed.",
+      "verificacao_pendente": "Alternar filtros no navegador e conferir o payload/retorno com ativas e encerradas, seleção acessível e manutenção do total da escola; anúncio com NVDA ao final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A010",
+      "titulo": "Capacidade total da escola não implementada na apresentação",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Backend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/backend-package-lock.patch; fontes consultadas sem alterações locais. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R06",
+        "FE06",
+        "FE09",
+        "H01"
+      ],
+      "localizacao": "src/components/SchoolCard.js:14–16,35–37; src/pages/SchoolPage.js:16–20; backend src/services/SchoolService.js:12–18 e src/repositories/ClassRepository.js:55–57.",
+      "descricao": "A consulta de escola apresenta sempre um hífen para capacidade máxima. O componente não usa totalCapacity, embora o backend disponível já inclua esse campo na resposta de detalhe.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard não extrai totalCapacity de schoolData e renderiza literalmente 'Capacidade máxima de alunos: -'. SchoolPage repassa response.data ao componente. Backend a023d1eea2093d5511c22cfc444e11dfef704e4f: getSchoolById retorna { ...schoolExists, totalCapacity }; sumCurrentCapacity soma maxOccupancy com status current e converte soma vazia em zero. Conferência estática, sem validar cálculo ou resposta em execução. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A008 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na capacidade total da escola (R06). O registro anterior cobre a ausência histórica do cálculo/retorno na API; este registra a apresentação ausente no frontend, mesmo com totalCapacity no contrato atual consultado. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A pessoa não conhece a capacidade total das turmas ativas e não consegue distinguir zero de ausência de implementação.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Apresentar totalCapacity como capacidade total da escola, incluindo zero e sem vinculá-lo ao filtro visual de turmas.",
+      "verificacao_pendente": "Conferir em execução os totais com zero/uma/várias turmas ativas e encerradas e sua invariância ao alternar filtros.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A011",
+      "titulo": "Informações removidas do escopo e terminologia divergente permanecem na interface",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "R13",
+        "CT04: nomenclatura",
+        "FE12",
+        "H02",
+        "H04",
+        "H08"
+      ],
+      "localizacao": "src/components/SchoolCard.js:38–40,49–57; src/pages/ClassesPage.js:25,42,74,79–81.",
+      "descricao": "Persistem Vagas ocupadas, Dados avançados e Alunos matriculados, que o requisito remove do escopo, além de Apagar informações. A listagem mistura Classe e Turma e apresenta turno como Período.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard mantém os textos literais 'Vagas ocupadas: -', 'Dados avançados' e 'Apagar informações'. Dados avançados não possui destino/manipulador. ClassesPage mantém 'Adicionar Classe', erro com 'classes', 'Período:' e 'Alunos matriculados: -'. A ausência da operação de excluir escola está registrada separadamente em A004; aqui o aspecto é a informação e nomenclatura apresentadas.",
+      "impacto": "A tela promete dados ou ações sem utilidade no recorte e emprega nomes que dificultam reconhecer as tarefas previstas.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Remover os três elementos indicados por R13; usar Excluir escola, Turma e Turno de modo consistente.",
+      "verificacao_pendente": "Conferir textos renderizados e, na etapa final, compreensão dos termos com usuários.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A012",
+      "titulo": "Consultas não distinguem carregamento, resultado vazio e erro",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE10",
+        "FE01",
+        "H01",
+        "H09"
+      ],
+      "localizacao": "src/pages/LandingPage.js:13–22,30–42; src/pages/SectorPage.js:13–22,30–58; src/pages/ClassesPage.js:16–25,33–50; src/pages/SchoolPage.js:12–28; src/components/SchoolCard.js:14–17,46.",
+      "descricao": "Nas três listagens, uma resposta [] mantém Carregando... indefinidamente; a rejeição mostra alert genérico sem estado persistente de erro ou recuperação. Na consulta de escola, o cartão é montado com {} antes da resposta e continua assim após falha, incluindo um destino /escola/undefined/classes. Os controles de adição de escola/turma também só aparecem quando já há itens.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os arrays iniciam vazios e a condição de exibição é exclusivamente length === 0. Os catches apenas chamam alert, sem encerrar estado de carregamento, distinguir 404/erro ou disponibilizar nova tentativa. SchoolPage renderiza SchoolCard incondicionalmente, cujo link interpola schoolData.id ainda indefinido. São consequências do caminho de código, não estados observados no navegador. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A004 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação complementar na recuperação de falhas das consultas (H01/H09). O registro anterior trata da causa/campo/formato nas respostas da API; este trata do estado de consulta e do tratamento genérico no consumidor frontend. A confusão entre lista vazia e carregamento não é atribuída ao backend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "Listas legitimamente vazias parecem estar em processamento, falhas não oferecem recuperação local e o detalhe pode disponibilizar navegação sem registro válido.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Separar estados de carregamento, sucesso com dados, sucesso vazio e erro; oferecer recuperação e montar ações apenas com identificação válida. Deixar adição disponível no estado vazio quando implementada.",
+      "verificacao_pendente": "Conferir respostas vazias, 404 e falha de rede no navegador, inclusive ação antes do término da consulta. Não atrasar artificialmente a rede; nenhuma simulação foi executada.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A013",
+      "titulo": "Telas de setor e turmas não identificam o contexto nem oferecem retorno ao pai",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE01",
+        "H02",
+        "H03",
+        "H06"
+      ],
+      "localizacao": "src/pages/SectorPage.js:12–13,25–60; src/pages/ClassesPage.js:15–16,28–52; src/pages/SchoolPage.js:24–30; src/components/Header.js:13–25.",
+      "descricao": "SectorPage mostra escolas sem identificar nome/código do setor selecionado; ClassesPage mostra turmas sem nome da escola ou retorno direto a ela. No detalhe da escola também não há retorno ao setor. A navegação compartilhada disponibiliza apenas início e login.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os componentes retiram id de useParams para a consulta, mas não apresentam a identificação do pai. O JSX de ClassesPage contém Header e cartões de turma; SectorPage contém Header e cartões de escola. Header possui somente destinos / e /login. Não há link de retorno ao setor/escola nos respectivos componentes.",
+      "impacto": "Após navegação direta ou mudança de tela, a pessoa precisa lembrar o contexto e usar o histórico do navegador ou refazer o percurso pelo início.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Apresentar nome do setor/escola no contexto correspondente e links de retorno ao pai, preservando o vínculo Setor → Escola → Turma.",
+      "verificacao_pendente": "Conferir percursos de ida/volta e abertura direta no navegador; avaliar compreensão do contexto com usuários ao final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A014",
+      "titulo": "Nomes são exibidos sem a capitalização exigida pelo contrato",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Backend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/backend-package-lock.patch; fontes consultadas sem alterações locais. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "CT02: apresentação dos nomes",
+        "FE06",
+        "H02",
+        "H04"
+      ],
+      "localizacao": "src/pages/SectorPage.js:72; src/components/SchoolCard.js:24; src/pages/ClassesPage.js:64–66; backend src/utils/normaliseName.js e src/services/SchoolService.js:34,70; src/services/ClassService.js:28,50–51.",
+      "descricao": "Os nomes de escola e turma são interpolados como recebidos. Para nomes canônicos em minúsculas previstos no contrato, a interface não capitaliza cada palavra da escola nem apresenta o nome da turma em maiúsculas.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SectorPage usa {school.name}, SchoolCard usa {name} e ClassCard usa Turma {classs.name}; não há transformação nos componentes nem text-transform nos estilos examinados. Os services do backend a023d1eea2093d5511c22cfc444e11dfef704e4f chamam normaliseName ao criar/editar nomes. Exemplo contratual, não dado observado: 'turma a' continua 'turma a', sem a apresentação TURMA A. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A003, REV-01-BE-A010 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação contratual na normalização e apresentação dos nomes (CT02). Os registros anteriores tratam da gravação/seeds no backend; este trata exclusivamente da formatação visual dos nomes canônicos no frontend. Não houve nova inspeção de seeds. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "A apresentação diverge da convenção definida e depende acidentalmente da capitalização recebida da API.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Aplicar a formatação de apresentação exigida sem alterar o valor canônico persistido; manter acentos e não expandir siglas automaticamente.",
+      "verificacao_pendente": "Conferir nomes retornados em minúsculas, com acentos e várias palavras nas listagens e detalhes.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A015",
+      "titulo": "Indício de navegação sem semântica e acionamento nativo em LinkContainer",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade",
+        "usabilidade"
+      ],
+      "tipo": "indicio",
+      "requisitos": [
+        "FE03",
+        "FE04",
+        "A01",
+        "A11",
+        "A16",
+        "A38",
+        "A40"
+      ],
+      "localizacao": "src/components/Header.js:13–25,44; src/pages/ClassesPage.js:38–45,61–84,94; node_modules/react-router-bootstrap/lib/LinkContainer.js: render e handleClick; react-bootstrap 1.4.3, esm/Card.js, esm/Navbar.js e cjs/Image.js.",
+      "descricao": "LinkContainer envolve diretamente Image, Navbar.Text e Card. A implementação local clona o filho e injeta href/onClick, sem convertê-lo em âncora ou acrescentar tabIndex/teclas. Isso indica que a navegação pode ficar em img/span/div, sem acionamento nativo por teclado. O DOM efetivo não foi inspecionado nesta execução.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. react-router-bootstrap instalado 0.25.0: render usa React.cloneElement(child, {..., href, onClick: this.handleClick}); handleClick depende de clique. Na dependência react-bootstrap 1.4.3, Image cria img, Navbar.Text tem Component: 'span' e Card usa 'div' por padrão. Os usos não definem as='a', role, tabIndex ou tratamento de teclado. SHA-256 de LinkContainer.js: 3930EE9840FD935E6F9E605C3D11E307AFFF62202D2BE6656ECE0BA3139850FF. Trata-se de rastreamento estático, sem HTML/DOM renderizado; por A40, a conclusão permanece indício.",
+      "impacto": "Pode impedir acesso por teclado e identificação correta dos destinos no cabeçalho e cartões de turma.",
+      "prioridade": "alta",
+      "classificacao": "indicio",
+      "sugestao": "Conferir o DOM gerado e utilizar elementos de navegação nativos nos filhos de LinkContainer quando confirmado o problema.",
+      "verificacao_pendente": "Inspecionar HTML/DOM de cada ocorrência, percorrer por Tab/Shift+Tab e acionar por teclado; conferir função e nome com NVDA ao final. A ação Sair não teve autenticação avaliada.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A016",
+      "titulo": "Títulos visuais do domínio não possuem estrutura de cabeçalhos",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "A07"
+      ],
+      "localizacao": "src/pages/LandingPage.js:25–44; src/pages/SectorPage.js:25–60,72; src/pages/SchoolPage.js:24–30; src/components/SchoolCard.js:24; src/pages/ClassesPage.js:28–52,64–66; node_modules/react-bootstrap/esm/Card.js:10–15 e esm/divWithClassName.js:4–10.",
+      "descricao": "As quatro telas do percurso não declaram título principal semântico. Os nomes que parecem títulos dos cartões usam Card.Title sem as e a dependência instalada implementa esse componente com div e classe h5.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os JSX de LandingPage, SectorPage, SchoolPage e ClassesPage não contêm h1–h6 ou equivalentes com role heading. React-bootstrap 1.4.3 define CardTitle com Component: DivStyledAsH5 e divWithClassName('h5') cria 'div'. A classe de aparência não é um elemento h5. Os h1–h3 de SignIn pertencem à rota de login fora deste percurso.",
+      "impacto": "A organização das consultas não fica representada como títulos para navegação estrutural por leitor de tela.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Definir títulos de página e de cartões com níveis semânticos coerentes, preservando a aparência pretendida.",
+      "verificacao_pendente": "Conferir estrutura no DOM e navegação por títulos com NVDA ao final; a inspeção não comprova experiência de leitura.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A017",
+      "titulo": "Conteúdo principal não possui região e acesso direto",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "FE04",
+        "A08",
+        "A12"
+      ],
+      "localizacao": "src/components/Header.js:11–27; src/pages/LandingPage.js:25–44; src/pages/SectorPage.js:25–60; src/pages/SchoolPage.js:24–30; src/pages/ClassesPage.js:28–52; public/index.html:15–18.",
+      "descricao": "As telas repetem o cabeçalho de navegação e usam Container para todo o conteúdo, sem main/role main, alvo de conteúdo principal ou mecanismo explícito de acesso direto.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os quatro componentes montam Header dentro de StyledContainer e não definem main, role='main', id de destino ou link para saltar a navegação. public/index.html contém somente div#root. A implementação local de react-bootstrap Container usa div por padrão; Navbar do Header usa nav, preservando a distinção entre navegação existente e região principal ausente.",
+      "impacto": "Faltam pontos estruturais para localizar o conteúdo principal e um caminho direto para ultrapassar a navegação repetida.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Delimitar o conteúdo principal e adicionar acesso direto a ele com foco adequado.",
+      "verificacao_pendente": "Conferir mecanismo no navegador por teclado, foco não oculto sob cabeçalho fixo e reconhecimento das regiões com NVDA ao final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A018",
+      "titulo": "Coleções de setores, escolas e turmas não têm estrutura semântica de lista",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "A09"
+      ],
+      "localizacao": "src/pages/LandingPage.js:33–41,55–58; src/pages/SectorPage.js:33–55; src/pages/ClassesPage.js:36–49; node_modules/react-bootstrap/esm/ListGroup.js, esm/ListGroupItem.js e cjs/CardDeck.js.",
+      "descricao": "As coleções são apresentadas como cartões, mas não usam ul/ol/li nem papéis equivalentes de lista/itens. O nome ListGroup do componente não garante semântica de lista.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. LandingPage usa ListGroup sem as, cujo padrão instalado é div; SectorItem action com href usa a. SectorPage mapeia escolas em Row/Col e âncoras, e ClassesPage usa CardDeck com cartões. Nenhum desses usos acrescenta lista/listitem; CardDeck deriva de createWithBsPrefix com padrão div. A consulta das dependências distingue nomes de componentes de seus elementos HTML.",
+      "impacto": "A estrutura de conjunto e seus itens não fica explicitamente representada para tecnologias assistivas.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Representar as coleções com listas e itens semânticos, mantendo os cartões e links em seu interior.",
+      "verificacao_pendente": "Conferir o DOM efetivo e identificação/contagem dos itens pelo NVDA ao final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A019",
+      "titulo": "Título do documento não identifica a tela atual",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "A35",
+        "H06"
+      ],
+      "localizacao": "public/index.html:8; src/App.js:14–18; conjunto de src/.",
+      "descricao": "O único título do documento é SEMED Macaé, compartilhado por todas as rotas. Não há atualização para distinguir listagem de setores, setor, escola e turmas da escola.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. index.html define <title>SEMED Macaé</title>. A leitura de App e de todos os módulos de src/ não localizou document.title ou componente/mecanismo de título por rota. O idioma pt-br existe e não é a causa deste apontamento.",
+      "impacto": "Abas, histórico e anúncio de mudança de página não dispõem de título específico que identifique a tarefa atual.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Atualizar o título por tela com identificação da tarefa e do setor/escola quando pertinente.",
+      "verificacao_pendente": "Conferir os títulos no navegador após navegação e anúncio com NVDA ao final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A020",
+      "titulo": "Atualizações assíncronas não possuem mecanismo de mensagem de estado no código",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE10",
+        "A39"
+      ],
+      "localizacao": "src/pages/LandingPage.js:19–22,30–42; src/pages/SectorPage.js:19–22,30–58; src/pages/SchoolPage.js:18–21,28; src/pages/ClassesPage.js:22–25,33–50.",
+      "descricao": "As consultas substituem o conteúdo após resposta sem região de estado, aria-live ou estratégia explícita de anúncio do resultado. O texto Carregando... é um p comum. Não se conclui que os alerts de erro nativos sejam silenciosos.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Nos caminhos de sucesso, setSectors/setSchools/setSchoolData/setClasses alteram o conteúdo, sem componente de mensagem ou atributo de anúncio. A busca por role e aria nos módulos do domínio não localizou mecanismo de mensagens de estado. Os catches usam alert nativo; esse mecanismo não foi avaliado como anúncio de resultado bem-sucedido. A ausência de implementação está sustentada pelo código; a fala efetiva não foi observada.",
+      "impacto": "Uma pessoa que não acompanhe visualmente a tela pode não perceber o término ou resultado da consulta sem buscar novamente o conteúdo.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Definir mensagens de estado acessíveis para os resultados e estados implementados, sem mover o foco de forma indiscriminada.",
+      "verificacao_pendente": "Observar anúncio de carregamento quando ocorrer normalmente e de resultado/erro com NVDA na etapa final; não atrasar a rede para produzir um estado.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A021",
+      "titulo": "Endereço da API está fixo e repetido nas páginas",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "arquitetura"
+      ],
+      "tipo": "melhoria_estrutural",
+      "requisitos": [
+        "FE13"
+      ],
+      "localizacao": "src/pages/LandingPage.js:18; src/pages/SectorPage.js:18; src/pages/SchoolPage.js:17; src/pages/ClassesPage.js:21.",
+      "descricao": "As quatro páginas repetem http://localhost:3000 diretamente em suas chamadas. Não existe ponto único de configuração do endereço da API ou cliente compartilhado para essas consultas.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os quatro axios.get contêm a mesma origem literal. package.json, webpack.config.js e server.js examinados não oferecem configuração da origem consumida pelas páginas. A observação não exige a arquitetura AR01 do backend nem considera, isoladamente, o uso de axios na página um defeito funcional.",
+      "impacto": "Mudar o destino da API exige editar várias páginas; em outro ambiente, localhost continua apontando para a máquina do navegador. Não foi avaliada uma implantação remota.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Centralizar a origem/configuração e as chamadas comuns na organização existente, sem novo framework ou abstração genérica.",
+      "verificacao_pendente": "Após eventual reorganização, conferir as quatro consultas e o endereço configurado no ambiente escolhido.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A022",
+      "titulo": "Identidade institucional sugere vínculo oficial com a Prefeitura de Macaé",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-08",
+      "origem": "inspecao_autora",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+        "backend": null,
+        "alteracoes_locais": "Na identificação pela autora, public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js ainda correspondiam ao commit informado. public/images/gestao-escolar.svg havia sido criado nesta conversa, mas ainda não estava integrado. package-lock.json já tinha a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; o JSON de acompanhamento também tinha atualizações locais anteriores, referentes ao achado 01."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "Decisão da autora em 2026-11-08: identificar a aplicação como projeto acadêmico não oficial",
+        "FE02: identificação do documento e imagens",
+        "FE12: coerência da identidade e dos textos",
+        "H02",
+        "H04"
+      ],
+      "localizacao": "Estado anterior no commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436: public/index.html:8,12; src/components/Header.js:13–18; src/pages/SignIn.js:14–21; referências a public/images/favicon.ico, header.png e brasaomacae.png.",
+      "descricao": "A aplicação acadêmica utiliza título SEMED Macaé e identidade visual/textual da prefeitura no favicon, cabeçalho e login, sem explicitar sua condição de protótipo não oficial. A autora identificou essa associação e definiu uma identidade acadêmica própria.",
+      "evidencia": "Apontamento da autora nesta conversa, em 2026-11-08: título e ícone estavam associados à Prefeitura de Macaé, embora a aplicação não fosse oficial. No commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, public/index.html:8,12 usa SEMED Macaé e favicon.ico; src/components/Header.js:13–18 usa /images/header.png com alt Logotipo da prefeitura; src/pages/SignIn.js:14–21 exibe Prefeitura, brasaomacae.png, MACAÉ e Secretaria de Educação. avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png, SHA-256 91047E8F1116161F1B8F653A994639BD991F3AC1279D10F759A1197DCB18AD8F, é uma captura anterior à alteração, gerada por Codex nesta execução, mostrando a marca da prefeitura no cabeçalho.",
+      "impacto": "Pode levar quem acessa o projeto a interpretá-lo como aplicação oficial da prefeitura e atribuir ao órgão público sua operação ou conteúdo.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Usar Gestão Escolar como nome, Protótipo acadêmico como subtítulo, livro aberto como ícone e aviso de aplicação não oficial, com identidade consistente nas páginas.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora declarou que a aplicação não é oficial e solicitou a troca da identidade associada à prefeitura. Em seguida autorizou expressamente todas as alterações sugeridas e pediu o registro como achado apontado por ela e já corrigido. Forneceu a imagem posterior como image.png e autorizou sua renomeação e vinculação. A autoria das verificações técnicas permanece atribuída a Codex.",
+      "situacao": "resolvido_no_recorte",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+          "backend": null,
+          "alteracoes_locais": "A correção em public/index.html, public/styles/styles.css, src/components/Header.js, src/pages/SignIn.js e public/images/gestao-escolar.svg está integralmente versionada neste commit, sem diferenças locais nesses arquivos. package-lock.json mantém a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch, sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+        },
+        "descricao": "Aplicada a identidade Gestão Escolar / Protótipo acadêmico: título Gestão Escolar | Projeto Acadêmico; favicon e imagens de cabeçalho/login substituídos pelo livro aberto em SVG; removidos os textos institucionais do login; incluído o aviso Protótipo desenvolvido para TCC. Aplicação não oficial. no cabeçalho compartilhado e no login. Definida a variável de cor já utilizada pelo login/formulário para manter a paleta do projeto. O acesso inicial no cabeçalho usa Link com texto identificável. A correção cobre as cinco rotas existentes, sem implementar autenticação ou outras operações. A autora versionou a correção no commit e60fa6502bf43f37603b2f887c7ec7643f477026, em 2026-11-08T00:31:10-03:00.",
+        "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch registra as quatro alterações em arquivos versionados; avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg preserva o novo SVG. Fontes atuais: public/index.html:8,12; src/components/Header.js, Header/BrandLink/AcademicNotice; src/pages/SignIn.js, SignIn/Subtitle/AcademicNotice; public/styles/styles.css, :root. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png, SHA-256 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803, é a captura posterior produzida pela autora, recebida como image.png e renomeada sem alterar seu conteúdo. Vinculação posterior em 2026-11-08: commit frontend e60fa6502bf43f37603b2f887c7ec7643f477026, de autoria de Laura Vieira, registrado em 2026-11-08T00:31:10-03:00, mensagem 'chore: remove Macae from visual identity'. git diff e60fa6502bf43f37603b2f887c7ec7643f477026^ e60fa6502bf43f37603b2f887c7ec7643f477026 -- public/index.html public/styles/styles.css src/components/Header.js src/pages/SignIn.js corresponde integralmente a avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch. O conteúdo de public/images/gestao-escolar.svg nesse commit corresponde à cópia arquivada em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg. Os cinco arquivos não apresentam diferenças locais em relação ao commit."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+          "backend": null,
+          "alteracoes_locais": "A correção em public/index.html, public/styles/styles.css, src/components/Header.js, src/pages/SignIn.js e public/images/gestao-escolar.svg está integralmente versionada neste commit, sem diferenças locais nesses arquivos. package-lock.json mantém a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch, sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+        },
+        "metodo": "Inspeção de código; compilação de desenvolvimento; conferência dos cinco componentes com ReactDOMServer/StaticRouter; consultas HTTP locais; XML do SVG; comparação das capturas anterior e posterior. Captura posterior produzida pela autora.",
+        "responsavel": "Codex: implementação e verificações técnicas; autora Laura Vieira: identificação, autorização da correção e captura posterior.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Esperado: identificação acadêmica coerente no documento, ícone, cabeçalho e login, sem apresentação institucional da prefeitura. Observado: compilação Webpack 5.22.0 concluída; renderToStaticMarkup de LandingPage, SectorPage, SchoolPage, ClassesPage e SignIn dentro de StaticRouter/Route gerou o nome, subtítulo, aviso e novo SVG sem as referências institucionais anteriores; processo Node retornou 0. GET /, /setor/1, /escola/1, /escola/1/classes e /login com Accept: text/html retornaram 200 com título e favicon atualizados; SVG válido e bundle atualizado retornaram 200. Comandos/método, saídas e limites preservados em avaliacao/rodadas/REV-03/evidencias/verificacao_REV-03-FE-A022.txt. Comparação visual de avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png: o cabeçalho institucional foi substituído pelo livro, Gestão Escolar e Protótipo acadêmico, com aviso de aplicação não oficial. A captura posterior mostra somente a página inicial; não comprova título/ícone da aba, layout das demais páginas, navegação completa, teclado, contraste ou NVDA. Demais páginas conferidas por código, renderização no servidor e HTTP; efeitos e consultas de dados não foram exercitados nessa renderização. Não foi executada uma suíte de testes automatizados da aplicação. O achado REV-03-FE-A019, sobre título específico por tela, permanece separado e sem mudança de situação. Vinculação posterior em 2026-11-08: commit frontend e60fa6502bf43f37603b2f887c7ec7643f477026, de autoria de Laura Vieira, registrado em 2026-11-08T00:31:10-03:00, mensagem 'chore: remove Macae from visual identity'. git diff e60fa6502bf43f37603b2f887c7ec7643f477026^ e60fa6502bf43f37603b2f887c7ec7643f477026 -- public/index.html public/styles/styles.css src/components/Header.js src/pages/SignIn.js corresponde integralmente a avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch. O conteúdo de public/images/gestao-escolar.svg nesse commit corresponde à cópia arquivada em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg. Os cinco arquivos não apresentam diferenças locais em relação ao commit. O vínculo identifica em commit o mesmo conteúdo de código já reavaliado; não representa repetição das verificações de interface, renderização ou HTTP."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "identificacao_e_confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Codex.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Na identificação pela autora, public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js ainda correspondiam ao commit informado. public/images/gestao-escolar.svg havia sido criado nesta conversa, mas ainda não estava integrado. package-lock.json já tinha a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; o JSON de acompanhamento também tinha atualizações locais anteriores, referentes ao achado 01."
+          },
+          "resultado": "Achado apontado e confirmado pela autora; solicitada identidade acadêmica própria e registro da correção.",
+          "evidencia": "Apontamento da autora nesta conversa, em 2026-11-08: título e ícone estavam associados à Prefeitura de Macaé, embora a aplicação não fosse oficial. No commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, public/index.html:8,12 usa SEMED Macaé e favicon.ico; src/components/Header.js:13–18 usa /images/header.png com alt Logotipo da prefeitura; src/pages/SignIn.js:14–21 exibe Prefeitura, brasaomacae.png, MACAÉ e Secretaria de Educação. avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png, SHA-256 91047E8F1116161F1B8F653A994639BD991F3AC1279D10F759A1197DCB18AD8F, é uma captura anterior à alteração, gerada por Codex nesta execução, mostrando a marca da prefeitura no cabeçalho. A autora declarou que a aplicação não é oficial e solicitou a troca da identidade associada à prefeitura. Em seguida autorizou expressamente todas as alterações sugeridas e pediu o registro como achado apontado por ela e já corrigido. Forneceu a imagem posterior como image.png e autorizou sua renomeação e vinculação. A autoria das verificações técnicas permanece atribuída a Codex."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "Identidade acadêmica aplicada no título, favicon, cabeçalho e login, com aviso de aplicação não oficial; correção ainda sem commit.",
+          "evidencia": "Aplicada a identidade Gestão Escolar / Protótipo acadêmico: título Gestão Escolar | Projeto Acadêmico; favicon e imagens de cabeçalho/login substituídos pelo livro aberto em SVG; removidos os textos institucionais do login; incluído o aviso Protótipo desenvolvido para TCC. Aplicação não oficial. no cabeçalho compartilhado e no login. Definida a variável de cor já utilizada pelo login/formulário para manter a paleta do projeto. O acesso inicial no cabeçalho usa Link com texto identificável. A correção cobre as cinco rotas existentes, sem implementar autenticação ou outras operações. avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch registra as quatro alterações em arquivos versionados; avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg preserva o novo SVG. Fontes atuais: public/index.html:8,12; src/components/Header.js, Header/BrandLink/AcademicNotice; src/pages/SignIn.js, SignIn/Subtitle/AcademicNotice; public/styles/styles.css, :root. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png, SHA-256 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803, é a captura posterior produzida pela autora, recebida como image.png e renomeada sem alterar seu conteúdo."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_e_resolucao",
+          "responsavel": "Codex: verificações técnicas e inspeção das imagens; autora: fornecimento da captura posterior.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "resolveu_no_recorte; situação resolvido_no_recorte no aspecto da identidade acadêmica.",
+          "evidencia": "Esperado: identificação acadêmica coerente no documento, ícone, cabeçalho e login, sem apresentação institucional da prefeitura. Observado: compilação Webpack 5.22.0 concluída; renderToStaticMarkup de LandingPage, SectorPage, SchoolPage, ClassesPage e SignIn dentro de StaticRouter/Route gerou o nome, subtítulo, aviso e novo SVG sem as referências institucionais anteriores; processo Node retornou 0. GET /, /setor/1, /escola/1, /escola/1/classes e /login com Accept: text/html retornaram 200 com título e favicon atualizados; SVG válido e bundle atualizado retornaram 200. Comandos/método, saídas e limites preservados em avaliacao/rodadas/REV-03/evidencias/verificacao_REV-03-FE-A022.txt. Comparação visual de avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png: o cabeçalho institucional foi substituído pelo livro, Gestão Escolar e Protótipo acadêmico, com aviso de aplicação não oficial. A captura posterior mostra somente a página inicial; não comprova título/ícone da aba, layout das demais páginas, navegação completa, teclado, contraste ou NVDA. Demais páginas conferidas por código, renderização no servidor e HTTP; efeitos e consultas de dados não foram exercitados nessa renderização. Não foi executada uma suíte de testes automatizados da aplicação. O achado REV-03-FE-A019, sobre título específico por tela, permanece separado e sem mudança de situação."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_evidencia_autora",
+          "responsavel": "Autora Laura Vieira: captura da tela; Codex: renomeação e referência por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "image.png renomeada para evidencia_correcao_REV-03-FE-A022.png, com conteúdo e hash preservados.",
+          "evidencia": "avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png; SHA-256 antes e depois da renomeação: 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit da correção; Codex: conferência do diff/SVG e atualização do registro, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+            "backend": null,
+            "alteracoes_locais": "A correção em public/index.html, public/styles/styles.css, src/components/Header.js, src/pages/SignIn.js e public/images/gestao-escolar.svg está integralmente versionada neste commit, sem diferenças locais nesses arquivos. package-lock.json mantém a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch, sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+          },
+          "resultado": "Commit de correção associado aos campos correcao e reavaliacao. Origem inspecao_autora, confirmação humana e situação resolvido_no_recorte preservadas; versão da primeira identificação e eventos anteriores mantidos.",
+          "evidencia": "Vinculação posterior em 2026-11-08: commit frontend e60fa6502bf43f37603b2f887c7ec7643f477026, de autoria de Laura Vieira, registrado em 2026-11-08T00:31:10-03:00, mensagem 'chore: remove Macae from visual identity'. git diff e60fa6502bf43f37603b2f887c7ec7643f477026^ e60fa6502bf43f37603b2f887c7ec7643f477026 -- public/index.html public/styles/styles.css src/components/Header.js src/pages/SignIn.js corresponde integralmente a avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch. O conteúdo de public/images/gestao-escolar.svg nesse commit corresponde à cópia arquivada em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg. Os cinco arquivos não apresentam diferenças locais em relação ao commit. Os eventos históricos anteriores e o registro das verificações descrevem o estado ainda sem commit observado naquelas etapas e foram preservados."
+        }
+      ]
+    }
+  ]
+}

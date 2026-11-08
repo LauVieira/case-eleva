@@ -10,7 +10,7 @@ import { BiEdit } from 'react-icons/bi';
 import { ImBin, ImInfo } from 'react-icons/im';
 
 export default function SchoolCard (props) {
-  const { schoolData } = props;
+  const { schoolData, onDelete } = props;
   const {
     address, headteacher, id, name, phone,
   } = schoolData;
@@ -55,9 +55,11 @@ export default function SchoolCard (props) {
             <BiEdit aria-hidden="true" focusable="false" /> Editar escola
           </SchoolItem>
         )}
-        <SchoolItem>
-          <ImBin /> Apagar informações
-        </SchoolItem>
+        {id && onDelete && (
+          <SchoolItem action type="button" onClick={onDelete}>
+            <ImBin aria-hidden="true" focusable="false" /> Excluir escola
+          </SchoolItem>
+        )}
 
       </StyledListGroup>
 

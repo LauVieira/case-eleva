@@ -1,31 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Container } from 'react-bootstrap';
+import { Alert, Button, Container } from 'react-bootstrap';
 
 import Header from '../components/Header';
 import SchoolCard from '../components/SchoolCard';
+import SchoolDeleteModal from '../components/SchoolDeleteModal';
+import api from '../services/api';
 
 export default function SchoolPage () {
   const { id } = useParams();
-  const [schoolData, setSchoolData] = useState({});
+  const history = useHistory();
+  const [schoolData, setSchoolData] = useState(null);
+  const [loadError, setLoadError] = useState(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const [showDelete, setShowDelete] = useState(false);
 
-  useEffect(getSchoolData, []);
+  useEffect(() => {
+    let active = true;
+    setSchoolData(null);
+    setLoadError(null);
+    setShowDelete(false);
+    api.get(`/schools/${id}`)
+      .then((response) => { if (active) setSchoolData(response.data); })
+      .catch((error) => {
+        if (!active) return;
+        const notFound = error.response && error.response.status === 404;
+        setLoadError({
+          notFound,
+          message: notFound ? 'Escola não encontrada.' : 'Não foi possível carregar a escola.',
+        });
+      });
+    return () => { active = false; };
+  }, [id, loadAttempt]);
 
-  function getSchoolData () {
-    const request = axios.get(`http://localhost:3000/schools/${id}`);
-    request.then((response) => {
-      setSchoolData({ ...response.data });
+  function onDeleted (school) {
+    history.replace(`/setor/${school.sectorId}`, {
+      deletedSchool: { name: school.name },
     });
-    request.catch(() => alert('Erro ao buscar a escola selecionada'));
   }
 
   return (
     <StyledContainer fluid>
 
       <Header />
-      <SchoolCard schoolData={schoolData} />
+      <main>
+        {loadError && (
+          <Alert variant="danger" role="alert">
+            <p>{loadError.message}</p>
+            {!loadError.notFound && (
+              <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
+            )}
+            {' '}<Link to="/">Voltar aos setores</Link>
+          </Alert>
+        )}
+        {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
+        {schoolData && (
+          <>
+            <SchoolCard schoolData={schoolData} onDelete={() => setShowDelete(true)} />
+            <SchoolDeleteModal
+              key={schoolData.id}
+              school={schoolData}
+              show={showDelete}
+              onHide={() => setShowDelete(false)}
+              onDeleted={onDeleted}
+            />
+          </>
+        )}
+      </main>
 
     </StyledContainer>
   );

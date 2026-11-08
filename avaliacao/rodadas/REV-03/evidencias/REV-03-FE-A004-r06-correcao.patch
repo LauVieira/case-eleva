@@ -1,0 +1,169 @@
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index 0c0ac64..a893361 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -10,7 +10,7 @@ import { BiEdit } from 'react-icons/bi';
+ import { ImBin, ImInfo } from 'react-icons/im';
+ 
+ export default function SchoolCard (props) {
+-  const { schoolData } = props;
++  const { schoolData, onDelete } = props;
+   const {
+     address, headteacher, id, name, phone,
+   } = schoolData;
+@@ -55,9 +55,11 @@ export default function SchoolCard (props) {
+             <BiEdit aria-hidden="true" focusable="false" /> Editar escola
+           </SchoolItem>
+         )}
+-        <SchoolItem>
+-          <ImBin /> Apagar informações
+-        </SchoolItem>
++        {id && onDelete && (
++          <SchoolItem action type="button" onClick={onDelete}>
++            <ImBin aria-hidden="true" focusable="false" /> Excluir escola
++          </SchoolItem>
++        )}
+ 
+       </StyledListGroup>
+ 
+diff --git a/src/pages/SchoolPage.js b/src/pages/SchoolPage.js
+index a0c40f7..5fa1775 100644
+--- a/src/pages/SchoolPage.js
++++ b/src/pages/SchoolPage.js
+@@ -1,31 +1,73 @@
+ import React, { useEffect, useState } from 'react';
+-import { useParams } from 'react-router-dom';
+-import axios from 'axios';
++import { Link, useHistory, useParams } from 'react-router-dom';
+ import styled from 'styled-components';
+-import { Container } from 'react-bootstrap';
++import { Alert, Button, Container } from 'react-bootstrap';
+ 
+ import Header from '../components/Header';
+ import SchoolCard from '../components/SchoolCard';
++import SchoolDeleteModal from '../components/SchoolDeleteModal';
++import api from '../services/api';
+ 
+ export default function SchoolPage () {
+   const { id } = useParams();
+-  const [schoolData, setSchoolData] = useState({});
++  const history = useHistory();
++  const [schoolData, setSchoolData] = useState(null);
++  const [loadError, setLoadError] = useState(null);
++  const [loadAttempt, setLoadAttempt] = useState(0);
++  const [showDelete, setShowDelete] = useState(false);
+ 
+-  useEffect(getSchoolData, []);
++  useEffect(() => {
++    let active = true;
++    setSchoolData(null);
++    setLoadError(null);
++    setShowDelete(false);
++    api.get(`/schools/${id}`)
++      .then((response) => { if (active) setSchoolData(response.data); })
++      .catch((error) => {
++        if (!active) return;
++        const notFound = error.response && error.response.status === 404;
++        setLoadError({
++          notFound,
++          message: notFound ? 'Escola não encontrada.' : 'Não foi possível carregar a escola.',
++        });
++      });
++    return () => { active = false; };
++  }, [id, loadAttempt]);
+ 
+-  function getSchoolData () {
+-    const request = axios.get(`http://localhost:3000/schools/${id}`);
+-    request.then((response) => {
+-      setSchoolData({ ...response.data });
++  function onDeleted (school) {
++    history.replace(`/setor/${school.sectorId}`, {
++      deletedSchool: { name: school.name },
+     });
+-    request.catch(() => alert('Erro ao buscar a escola selecionada'));
+   }
+ 
+   return (
+     <StyledContainer fluid>
+ 
+       <Header />
+-      <SchoolCard schoolData={schoolData} />
++      <main>
++        {loadError && (
++          <Alert variant="danger" role="alert">
++            <p>{loadError.message}</p>
++            {!loadError.notFound && (
++              <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
++            )}
++            {' '}<Link to="/">Voltar aos setores</Link>
++          </Alert>
++        )}
++        {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
++        {schoolData && (
++          <>
++            <SchoolCard schoolData={schoolData} onDelete={() => setShowDelete(true)} />
++            <SchoolDeleteModal
++              key={schoolData.id}
++              school={schoolData}
++              show={showDelete}
++              onHide={() => setShowDelete(false)}
++              onDeleted={onDeleted}
++            />
++          </>
++        )}
++      </main>
+ 
+     </StyledContainer>
+   );
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index 0ed7e5e..66853e3 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -1,20 +1,31 @@
+-import React, { useEffect, useState } from 'react';
+-import { useParams } from 'react-router-dom';
++import React, { useEffect, useRef, useState } from 'react';
++import { useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+-  Card, CardDeck, Container, Row, Col,
++  Alert, Card, CardDeck, Container, Row, Col,
+ } from 'react-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
+ 
+ export default function SectorPage () {
+   const { id } = useParams();
++  const location = useLocation();
++  const history = useHistory();
++  const [deletedSchool] = useState(() => location.state && location.state.deletedSchool);
++  const noticeRef = useRef(null);
+   const [schools, setSchools] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+ 
+   useEffect(getSectors, []);
+ 
++  useEffect(() => {
++    if (deletedSchool && noticeRef.current) {
++      noticeRef.current.focus();
++      history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
++    }
++  }, []);
++
+   function getSectors () {
+     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
+     request.then((response) => {
+@@ -29,6 +40,12 @@ export default function SectorPage () {
+ 
+       <Header />
+ 
++      {deletedSchool && (
++        <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
++          Escola <strong>{deletedSchool.name}</strong> excluída com sucesso.
++        </Alert>
++      )}
++
+       {isLoading
+         ? <p>Carregando...</p>
+         : (

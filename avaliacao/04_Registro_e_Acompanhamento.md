@@ -2,6 +2,16 @@
 
 Laura Vieira · Instrumento de trabalho do TCC · 05/11/2026
 
+## Organização adotada para o frontend — 08/11/2026
+
+Por decisão expressa da autora, o acompanhamento das implementações e correções do frontend da REV-03 fica no próprio avaliacao/rodadas/REV-03/achados-frontend.json, usando os campos correcao, reavaliacao e historico. O relatorio-frontend.md da mesma pasta recebe uma seção de acompanhamento, mantendo identificável a inspeção inicial. Esta decisão prevalece sobre as orientações gerais abaixo que reservam todo acompanhamento a avaliacao/achados.json ou exigem novos arquivos por reavaliação.
+
+Não criar outro relatório ou JSON rXX a cada implementação/correção ou sua verificação. Registrar data, versão, método, passos/resultados, evidências e pendências no histórico do achado existente; manter a primeira identificação e as decisões humanas anteriores. A raiz REV-03/r01 identifica a emissão inicial e não deve ser incrementada para essas intervenções. Novas revisões propriamente ditas, solicitadas pela autora, recebem produtos próprios.
+
+O arquivo ativo do frontend reúne seus 22 IDs. O consolidado em case-eleva-api/avaliacao/achados.json mantém os achados de backend; não manter os mesmos achados frontend como uma segunda cópia ativa ali. As referências cruzadas entre os repositórios permanecem. Os arquivos r02–r06 já emitidos ficam preservados como registros históricos, sem receber novas atualizações de acompanhamento.
+
+Preservar evidências antes e depois de cada intervenção. Uma cópia de preservação é um registro histórico, não uma segunda fonte ativa. Não inventar confirmação da autora, testes ou observações; registrar limitações e manter pendente o que não foi suficientemente verificado.
+
 ## 1. Organização do trabalho
 
 A avaliação começa em REV-01 com a inspeção da versão disponível. O relatório registra o inventário e o alcance da análise; os achados ficam em arquivo JSON separado. A mesma estrutura se aplica às revisões durante a implementação e à avaliação final.

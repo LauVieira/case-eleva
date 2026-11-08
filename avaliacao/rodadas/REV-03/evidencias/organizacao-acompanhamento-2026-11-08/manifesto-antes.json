@@ -1,0 +1,144 @@
+{
+  "data": "2026-11-08T05:20:30.958Z",
+  "frontendCommit": "44e57e7b3bf58796ab9b76ed664002754d14a489",
+  "gitStatus": " M package-lock.json\n M src/components/SchoolCard.js\n M src/pages/SchoolPage.js\n M src/pages/SectorPage.js\n?? avaliacao/rodadas/REV-03/achados-frontend-r06.json\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-SchoolDeleteModal.js\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-antes.txt\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-bloqueio-1794114304488.html\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-compilacao.txt\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-confirmacao-1794114254221.html\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-confirmacao-1794114304488.html\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-confirmacao.html\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-contrato-api.txt\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-correcao.patch\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador-falha-1794114186949.json\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador-falha-1794114222314.json\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador-falha-1794114266833.json\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador.cjs\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador.json\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-sucesso-1794114304488.html\n?? avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-verificacao.txt\n?? avaliacao/rodadas/REV-03/relatorio-frontend-r06.md\n?? src/components/SchoolDeleteModal.js\n",
+  "arquivosAntes": [
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend.json",
+      "sha256": "ffecf9ff3b445e72175634a7e9e7cea13500a0f968218a6902f5dc848d2299fb"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/relatorio-frontend.md",
+      "sha256": "d504c8aa0f5547fceb8f0a1a2401819e8fd594cb830a50d7d7ff36a99c0b9da8"
+    },
+    {
+      "path": "avaliacao/04_Registro_e_Acompanhamento.md",
+      "sha256": "029a6b378890a55bfa60bbd7ad0497d9459cccd68dec24da91d61addec710abd"
+    },
+    {
+      "path": "../case-eleva-api/avaliacao/achados.json",
+      "sha256": "940a6042d789cf8ab8ebb3376707e82f88e7e84f0225a086f2db0f3f9ed5bb17"
+    }
+  ],
+  "arquivosHistoricos": [
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend-r02.json",
+      "sha256": "f89d2e173674d5a954b268d7aecf58745ac2d5913f599ce813b2dc39d74013fb"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend-r03.json",
+      "sha256": "517259ca0490c15a2dfcc892a64a382b30b467b0dd3d7199e212ef5f990fd641"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend-r04.json",
+      "sha256": "773d87d0243b497ed5d3074cde7b18d1d80a7edf726ae18496f7eb34476321a4"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend-r05.json",
+      "sha256": "2211aec5edf255937cb99ea5d48e617e93cf16e870a5c4c75a1d12b319bca536"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/achados-frontend-r06.json",
+      "sha256": "70e4583c864413dc42c46a849fcd586dd51df4c7086606ff0b6a675d0a8e2d7c"
+    },
+    {
+      "path": "avaliacao/rodadas/REV-03/relatorio-frontend-r06.md",
+      "sha256": "0187335df9ad6c87c71ee163710470f43b9269356ca68c8e341b6a5ca43e8a7f"
+    }
+  ],
+  "fontesAntes": [
+    {
+      "path": "src\\utils\\schoolForm.js",
+      "sha256": "fb9f1613cae8a99acffee09e1de7474598ede84ddbec4bbbaddb0d70b11ac27f"
+    },
+    {
+      "path": "src\\services\\api.js",
+      "sha256": "03f1b7e097e7ff4742d4646efc57482f38f65bdcc3c1c7d61e8e7af52b794005"
+    },
+    {
+      "path": "src\\App.js",
+      "sha256": "9174652f65807c54082a169c0ea81a4896a88ce41e7fc19d31e8aa2ca2ea392b"
+    },
+    {
+      "path": "src\\index.js",
+      "sha256": "24a463e066d19d08d384c2520455e89b3d32b15a6e5cf7135df1b995f893c382"
+    },
+    {
+      "path": "src\\pages\\ClassesPage.js",
+      "sha256": "e306f7e11a02168637ebd2a6cc2f0bdb51d5fc19fa9dd2d8458232022e3f01da"
+    },
+    {
+      "path": "src\\pages\\LandingPage.js",
+      "sha256": "4eccccf8f1c8775d74285eaa47f67cdfb3414eee2852f2b8dfeb60730bf0911b"
+    },
+    {
+      "path": "src\\pages\\SchoolCreatePage.js",
+      "sha256": "06576e72a56e2c89abe4255325fbb60329b74dd4632a2082541b999714bdaaf7"
+    },
+    {
+      "path": "src\\pages\\SchoolEditPage.js",
+      "sha256": "473c9aa2dc269dd368569388846e0b2a75dbf6fcdebbbbb0c01b1f831b702ff4"
+    },
+    {
+      "path": "src\\components\\SchoolForm.js",
+      "sha256": "18ff6993a96b08cab8a057e07f04ba1cf2f6651cdbfd4c78ade223207a1aa23c"
+    },
+    {
+      "path": "src\\pages\\SignIn.js",
+      "sha256": "fc34f0b7cfb0b41488b1cc773bc519606cdc10fc5aae0aba27780588f6506c36"
+    },
+    {
+      "path": "src\\components\\SchoolDeleteModal.js",
+      "sha256": "a2867f7e154403208ffe130fc09e05799ed50cb8dc51e2903e4a60a934cc529b"
+    },
+    {
+      "path": "src\\pages\\SectorPage.js",
+      "sha256": "e76279ec02db41a6af260f9ed6a6164482637ca4c2f376ad3db6503f43233495"
+    },
+    {
+      "path": "src\\components\\SchoolCard.js",
+      "sha256": "fdb01672c700afc264ad2f3fda7018a76842fb7bd7ff81176d55372ea6651248"
+    },
+    {
+      "path": "src\\pages\\SchoolPage.js",
+      "sha256": "db961a4891a2e0dd5bff4e586dadcae8f1bb35368b07345e931ca7cbf6e863c1"
+    },
+    {
+      "path": "src\\components\\LoginForm.js",
+      "sha256": "86113af0bec86c36bc5a126b32cc43402e98af1a6981b1f56591d5c1ade78966"
+    },
+    {
+      "path": "src\\components\\Header.js",
+      "sha256": "2ac7e0cc51516af0a77b7cd08064eac14515943f62cb45e2a295f6b852a6a010"
+    },
+    {
+      "path": "public\\index.html",
+      "sha256": "083615ebfbf1287512ba2f82dcfd9ea0e8b54d809a3028294db78a23b04c69bf"
+    },
+    {
+      "path": "public\\styles\\styles.css",
+      "sha256": "e4bcab295469adf06b7bef28e224d0fce1cd39560255237d8b4b9780dc599c13"
+    },
+    {
+      "path": "public\\styles\\reset.css",
+      "sha256": "453f6c16e50d9e8ff52f8453c6891b008cba6ababfb04ceac0653b95ee603320"
+    },
+    {
+      "path": "public\\images\\header.png",
+      "sha256": "2a33c02f4a9041719dddb2f8bbcc19c55d9ec065d7f11f40fd3f7900da2a817e"
+    },
+    {
+      "path": "public\\images\\gestao-escolar.svg",
+      "sha256": "2632ff5feb5728e5603b14175fa305dac45149b4ce54566cbc9a4091ada95ca6"
+    },
+    {
+      "path": "public\\images\\favicon.ico",
+      "sha256": "49a7f84d75cd23719904dcee5479bdad79560272df6be75063b680f4160203fb"
+    },
+    {
+      "path": "public\\images\\brasaomacae.png",
+      "sha256": "3c260bf1e1a7ee1e3322eb12f89211d1d5fc3e1f1229b21be7afaf23739286a9"
+    }
+  ],
+  "packageLock": "cf4a9c58f4f1e8d60c6e197555e40e37f8bb36b99a1e66f0009da2ffef709b7f"
+}

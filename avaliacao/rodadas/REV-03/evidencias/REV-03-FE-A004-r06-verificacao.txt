@@ -1,0 +1,79 @@
+REV-03 / r06 / REV-03-FE-A004 — verificação após implementação
+Data: 2026-11-08 (execução final Chrome: 2026-11-08T05:05:06.562Z)
+Responsável: Codex; implementação solicitada pela autora.
+Frontend base: 44e57e7b3bf58796ab9b76ed664002754d14a489, branch main, mais alterações locais.
+Backend inspecionado: a023d1eea2093d5511c22cfc444e11dfef704e4f; código sem alteração local.
+Escopo: R07, R08, R09, R10, R13 (nome da ação), FE03, FE04, FE08, FE10, FE11 parcial.
+Versão verificável: correcao.patch e SchoolDeleteModal.js nesta pasta.
+Alteração preexistente de package-lock.json mantida. Revisões anteriores mantidas.
+
+ANTES
+Evidência coletada antes de editar: REV-03-FE-A004-r06-antes.txt.
+Inspeção das fontes reais, com linhas e hashes, sem tentativa de DELETE.
+O estado da primeira identificação continua no JSON original; este baseline é o imediatamente anterior à intervenção.
+
+CONTRATO BACKEND (somente leitura)
+REV-03-FE-A004-r06-contrato-api.txt contém trechos numerados e hashes.
+SchoolController.deleteSchool retorna 204 sem corpo.
+SchoolService valida existência e chama existsBySchoolId antes de remover.
+ClassRepository não filtra status no vínculo: inclui encerradas.
+SchoolRepository traduz violação classes_schoolId_fkey para conflito compreensível.
+Não foi executado teste de integração nem DELETE real; inspeção não prova integridade em execução.
+
+COMPILAÇÃO
+Comando: node --openssl-legacy-provider node_modules/webpack-cli/bin/cli.js --stats errors-warnings
+Esperado: compilar sem erros. Observado: webpack compiled successfully, exit 0.
+Saída final: REV-03-FE-A004-r06-compilacao.txt.
+Aviso de Browserslist desatualizado emitido pelo ambiente existente; nenhuma dependência atualizada.
+Consultas HTTP da página e bundle responderam 200. Dev server local: http://127.0.0.1:9000/.
+
+NAVEGADOR
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface; janela não exibida.
+Procedimento: iniciar Chrome com perfil temporário e CDP em 127.0.0.1, executar:
+node avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-navegador.cjs <porta-CDP> <resultado-novo.json>
+O procedimento recusa sobrescrever resultados e bloqueia mutações inesperadas.
+GETs da API e todos os DELETEs foram interceptados antes do servidor; dados fictícios.
+Escola: 990002, setor 10, escola fictícia de exclusão. Não se usaram registros reais.
+Esperado: não enviar ao abrir/cancelar; somente confirmar envia DELETE; 204 retorna ao setor; 409 orienta; falhas preservam contexto; não duplicar envio.
+Observado na execução final: 15 casos passaram, sete DELETEs simulados sem corpo, zero mutações reais, exit 0.
+Resultado detalhado e requisições: REV-03-FE-A004-r06-navegador.json.
+Casos e observações:
+1. confirmacao_identifica_registro_sem_envio: Diálogo nomeado, escola identificada, foco inicial em Cancelar, zero DELETE ao abrir.
+2. teclado_cancelar_sem_mutacao: Tab, Shift+Tab e Enter em Cancelar fecharam sem DELETE e devolveram foco ao botão Excluir escola.
+3. reabrir_por_teclado_e_cancelar_escape: Enter reabriu confirmação; Escape fechou sem DELETE.
+4. resposta_409_cenario_active: 409 simulado manteve escola e diálogo, focou orientação e ofereceu Ver turmas; não comprova bloqueio real da API.
+5. resposta_409_cenario_completed: 409 simulado manteve escola e diálogo, focou orientação e ofereceu Ver turmas; não comprova bloqueio real da API.
+6. destino_ver_turmas: Link abriu a listagem da mesma escola sem mutação adicional; filtro Encerradas ainda ausente.
+7. falha_500_recuperacao_204: Erro manteve contexto e permitiu reenviar; 204 levou ao setor 10, nova listagem vazia exibiu criação e aviso de sucesso focado.
+8. aviso_sucesso_consumido: Recarregar listagem não repetiu aviso de exclusão.
+9. falha_rede_e_cancelamento: Falha simulada comunicou ausência de confirmação, manteve contexto e permitiu cancelar sem novo DELETE.
+10. escola_removida_404: Não afirmou sucesso: informou escola ausente, desabilitou repetição e ofereceu retorno ao setor.
+11. envio_unico_e_estado_pendente: Dois acionamentos síncronos produziram um DELETE; resposta retida apenas para inspecionar estado pendente; botões desabilitados e Escape não encerrou requisição em andamento.
+12. dialogo_320px: [object Object]
+13. sem_exclusao_antes_de_carregar: Antes da resposta GET havia somente Carregando escola, sem botão de exclusão; após resposta a ação ficou disponível.
+14. carregamento_falha_e_recuperacao: Erro GET não ofereceu exclusão nem manteve carregando; Tentar novamente recuperou o detalhe.
+15. carregamento_404: Escola inexistente apresentou orientação e nenhum botão de exclusão.
+DOMs finais (complemento, sem capturas de tela):
+avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-confirmacao-1794114304488.html
+avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-bloqueio-1794114304488.html
+avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A004-r06-sucesso-1794114304488.html
+
+TENTATIVAS INICIAIS E AJUSTES
+Antes da execução final, houve tentativas incompletas, que não foram contabilizadas como aprovação.
+A sobrescrita as="button" em styled-components eliminava as classes do ListGroup.Item; removeu-se as e manteve-se action, que gera botão nativo pela biblioteca. Confirmado no DOM final.
+O comando Enter via CDP inicialmente não incluía o texto de tecla necessário para acionar o botão; ajustou-se o procedimento, preservando seu resultado incompleto.
+A primeira versão da função async exigia regeneratorRuntime ausente na configuração Babel existente; substituiu-se por encadeamento de Promises, sem adicionar dependências ou mudar configuração.
+Diagnósticos preservados: navegador-falha-1794114186949.json, navegador-falha-1794114222314.json e navegador-falha-1794114266833.json (prefixo REV-03-FE-A004-r06-).
+A primeira tentativa sem coleta diagnóstica também terminou por não encontrar o seletor do botão; não há resultado final atribuído a ela.
+DOMs de confirmação anteriores à execução final foram preservados e não substituem os DOMs finais acima.
+
+ALCANCE E LIMITES
+Cancelamento por Tab/Shift+Tab/Enter, reabertura por Enter e fechamento por Escape foram efetivamente acionados; observados foco e ausência de DELETE. Não se declarou teclado completo ou conformidade de acessibilidade.
+Os dois cenários 409 active/completed simulam a mesma resposta: não comprovam execução do bloqueio real no backend.
+A resposta pendente foi retida somente para conferir bloqueio de duplicação e estado; não houve teste de desempenho ou simulação de conexão lenta.
+Nenhum print produzido. Nenhuma imagem isolada usada como prova de foco, cancelamento ou recuperação.
+Não executados npm test (script placeholder), lint, suíte automatizada do projeto, NVDA, contraste medido ou sessões com usuários.
+Pendentes: DELETE real e integridade/persistência em banco isolado; bloqueio real por turmas ativas/encerradas; percurso completo de teclado, texto 200%, contraste e NVDA/usuários finais.
+A listagem de turmas ainda não oferece filtro Encerradas (A009), nem exclusão de turma (A008); portanto a orientação de desbloqueio não pode ser completada inteiramente pela interface nesta versão.
+A012 conserva suas pendências anteriores no consolidado; o carregamento do detalhe foi tratado somente para disponibilizar esta operação com dados carregados. Não se encerrou A012 nesta intervenção.
+Status A004: aguardando_reavaliacao; resultado global inconclusivo; confirmacao_autora pendente. Passaram os casos simulados, sem atribuir resolução integral.
