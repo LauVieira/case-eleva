@@ -1117,14 +1117,75 @@
       "prioridade": "alta",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Implementar filtros com padrão Ativas, seleção visual/programática e rótulos Ativa/Encerrada, usando o contrato current/all/completed.",
-      "verificacao_pendente": "Alternar filtros no navegador e conferir o payload/retorno com ativas e encerradas, seleção acessível e manutenção do total da escola; anúncio com NVDA ao final.",
+      "verificacao_pendente": "A capacidade total da escola continua no A010: esta listagem não calcula nem apresenta esse total. As setas sintéticas não moveram a seleção nativa nesta execução. Contraste, ampliação, percurso completo de teclado e NVDA permanecem para a etapa correspondente. A falha da consulta não foi provocada no navegador. Confirmação da autora pendente.",
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "descricao": "A listagem de turmas abre em Ativas e envia GET /schools/:id/classes?status=current. Ativas, Todas e Encerradas usam current, all e completed. A opção marcada fica no rádio, em data-selected e em negrito. Cada cartão mostra Situação: Ativa ou Encerrada. Lista vazia do filtro encerra Carregando e mantém Adicionar Classe. Resposta antiga é descartada. Na falha, o alert anterior permanece, o carregamento termina e a página não anuncia o vazio daquele filtro.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-antes.txt (SHA-256 8d61ae4fb1111f5ce785824ae0f28ae16ceb8b6be8f74f105adc4c39ca714259). Patch: REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012). Compilação exit 0 em REV-03-FE-A009-filtros-compilacao.txt (SHA-256 81e27b9ea47f3f64ec38fef18e72e62c70e31f595a9da3f4087ecd513b5994ed)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador com GET real na API local. Sem escrita, seed ou migration.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Execução em 2026-11-08. Frontend http://127.0.0.1:9000/ e API http://localhost:3000/. Seis percursos passaram: escola 6 abriu em Ativas com status=current e rótulos Ativa; Encerradas enviou status=completed e mostrou a turma encerrada; Todas enviou status=all com Ativa e Encerrada juntas; escola 4 abriu com cinco ativas e Encerradas mostrou Nenhuma turma encerrada; escola 2 mostrou os três vazios, inclusive Nenhuma turma ativa e Nenhuma turma nesta escola. A seleção marcada usava o rádio, data-selected e negrito. ArrowLeft e ArrowRight não mudaram a opção. Sem NVDA, contraste, ampliação ou falha provocada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-verificacao.txt (SHA-256 61945b6ffac05739f28d76cb4293224823b5f2532d0578fb249877226b14ab39). Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "solicitacao_implementacao",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Antes da edição, src/pages/ClassesPage.js correspondia a ecdd9410b05f0a93b24d5b31714d59280ae52b7e. package-lock.json já estava modificado. HANDOVER.md não rastreado. Backend sem alteração de código além do package-lock.json preexistente."
+          },
+          "resultado": "Autorizada a implementação do plano dos filtros. A confirmação do diagnóstico permanece pendente.",
+          "evidencia": "Em 2026-11-08, a autora leu o plano do REV-03-FE-A009 e respondeu que podia seguir. Estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-antes.txt (SHA-256 8d61ae4fb1111f5ce785824ae0f28ae16ceb8b6be8f74f105adc4c39ca714259)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "Filtros Ativas, Todas e Encerradas e rótulos Ativa/Encerrada implementados em ClassesPage, ainda sem commit.",
+          "evidencia": "src/pages/ClassesPage.js passa a consultar com params status current, all ou completed, começando em current. formatClassStatus, já usado no detalhe e na edição, produz Ativa e Encerrada. Patch SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012. Compilação exit 0, SHA-256 da saída 81e27b9ea47f3f64ec38fef18e72e62c70e31f595a9da3f4087ecd513b5994ed."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_filtros",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "ecdd9410b05f0a93b24d5b31714d59280ae52b7e",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Filtros ainda sem commit, sobre ecdd9410b05f0a93b24d5b31714d59280ae52b7e. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-correcao.patch (SHA-256 0494189ebb72aa3d3f37a7760033a2f98cc7fc403f5a7efd2eb57ef12efe0012): src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte; seis percursos passaram com GET real. Setas sintéticas não moveram a seleção.",
+          "evidencia": "C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A009-filtros-verificacao.txt (SHA-256 61945b6ffac05739f28d76cb4293224823b5f2532d0578fb249877226b14ab39). Escola 6: current com duas Ativa, completed com uma Encerrada e all com as três. Escola 4: cinco Ativa e vazio de encerradas. Escola 2: vazios de ativas, todas e encerradas. Nenhuma mutação. NVDA, contraste, ampliação, falha provocada e total da escola não foram executados. Confirmação da autora pendente."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A010",

@@ -1,0 +1,169 @@
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index db0bd49..c5dc139 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -10,6 +10,13 @@ import {
+ import { LinkContainer } from 'react-router-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
++import { formatClassStatus } from '../utils/classForm';
++
++const STATUS_FILTERS = [
++  { value: 'current', label: 'Ativas', empty: 'Nenhuma turma ativa.' },
++  { value: 'all', label: 'Todas', empty: 'Nenhuma turma nesta escola.' },
++  { value: 'completed', label: 'Encerradas', empty: 'Nenhuma turma encerrada.' },
++];
+ 
+ export default function ClassesPage () {
+   const { id } = useParams();
+@@ -17,8 +24,12 @@ export default function ClassesPage () {
+   const history = useHistory();
+   const [deletedClass] = useState(() => location.state && location.state.deletedClass);
+   const noticeRef = useRef(null);
++  const requestVersion = useRef(0);
+   const [classes, setClasses] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [loadFailed, setLoadFailed] = useState(false);
++  const [statusFilter, setStatusFilter] = useState('current');
++  const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
+ 
+   useEffect(() => {
+     if (deletedClass && noticeRef.current) {
+@@ -27,16 +38,26 @@ export default function ClassesPage () {
+     }
+   }, []);
+ 
+-  useEffect(getClasses, []);
+-
+-  function getClasses () {
+-    const request = axios.get(`http://localhost:3000/schools/${id}/classes`);
+-    request.then((response) => {
++  useEffect(() => {
++    const version = requestVersion.current + 1;
++    requestVersion.current = version;
++    setIsLoading(true);
++    setLoadFailed(false);
++
++    axios.get(`http://localhost:3000/schools/${id}/classes`, {
++      params: { status: statusFilter },
++    }).then((response) => {
++      if (version !== requestVersion.current) return;
+       setClasses([...response.data]);
+       setIsLoading(false);
++    }).catch(() => {
++      if (version !== requestVersion.current) return;
++      setClasses([]);
++      setLoadFailed(true);
++      setIsLoading(false);
++      alert('Erro ao buscar as classes da escola selecionada');
+     });
+-    request.catch(() => alert('Erro ao buscar as classes da escola selecionada'));
+-  }
++  }, [id, statusFilter]);
+ 
+   return (
+     <StyledContainer fluid>
+@@ -49,23 +70,42 @@ export default function ClassesPage () {
+         </Alert>
+       )}
+ 
++      <StatusFilter>
++        <legend>Filtrar por situação</legend>
++        {STATUS_FILTERS.map((filter) => (
++          <label key={filter.value} data-selected={statusFilter === filter.value ? 'true' : 'false'}>
++            <input
++              type="radio"
++              name="class-status-filter"
++              value={filter.value}
++              checked={statusFilter === filter.value}
++              onChange={() => setStatusFilter(filter.value)}
++            />
++            {filter.label}
++          </label>
++        ))}
++      </StatusFilter>
++
+       {isLoading
+-        ? <p>Carregando...</p>
++        ? <p role="status">Carregando...</p>
+         : (
+-          <StyledCardDeck>
+-
+-            <ClassItem to={`/escola/${id}/classes/nova`}>
+-              <StyledCard>
+-                <Card.Text className="add-class">
+-                  <BsPlusCircleFill />
+-                  Adicionar Classe
+-                </Card.Text>
+-              </StyledCard>
+-            </ClassItem>
+-
+-            {classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
+-
+-          </StyledCardDeck>
++          <>
++            {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
++            <StyledCardDeck>
++
++              <ClassItem to={`/escola/${id}/classes/nova`}>
++                <StyledCard>
++                  <Card.Text className="add-class">
++                    <BsPlusCircleFill />
++                    Adicionar Classe
++                  </Card.Text>
++                </StyledCard>
++              </ClassItem>
++
++              {!loadFailed && classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
++
++            </StyledCardDeck>
++          </>
+         )}
+ 
+     </StyledContainer>
+@@ -83,6 +123,9 @@ function ClassCard (props) {
+           <Card.Title>
+             Turma {classs.name}
+           </Card.Title>
++          <Card.Text>
++            Situação: {formatClassStatus(classs.status)}
++          </Card.Text>
+           <Card.Text>
+             {classs.grade}
+           </Card.Text>
+@@ -108,6 +151,35 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const StatusFilter = styled.fieldset`
++  border: 1px solid #6c757d;
++  border-radius: 4px;
++  margin: 0 0 16px;
++  padding: 12px 16px;
++
++  legend {
++    font-size: 16px;
++    font-weight: 700;
++    padding: 0 6px;
++    width: auto;
++  }
++
++  label {
++    align-items: center;
++    display: inline-flex;
++    font-size: 16px;
++    margin: 0 16px 0 0;
++  }
++
++  label[data-selected='true'] {
++    font-weight: 700;
++  }
++
++  input {
++    margin-right: 6px;
++  }
++`;
++
+ const StyledCardDeck = styled(CardDeck)``;
+ 
+ const ClassItem = styled(LinkContainer)`

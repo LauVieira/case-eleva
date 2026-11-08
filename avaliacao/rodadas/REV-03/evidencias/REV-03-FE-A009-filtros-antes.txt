@@ -1,0 +1,151 @@
+REV-03 / REV-03-FE-A009
+Data: 2026-11-08T17:10:23.021Z
+Frontend: ecdd9410b05f0a93b24d5b31714d59280ae52b7e
+Branch: main
+Backend consultado, sem alteracao de codigo: a023d1eea2093d5511c22cfc444e11dfef704e4f
+Estado local antes da edicao deste achado:
+M package-lock.json
+?? HANDOVER.md
+Pedido: implementar filtros Ativas, Todas e Encerradas e a situacao Ativa/Encerrada na listagem de turmas.
+Metodo antes: inspecao do codigo atual. Nenhuma requisicao de filtro foi enviada nesta captura.
+Constatacao: ClassesPage chama GET /schools//classes sem query de situacao. Nao ha controles Ativas, Todas ou Encerradas nem leitura de classs.status nos cartoes.
+
+ARQUIVO src/pages/ClassesPage.js SHA256 5003e0ddbad5588a09f15ee2c0b19b5e07321533985cb36ddb91e61a1f87cd97
+
+1: /* eslint-disable react/jsx-one-expression-per-line */
+2: 
+3: import React, { useEffect, useRef, useState } from 'react';
+4: import { useHistory, useLocation, useParams } from 'react-router-dom';
+5: import axios from 'axios';
+6: import styled from 'styled-components';
+7: import {
+8:   Alert, Card, CardDeck, Container,
+9: } from 'react-bootstrap';
+10: import { LinkContainer } from 'react-router-bootstrap';
+11: import { BsPlusCircleFill } from 'react-icons/bs';
+12: import Header from '../components/Header';
+13: 
+14: export default function ClassesPage () {
+15:   const { id } = useParams();
+16:   const location = useLocation();
+17:   const history = useHistory();
+18:   const [deletedClass] = useState(() => location.state && location.state.deletedClass);
+19:   const noticeRef = useRef(null);
+20:   const [classes, setClasses] = useState([]);
+21:   const [isLoading, setIsLoading] = useState(true);
+22: 
+23:   useEffect(() => {
+24:     if (deletedClass && noticeRef.current) {
+25:       noticeRef.current.focus();
+26:       history.replace({ ...location, state: { ...location.state, deletedClass: null } });
+27:     }
+28:   }, []);
+29: 
+30:   useEffect(getClasses, []);
+31: 
+32:   function getClasses () {
+33:     const request = axios.get(`http://localhost:3000/schools/${id}/classes`);
+34:     request.then((response) => {
+35:       setClasses([...response.data]);
+36:       setIsLoading(false);
+37:     });
+38:     request.catch(() => alert('Erro ao buscar as classes da escola selecionada'));
+39:   }
+40: 
+41:   return (
+42:     <StyledContainer fluid>
+43: 
+44:       <Header />
+45: 
+46:       {deletedClass && (
+47:         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+48:           Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
+49:         </Alert>
+50:       )}
+51: 
+52:       {isLoading
+53:         ? <p>Carregando...</p>
+54:         : (
+55:           <StyledCardDeck>
+56: 
+57:             <ClassItem to={`/escola/${id}/classes/nova`}>
+58:               <StyledCard>
+59:                 <Card.Text className="add-class">
+60:                   <BsPlusCircleFill />
+61:                   Adicionar Classe
+62:                 </Card.Text>
+63:               </StyledCard>
+64:             </ClassItem>
+65: 
+66:             {classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
+67: 
+68:           </StyledCardDeck>
+69:         )}
+70: 
+71:     </StyledContainer>
+72:   );
+73: }
+74: 
+75: function ClassCard (props) {
+76:   const { classs } = props;
+77:   const link = `/turma/${classs.id}`;
+78: 
+79:   return (
+80:     <ClassItem to={link}>
+81:       <StyledCard style={{ width: '18rem' }}>
+82:         <Card.Body>
+83:           <Card.Title>
+84:             Turma {classs.name}
+85:           </Card.Title>
+86:           <Card.Text>
+87:             {classs.grade}
+88:           </Card.Text>
+89:           <Card.Text>
+90:             {classs.segment}
+91:           </Card.Text>
+92:           <Card.Text>
+93:             Período: {classs.shift}
+94:           </Card.Text>
+95:           <Card.Text>
+96:             Limite de alunos: {classs.maxOccupancy}
+97:           </Card.Text>
+98:           <Card.Text>
+99:             Alunos matriculados: -
+100:           </Card.Text>
+101:         </Card.Body>
+102:       </StyledCard>
+103:     </ClassItem>
+104:   );
+105: }
+106: 
+107: const StyledContainer = styled(Container)`
+108:   padding-top: 100px;
+109: `;
+110: 
+111: const StyledCardDeck = styled(CardDeck)``;
+112: 
+113: const ClassItem = styled(LinkContainer)`
+114:   cursor: pointer;
+115:   font-size: 18px;
+116: 
+117:   p {
+118:     margin-bottom: 0;
+119:   }
+120: 
+121:   svg {
+122:     font-size: 20px;
+123:     margin-right: 5px;
+124:   }
+125: `;
+126: 
+127: const StyledCard = styled(Card)`
+128:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+129: 
+130:   .add-class {
+131:     align-items: center;
+132:     display: flex;
+133:     height: 100%;
+134:     justify-content: center;
+135:   }
+136: `;
+137: 
