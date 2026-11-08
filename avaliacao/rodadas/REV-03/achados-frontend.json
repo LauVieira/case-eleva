@@ -1336,6 +1336,19 @@
           },
           "resultado": "Commit a92231aeb6b59228851aaacbfb237eaab8035f2d associado à capacidade total já verificada e confirmada visualmente pela autora. Sem novos testes.",
           "evidencia": "Commit a92231aeb6b59228851aaacbfb237eaab8035f2d, de 2026-11-08T14:35:40-03:00, mensagem feat: implements school capacity. O diff a92231a~1..a92231a de src/components/SchoolCard.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A010-capacidade-correcao.patch (SHA-256 806121fc8f4e9d25b8ccf1d238dbbe8af99ba2da5b7c10df65b6ba54de2b050b). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A010-vinculacao-a92231a.txt (SHA-256 4de99bc04ec9ba4dd7c997bebff6b291104dde37c6dfd052d22340b0776db2d7). A autora confirmou a capacidade no site."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "ajuste_rotulo_autora",
+          "responsavel": "Autora Laura Vieira: decisão do rótulo; Grok, no Cursor: alteração no cartão, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Rótulo ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. A troca faz parte do diff REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011), em src/components/SchoolCard.js. O valor continua sendo totalCapacity. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "O cartão da escola passou a dizer Limite de alunos. O número continua o totalCapacity, inclusive zero.",
+          "evidencia": "A autora pediu o rótulo Limite de alunos por ser mais amigável. Escola 6 mostrou Limite de alunos: 15 e escola 2 mostrou Limite de alunos: 0. Observação compartilhada com REV-03-FE-A011 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). Esta troca não repete o cálculo da capacidade."
         }
       ]
     },
@@ -1370,14 +1383,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Remover os três elementos indicados por R13; usar Excluir escola, Turma e Turno de modo consistente.",
-      "verificacao_pendente": "Conferir textos renderizados e, na etapa final, compreensão dos termos com usuários.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "Compreensão dos termos com usuários permanece para a etapa final. Ver detalhes continua sem destino, conforme pedido da autora. Contraste, ampliação e NVDA permanecem para a etapa correspondente.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08, a autora pediu remover Vagas ocupadas e Alunos matriculados, renomear Dados avançados para Ver detalhes, trocar Adicionar Classe e a mensagem de erro para Turma, trocar Período para Turno e chamar a capacidade do cartão da escola de Limite de alunos.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "descricao": "Removidos Vagas ocupadas e Alunos matriculados. Dados avançados passou a Ver detalhes, sem rota. Adicionar Classe passou a Adicionar Turma e o alerta de falha da listagem passou a dizer turmas. Período passou a Turno. No cartão da escola, o valor de totalCapacity passou a aparecer como Limite de alunos. Excluir escola já estava nomeado assim.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-antes.txt (SHA-256 cbb4e8b74a6a0b414e2e7676321e0a42a368ffdd2a88eba8de74a89c3d3b7af2). Patch: REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). Compilação exit 0 em REV-03-FE-A011-textos-compilacao.txt (SHA-256 04b5f588006952aadf3533016ef86e9bdb45211d00a16027c9b173ffdfcfa1ab)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador com a API local. Sem escrita.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Execução em 2026-11-08. Escola 6: Limite de alunos: 15, Ver detalhes sem href, sem Vagas ocupadas. Escola 2: Limite de alunos: 0. Listagem da escola 6: Adicionar Turma, Turno e Limite de alunos, sem Alunos matriculados. Escola 10: alerta Erro ao buscar as turmas da escola selecionada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). Compreensão com usuários pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "solicitacao_e_delimitacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Antes da edição, SchoolCard.js e ClassesPage.js correspondiam a 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. package-lock.json já estava modificado. HANDOVER.md não rastreado. Backend sem alteração de código além do package-lock.json preexistente."
+          },
+          "resultado": "Autorizadas as trocas de texto descritas pela autora. Ver detalhes fica sem destino nesta etapa.",
+          "evidencia": "Em 2026-11-08, a autora pediu remover Vagas ocupadas e Alunos matriculados, renomear Dados avançados para Ver detalhes, trocar Adicionar Classe e a mensagem de erro para Turma, trocar Período para Turno e chamar a capacidade do cartão da escola de Limite de alunos. Estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-antes.txt (SHA-256 cbb4e8b74a6a0b414e2e7676321e0a42a368ffdd2a88eba8de74a89c3d3b7af2)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "Textos do detalhe da escola e da listagem de turmas ajustados, ainda sem commit.",
+          "evidencia": "SchoolCard.js e ClassesPage.js. Patch SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011. Compilação exit 0, SHA-256 da saída 04b5f588006952aadf3533016ef86e9bdb45211d00a16027c9b173ffdfcfa1ab."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_textos",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte; os textos pedidos foram observados no navegador.",
+          "evidencia": "C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). Escola 6 com Limite de alunos 15 e Ver detalhes sem link. Escola 2 com 0. Listagem com Adicionar Turma e Turno. Alerta da escola 10 com turmas. Sem sessão com usuários."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A012",

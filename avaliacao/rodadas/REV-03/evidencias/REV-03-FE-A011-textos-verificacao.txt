@@ -1,0 +1,24 @@
+REV-03 / REV-03-FE-A011
+Data: 2026-11-08
+Método: compilação e navegador com a API local. Sem escrita.
+Ambiente: Windows, frontend http://127.0.0.1:9000/, API http://localhost:3000/. Base 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15 com SchoolCard.js e ClassesPage.js locais.
+Compilação: exit 0. Sem prints.
+
+Caso 1 — /escola/6.
+Esperado: Limite de alunos 15, sem Vagas ocupadas, item Ver detalhes sem destino.
+Observado: Limite de alunos: 15. Textos Ver turmas, Ver detalhes, Editar escola e Excluir escola. Ver detalhes é um DIV sem href. Vagas ocupadas e Dados avançados ausentes. Passou.
+
+Caso 2 — /escola/2.
+Esperado: zero continua visível com o novo rótulo.
+Observado: Limite de alunos: 0. Passou.
+
+Caso 3 — /escola/6/classes.
+Esperado: Adicionar Turma, Turno e Limite de alunos, sem Alunos matriculados, Classe ou Período.
+Observado: Adicionar Turma; Turma jardim com Turno: Matutino e Limite de alunos: 15; Turma turma a com Turno: Integral e Limite de alunos: 0. Alunos matriculados, Classe e Período ausentes. Passou.
+
+Caso 4 — /escola/10/classes, escola inexistente.
+Esperado: alerta com turmas, sem anunciar lista vazia.
+Observado: GET /schools/10/classes?status=current. Alerta capturado: Erro ao buscar as turmas da escola selecionada. Adicionar Turma presente e sem a mensagem de nenhuma turma. Passou.
+
+Ver detalhes não recebeu rota. Compreensão com usuários não foi feita.
+Limites: sem contraste, ampliação, NVDA ou sessão com usuários.

@@ -1,0 +1,63 @@
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index 8c259cd..fefc054 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -42,10 +42,7 @@ export default function SchoolCard (props) {
+           Diretor(a): {headteacher}
+         </CardText>
+         <CardText>
+-          Capacidade total: {formatTotalCapacity(totalCapacity)}
+-        </CardText>
+-        <CardText>
+-          Vagas ocupadas: -
++          Limite de alunos: {formatTotalCapacity(totalCapacity)}
+         </CardText>
+ 
+       </Card.Body>
+@@ -56,7 +53,7 @@ export default function SchoolCard (props) {
+           <SiGoogleclassroom /> Ver turmas
+         </SchoolItem>
+         <SchoolItem>
+-          <ImInfo /> Dados avançados
++          <ImInfo /> Ver detalhes
+         </SchoolItem>
+         {editLink && (
+           <SchoolItem action href={editLink}>
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index c5dc139..bfcfdb5 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -55,7 +55,7 @@ export default function ClassesPage () {
+       setClasses([]);
+       setLoadFailed(true);
+       setIsLoading(false);
+-      alert('Erro ao buscar as classes da escola selecionada');
++      alert('Erro ao buscar as turmas da escola selecionada');
+     });
+   }, [id, statusFilter]);
+ 
+@@ -97,7 +97,7 @@ export default function ClassesPage () {
+                 <StyledCard>
+                   <Card.Text className="add-class">
+                     <BsPlusCircleFill />
+-                    Adicionar Classe
++                    Adicionar Turma
+                   </Card.Text>
+                 </StyledCard>
+               </ClassItem>
+@@ -133,14 +133,11 @@ function ClassCard (props) {
+             {classs.segment}
+           </Card.Text>
+           <Card.Text>
+-            Período: {classs.shift}
++            Turno: {classs.shift}
+           </Card.Text>
+           <Card.Text>
+             Limite de alunos: {classs.maxOccupancy}
+           </Card.Text>
+-          <Card.Text>
+-            Alunos matriculados: -
+-          </Card.Text>
+         </Card.Body>
+       </StyledCard>
+     </ClassItem>

@@ -42,10 +42,7 @@ export default function SchoolCard (props) {
           Diretor(a): {headteacher}
         </CardText>
         <CardText>
-          Capacidade total: {formatTotalCapacity(totalCapacity)}
-        </CardText>
-        <CardText>
-          Vagas ocupadas: -
+          Limite de alunos: {formatTotalCapacity(totalCapacity)}
         </CardText>
 
       </Card.Body>
@@ -56,7 +53,7 @@ export default function SchoolCard (props) {
           <SiGoogleclassroom /> Ver turmas
         </SchoolItem>
         <SchoolItem>
-          <ImInfo /> Dados avançados
+          <ImInfo /> Ver detalhes
         </SchoolItem>
         {editLink && (
           <SchoolItem action href={editLink}>

@@ -55,7 +55,7 @@ export default function ClassesPage () {
       setClasses([]);
       setLoadFailed(true);
       setIsLoading(false);
-      alert('Erro ao buscar as classes da escola selecionada');
+      alert('Erro ao buscar as turmas da escola selecionada');
     });
   }, [id, statusFilter]);
 
@@ -97,7 +97,7 @@ export default function ClassesPage () {
                 <StyledCard>
                   <Card.Text className="add-class">
                     <BsPlusCircleFill />
-                    Adicionar Classe
+                    Adicionar Turma
                   </Card.Text>
                 </StyledCard>
               </ClassItem>
@@ -133,13 +133,10 @@ function ClassCard (props) {
             {classs.segment}
           </Card.Text>
           <Card.Text>
-            Período: {classs.shift}
+            Turno: {classs.shift}
           </Card.Text>
           <Card.Text>
             Limite de alunos: {classs.maxOccupancy}
-          </Card.Text>
-          <Card.Text>
-            Alunos matriculados: -
           </Card.Text>
         </Card.Body>
       </StyledCard>
