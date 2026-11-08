@@ -1,0 +1,86 @@
+diff --git a/src/App.js b/src/App.js
+index 869608e..272ecab 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -10,6 +10,7 @@ import SchoolCreatePage from './pages/SchoolCreatePage';
+ import SchoolEditPage from './pages/SchoolEditPage';
+ import ClassCreatePage from './pages/ClassCreatePage';
+ import ClassDetailPage from './pages/ClassDetailPage';
++import ClassEditPage from './pages/ClassEditPage';
+ 
+ export default function App () {
+   return (
+@@ -22,6 +23,7 @@ export default function App () {
+         <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
+         <Route path="/escola/:id" component={SchoolPage} exact />
+         <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
++        <Route path="/turma/:id/editar" component={ClassEditPage} exact />
+         <Route path="/turma/:id" component={ClassDetailPage} exact />
+         <Route path="/escola/:id/classes" component={ClassesPage} exact />
+       </Switch>
+diff --git a/src/components/ClassForm.js b/src/components/ClassForm.js
+index 4be53b9..5f2df41 100644
+--- a/src/components/ClassForm.js
++++ b/src/components/ClassForm.js
+@@ -9,6 +9,7 @@ import {
+ export default function ClassForm (props) {
+   const {
+     values, onChange, onSubmit, errors = {}, submitting = false, onBack,
++    submitLabel = 'Cadastrar turma', cancelLabel = 'Voltar para as turmas',
+   } = props;
+   const grades = GRADES_BY_SEGMENT[values.segment] || [];
+   const gradeLabel = gradeFieldLabel(values.segment);
+@@ -178,11 +179,11 @@ export default function ClassForm (props) {
+ 
+       <Actions>
+         <SubmitButton type="submit" disabled={submitting}>
+-          {submitting ? 'Salvando...' : 'Cadastrar turma'}
++          {submitting ? 'Salvando...' : submitLabel}
+         </SubmitButton>
+         {onBack && (
+           <CancelButton type="button" variant="outline-secondary" onClick={onBack} disabled={submitting}>
+-            Voltar para as turmas
++            {cancelLabel}
+           </CancelButton>
+         )}
+       </Actions>
+diff --git a/src/pages/ClassDetailPage.js b/src/pages/ClassDetailPage.js
+index 98cb2b0..e046eb7 100644
+--- a/src/pages/ClassDetailPage.js
++++ b/src/pages/ClassDetailPage.js
+@@ -129,6 +129,7 @@ export default function ClassDetailPage () {
+           </div>
+         </DetailList>
+         <Actions>
++          <Link to={`/turma/${classData.id}/editar`}>Editar turma</Link>
+           <Link to={classesPath}>Voltar para as turmas</Link>
+         </Actions>
+       </>
+diff --git a/src/utils/classForm.js b/src/utils/classForm.js
+index 6b4ee95..0a0ed8c 100644
+--- a/src/utils/classForm.js
++++ b/src/utils/classForm.js
+@@ -43,6 +43,23 @@ export function formatClassDate (value) {
+   return date.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+ }
+ 
++export function classToFormValues (record) {
++  return {
++    name: formatClassName(record.name || ''),
++    segment: record.segment || '',
++    grade: record.grade || '',
++    shift: record.shift || '',
++    status: record.status || 'current',
++    maxOccupancy: record.maxOccupancy == null ? '' : String(record.maxOccupancy),
++  };
++}
++
++export function changedClassFields (current, original) {
++  return Object.fromEntries(
++    Object.entries(current).filter(([field, value]) => value !== original[field]),
++  );
++}
++
+ export function emptyClassForm () {
+   return {
+     name: '',

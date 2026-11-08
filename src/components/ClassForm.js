@@ -9,6 +9,7 @@ import {
 export default function ClassForm (props) {
   const {
     values, onChange, onSubmit, errors = {}, submitting = false, onBack,
+    submitLabel = 'Cadastrar turma', cancelLabel = 'Voltar para as turmas',
   } = props;
   const grades = GRADES_BY_SEGMENT[values.segment] || [];
   const gradeLabel = gradeFieldLabel(values.segment);
@@ -178,11 +179,11 @@ export default function ClassForm (props) {
 
       <Actions>
         <SubmitButton type="submit" disabled={submitting}>
-          {submitting ? 'Salvando...' : 'Cadastrar turma'}
+          {submitting ? 'Salvando...' : submitLabel}
         </SubmitButton>
         {onBack && (
           <CancelButton type="button" variant="outline-secondary" onClick={onBack} disabled={submitting}>
-            Voltar para as turmas
+            {cancelLabel}
           </CancelButton>
         )}
       </Actions>

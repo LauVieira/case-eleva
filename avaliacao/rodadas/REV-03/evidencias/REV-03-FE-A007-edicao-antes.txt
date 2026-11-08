@@ -1,0 +1,259 @@
+REV-03 / REV-03-FE-A007
+Data: 2026-11-08T16:34:46.465Z
+Frontend: 6c8eec027a5f2340bb07581c75507d8af5e5f578
+Branch: main
+Backend em execucao, sem alteracao de codigo: a023d1eea2093d5511c22cfc444e11dfef704e4f
+Estado local antes da edicao deste achado:
+M package-lock.json
+?? HANDOVER.md
+?? avaliacao/rodadas/REV-03/evidencias/_tmp-a007-antes.cjs
+Pedido: implementar a edicao de turma e da situacao. O detalhe A006 acabou de ser commitado e nao faz parte desta correcao.
+Metodo antes: inspecao do codigo atual. Nao houve PATCH.
+Constatacao: ClassDetailPage nao oferece Editar turma. App nao registra /turma/:id/editar. Nenhum modulo envia PATCH de turma. A escola nao e campo de transferencia porque o formulario de edicao nao existe.
+
+ARQUIVO src/App.js SHA256 0f743a774d45f3807e4c3b1099e255afe64aaa5ef4d68c28d5cbcca948fe87a3
+1: import React from 'react';
+2: import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+3: 
+4: import SignIn from './pages/SignIn';
+5: import LandingPage from './pages/LandingPage';
+6: import SectorPage from './pages/SectorPage';
+7: import SchoolPage from './pages/SchoolPage';
+8: import ClassesPage from './pages/ClassesPage';
+9: import SchoolCreatePage from './pages/SchoolCreatePage';
+10: import SchoolEditPage from './pages/SchoolEditPage';
+11: import ClassCreatePage from './pages/ClassCreatePage';
+12: import ClassDetailPage from './pages/ClassDetailPage';
+13: 
+14: export default function App () {
+15:   return (
+16:     <Router>
+17:       <Switch>
+18:         <Route path="/login" component={SignIn} exact />
+19:         <Route path="/" component={LandingPage} exact />
+20:         <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
+21:         <Route path="/setor/:id" component={SectorPage} exact />
+22:         <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
+23:         <Route path="/escola/:id" component={SchoolPage} exact />
+24:         <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
+25:         <Route path="/turma/:id" component={ClassDetailPage} exact />
+26:         <Route path="/escola/:id/classes" component={ClassesPage} exact />
+27:       </Switch>
+28:     </Router>
+29:   );
+30: }
+31: 
+
+ARQUIVO src/pages/ClassDetailPage.js SHA256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933
+1: import React, { useEffect, useRef, useState } from 'react';
+2: import { Link, useParams } from 'react-router-dom';
+3: import styled from 'styled-components';
+4: import { Button, Container } from 'react-bootstrap';
+5: 
+6: import Header from '../components/Header';
+7: import api from '../services/api';
+8: import { formatSchoolName } from '../utils/schoolForm';
+9: import {
+10:   formatClassDate, formatClassName, formatClassStatus, gradeFieldLabel,
+11: } from '../utils/classForm';
+12: 
+13: const maxId = 2147483647;
+14: 
+15: export default function ClassDetailPage () {
+16:   const { id } = useParams();
+17:   const classId = Number(id);
+18:   const [classData, setClassData] = useState(null);
+19:   const [isLoading, setIsLoading] = useState(true);
+20:   const [loadError, setLoadError] = useState(null);
+21:   const [loadAttempt, setLoadAttempt] = useState(0);
+22:   const headingRef = useRef(null);
+23: 
+24:   useEffect(() => {
+25:     let active = true;
+26:     setIsLoading(true);
+27:     setLoadError(null);
+28:     setClassData(null);
+29: 
+30:     const validId = Number.isInteger(classId) && classId > 0 && classId <= maxId;
+31:     if (!validId) {
+32:       setLoadError({ notFound: true, message: 'Turma não encontrada.' });
+33:       setIsLoading(false);
+34:     } else {
+35:       api.get(`/classes/${classId}`)
+36:         .then((response) => {
+37:           if (active) {
+38:             setClassData(response.data);
+39:             setIsLoading(false);
+40:           }
+41:         })
+42:         .catch((error) => {
+43:           if (!active) return;
+44:           const status = error.response && error.response.status;
+45:           const notFound = status === 404 || status === 422;
+46:           setLoadError({
+47:             notFound,
+48:             message: notFound ? 'Turma não encontrada.' : 'Não foi possível carregar a turma.',
+49:           });
+50:           setIsLoading(false);
+51:         });
+52:     }
+53: 
+54:     return () => { active = false; };
+55:   }, [classId, loadAttempt]);
+56: 
+57:   useEffect(() => {
+58:     const previousTitle = document.title;
+59:     document.title = classData
+60:       ? 'Detalhe da turma | Gestão Escolar'
+61:       : 'Turma | Gestão Escolar';
+62:     return () => { document.title = previousTitle; };
+63:   }, [classData]);
+64: 
+65:   useEffect(() => {
+66:     if (!isLoading && headingRef.current) headingRef.current.focus();
+67:   }, [isLoading, classData]);
+68: 
+69:   const school = classData && classData.school;
+70:   const schoolId = classData && (classData.schoolId || (school && school.id));
+71:   const schoolName = school && school.name ? formatSchoolName(school.name) : '';
+72:   const classesPath = schoolId ? `/escola/${schoolId}/classes` : '/';
+73:   const schoolPath = schoolId ? `/escola/${schoolId}` : '/';
+74: 
+75:   function renderContent () {
+76:     if (isLoading) return <p role="status">Carregando turma...</p>;
+77: 
+78:     if (loadError) {
+79:       return (
+80:         <>
+81:           <p role="alert">{loadError.message}</p>
+82:           <Actions>
+83:             {!loadError.notFound && (
+84:               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+85:                 Tentar novamente
+86:               </Button>
+87:             )}
+88:             <Link to="/">Ver setores</Link>
+89:           </Actions>
+90:         </>
+91:       );
+92:     }
+93: 
+94:     return (
+95:       <>
+96:         <ContextText>
+97:           Escola:
+98:           {' '}
+99:           <Link to={schoolPath}>{schoolName}</Link>
+100:         </ContextText>
+101:         <DetailList>
+102:           <div>
+103:             <dt>{gradeFieldLabel(classData.segment)}</dt>
+104:             <dd>{classData.grade}</dd>
+105:           </div>
+106:           <div>
+107:             <dt>Segmento</dt>
+108:             <dd>{classData.segment}</dd>
+109:           </div>
+110:           <div>
+111:             <dt>Turno</dt>
+112:             <dd>{classData.shift}</dd>
+113:           </div>
+114:           <div>
+115:             <dt>Situação</dt>
+116:             <dd>{formatClassStatus(classData.status)}</dd>
+117:           </div>
+118:           <div>
+119:             <dt>Capacidade</dt>
+120:             <dd>{classData.maxOccupancy}</dd>
+121:           </div>
+122:           <div>
+123:             <dt>Criada em</dt>
+124:             <dd>{formatClassDate(classData.createdAt)}</dd>
+125:           </div>
+126:           <div>
+127:             <dt>Atualizada em</dt>
+128:             <dd>{formatClassDate(classData.updatedAt)}</dd>
+129:           </div>
+130:         </DetailList>
+131:         <Actions>
+132:           <Link to={classesPath}>Voltar para as turmas</Link>
+133:         </Actions>
+134:       </>
+135:     );
+136:   }
+137: 
+138:   return (
+139:     <StyledContainer fluid>
+140:       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+141:       <Header />
+142:       <Main id="conteudo-principal" tabIndex={-1}>
+143:         <Heading ref={headingRef} tabIndex={-1}>
+144:           {classData ? formatClassName(classData.name) : 'Turma'}
+145:         </Heading>
+146:         {renderContent()}
+147:       </Main>
+148:     </StyledContainer>
+149:   );
+150: }
+151: 
+152: const StyledContainer = styled(Container)`
+153:   padding-bottom: 40px;
+154:   padding-top: 100px;
+155: `;
+156: 
+157: const Main = styled.main`
+158:   margin: 0 auto;
+159:   max-width: 720px;
+160: `;
+161: 
+162: const Heading = styled.h1`
+163:   color: var(--navy-blue);
+164:   font-size: 28px;
+165:   margin-bottom: 20px;
+166: `;
+167: 
+168: const ContextText = styled.p`
+169:   margin-bottom: 24px;
+170: `;
+171: 
+172: const DetailList = styled.dl`
+173:   display: grid;
+174:   gap: 16px;
+175:   margin-bottom: 8px;
+176: 
+177:   div { margin: 0; }
+178:   dt {
+179:     color: #5c6b73;
+180:     font-size: 14px;
+181:     margin-bottom: 4px;
+182:   }
+183:   dd {
+184:     font-size: 18px;
+185:     margin-bottom: 0;
+186:   }
+187: `;
+188: 
+189: const Actions = styled.div`
+190:   align-items: center;
+191:   display: flex;
+192:   flex-wrap: wrap;
+193:   gap: 20px;
+194:   margin-top: 24px;
+195: `;
+196: 
+197: const SkipLink = styled.a`
+198:   background-color: #FFF;
+199:   color: var(--navy-blue);
+200:   left: 16px;
+201:   padding: 12px;
+202:   position: fixed;
+203:   top: 8px;
+204:   transform: translateY(-200%);
+205:   z-index: 1100;
+206: 
+207:   :focus { transform: translateY(0); }
+208: `;
+209: 
+
+AUSENTE src/pages/ClassEditPage.js existe=false
+Contrato lido: PATCH /classes/:id aceita um ou mais campos, omite o que nao muda, rejeita schoolId, responde 200 com a turma, 409 para nome ativo duplicado inclusive na reativacao, 422 para dado invalido e 404 para turma ausente.

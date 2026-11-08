@@ -734,26 +734,26 @@
       "sugestao": "Implementar consulta de turma com identificação própria, vínculo compreensível com escola e apresentação consistente das datas gerenciadas pelo sistema.",
       "verificacao_pendente": null,
       "confirmacao_autora": "confirmado",
-      "justificativa_confirmacao": "A autora declarou, em 2026-11-08, que abriu a turma e validou essa abertura na aplicação. Em seguida esclareceu que essa validação é do achado de ver os detalhes da turma, REV-03-FE-A006, e não do cadastro create class, REV-03-FE-A005.",
+      "justificativa_confirmacao": "A autora declarou, em 2026-11-08, que abriu a turma e validou essa abertura na aplicação. Em seguida esclareceu que essa validação é do achado de ver os detalhes da turma, REV-03-FE-A006, e não do cadastro create class, REV-03-FE-A005. Ao pedir a associação do commit, a autora também declarou que validou a tela de detalhe e que está correta.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+          "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Consulta de turma ainda sem commit, sobre o frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. O cadastro A005 já estava no índice. Diff desta correção em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-correcao.patch (SHA-256 439812b31272197cb3516d63c702a6c36c10c746795baff9c3831ca5b806375d): src/App.js, src/pages/ClassesPage.js e src/utils/classForm.js. Nova src/pages/ClassDetailPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-fontes/src/pages/ClassDetailPage.js (SHA-256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933). package-lock.json previamente modificado e preservado. Backend em execução, sem alteração de código."
+          "alteracoes_locais": "Consulta de turma versionada em 6c8eec027a5f2340bb07581c75507d8af5e5f578. ClassDetailPage.js do commit é idêntica à cópia REV-03-FE-A006-detalhe-fontes. O diff normalizado de App.js, ClassesPage.js e classForm.js corresponde ao patch do A006. A edição da turma é posterior e local. package-lock.json continua modificado fora do commit. Esta vinculação não repete a leitura."
         },
         "descricao": "Implementada a rota /turma/:id e a consulta da turma. O cartão de cada turma da listagem passa a abrir o próprio detalhe; o cartão Adicionar Classe permanece no cadastro. A tela busca GET /classes/:id, mostra o nome em maiúsculas, a escola pelo nome com retorno à escola e à listagem, e apresenta situação, grupo ou ano, segmento, turno, capacidade, data de criação e data de atualização. Identificador inválido e turma ausente informam que a turma não foi encontrada, sem oferecer edição ou exclusão.",
         "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
-        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-antes.txt (SHA-256 228579373767475286b39ba3bc24cb08741afa4d62dcc5ec700f61a26e227b05). Depois: patch SHA-256 439812b31272197cb3516d63c702a6c36c10c746795baff9c3831ca5b806375d e ClassDetailPage.js SHA-256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933."
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-antes.txt (SHA-256 228579373767475286b39ba3bc24cb08741afa4d62dcc5ec700f61a26e227b05). Depois: patch SHA-256 439812b31272197cb3516d63c702a6c36c10c746795baff9c3831ca5b806375d e ClassDetailPage.js SHA-256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933. Commit 6c8eec027a5f2340bb07581c75507d8af5e5f578, de 2026-11-08T13:32:01-03:00, mensagem feat: implements view class details. Correspondência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-vinculacao-6c8eec0.txt. Sem novos testes."
       },
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+          "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Consulta de turma ainda sem commit, sobre o frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. O cadastro A005 já estava no índice. Diff desta correção em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-correcao.patch (SHA-256 439812b31272197cb3516d63c702a6c36c10c746795baff9c3831ca5b806375d): src/App.js, src/pages/ClassesPage.js e src/utils/classForm.js. Nova src/pages/ClassDetailPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-detalhe-fontes/src/pages/ClassDetailPage.js (SHA-256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933). package-lock.json previamente modificado e preservado. Backend em execução, sem alteração de código."
+          "alteracoes_locais": "Consulta de turma versionada em 6c8eec027a5f2340bb07581c75507d8af5e5f578. ClassDetailPage.js do commit é idêntica à cópia REV-03-FE-A006-detalhe-fontes. O diff normalizado de App.js, ClassesPage.js e classForm.js corresponde ao patch do A006. A edição da turma é posterior e local. package-lock.json continua modificado fora do commit. Esta vinculação não repete a leitura."
         },
         "metodo": "Compilação Webpack e interação no Chrome com a API e o banco locais em execução. Leituras reais de GET; escritas bloqueadas. Sem PATCH e sem confirmação humana.",
         "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
@@ -812,6 +812,19 @@
           },
           "resultado": "confirmado",
           "evidencia": "A autora declarou, em 2026-11-08, que abriu a turma e validou essa abertura na aplicação. Em seguida esclareceu que essa validação é do achado de ver os detalhes da turma, REV-03-FE-A006, e não do cadastro create class, REV-03-FE-A005."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit e validação da tela; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Consulta de turma versionada em 6c8eec027a5f2340bb07581c75507d8af5e5f578. ClassDetailPage.js do commit é idêntica à cópia REV-03-FE-A006-detalhe-fontes. O diff normalizado de App.js, ClassesPage.js e classForm.js corresponde ao patch do A006. A edição da turma é posterior e local. package-lock.json continua modificado fora do commit. Esta vinculação não repete a leitura."
+          },
+          "resultado": "Commit 6c8eec027a5f2340bb07581c75507d8af5e5f578 associado à consulta já verificada. Confirmação e situação preservadas. Sem novos testes.",
+          "evidencia": "Commit 6c8eec027a5f2340bb07581c75507d8af5e5f578, de 2026-11-08T13:32:01-03:00, mensagem feat: implements view class details. ClassDetailPage.js SHA-256 1a2d0cf6b9794feba65da51a4b464cd44b8ac6f991dd72ea256bb726f2546933 é idêntica à cópia. O diff 6c8eec0~1..6c8eec0 de src/App.js, src/pages/ClassesPage.js e src/utils/classForm.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A006-detalhe-correcao.patch (SHA-256 439812b31272197cb3516d63c702a6c36c10c746795baff9c3831ca5b806375d). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A006-vinculacao-6c8eec0.txt. A autora declarou que a tela de detalhe está correta. A edição não faz parte deste commit."
         }
       ]
     },
@@ -850,14 +863,75 @@
       "prioridade": "alta",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Implementar edição conforme CT01, CT02 e CT04, com escola somente informativa, situação editável, validação e preservação dos dados após erro.",
-      "verificacao_pendente": "Após implementação, verificar edição parcial, impossibilidade de transferir turma, reativação conflitante e preservação de createdAt com atualização de updatedAt.",
+      "verificacao_pendente": "PATCH real em banco isolado, preservação persistida de createdAt, atualização persistida de updatedAt e reativação conflitante contra uma turma ativa existente. Teclado completo, contraste, texto a 200%, NVDA e confirmação da autora permanecem pendentes.",
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "aguardando_reavaliacao",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Edição de turma ainda sem commit, sobre 6c8eec027a5f2340bb07581c75507d8af5e5f578. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-correcao.patch (SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147): src/App.js, src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js. Nova src/pages/ClassEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-fontes/src/pages/ClassEditPage.js (SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc). package-lock.json previamente modificado e preservado. Backend sem alteração de código."
+        },
+        "descricao": "Implementada a rota /turma/:id/editar e a ação Editar turma no detalhe. A escola é somente informativa e não entra no PATCH. O formulário altera nome, segmento, grupo ou ano, turno, situação e capacidade; a situação oferece Ativa e Encerrada. Só os campos modificados são enviados. Sem mudança, não há envio. Cancelar volta ao detalhe. Validação impede combinação inválida. Conflito 409, erro 422, 404, 500 e falha de rede preservam o preenchimento. A resposta de sucesso mostra a data de criação e a de atualização recebidas.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-antes.txt (SHA-256 23782ac89195e38c8217ecc94f078fc96b5c53b3f99ba81b1ceb3d77b364e91d). Depois: patch SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147 e ClassEditPage.js SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc. Nenhum PATCH real foi executado."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Edição de turma ainda sem commit, sobre 6c8eec027a5f2340bb07581c75507d8af5e5f578. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-correcao.patch (SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147): src/App.js, src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js. Nova src/pages/ClassEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-fontes/src/pages/ClassEditPage.js (SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc). package-lock.json previamente modificado e preservado. Backend sem alteração de código."
+        },
+        "metodo": "Compilação Webpack e Chrome com GET real da turma 8 e PATCH interceptado antes do servidor. Sem gravação no banco e sem confirmação humana.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "resultado": "inconclusivo",
+        "evidencia": "Execução em 2026-11-08. Compilação exit 0 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-compilacao.txt (SHA-256 add56750513e942df5d1f7e8d6dba38111ce3672ed22b21206ff11545a3dde8f). Procedimento C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-navegador.cjs e resultado C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-navegador.json (SHA-256 2647fb6db2530fb0452553abf06dbda8f42aa6cbe98bc95d7321123b1be21935). Dez casos passaram e seis PATCH fictícios foram para /classes/8: capacidade 16 sozinha; nome normalizado outra turma com 409 e texto preservado; situação completed sozinha, com criação simulada mantida em 07/11/2026, 21:36 e atualização em 08/11/2026, 13:40; falha 500 com reenvio; envio único. Sem alteração e cancelamento não enviaram. Creche limpou o grupo sem PATCH. Identificador abc não abriu formulário. Nenhum schoolId, createdAt ou updatedAt saiu no corpo. Nenhuma gravação real. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-verificacao.txt (SHA-256 497c74cb6f064cba2c273c384b48243feadcc50d3a870b68234d2d5b46d341f3). Persistência, reativação real e confirmação da autora pendentes."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "autorizacao_implementacao",
+          "responsavel": "Autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Antes da edição, o detalhe estava commitado em 6c8eec027a5f2340bb07581c75507d8af5e5f578 e não havia PATCH de turma. package-lock.json e HANDOVER.md estavam fora do commit."
+          },
+          "resultado": "Autorizada a implementação da edição de turma. Não se atribuiu confirmação do diagnóstico à autora.",
+          "evidencia": "Pedido nesta conversa: implementar a tela de edição que resolve REV-03-FE-A007. Baseline em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-antes.txt (SHA-256 23782ac89195e38c8217ecc94f078fc96b5c53b3f99ba81b1ceb3d77b364e91d)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "implementacao_edicao_turma",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Edição de turma ainda sem commit, sobre 6c8eec027a5f2340bb07581c75507d8af5e5f578. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-correcao.patch (SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147): src/App.js, src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js. Nova src/pages/ClassEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-fontes/src/pages/ClassEditPage.js (SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc). package-lock.json previamente modificado e preservado. Backend sem alteração de código."
+          },
+          "resultado": "Fluxo implementado; sem commit e sem PATCH real.",
+          "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-antes.txt (SHA-256 23782ac89195e38c8217ecc94f078fc96b5c53b3f99ba81b1ceb3d77b364e91d). Depois: patch SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147 e ClassEditPage.js SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc. Nenhum PATCH real foi executado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_edicao_simulada",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "6c8eec027a5f2340bb07581c75507d8af5e5f578",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Edição de turma ainda sem commit, sobre 6c8eec027a5f2340bb07581c75507d8af5e5f578. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-correcao.patch (SHA-256 12f379efd0ee17fcc6cdba1f73915067ea32826142f78eef440627b5ad21c147): src/App.js, src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js. Nova src/pages/ClassEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-fontes/src/pages/ClassEditPage.js (SHA-256 f46a8943efc74e63fd4da236aac9707592c2eb2ef60535f4588570fbcd0646dc). package-lock.json previamente modificado e preservado. Backend sem alteração de código."
+          },
+          "resultado": "inconclusivo no conjunto; 10 casos passaram com 6 PATCH simulados e nenhuma gravação real.",
+          "evidencia": "Execução em 2026-11-08. Compilação exit 0 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-compilacao.txt (SHA-256 add56750513e942df5d1f7e8d6dba38111ce3672ed22b21206ff11545a3dde8f). Procedimento C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-navegador.cjs e resultado C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-navegador.json (SHA-256 2647fb6db2530fb0452553abf06dbda8f42aa6cbe98bc95d7321123b1be21935). Dez casos passaram e seis PATCH fictícios foram para /classes/8: capacidade 16 sozinha; nome normalizado outra turma com 409 e texto preservado; situação completed sozinha, com criação simulada mantida em 07/11/2026, 21:36 e atualização em 08/11/2026, 13:40; falha 500 com reenvio; envio único. Sem alteração e cancelamento não enviaram. Creche limpou o grupo sem PATCH. Identificador abc não abriu formulário. Nenhum schoolId, createdAt ou updatedAt saiu no corpo. Nenhuma gravação real. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A007-edicao-verificacao.txt (SHA-256 497c74cb6f064cba2c273c384b48243feadcc50d3a870b68234d2d5b46d341f3). Persistência, reativação real e confirmação da autora pendentes."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A008",

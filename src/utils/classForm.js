@@ -43,6 +43,23 @@ export function formatClassDate (value) {
   return date.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 }
 
+export function classToFormValues (record) {
+  return {
+    name: formatClassName(record.name || ''),
+    segment: record.segment || '',
+    grade: record.grade || '',
+    shift: record.shift || '',
+    status: record.status || 'current',
+    maxOccupancy: record.maxOccupancy == null ? '' : String(record.maxOccupancy),
+  };
+}
+
+export function changedClassFields (current, original) {
+  return Object.fromEntries(
+    Object.entries(current).filter(([field, value]) => value !== original[field]),
+  );
+}
+
 export function emptyClassForm () {
   return {
     name: '',

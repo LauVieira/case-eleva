@@ -129,6 +129,7 @@ export default function ClassDetailPage () {
           </div>
         </DetailList>
         <Actions>
+          <Link to={`/turma/${classData.id}/editar`}>Editar turma</Link>
           <Link to={classesPath}>Voltar para as turmas</Link>
         </Actions>
       </>
