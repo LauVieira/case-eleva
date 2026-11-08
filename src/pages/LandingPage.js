@@ -59,8 +59,12 @@ export default function LandingPage () {
       )}
       {!isLoading && !loadError && sectors.length === 0 && <p>Nenhum setor cadastrado.</p>}
       {!isLoading && !loadError && sectors.length > 0 && (
-        <StyledListGroup>
-          {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
+        <StyledListGroup as="ul">
+          {sectors.map((sector) => (
+            <CollectionItem key={sector.id}>
+              <SectorCard sector={sector} />
+            </CollectionItem>
+          ))}
         </StyledListGroup>
       )}
       </Main>
@@ -121,7 +125,14 @@ const QueryError = styled.div`
   text-align: center;
 `;
 
-const StyledListGroup = styled(ListGroup)``;
+const StyledListGroup = styled(ListGroup)`
+  margin: 0;
+  padding: 0;
+`;
+
+const CollectionItem = styled.li`
+  display: contents;
+`;
 
 const SectorItem = styled(ListGroup.Item)`
   align-items: center;

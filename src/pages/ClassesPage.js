@@ -149,18 +149,22 @@ export default function ClassesPage () {
           <>
             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
             <CardGrid>
+              <CollectionItem>
+                <ClassItem to={`/escola/${id}/classes/nova`}>
+                  <StyledCard>
+                    <Card.Text className="add-class">
+                      <BsPlusCircleFill />
+                      Adicionar Turma
+                    </Card.Text>
+                  </StyledCard>
+                </ClassItem>
+              </CollectionItem>
 
-              <ClassItem to={`/escola/${id}/classes/nova`}>
-                <StyledCard>
-                  <Card.Text className="add-class">
-                    <BsPlusCircleFill />
-                    Adicionar Turma
-                  </Card.Text>
-                </StyledCard>
-              </ClassItem>
-
-              {!loadFailed && classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
-
+              {!loadFailed && classes.map((classs) => (
+                <CollectionItem key={classs.id}>
+                  <ClassCard classs={classs} />
+                </CollectionItem>
+              ))}
             </CardGrid>
           </>
         )}
@@ -288,12 +292,19 @@ const QueryError = styled.div`
   text-align: center;
 `;
 
-const CardGrid = styled.div`
+const CardGrid = styled.ul`
   align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const CollectionItem = styled.li`
+  display: contents;
 `;
 
 const ClassItem = styled(LinkContainer)`

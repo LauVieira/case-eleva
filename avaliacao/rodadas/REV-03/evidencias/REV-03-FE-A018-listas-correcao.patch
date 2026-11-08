@@ -1,0 +1,150 @@
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index 2846891..de6572c 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -149,18 +149,22 @@ export default function ClassesPage () {
+           <>
+             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
+             <CardGrid>
+-
+-              <ClassItem to={`/escola/${id}/classes/nova`}>
+-                <StyledCard>
+-                  <Card.Text className="add-class">
+-                    <BsPlusCircleFill />
+-                    Adicionar Turma
+-                  </Card.Text>
+-                </StyledCard>
+-              </ClassItem>
+-
+-              {!loadFailed && classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
+-
++              <CollectionItem>
++                <ClassItem to={`/escola/${id}/classes/nova`}>
++                  <StyledCard>
++                    <Card.Text className="add-class">
++                      <BsPlusCircleFill />
++                      Adicionar Turma
++                    </Card.Text>
++                  </StyledCard>
++                </ClassItem>
++              </CollectionItem>
++
++              {!loadFailed && classes.map((classs) => (
++                <CollectionItem key={classs.id}>
++                  <ClassCard classs={classs} />
++                </CollectionItem>
++              ))}
+             </CardGrid>
+           </>
+         )}
+@@ -288,12 +292,19 @@ const QueryError = styled.div`
+   text-align: center;
+ `;
+ 
+-const CardGrid = styled.div`
++const CardGrid = styled.ul`
+   align-items: stretch;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   justify-content: flex-start;
++  list-style: none;
++  margin: 0;
++  padding: 0;
++`;
++
++const CollectionItem = styled.li`
++  display: contents;
+ `;
+ 
+ const ClassItem = styled(LinkContainer)`
+diff --git a/src/pages/LandingPage.js b/src/pages/LandingPage.js
+index 18c332c..5ffda6e 100644
+--- a/src/pages/LandingPage.js
++++ b/src/pages/LandingPage.js
+@@ -59,8 +59,12 @@ export default function LandingPage () {
+       )}
+       {!isLoading && !loadError && sectors.length === 0 && <p>Nenhum setor cadastrado.</p>}
+       {!isLoading && !loadError && sectors.length > 0 && (
+-        <StyledListGroup>
+-          {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
++        <StyledListGroup as="ul">
++          {sectors.map((sector) => (
++            <CollectionItem key={sector.id}>
++              <SectorCard sector={sector} />
++            </CollectionItem>
++          ))}
+         </StyledListGroup>
+       )}
+       </Main>
+@@ -121,7 +125,14 @@ const QueryError = styled.div`
+   text-align: center;
+ `;
+ 
+-const StyledListGroup = styled(ListGroup)``;
++const StyledListGroup = styled(ListGroup)`
++  margin: 0;
++  padding: 0;
++`;
++
++const CollectionItem = styled.li`
++  display: contents;
++`;
+ 
+ const SectorItem = styled(ListGroup.Item)`
+   align-items: center;
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index 62d1cb8..36d413c 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -129,16 +129,20 @@ export default function SectorPage () {
+       )}
+       {!isLoading && !loadError && !sectorMissing && (
+           <CardGrid>
+-            <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+-              <StyledCard>
+-                <Card.Text className="add-school">
+-                  <BsPlusCircleFill />
+-                  Adicionar Escola
+-                </Card.Text>
+-              </StyledCard>
+-            </SchoolItem>
++            <CollectionItem>
++              <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
++                <StyledCard>
++                  <Card.Text className="add-school">
++                    <BsPlusCircleFill />
++                    Adicionar Escola
++                  </Card.Text>
++                </StyledCard>
++              </SchoolItem>
++            </CollectionItem>
+             {schools.map((school) => (
+-              <SchoolCard key={school.id} school={school} />
++              <CollectionItem key={school.id}>
++                <SchoolCard school={school} />
++              </CollectionItem>
+             ))}
+           </CardGrid>
+         )}
+@@ -216,12 +220,19 @@ const QueryError = styled.div`
+   text-align: center;
+ `;
+ 
+-const CardGrid = styled.div`
++const CardGrid = styled.ul`
+   align-items: stretch;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   justify-content: flex-start;
++  list-style: none;
++  margin: 0;
++  padding: 0;
++`;
++
++const CollectionItem = styled.li`
++  display: contents;
+ `;
+ 
+ const SchoolItem = styled.a`

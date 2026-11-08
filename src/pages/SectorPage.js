@@ -129,16 +129,20 @@ export default function SectorPage () {
       )}
       {!isLoading && !loadError && !sectorMissing && (
           <CardGrid>
-            <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
-              <StyledCard>
-                <Card.Text className="add-school">
-                  <BsPlusCircleFill />
-                  Adicionar Escola
-                </Card.Text>
-              </StyledCard>
-            </SchoolItem>
+            <CollectionItem>
+              <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+                <StyledCard>
+                  <Card.Text className="add-school">
+                    <BsPlusCircleFill />
+                    Adicionar Escola
+                  </Card.Text>
+                </StyledCard>
+              </SchoolItem>
+            </CollectionItem>
             {schools.map((school) => (
-              <SchoolCard key={school.id} school={school} />
+              <CollectionItem key={school.id}>
+                <SchoolCard school={school} />
+              </CollectionItem>
             ))}
           </CardGrid>
         )}
@@ -216,12 +220,19 @@ const QueryError = styled.div`
   text-align: center;
 `;
 
-const CardGrid = styled.div`
+const CardGrid = styled.ul`
   align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const CollectionItem = styled.li`
+  display: contents;
 `;
 
 const SchoolItem = styled.a`

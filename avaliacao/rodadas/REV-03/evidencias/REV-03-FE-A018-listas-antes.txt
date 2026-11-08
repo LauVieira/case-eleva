@@ -1,0 +1,10 @@
+REV-03-FE-A018 — colecoes como lista com li display contents
+Data: 2026-11-08T22:36:58.159Z
+Frontend: d3d2d27d6a2386641df8a3bb18617fadb7ae024b
+Branch: main
+Estado local antes da edicao: M package-lock.json; ?? HANDOVER.md
+Pedido: ul/li com display contents para manter a fileira e as faixas.
+
+ARQUIVO src/pages/LandingPage.js SHA256 e74ae7a44286534eaa1a8eb20210b3cfc42e9cdc3e22c830d7b7f80f9bfdd2ee
+ARQUIVO src/pages/SectorPage.js SHA256 fa09051efb5e0684b2e189b491c375c5890722d9798394025fa890b230713124
+ARQUIVO src/pages/ClassesPage.js SHA256 2163c3f0bdf54db5ca3ebd6e4b43ce1d0f7ddad36b4daaa34551c2d48973a92f

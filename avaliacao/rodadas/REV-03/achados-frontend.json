@@ -2264,14 +2264,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Representar as coleções com listas e itens semânticos, mantendo os cartões e links em seu interior.",
-      "verificacao_pendente": "Conferir o DOM efetivo e identificação/contagem dos itens pelo NVDA ao final.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "A identificação e a contagem dos itens com NVDA ficam para a etapa final.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que confirmou visualmente e commitou. A confirmação cobre a fileira que ela viu. Não inclui NVDA.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "bc726c3de8e2026d3e6915907b1711598a04446c",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Listas versionadas em bc726c3de8e2026d3e6915907b1711598a04446c. O diff normalizado de LandingPage.js, SectorPage.js e ClassesPage.js corresponde integralmente ao patch REV-03-FE-A018-listas-correcao.patch (SHA-256 ee590a414b9f4e4c2357e26e547d92f68bea21f4e84bc3cbbfacd1b370439e5d). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "As coleções de setores, escolas e turmas passaram a ser ul com li. O li usa display contents, então a faixa e o cartão continuam sendo a caixa da fileira. A ul tem margem zero para não herdar o margin-bottom do Bootstrap.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A018-listas-antes.txt (SHA-256 5b3135cd1a96b545ecd5a3da0851ba3ccab8e132bf45d20743c75c8897d89034). Patch: REV-03-FE-A018-listas-correcao.patch (SHA-256 ee590a414b9f4e4c2357e26e547d92f68bea21f4e84bc3cbbfacd1b370439e5d). Compilação exit 0 em REV-03-FE-A018-listas-compilacao.txt (SHA-256 3b7b9b11a56a217b12f4968c71339438f519d9054e28206d4cef842883a72071)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "bc726c3de8e2026d3e6915907b1711598a04446c",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Listas versionadas em bc726c3de8e2026d3e6915907b1711598a04446c. O diff das três páginas corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e inspeção do DOM no navegador, com GET real e medida da fileira. Sem NVDA. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, / mostrou ul com 11 li em display contents e faixa de 1728px. /setor/2 mostrou 5 li e cartões de 288px na mesma linha, com intervalo de 20px. /escola/6/classes mostrou 3 li, cartões de 288px na mesma linha, e a árvore expôs listitem. Passos em REV-03-FE-A018-listas-verificacao.txt (SHA-256 6f88218a11ac74b21962ee8ecc85cc3a12cc5580689617604a9e0a25d3a3ae25). NVDA não foi executado. Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "d3d2d27d6a2386641df8a3bb18617fadb7ae024b",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Listas ainda sem commit, sobre d3d2d27d6a2386641df8a3bb18617fadb7ae024b, em LandingPage, SectorPage e ClassesPage. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "As três coleções são ul/li com display contents. Ainda sem commit.",
+          "evidencia": "Patch REV-03-FE-A018-listas-correcao.patch (SHA-256 ee590a414b9f4e4c2357e26e547d92f68bea21f4e84bc3cbbfacd1b370439e5d)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "d3d2d27d6a2386641df8a3bb18617fadb7ae024b",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas três páginas locais da correção, ainda sem commit. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "DOM e medida da fileira em REV-03-FE-A018-listas-verificacao.txt (SHA-256 6f88218a11ac74b21962ee8ecc85cc3a12cc5580689617604a9e0a25d3a3ae25). NVDA não executado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_listas",
+          "responsavel": "Autora Laura Vieira: commit e confirmação visual; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "bc726c3de8e2026d3e6915907b1711598a04446c",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Listas versionadas em bc726c3de8e2026d3e6915907b1711598a04446c. O diff normalizado das três páginas corresponde integralmente ao patch REV-03-FE-A018-listas-correcao.patch (SHA-256 ee590a414b9f4e4c2357e26e547d92f68bea21f4e84bc3cbbfacd1b370439e5d). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado visualmente pela autora. Commit bc726c3de8e2026d3e6915907b1711598a04446c associado às listas. Sem novos testes.",
+          "evidencia": "Commit bc726c3de8e2026d3e6915907b1711598a04446c, de 2026-11-08T20:16:01-03:00, mensagem chore: turn div into li. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A018-vinculacao-bc726c3.txt (SHA-256 4db0ef509999853d16851a4bfae4dc2e1bb26c887549dd35dd3044fe713ae241)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A019",

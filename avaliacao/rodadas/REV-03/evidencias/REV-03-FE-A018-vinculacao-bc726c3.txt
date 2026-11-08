@@ -1,0 +1,17 @@
+REV-03 / REV-03-FE-A018 — vinculação do commit das listas
+Data: 2026-11-08
+Commit: bc726c3de8e2026d3e6915907b1711598a04446c
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T20:16:01-03:00
+Mensagem: chore: turn div into li
+Base: d3d2d27d6a2386641df8a3bb18617fadb7ae024b
+
+Arquivos do commit: achados-frontend.json, relatorio-frontend.md, as quatro evidências REV-03-FE-A018-listas-*, src/pages/LandingPage.js, src/pages/SectorPage.js e src/pages/ClassesPage.js.
+
+O diff normalizado dessas três páginas, de d3d2d27 para bc726c3, é idêntico ao patch REV-03-FE-A018-listas-correcao.patch (SHA-256 ee590a414b9f4e4c2357e26e547d92f68bea21f4e84bc3cbbfacd1b370439e5d, 4636 bytes).
+
+A autora declarou que confirmou visualmente e commitou.
+
+package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Backend sem alteração de código.
+
+A associação não repete a compilação nem a medida da fileira. NVDA não foi executado. A confirmação é declaração da autora.
