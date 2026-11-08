@@ -1,0 +1,39 @@
+REV-03 / REV-03-FE-A013
+Data: 2026-11-08
+Método: compilação e navegador com GET real. Sem escrita, seed ou migration. Sem prints.
+Ambiente: Windows, Chrome pelo navegador do Cursor, frontend http://127.0.0.1:9000/, API http://localhost:3000/. Frontend e6c52f4ebff4916ec500ee74136ac2581a0af4d1 com SectorPage.js, ClassesPage.js e SchoolPage.js locais. Backend a023d1eea2093d5511c22cfc444e11dfef704e4f.
+Compilação: exit 0. Saída em REV-03-FE-A013-contexto-compilacao.txt.
+
+Caso 1 — abertura direta de /setor/1.
+Esperado: nome e código do setor, retorno à lista de setores e as escolas do setor.
+Observado: "Setor: Setor Azul · Código: SA-1", link "Voltar aos setores", "Adicionar Escola" e a escola de demonstração. O clique em "Voltar aos setores" abriu http://127.0.0.1:9000/. Passou.
+
+Caso 2 — abertura direta de /setor/2.
+Esperado: outro setor identificado, com as escolas dele.
+Observado: "Setor: Setor Amarelo · Código: SA-2", "Voltar aos setores", "Adicionar Escola" e quatro escolas. Passou.
+
+Caso 3 — /escola/6.
+Esperado: setor da escola pelo nome e código, retorno a esse setor, e o detalhe da escola preservado.
+Observado: "Setor: Setor Azul · Código: SA-1", com "Setor Azul" como link, "Voltar ao setor", limite de alunos 15, datas 07/11/2026, 21:36, Ver turmas, Editar escola e Excluir escola. "Voltar ao setor" e o nome "Setor Azul" abriram /setor/1. Passou.
+
+Caso 4 — abertura direta de /escola/6/classes.
+Esperado: nome da escola, retorno ao detalhe, filtros e turmas.
+Observado: "Escola: Escola De Demonstração", com o nome como link para /escola/6, "Voltar para a escola", filtro Ativas marcado e duas turmas ativas. "Todas" passou a mostrar também a turma encerrada, com "Situação: Encerrada" e limite 25. O nome da escola e "Voltar para a escola" abriram /escola/6. A apresentação do nome usa a função já existente no detalhe da turma. Os cartões continuam com o nome canônico. Passou.
+
+Caso 5 — /setor/999999999 e /setor/abc.
+Esperado: setor inexistente ou id inválido sem a coleção de escolas, com retorno à lista.
+Observado: "Setor não encontrado." e "Voltar aos setores". Não apareceram "Adicionar Escola" nem "Carregando...". Passou.
+
+Caso 6 — /escola/999999999 e /escola/abc.
+Esperado: escola inexistente ou id inválido, com retorno aos setores.
+Observado: "Escola não encontrada." e "Voltar aos setores". Passou.
+
+Caso 7 — /escola/999999999/classes.
+Esperado: escola inexistente sem filtros nem cartão de adicionar turma, com retorno aos setores.
+Observado: "Escola não encontrada." e "Ver setores". Não apareceram os filtros nem "Adicionar Turma". Passou.
+
+As consultas foram GET reais da API local. Nenhuma escrita foi enviada.
+
+Resultado: contexto e retorno passaram nas três telas, inclusive na abertura direta e nos ids ausentes ou inválidos. O cabeçalho continua com início e sair; o retorno ao pai fica na própria tela.
+
+Limites: teclado completo, contraste, ampliação e NVDA não foram exercitados. Não houve sessão com usuários. A confirmação da autora permanece pendente. A capitalização dos nomes nos cartões continua no A014. Títulos semânticos, região principal, título da aba e o endereço repetido da API continuam nos achados seguintes.

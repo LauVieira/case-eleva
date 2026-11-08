@@ -1816,14 +1816,62 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Apresentar nome do setor/escola no contexto correspondente e links de retorno ao pai, preservando o vínculo Setor → Escola → Turma.",
-      "verificacao_pendente": "Conferir percursos de ida/volta e abertura direta no navegador; avaliar compreensão do contexto com usuários ao final.",
+      "verificacao_pendente": "Compreensão do contexto com usuários ao final. Teclado completo, contraste, ampliação e NVDA não foram exercitados.",
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Contexto e retorno ainda sem commit, sobre e6c52f4ebff4916ec500ee74136ac2581a0af4d1, em src/pages/SectorPage.js, src/pages/ClassesPage.js e src/pages/SchoolPage.js. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "descricao": "A listagem do setor mostra nome e código e o link Voltar aos setores. O detalhe da escola mostra o setor, com nome e código, e Voltar ao setor. A listagem de turmas mostra o nome da escola e Voltar para a escola. Setor ou escola ausentes ou com id inválido informam que o registro não foi encontrado e oferecem retorno, sem a coleção. O cabeçalho permanece com início e sair.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-contexto-antes.txt (SHA-256 38bd9daab2f4fd460819bf1198dff01fc86d6b87c3b9dd5a59703dcba454bbb5). Patch: REV-03-FE-A013-contexto-correcao.patch (SHA-256 718c5e59cf8265b8e4e9cab4095020163eac30c7c77d5456593a78a8d6290aff). Compilação exit 0 em REV-03-FE-A013-contexto-compilacao.txt (SHA-256 e6fdf6f9bc1cd96e0e13889b82fe66249d4ac312cb73f563348e853bea9cff4e)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Mesmas três páginas locais da correção, ainda sem commit. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador com GET real nas três telas, inclusive abertura direta e ids ausentes ou inválidos. Sem escrita.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, /setor/1 mostrou Setor Azul e SA-1 e voltou à lista; /setor/2 mostrou Setor Amarelo, SA-2 e quatro escolas; /escola/6 mostrou o setor e voltou a /setor/1; /escola/6/classes mostrou Escola De Demonstração, manteve os filtros e voltou a /escola/6. Ids 999999999 e abc de setor e escola, e a listagem de turmas da escola 999999999, informaram o registro ausente e ofereceram retorno, sem a coleção. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-contexto-verificacao.txt (SHA-256 8f8d1214b2d2b7696e8888c04a00de6f8677fb1cc50464bab35f11a46f6433c2). Teclado completo, contraste, ampliação, NVDA e compreensão com usuários não foram executados. Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Contexto e retorno ainda sem commit, sobre e6c52f4ebff4916ec500ee74136ac2581a0af4d1, em src/pages/SectorPage.js, src/pages/ClassesPage.js e src/pages/SchoolPage.js. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "As três telas identificam o pai e oferecem retorno. Ainda sem commit.",
+          "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A013-contexto-antes.txt (SHA-256 38bd9daab2f4fd460819bf1198dff01fc86d6b87c3b9dd5a59703dcba454bbb5). Patch: REV-03-FE-A013-contexto-correcao.patch (SHA-256 718c5e59cf8265b8e4e9cab4095020163eac30c7c77d5456593a78a8d6290aff)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "e6c52f4ebff4916ec500ee74136ac2581a0af4d1",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas três páginas locais da correção, ainda sem commit. package-lock.json continua modificado fora desta correção. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "Compilação exit 0 e sete percursos de navegador com GET real, registrados em REV-03-FE-A013-contexto-verificacao.txt (SHA-256 8f8d1214b2d2b7696e8888c04a00de6f8677fb1cc50464bab35f11a46f6433c2). Sem escrita. Compreensão com usuários, teclado completo, contraste, ampliação e NVDA continuam pendentes."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A014",

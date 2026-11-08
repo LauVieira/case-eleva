@@ -171,8 +171,10 @@ const StyledContainer = styled(Container)`
 `;
 
 const Main = styled.main`
-  margin: 0 auto;
-  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 95%;
+  width: max-content;
 `;
 
 const Heading = styled.h1`

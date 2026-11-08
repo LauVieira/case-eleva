@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
@@ -17,12 +17,16 @@ export default function SectorPage () {
   const [schools, setSchools] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const [schoolsMissing, setSchoolsMissing] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const [sector, setSector] = useState(null);
+  const [sectorState, setSectorState] = useState('loading');
 
   useEffect(() => {
     let active = true;
     setIsLoading(true);
     setLoadError(false);
+    setSchoolsMissing(false);
 
     axios.get(`http://localhost:3000/sectors/${id}/schools`)
       .then((response) => {
@@ -30,11 +34,34 @@ export default function SectorPage () {
         setSchools([...response.data]);
         setIsLoading(false);
       })
+      .catch((error) => {
+        if (!active) return;
+        const status = error.response && error.response.status;
+        setSchools([]);
+        setSchoolsMissing(status === 404 || status === 422);
+        setLoadError(status !== 404 && status !== 422);
+        setIsLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [id, loadAttempt]);
+
+  useEffect(() => {
+    let active = true;
+    setSector(null);
+    setSectorState('loading');
+
+    axios.get('http://localhost:3000/sectors')
+      .then((response) => {
+        if (!active) return;
+        const found = response.data.find((item) => String(item.id) === String(id));
+        setSector(found || null);
+        setSectorState(found ? 'found' : 'missing');
+      })
       .catch(() => {
         if (!active) return;
-        setSchools([]);
-        setLoadError(true);
-        setIsLoading(false);
+        setSector(null);
+        setSectorState('error');
       });
 
     return () => { active = false; };
@@ -47,6 +74,8 @@ export default function SectorPage () {
     }
   }, []);
 
+  const sectorMissing = schoolsMissing || sectorState === 'missing';
+
   return (
     <StyledContainer fluid>
 
@@ -58,8 +87,26 @@ export default function SectorPage () {
         </Alert>
       )}
 
-      {isLoading && <p role="status">Carregando...</p>}
-      {loadError && (
+      <ContextBar>
+        {sectorMissing && <p role="alert">Setor não encontrado.</p>}
+        {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
+        {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
+        {!sectorMissing && sector && (
+          <p>
+            Setor:
+            {' '}
+            <strong>{sector.name}</strong>
+            {' · '}
+            Código:
+            {' '}
+            <strong>{sector.code}</strong>
+          </p>
+        )}
+        <Link to="/">Voltar aos setores</Link>
+      </ContextBar>
+
+      {isLoading && !sectorMissing && <p role="status">Carregando...</p>}
+      {loadError && !sectorMissing && (
         <QueryError>
           <p role="alert">Não foi possível carregar as escolas.</p>
           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
@@ -67,7 +114,7 @@ export default function SectorPage () {
           </Button>
         </QueryError>
       )}
-      {!isLoading && !loadError && (
+      {!isLoading && !loadError && !sectorMissing && (
           <CardGrid>
             <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
               <StyledCard>
@@ -107,6 +154,18 @@ function SchoolCard (props) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const ContextBar = styled.div`
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+
+  p {
+    margin: 0;
+  }
 `;
 
 const QueryError = styled.div`

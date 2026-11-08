@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
@@ -11,6 +11,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
 import { formatClassStatus } from '../utils/classForm';
+import { formatSchoolName } from '../utils/schoolForm';
 
 const STATUS_FILTERS = [
   { value: 'current', label: 'Ativas', empty: 'Nenhuma turma ativa.' },
@@ -28,9 +29,14 @@ export default function ClassesPage () {
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [classesMissing, setClassesMissing] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const [school, setSchool] = useState(null);
+  const [schoolState, setSchoolState] = useState('loading');
   const [statusFilter, setStatusFilter] = useState('current');
   const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
+  const schoolMissing = classesMissing || schoolState === 'missing';
+  const schoolName = school && school.name ? formatSchoolName(school.name) : '';
 
   useEffect(() => {
     if (deletedClass && noticeRef.current) {
@@ -44,6 +50,7 @@ export default function ClassesPage () {
     requestVersion.current = version;
     setIsLoading(true);
     setLoadFailed(false);
+    setClassesMissing(false);
 
     axios.get(`http://localhost:3000/schools/${id}/classes`, {
       params: { status: statusFilter },
@@ -51,13 +58,36 @@ export default function ClassesPage () {
       if (version !== requestVersion.current) return;
       setClasses([...response.data]);
       setIsLoading(false);
-    }).catch(() => {
+    }).catch((error) => {
       if (version !== requestVersion.current) return;
+      const status = error.response && error.response.status;
       setClasses([]);
-      setLoadFailed(true);
+      setClassesMissing(status === 404 || status === 422);
+      setLoadFailed(status !== 404 && status !== 422);
       setIsLoading(false);
     });
   }, [id, statusFilter, loadAttempt]);
+
+  useEffect(() => {
+    let active = true;
+    setSchool(null);
+    setSchoolState('loading');
+
+    axios.get(`http://localhost:3000/schools/${id}`)
+      .then((response) => {
+        if (!active) return;
+        setSchool(response.data);
+        setSchoolState('found');
+      })
+      .catch((error) => {
+        if (!active) return;
+        const status = error.response && error.response.status;
+        setSchool(null);
+        setSchoolState(status === 404 || status === 422 ? 'missing' : 'error');
+      });
+
+    return () => { active = false; };
+  }, [id, loadAttempt]);
 
   return (
     <StyledContainer fluid>
@@ -70,6 +100,23 @@ export default function ClassesPage () {
         </Alert>
       )}
 
+      <ContextBar>
+        {schoolMissing && <p role="alert">Escola não encontrada.</p>}
+        {!schoolMissing && schoolState === 'loading' && <p role="status">Identificando a escola...</p>}
+        {!schoolMissing && schoolState === 'error' && <p role="alert">Não foi possível identificar a escola.</p>}
+        {!schoolMissing && school && (
+          <p>
+            Escola:
+            {' '}
+            <Link to={`/escola/${id}`}>{schoolName}</Link>
+          </p>
+        )}
+        {schoolMissing
+          ? <Link to="/">Ver setores</Link>
+          : <Link to={`/escola/${id}`}>Voltar para a escola</Link>}
+      </ContextBar>
+
+      {!schoolMissing && (
       <StatusFilter>
         <legend>Filtrar por situação</legend>
         {STATUS_FILTERS.map((filter) => (
@@ -85,9 +132,10 @@ export default function ClassesPage () {
           </label>
         ))}
       </StatusFilter>
+      )}
 
-      {isLoading && <p role="status">Carregando...</p>}
-      {!isLoading && (
+      {isLoading && !schoolMissing && <p role="status">Carregando...</p>}
+      {!isLoading && !schoolMissing && (
           <>
             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
             <CardGrid>
@@ -106,7 +154,7 @@ export default function ClassesPage () {
             </CardGrid>
           </>
         )}
-      {loadFailed && (
+      {loadFailed && !schoolMissing && (
         <QueryError>
           <p role="alert">Erro ao buscar as turmas da escola selecionada.</p>
           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
@@ -153,6 +201,18 @@ function ClassCard (props) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const ContextBar = styled.div`
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+
+  p {
+    margin: 0;
+  }
 `;
 
 const StatusFilter = styled.fieldset`

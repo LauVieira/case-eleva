@@ -1,0 +1,503 @@
+REV-03-FE-A013 — contexto e retorno ao pai
+Data: 2026-11-08T20:26:18.741Z
+Frontend: e6c52f4ebff4916ec500ee74136ac2581a0af4d1
+Branch: main
+Backend consultado: a023d1eea2093d5511c22cfc444e11dfef704e4f
+Estado local antes da edicao: package-lock.json modificado; HANDOVER.md nao rastreado. Nenhuma alteracao local em src/.
+Pedido: identificar setor ou escola e oferecer retorno ao pai em SectorPage, SchoolPage e ClassesPage.
+
+Ausencia observada no codigo: SectorPage usa apenas o id da rota para GET /sectors/:id/schools e nao mostra nome nem codigo nem link para /. ClassesPage usa apenas o id para GET /schools/:id/classes e nao mostra o nome da escola nem link para /escola/:id. SchoolPage, com a escola carregada, nao mostra o setor nem link para /setor/:sectorId; o link Voltar aos setores aparece somente no erro de carga e aponta para /. Header permanece com inicio e sair.
+ARQUIVO src/pages/SectorPage.js SHA256 59c1813968f3de077583d635d2a4d52861190178e6738074f724816794f1f579
+
+1: import React, { useEffect, useRef, useState } from 'react';
+2: import { useHistory, useLocation, useParams } from 'react-router-dom';
+3: import axios from 'axios';
+4: import styled from 'styled-components';
+5: import {
+6:   Alert, Button, Card, Container,
+7: } from 'react-bootstrap';
+8: import { BsPlusCircleFill } from 'react-icons/bs';
+9: import Header from '../components/Header';
+10: 
+11: export default function SectorPage () {
+12:   const { id } = useParams();
+13:   const location = useLocation();
+14:   const history = useHistory();
+15:   const [deletedSchool] = useState(() => location.state && location.state.deletedSchool);
+16:   const noticeRef = useRef(null);
+17:   const [schools, setSchools] = useState([]);
+18:   const [isLoading, setIsLoading] = useState(true);
+19:   const [loadError, setLoadError] = useState(false);
+20:   const [loadAttempt, setLoadAttempt] = useState(0);
+21: 
+22:   useEffect(() => {
+23:     let active = true;
+24:     setIsLoading(true);
+25:     setLoadError(false);
+26: 
+27:     axios.get(`http://localhost:3000/sectors/${id}/schools`)
+28:       .then((response) => {
+29:         if (!active) return;
+30:         setSchools([...response.data]);
+31:         setIsLoading(false);
+32:       })
+33:       .catch(() => {
+34:         if (!active) return;
+35:         setSchools([]);
+36:         setLoadError(true);
+37:         setIsLoading(false);
+38:       });
+39: 
+40:     return () => { active = false; };
+41:   }, [id, loadAttempt]);
+42: 
+43:   useEffect(() => {
+44:     if (deletedSchool && noticeRef.current) {
+45:       noticeRef.current.focus();
+46:       history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
+47:     }
+48:   }, []);
+49: 
+50:   return (
+51:     <StyledContainer fluid>
+52: 
+53:       <Header />
+54: 
+55:       {deletedSchool && (
+56:         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+57:           Escola <strong>{deletedSchool.name}</strong> excluída com sucesso.
+58:         </Alert>
+59:       )}
+60: 
+61:       {isLoading && <p role="status">Carregando...</p>}
+62:       {loadError && (
+63:         <QueryError>
+64:           <p role="alert">Não foi possível carregar as escolas.</p>
+65:           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+66:             Tentar novamente
+67:           </Button>
+68:         </QueryError>
+69:       )}
+70:       {!isLoading && !loadError && (
+71:           <CardGrid>
+72:             <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+73:               <StyledCard>
+74:                 <Card.Text className="add-school">
+75:                   <BsPlusCircleFill />
+76:                   Adicionar Escola
+77:                 </Card.Text>
+78:               </StyledCard>
+79:             </SchoolItem>
+80:             {schools.map((school) => (
+81:               <SchoolCard key={school.id} school={school} />
+82:             ))}
+83:           </CardGrid>
+84:         )}
+85: 
+86:     </StyledContainer>
+87:   );
+88: }
+89: 
+90: function SchoolCard (props) {
+91:   const { school } = props;
+92:   const link = `/escola/${school.id}`;
+93: 
+94:   return (
+95:     <SchoolItem href={link} tabIndex="0">
+96:       <StyledCard>
+97:         <Card.Body>
+98:           <Card.Title>{school.name}</Card.Title>
+99:           <Card.Text>
+100:             {school.address}
+101:           </Card.Text>
+102:         </Card.Body>
+103:       </StyledCard>
+104:     </SchoolItem>
+105:   );
+106: }
+107: 
+108: const StyledContainer = styled(Container)`
+109:   padding-top: 100px;
+110: `;
+111: 
+112: const QueryError = styled.div`
+113:   align-items: center;
+114:   display: flex;
+115:   flex-direction: column;
+116:   margin: 48px auto;
+117:   text-align: center;
+118: `;
+119: 
+120: const CardGrid = styled.div`
+121:   align-items: stretch;
+122:   display: flex;
+123:   flex-wrap: wrap;
+124:   gap: 20px;
+125:   justify-content: flex-start;
+126: `;
+127: 
+128: const SchoolItem = styled.a`
+129:   color: initial;
+130:   display: flex;
+131:   flex: 0 0 18rem;
+132:   font-size: 18px;
+133:   height: 200px;
+134:   max-width: 100%;
+135:   text-align: center;
+136:   width: 18rem;
+137: 
+138:   :hover {
+139:     color: initial;
+140:     text-decoration: none;
+141:   }
+142: 
+143:   p {
+144:     margin-bottom: 0;
+145:   }
+146: 
+147:   svg {
+148:     font-size: 20px;
+149:     margin-right: 5px;
+150:   }
+151: `;
+152: 
+153: const StyledCard = styled(Card)`
+154:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+155:   height: 100%;
+156:   width: 18rem;
+157: 
+158:   .add-school {
+159:     align-items: center;
+160:     display: flex;
+161:     height: 100%;
+162:     justify-content: center;
+163:   }
+164: `;
+165: 
+
+ARQUIVO src/pages/ClassesPage.js SHA256 5b915a8822cc32d7b4441d262c39c13762eab239493dca7c6d4ad01c9c987b02
+
+1: /* eslint-disable react/jsx-one-expression-per-line */
+2: 
+3: import React, { useEffect, useRef, useState } from 'react';
+4: import { useHistory, useLocation, useParams } from 'react-router-dom';
+5: import axios from 'axios';
+6: import styled from 'styled-components';
+7: import {
+8:   Alert, Button, Card, Container,
+9: } from 'react-bootstrap';
+10: import { LinkContainer } from 'react-router-bootstrap';
+11: import { BsPlusCircleFill } from 'react-icons/bs';
+12: import Header from '../components/Header';
+13: import { formatClassStatus } from '../utils/classForm';
+14: 
+15: const STATUS_FILTERS = [
+16:   { value: 'current', label: 'Ativas', empty: 'Nenhuma turma ativa.' },
+17:   { value: 'all', label: 'Todas', empty: 'Nenhuma turma nesta escola.' },
+18:   { value: 'completed', label: 'Encerradas', empty: 'Nenhuma turma encerrada.' },
+19: ];
+20: 
+21: export default function ClassesPage () {
+22:   const { id } = useParams();
+23:   const location = useLocation();
+24:   const history = useHistory();
+25:   const [deletedClass] = useState(() => location.state && location.state.deletedClass);
+26:   const noticeRef = useRef(null);
+27:   const requestVersion = useRef(0);
+28:   const [classes, setClasses] = useState([]);
+29:   const [isLoading, setIsLoading] = useState(true);
+30:   const [loadFailed, setLoadFailed] = useState(false);
+31:   const [loadAttempt, setLoadAttempt] = useState(0);
+32:   const [statusFilter, setStatusFilter] = useState('current');
+33:   const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
+34: 
+35:   useEffect(() => {
+36:     if (deletedClass && noticeRef.current) {
+37:       noticeRef.current.focus();
+38:       history.replace({ ...location, state: { ...location.state, deletedClass: null } });
+39:     }
+40:   }, []);
+41: 
+42:   useEffect(() => {
+43:     const version = requestVersion.current + 1;
+44:     requestVersion.current = version;
+45:     setIsLoading(true);
+46:     setLoadFailed(false);
+47: 
+48:     axios.get(`http://localhost:3000/schools/${id}/classes`, {
+49:       params: { status: statusFilter },
+50:     }).then((response) => {
+51:       if (version !== requestVersion.current) return;
+52:       setClasses([...response.data]);
+53:       setIsLoading(false);
+54:     }).catch(() => {
+55:       if (version !== requestVersion.current) return;
+56:       setClasses([]);
+57:       setLoadFailed(true);
+58:       setIsLoading(false);
+59:     });
+60:   }, [id, statusFilter, loadAttempt]);
+61: 
+62:   return (
+63:     <StyledContainer fluid>
+64: 
+65:       <Header />
+66: 
+67:       {deletedClass && (
+68:         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+69:           Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
+70:         </Alert>
+71:       )}
+72: 
+73:       <StatusFilter>
+74:         <legend>Filtrar por situação</legend>
+75:         {STATUS_FILTERS.map((filter) => (
+76:           <label key={filter.value} data-selected={statusFilter === filter.value ? 'true' : 'false'}>
+77:             <input
+78:               type="radio"
+79:               name="class-status-filter"
+80:               value={filter.value}
+81:               checked={statusFilter === filter.value}
+82:               onChange={() => setStatusFilter(filter.value)}
+83:             />
+84:             {filter.label}
+85:           </label>
+86:         ))}
+87:       </StatusFilter>
+88: 
+89:       {isLoading && <p role="status">Carregando...</p>}
+90:       {!isLoading && (
+91:           <>
+92:             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
+93:             <CardGrid>
+94: 
+95:               <ClassItem to={`/escola/${id}/classes/nova`}>
+96:                 <StyledCard>
+97:                   <Card.Text className="add-class">
+98:                     <BsPlusCircleFill />
+99:                     Adicionar Turma
+100:                   </Card.Text>
+101:                 </StyledCard>
+102:               </ClassItem>
+103: 
+104:               {!loadFailed && classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
+105: 
+106:             </CardGrid>
+107:           </>
+108:         )}
+109:       {loadFailed && (
+110:         <QueryError>
+111:           <p role="alert">Erro ao buscar as turmas da escola selecionada.</p>
+112:           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+113:             Tentar novamente
+114:           </Button>
+115:         </QueryError>
+116:       )}
+117: 
+118:     </StyledContainer>
+119:   );
+120: }
+121: 
+122: function ClassCard (props) {
+123:   const { classs } = props;
+124:   const link = `/turma/${classs.id}`;
+125: 
+126:   return (
+127:     <ClassItem to={link}>
+128:       <StyledCard>
+129:         <Card.Body>
+130:           <Card.Title>
+131:             Turma {classs.name}
+132:           </Card.Title>
+133:           <Card.Text>
+134:             Situação: {formatClassStatus(classs.status)}
+135:           </Card.Text>
+136:           <Card.Text>
+137:             {classs.grade}
+138:           </Card.Text>
+139:           <Card.Text>
+140:             {classs.segment}
+141:           </Card.Text>
+142:           <Card.Text>
+143:             Turno: {classs.shift}
+144:           </Card.Text>
+145:           <Card.Text>
+146:             Limite de alunos: {classs.maxOccupancy}
+147:           </Card.Text>
+148:         </Card.Body>
+149:       </StyledCard>
+150:     </ClassItem>
+151:   );
+152: }
+153: 
+154: const StyledContainer = styled(Container)`
+155:   padding-top: 100px;
+156: `;
+157: 
+158: const StatusFilter = styled.fieldset`
+159:   border: 1px solid #6c757d;
+160:   border-radius: 4px;
+161:   margin: 0 0 16px;
+162:   padding: 12px 16px;
+163: 
+164:   legend {
+165:     font-size: 16px;
+166:     font-weight: 700;
+167:     padding: 0 6px;
+168:     width: auto;
+169:   }
+170: 
+171:   label {
+172:     align-items: center;
+173:     display: inline-flex;
+174:     font-size: 16px;
+175:     margin: 0 16px 0 0;
+176:   }
+177: 
+178:   label[data-selected='true'] {
+179:     font-weight: 700;
+180:   }
+181: 
+182:   input {
+183:     margin-right: 6px;
+184:   }
+185: `;
+186: 
+187: const QueryError = styled.div`
+188:   align-items: center;
+189:   display: flex;
+190:   flex-direction: column;
+191:   margin: 48px auto;
+192:   text-align: center;
+193: `;
+194: 
+195: const CardGrid = styled.div`
+196:   align-items: stretch;
+197:   display: flex;
+198:   flex-wrap: wrap;
+199:   gap: 20px;
+200:   justify-content: flex-start;
+201: `;
+202: 
+203: const ClassItem = styled(LinkContainer)`
+204:   cursor: pointer;
+205:   flex: 0 0 18rem;
+206:   font-size: 18px;
+207:   max-width: 100%;
+208:   width: 18rem;
+209: 
+210:   p {
+211:     margin-bottom: 0;
+212:   }
+213: 
+214:   svg {
+215:     font-size: 20px;
+216:     margin-right: 5px;
+217:   }
+218: `;
+219: 
+220: const StyledCard = styled(Card)`
+221:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+222:   height: 100%;
+223:   width: 18rem;
+224: 
+225:   .add-class {
+226:     align-items: center;
+227:     display: flex;
+228:     height: 100%;
+229:     justify-content: center;
+230:     min-height: 180px;
+231:   }
+232: `;
+233: 
+
+ARQUIVO src/pages/SchoolPage.js SHA256 a9a59a451034038cd5d004c36c563e2c23e5f5000c1613d0c024e57a1393c6e9
+
+1: import React, { useEffect, useState } from 'react';
+2: import { Link, useHistory, useParams } from 'react-router-dom';
+3: import styled from 'styled-components';
+4: import { Button, Container } from 'react-bootstrap';
+5: 
+6: import Header from '../components/Header';
+7: import SchoolCard from '../components/SchoolCard';
+8: import SchoolDeleteModal from '../components/SchoolDeleteModal';
+9: import api from '../services/api';
+10: 
+11: export default function SchoolPage () {
+12:   const { id } = useParams();
+13:   const history = useHistory();
+14:   const [schoolData, setSchoolData] = useState(null);
+15:   const [loadError, setLoadError] = useState(null);
+16:   const [loadAttempt, setLoadAttempt] = useState(0);
+17:   const [showDelete, setShowDelete] = useState(false);
+18: 
+19:   useEffect(() => {
+20:     let active = true;
+21:     setSchoolData(null);
+22:     setLoadError(null);
+23:     setShowDelete(false);
+24:     api.get(`/schools/${id}`)
+25:       .then((response) => { if (active) setSchoolData(response.data); })
+26:       .catch((error) => {
+27:         if (!active) return;
+28:         const notFound = error.response && error.response.status === 404;
+29:         setLoadError({
+30:           notFound,
+31:           message: notFound ? 'Escola não encontrada.' : 'Não foi possível carregar a escola.',
+32:         });
+33:       });
+34:     return () => { active = false; };
+35:   }, [id, loadAttempt]);
+36: 
+37:   function onDeleted (school) {
+38:     history.replace(`/setor/${school.sectorId}`, {
+39:       deletedSchool: { name: school.name },
+40:     });
+41:   }
+42: 
+43:   return (
+44:     <StyledContainer fluid>
+45: 
+46:       <Header />
+47:       <main>
+48:         {loadError && (
+49:           <QueryError>
+50:             <p role="alert">{loadError.message}</p>
+51:             {!loadError.notFound && (
+52:               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
+53:             )}
+54:             <Link to="/">Voltar aos setores</Link>
+55:           </QueryError>
+56:         )}
+57:         {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
+58:         {schoolData && (
+59:           <>
+60:             <SchoolCard schoolData={schoolData} onDelete={() => setShowDelete(true)} />
+61:             <SchoolDeleteModal
+62:               key={schoolData.id}
+63:               school={schoolData}
+64:               show={showDelete}
+65:               onHide={() => setShowDelete(false)}
+66:               onDeleted={onDeleted}
+67:             />
+68:           </>
+69:         )}
+70:       </main>
+71: 
+72:     </StyledContainer>
+73:   );
+74: }
+75: 
+76: const StyledContainer = styled(Container)`
+77:   padding-top: 100px;
+78: `;
+79: 
+80: const QueryError = styled.div`
+81:   align-items: center;
+82:   display: flex;
+83:   flex-direction: column;
+84:   gap: 12px;
+85:   margin: 48px auto;
+86:   text-align: center;
+87: `;
+88: 

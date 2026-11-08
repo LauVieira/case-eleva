@@ -1,0 +1,389 @@
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index e360335..73b4ed1 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -1,7 +1,7 @@
+ /* eslint-disable react/jsx-one-expression-per-line */
+ 
+ import React, { useEffect, useRef, useState } from 'react';
+-import { useHistory, useLocation, useParams } from 'react-router-dom';
++import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+@@ -11,6 +11,7 @@ import { LinkContainer } from 'react-router-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
+ import { formatClassStatus } from '../utils/classForm';
++import { formatSchoolName } from '../utils/schoolForm';
+ 
+ const STATUS_FILTERS = [
+   { value: 'current', label: 'Ativas', empty: 'Nenhuma turma ativa.' },
+@@ -28,9 +29,14 @@ export default function ClassesPage () {
+   const [classes, setClasses] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadFailed, setLoadFailed] = useState(false);
++  const [classesMissing, setClassesMissing] = useState(false);
+   const [loadAttempt, setLoadAttempt] = useState(0);
++  const [school, setSchool] = useState(null);
++  const [schoolState, setSchoolState] = useState('loading');
+   const [statusFilter, setStatusFilter] = useState('current');
+   const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
++  const schoolMissing = classesMissing || schoolState === 'missing';
++  const schoolName = school && school.name ? formatSchoolName(school.name) : '';
+ 
+   useEffect(() => {
+     if (deletedClass && noticeRef.current) {
+@@ -44,6 +50,7 @@ export default function ClassesPage () {
+     requestVersion.current = version;
+     setIsLoading(true);
+     setLoadFailed(false);
++    setClassesMissing(false);
+ 
+     axios.get(`http://localhost:3000/schools/${id}/classes`, {
+       params: { status: statusFilter },
+@@ -51,14 +58,37 @@ export default function ClassesPage () {
+       if (version !== requestVersion.current) return;
+       setClasses([...response.data]);
+       setIsLoading(false);
+-    }).catch(() => {
++    }).catch((error) => {
+       if (version !== requestVersion.current) return;
++      const status = error.response && error.response.status;
+       setClasses([]);
+-      setLoadFailed(true);
++      setClassesMissing(status === 404 || status === 422);
++      setLoadFailed(status !== 404 && status !== 422);
+       setIsLoading(false);
+     });
+   }, [id, statusFilter, loadAttempt]);
+ 
++  useEffect(() => {
++    let active = true;
++    setSchool(null);
++    setSchoolState('loading');
++
++    axios.get(`http://localhost:3000/schools/${id}`)
++      .then((response) => {
++        if (!active) return;
++        setSchool(response.data);
++        setSchoolState('found');
++      })
++      .catch((error) => {
++        if (!active) return;
++        const status = error.response && error.response.status;
++        setSchool(null);
++        setSchoolState(status === 404 || status === 422 ? 'missing' : 'error');
++      });
++
++    return () => { active = false; };
++  }, [id, loadAttempt]);
++
+   return (
+     <StyledContainer fluid>
+ 
+@@ -70,6 +100,23 @@ export default function ClassesPage () {
+         </Alert>
+       )}
+ 
++      <ContextBar>
++        {schoolMissing && <p role="alert">Escola não encontrada.</p>}
++        {!schoolMissing && schoolState === 'loading' && <p role="status">Identificando a escola...</p>}
++        {!schoolMissing && schoolState === 'error' && <p role="alert">Não foi possível identificar a escola.</p>}
++        {!schoolMissing && school && (
++          <p>
++            Escola:
++            {' '}
++            <Link to={`/escola/${id}`}>{schoolName}</Link>
++          </p>
++        )}
++        {schoolMissing
++          ? <Link to="/">Ver setores</Link>
++          : <Link to={`/escola/${id}`}>Voltar para a escola</Link>}
++      </ContextBar>
++
++      {!schoolMissing && (
+       <StatusFilter>
+         <legend>Filtrar por situação</legend>
+         {STATUS_FILTERS.map((filter) => (
+@@ -85,9 +132,10 @@ export default function ClassesPage () {
+           </label>
+         ))}
+       </StatusFilter>
++      )}
+ 
+-      {isLoading && <p role="status">Carregando...</p>}
+-      {!isLoading && (
++      {isLoading && !schoolMissing && <p role="status">Carregando...</p>}
++      {!isLoading && !schoolMissing && (
+           <>
+             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
+             <CardGrid>
+@@ -106,7 +154,7 @@ export default function ClassesPage () {
+             </CardGrid>
+           </>
+         )}
+-      {loadFailed && (
++      {loadFailed && !schoolMissing && (
+         <QueryError>
+           <p role="alert">Erro ao buscar as turmas da escola selecionada.</p>
+           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+@@ -155,6 +203,18 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const ContextBar = styled.div`
++  align-items: baseline;
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px 20px;
++  margin-bottom: 20px;
++
++  p {
++    margin: 0;
++  }
++`;
++
+ const StatusFilter = styled.fieldset`
+   border: 1px solid #6c757d;
+   border-radius: 4px;
+diff --git a/src/pages/SchoolPage.js b/src/pages/SchoolPage.js
+index c3bdb28..6aa0d6b 100644
+--- a/src/pages/SchoolPage.js
++++ b/src/pages/SchoolPage.js
+@@ -15,6 +15,8 @@ export default function SchoolPage () {
+   const [loadError, setLoadError] = useState(null);
+   const [loadAttempt, setLoadAttempt] = useState(0);
+   const [showDelete, setShowDelete] = useState(false);
++  const [sectors, setSectors] = useState(null);
++  const [sectorsFailed, setSectorsFailed] = useState(false);
+ 
+   useEffect(() => {
+     let active = true;
+@@ -25,7 +27,8 @@ export default function SchoolPage () {
+       .then((response) => { if (active) setSchoolData(response.data); })
+       .catch((error) => {
+         if (!active) return;
+-        const notFound = error.response && error.response.status === 404;
++        const status = error.response && error.response.status;
++        const notFound = status === 404 || status === 422;
+         setLoadError({
+           notFound,
+           message: notFound ? 'Escola não encontrada.' : 'Não foi possível carregar a escola.',
+@@ -34,6 +37,16 @@ export default function SchoolPage () {
+     return () => { active = false; };
+   }, [id, loadAttempt]);
+ 
++  useEffect(() => {
++    let active = true;
++    setSectors(null);
++    setSectorsFailed(false);
++    api.get('/sectors')
++      .then((response) => { if (active) setSectors(response.data); })
++      .catch(() => { if (active) setSectorsFailed(true); });
++    return () => { active = false; };
++  }, [id, loadAttempt]);
++
+   function onDeleted (school) {
+     history.replace(`/setor/${school.sectorId}`, {
+       deletedSchool: { name: school.name },
+@@ -57,6 +70,9 @@ export default function SchoolPage () {
+         {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
+         {schoolData && (
+           <>
++            <ContextBar>
++              {renderSectorContext(schoolData, sectors, sectorsFailed)}
++            </ContextBar>
+             <SchoolCard schoolData={schoolData} onDelete={() => setShowDelete(true)} />
+             <SchoolDeleteModal
+               key={schoolData.id}
+@@ -73,10 +89,53 @@ export default function SchoolPage () {
+   );
+ }
+ 
++function renderSectorContext (school, sectors, sectorsFailed) {
++  const sector = sectors && sectors.find((item) => item.id === school.sectorId);
++  const sectorPath = school.sectorId ? `/setor/${school.sectorId}` : '/';
++
++  if (sectorsFailed || (sectors && !sector)) {
++    return (
++      <>
++        <p role="alert">Não foi possível identificar o setor.</p>
++        <Link to={sectorPath}>Voltar ao setor</Link>
++      </>
++    );
++  }
++
++  if (!sector) return <p role="status">Identificando o setor...</p>;
++
++  return (
++    <>
++      <p>
++        Setor:
++        {' '}
++        <Link to={sectorPath}>{sector.name}</Link>
++        {' · '}
++        Código:
++        {' '}
++        <strong>{sector.code}</strong>
++      </p>
++      <Link to={sectorPath}>Voltar ao setor</Link>
++    </>
++  );
++}
++
+ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const ContextBar = styled.div`
++  align-items: baseline;
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px 20px;
++  margin-bottom: 20px;
++
++  p {
++    margin: 0;
++  }
++`;
++
+ const QueryError = styled.div`
+   align-items: center;
+   display: flex;
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index 610dd29..2199f51 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -1,5 +1,5 @@
+ import React, { useEffect, useRef, useState } from 'react';
+-import { useHistory, useLocation, useParams } from 'react-router-dom';
++import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+@@ -17,12 +17,16 @@ export default function SectorPage () {
+   const [schools, setSchools] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadError, setLoadError] = useState(false);
++  const [schoolsMissing, setSchoolsMissing] = useState(false);
+   const [loadAttempt, setLoadAttempt] = useState(0);
++  const [sector, setSector] = useState(null);
++  const [sectorState, setSectorState] = useState('loading');
+ 
+   useEffect(() => {
+     let active = true;
+     setIsLoading(true);
+     setLoadError(false);
++    setSchoolsMissing(false);
+ 
+     axios.get(`http://localhost:3000/sectors/${id}/schools`)
+       .then((response) => {
+@@ -30,16 +34,39 @@ export default function SectorPage () {
+         setSchools([...response.data]);
+         setIsLoading(false);
+       })
+-      .catch(() => {
++      .catch((error) => {
+         if (!active) return;
++        const status = error.response && error.response.status;
+         setSchools([]);
+-        setLoadError(true);
++        setSchoolsMissing(status === 404 || status === 422);
++        setLoadError(status !== 404 && status !== 422);
+         setIsLoading(false);
+       });
+ 
+     return () => { active = false; };
+   }, [id, loadAttempt]);
+ 
++  useEffect(() => {
++    let active = true;
++    setSector(null);
++    setSectorState('loading');
++
++    axios.get('http://localhost:3000/sectors')
++      .then((response) => {
++        if (!active) return;
++        const found = response.data.find((item) => String(item.id) === String(id));
++        setSector(found || null);
++        setSectorState(found ? 'found' : 'missing');
++      })
++      .catch(() => {
++        if (!active) return;
++        setSector(null);
++        setSectorState('error');
++      });
++
++    return () => { active = false; };
++  }, [id, loadAttempt]);
++
+   useEffect(() => {
+     if (deletedSchool && noticeRef.current) {
+       noticeRef.current.focus();
+@@ -47,6 +74,8 @@ export default function SectorPage () {
+     }
+   }, []);
+ 
++  const sectorMissing = schoolsMissing || sectorState === 'missing';
++
+   return (
+     <StyledContainer fluid>
+ 
+@@ -58,8 +87,26 @@ export default function SectorPage () {
+         </Alert>
+       )}
+ 
+-      {isLoading && <p role="status">Carregando...</p>}
+-      {loadError && (
++      <ContextBar>
++        {sectorMissing && <p role="alert">Setor não encontrado.</p>}
++        {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
++        {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
++        {!sectorMissing && sector && (
++          <p>
++            Setor:
++            {' '}
++            <strong>{sector.name}</strong>
++            {' · '}
++            Código:
++            {' '}
++            <strong>{sector.code}</strong>
++          </p>
++        )}
++        <Link to="/">Voltar aos setores</Link>
++      </ContextBar>
++
++      {isLoading && !sectorMissing && <p role="status">Carregando...</p>}
++      {loadError && !sectorMissing && (
+         <QueryError>
+           <p role="alert">Não foi possível carregar as escolas.</p>
+           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+@@ -67,7 +114,7 @@ export default function SectorPage () {
+           </Button>
+         </QueryError>
+       )}
+-      {!isLoading && !loadError && (
++      {!isLoading && !loadError && !sectorMissing && (
+           <CardGrid>
+             <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+               <StyledCard>
+@@ -109,6 +156,18 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const ContextBar = styled.div`
++  align-items: baseline;
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px 20px;
++  margin-bottom: 20px;
++
++  p {
++    margin: 0;
++  }
++`;
++
+ const QueryError = styled.div`
+   align-items: center;
+   display: flex;

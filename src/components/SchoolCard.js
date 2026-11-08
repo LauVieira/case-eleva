@@ -82,6 +82,8 @@ const StyledListGroup = styled(ListGroup)`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 95%;
   width: 50rem;
 
