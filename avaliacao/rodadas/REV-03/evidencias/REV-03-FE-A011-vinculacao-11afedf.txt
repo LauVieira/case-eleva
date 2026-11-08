@@ -1,0 +1,12 @@
+REV-03 / REV-03-FE-A011 — vinculação do commit dos textos
+Data: 2026-11-08
+Commit: 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T16:18:55-03:00
+Mensagem: chore: renaming concepts
+Pedido da autora: atualizar o achado. Ela declarou que commitou e confirmou tudo.
+
+Conferência, sem nova execução de testes:
+- git diff 11afedf~1 11afedf -- src/components/SchoolCard.js src/pages/ClassesPage.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A011-textos-correcao.patch. SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011. Tamanho normalizado 2158 nos dois lados.
+
+A associação não repete a compilação nem os percursos do navegador. A confirmação visual é declaração da autora.

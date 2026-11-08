@@ -1383,33 +1383,33 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Remover os três elementos indicados por R13; usar Excluir escola, Turma e Turno de modo consistente.",
-      "verificacao_pendente": "Compreensão dos termos com usuários permanece para a etapa final. Ver detalhes continua sem destino, conforme pedido da autora. Contraste, ampliação e NVDA permanecem para a etapa correspondente.",
+      "verificacao_pendente": "Compreensão dos termos com usuários permanece para a etapa final. Contraste, ampliação e NVDA permanecem para a etapa correspondente.",
       "confirmacao_autora": "confirmado",
-      "justificativa_confirmacao": "Em 2026-11-08, a autora pediu remover Vagas ocupadas e Alunos matriculados, renomear Dados avançados para Ver detalhes, trocar Adicionar Classe e a mensagem de erro para Turma, trocar Período para Turno e chamar a capacidade do cartão da escola de Limite de alunos.",
+      "justificativa_confirmacao": "Em 2026-11-08, a autora pediu remover Vagas ocupadas e Alunos matriculados, renomear Dados avançados para Ver detalhes, trocar Adicionar Classe e a mensagem de erro para Turma, trocar Período para Turno e chamar a capacidade do cartão da escola de Limite de alunos. Depois do commit, declarou que confirmou tudo.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+          "frontend": "11afedf49a97ec1945b5aebb86b9bb525ed2f8b7",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Textos versionados em 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7. O diff normalizado de src/components/SchoolCard.js e src/pages/ClassesPage.js é idêntico a REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
         "descricao": "Removidos Vagas ocupadas e Alunos matriculados. Dados avançados passou a Ver detalhes, sem rota. Adicionar Classe passou a Adicionar Turma e o alerta de falha da listagem passou a dizer turmas. Período passou a Turno. No cartão da escola, o valor de totalCapacity passou a aparecer como Limite de alunos. Excluir escola já estava nomeado assim.",
         "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
-        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-antes.txt (SHA-256 cbb4e8b74a6a0b414e2e7676321e0a42a368ffdd2a88eba8de74a89c3d3b7af2). Patch: REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). Compilação exit 0 em REV-03-FE-A011-textos-compilacao.txt (SHA-256 04b5f588006952aadf3533016ef86e9bdb45211d00a16027c9b173ffdfcfa1ab)."
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-antes.txt (SHA-256 cbb4e8b74a6a0b414e2e7676321e0a42a368ffdd2a88eba8de74a89c3d3b7af2). Patch: REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). Compilação exit 0 em REV-03-FE-A011-textos-compilacao.txt (SHA-256 04b5f588006952aadf3533016ef86e9bdb45211d00a16027c9b173ffdfcfa1ab). Commit 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7, de 2026-11-08T16:18:55-03:00, mensagem chore: renaming concepts. O diff normalizado corresponde ao patch. Conferência em REV-03-FE-A011-vinculacao-11afedf.txt (SHA-256 4b3d49818869fb39eb52d8c84ce19c172fe18dce66ed27ab31a65397fc4b2238). Sem novos testes."
       },
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "38d79a7472a8dbdd3f015bb2a6112aa3a736cb15",
+          "frontend": "11afedf49a97ec1945b5aebb86b9bb525ed2f8b7",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
-          "alteracoes_locais": "Textos ainda sem commit, sobre 38d79a7472a8dbdd3f015bb2a6112aa3a736cb15. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011): src/components/SchoolCard.js e src/pages/ClassesPage.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          "alteracoes_locais": "Textos versionados em 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7. O diff normalizado de src/components/SchoolCard.js e src/pages/ClassesPage.js é idêntico a REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
-        "metodo": "Compilação e navegador com a API local. Sem escrita.",
+        "metodo": "Compilação e navegador com a API local, já registrados. A vinculação do commit e a confirmação visual da autora não repetem esses testes.",
         "responsavel": "Grok, no Cursor.",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "Execução em 2026-11-08. Escola 6: Limite de alunos: 15, Ver detalhes sem href, sem Vagas ocupadas. Escola 2: Limite de alunos: 0. Listagem da escola 6: Adicionar Turma, Turno e Limite de alunos, sem Alunos matriculados. Escola 10: alerta Erro ao buscar as turmas da escola selecionada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). Compreensão com usuários pendente."
+        "evidencia": "Execução em 2026-11-08. Escola 6: Limite de alunos: 15, Ver detalhes sem href, sem Vagas ocupadas. Escola 2: Limite de alunos: 0. Listagem da escola 6: Adicionar Turma, Turno e Limite de alunos, sem Alunos matriculados. Escola 10: alerta Erro ao buscar as turmas da escola selecionada. Passos em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). A autora confirmou depois do commit. Conferência em REV-03-FE-A011-vinculacao-11afedf.txt (SHA-256 4b3d49818869fb39eb52d8c84ce19c172fe18dce66ed27ab31a65397fc4b2238), sem novos testes. Compreensão com usuários pendente."
       },
       "historico": [
         {
@@ -1450,6 +1450,58 @@
           },
           "resultado": "resolveu_no_recorte; os textos pedidos foram observados no navegador.",
           "evidencia": "C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-textos-verificacao.txt (SHA-256 c474446f3d0b88f3252b941f88187e2feae346f131d5ffbe87cb126a22f24e5f). Escola 6 com Limite de alunos 15 e Ver detalhes sem link. Escola 2 com 0. Listagem com Adicionar Turma e Turno. Alerta da escola 10 com turmas. Sem sessão com usuários."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "11afedf49a97ec1945b5aebb86b9bb525ed2f8b7",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Textos versionados em 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7. O diff normalizado de src/components/SchoolCard.js e src/pages/ClassesPage.js é idêntico a REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado",
+          "evidencia": "A autora declarou, em 2026-11-08, que commitou e confirmou tudo. Pediu em seguida para olhar o GET da escola antes de implementar Ver detalhes."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit e confirmação; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "11afedf49a97ec1945b5aebb86b9bb525ed2f8b7",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Textos versionados em 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7. O diff normalizado de src/components/SchoolCard.js e src/pages/ClassesPage.js é idêntico a REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "Commit 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7 associado aos textos já verificados e confirmados pela autora. Sem novos testes.",
+          "evidencia": "Commit 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7, de 2026-11-08T16:18:55-03:00, mensagem chore: renaming concepts. O diff 11afedf~1..11afedf de src/components/SchoolCard.js e src/pages/ClassesPage.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A011-textos-correcao.patch (SHA-256 e14c7ff2ed1297d5a5faaf4a806847ff0914941f54e1b7d04e3c0ed662ec6011). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-vinculacao-11afedf.txt (SHA-256 4b3d49818869fb39eb52d8c84ce19c172fe18dce66ed27ab31a65397fc4b2238)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "datas_no_cartao_e_remocao_ver_detalhes",
+          "responsavel": "Autora Laura Vieira: decisão; Grok, no Cursor: implementação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "11afedf49a97ec1945b5aebb86b9bb525ed2f8b7",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Datas da escola ainda sem commit, sobre 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7. Diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-datas-escola-correcao.patch (SHA-256 55ca347e932b65582a305fbd09f9110d194646e445b802cecb3c5d55bac6acfc): src/components/SchoolCard.js. package-lock.json previamente modificado e preservado. HANDOVER.md não rastreado. A vinculação do A011 está local. Backend sem alteração de código."
+          },
+          "resultado": "O cartão da escola mostra Criada em e Atualizada em, no mesmo formato do detalhe da turma. Ver detalhes foi removido.",
+          "evidencia": "A autora pediu as datas no cartão, iguais às da turma, e a retirada de Ver detalhes. Escola 6 e escola 2 mostraram 07/11/2026, 21:36. O detalhe da turma 8 mostrou o mesmo texto. Antes: REV-03-FE-A011-datas-escola-antes.txt (SHA-256 64ba396807dc47536420fe78b8d13132448e3ca45df71183a011429e181766ef). Verificação: REV-03-FE-A011-datas-escola-verificacao.txt (SHA-256 65c15f81a4217488476d5f97ecd2a45a3417e0bb34b2424e92c2dc7dac9cdf1d). Compilação exit 0, SHA-256 da saída 4dddb5db023a6c08d5334e0c0f4183002b3b991203dc5551c3f4d02887cf9e8d."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_datas_escola",
+          "responsavel": "Autora Laura Vieira: commit; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "86330ba249dd729a3040d742d96af694c4e8adf9",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Datas da escola versionadas em 86330ba249dd729a3040d742d96af694c4e8adf9. O diff normalizado de src/components/SchoolCard.js é idêntico a REV-03-FE-A011-datas-escola-correcao.patch (SHA-256 55ca347e932b65582a305fbd09f9110d194646e445b802cecb3c5d55bac6acfc). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes nem registra nova confirmação visual. Backend sem alteração de código."
+          },
+          "resultado": "Commit 86330ba249dd729a3040d742d96af694c4e8adf9 associado às datas e à retirada de Ver detalhes já verificadas. Sem novos testes.",
+          "evidencia": "Commit 86330ba249dd729a3040d742d96af694c4e8adf9, de 2026-11-08T16:42:09-03:00, mensagem chore: exibiting school details. O diff 86330ba~1..86330ba de src/components/SchoolCard.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A011-datas-escola-correcao.patch (SHA-256 55ca347e932b65582a305fbd09f9110d194646e445b802cecb3c5d55bac6acfc). Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A011-vinculacao-86330ba.txt (SHA-256 b758e1feb99b37cfbc252cfd9c628d797a97a71a9c634259dd8f08016f24d114). A autora informou o commit."
         }
       ]
     },

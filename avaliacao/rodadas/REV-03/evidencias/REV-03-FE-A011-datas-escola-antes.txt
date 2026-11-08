@@ -1,0 +1,108 @@
+REV-03 / cartao da escola — datas e remocao de Ver detalhes
+Data: 2026-11-08T19:27:29.404Z
+Frontend: 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7
+Branch: main
+Estado local antes da edicao: achados-frontend.json e relatorio-frontend.md modificados pela vinculacao do A011; package-lock.json preexistente; HANDOVER.md e REV-03-FE-A011-vinculacao-11afedf.txt nao rastreados.
+Pedido: mostrar Criada em e Atualizada em no cartao, com o mesmo formato do detalhe da turma, e remover Ver detalhes.
+
+ARQUIVO src/components/SchoolCard.js SHA256 b721429813bd1b207f3cc10f061976cc58c9c816f47cc9506da6dd828b379133
+
+1: /* eslint-disable react/jsx-one-expression-per-line */
+2: 
+3: import React from 'react';
+4: import styled from 'styled-components';
+5: import {
+6:   Card, ListGroup,
+7: } from 'react-bootstrap';
+8: import { SiGoogleclassroom } from 'react-icons/si';
+9: import { BiEdit } from 'react-icons/bi';
+10: import { ImBin, ImInfo } from 'react-icons/im';
+11: 
+12: function formatTotalCapacity (value) {
+13:   if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+14:   if (typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value))) {
+15:     return String(Number(value));
+16:   }
+17:   return '';
+18: }
+19: 
+20: export default function SchoolCard (props) {
+21:   const { schoolData, onDelete } = props;
+22:   const {
+23:     address, headteacher, id, name, phone, totalCapacity,
+24:   } = schoolData;
+25:   const link = `/escola/${id}/classes`;
+26:   const editLink = id ? `/escola/${id}/editar` : null;
+27: 
+28:   return (
+29:     <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
+30: 
+31:       <Card.Body>
+32: 
+33:         <Card.Title>{name}</Card.Title>
+34: 
+35:         <CardText>
+36:           Endereço: {address}
+37:         </CardText>
+38:         <CardText>
+39:           Telefone: {phone}
+40:         </CardText>
+41:         <CardText>
+42:           Diretor(a): {headteacher}
+43:         </CardText>
+44:         <CardText>
+45:           Limite de alunos: {formatTotalCapacity(totalCapacity)}
+46:         </CardText>
+47: 
+48:       </Card.Body>
+49: 
+50:       <StyledListGroup className="list-group-flush">
+51: 
+52:         <SchoolItem action href={link}>
+53:           <SiGoogleclassroom /> Ver turmas
+54:         </SchoolItem>
+55:         <SchoolItem>
+56:           <ImInfo /> Ver detalhes
+57:         </SchoolItem>
+58:         {editLink && (
+59:           <SchoolItem action href={editLink}>
+60:             <BiEdit aria-hidden="true" focusable="false" /> Editar escola
+61:           </SchoolItem>
+62:         )}
+63:         {id && onDelete && (
+64:           <SchoolItem action type="button" onClick={onDelete}>
+65:             <ImBin aria-hidden="true" focusable="false" /> Excluir escola
+66:           </SchoolItem>
+67:         )}
+68: 
+69:       </StyledListGroup>
+70: 
+71:     </StyledCard>
+72:   );
+73: }
+74: 
+75: const StyledListGroup = styled(ListGroup)`
+76:   margin-top: 15px;
+77: `;
+78: 
+79: const StyledCard = styled(Card)`
+80:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+81:   margin: 0 auto;
+82: 
+83:   .card-title {
+84:     font-size: 24px !important;
+85:     margin-bottom: 25px;
+86:     text-align: center;
+87:   }
+88: `;
+89: 
+90: const CardText = styled(Card.Text)``;
+91: 
+92: const SchoolItem = styled(ListGroup.Item)`
+93:   cursor: pointer;
+94: 
+95:   svg {
+96:     margin: 0 5px -2px 0;
+97:   }
+98: `;
+99: 

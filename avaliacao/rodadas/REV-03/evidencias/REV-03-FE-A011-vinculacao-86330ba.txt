@@ -1,0 +1,13 @@
+REV-03 / REV-03-FE-A011 — vinculação do commit das datas da escola
+Data: 2026-11-08
+Commit: 86330ba249dd729a3040d742d96af694c4e8adf9
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T16:42:09-03:00
+Mensagem: chore: exibiting school details
+Pedido da autora: registrar o commit.
+
+Conferência, sem nova execução de testes:
+- git diff 86330ba~1 86330ba -- src/components/SchoolCard.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A011-datas-escola-correcao.patch. SHA-256 55ca347e932b65582a305fbd09f9110d194646e445b802cecb3c5d55bac6acfc. Tamanho normalizado 1781 nos dois lados.
+- O commit também versiona as evidências das datas e a vinculação anterior do A011 em 11afedf.
+
+A associação não repete a compilação nem os percursos do navegador. A autora informou o commit; não houve nova declaração de confirmação visual nesta mensagem.

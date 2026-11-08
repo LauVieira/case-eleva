@@ -7,7 +7,8 @@ import {
 } from 'react-bootstrap';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { BiEdit } from 'react-icons/bi';
-import { ImBin, ImInfo } from 'react-icons/im';
+import { ImBin } from 'react-icons/im';
+import { formatClassDate } from '../utils/classForm';
 
 function formatTotalCapacity (value) {
   if (typeof value === 'number' && Number.isFinite(value)) return String(value);
@@ -20,7 +21,7 @@ function formatTotalCapacity (value) {
 export default function SchoolCard (props) {
   const { schoolData, onDelete } = props;
   const {
-    address, headteacher, id, name, phone, totalCapacity,
+    address, createdAt, headteacher, id, name, phone, totalCapacity, updatedAt,
   } = schoolData;
   const link = `/escola/${id}/classes`;
   const editLink = id ? `/escola/${id}/editar` : null;
@@ -44,6 +45,12 @@ export default function SchoolCard (props) {
         <CardText>
           Limite de alunos: {formatTotalCapacity(totalCapacity)}
         </CardText>
+        <CardText>
+          Criada em: {formatClassDate(createdAt)}
+        </CardText>
+        <CardText>
+          Atualizada em: {formatClassDate(updatedAt)}
+        </CardText>
 
       </Card.Body>
 
@@ -51,9 +58,6 @@ export default function SchoolCard (props) {
 
         <SchoolItem action href={link}>
           <SiGoogleclassroom /> Ver turmas
-        </SchoolItem>
-        <SchoolItem>
-          <ImInfo /> Ver detalhes
         </SchoolItem>
         {editLink && (
           <SchoolItem action href={editLink}>

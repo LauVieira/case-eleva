@@ -1,0 +1,16 @@
+REV-03 / datas da escola no cartão
+Data: 2026-11-08
+Método: compilação e navegador com GET real. Sem escrita.
+Base: 11afedf49a97ec1945b5aebb86b9bb525ed2f8b7 com SchoolCard.js local.
+
+Caso 1 — /escola/6.
+Esperado: Criada em e Atualizada em no mesmo formato do detalhe da turma, sem Ver detalhes.
+Observado: Criada em: 07/11/2026, 21:36 e Atualizada em: 07/11/2026, 21:36. Limite de alunos: 15. Ações: Ver turmas, Editar escola e Excluir escola. Ver detalhes ausente. Passou.
+
+Caso 2 — /turma/8.
+Observado no detalhe da turma: Criada em: 07/11/2026, 21:36 e Atualizada em: 07/11/2026, 21:36. O texto da data é o mesmo do cartão da escola. Passou.
+
+Caso 3 — /escola/2.
+Observado: Limite de alunos: 0, Criada em: 07/11/2026, 21:36 e Atualizada em: 07/11/2026, 21:36. Passou.
+
+A API da escola 6 devolve createdAt e updatedAt 2026-11-08T00:36:52.796Z. O horário local exibido é 21:36 do dia 07/11/2026.
