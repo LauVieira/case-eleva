@@ -5,6 +5,9 @@ import { Button, Form } from 'react-bootstrap';
 export default function SchoolForm (props) {
   const {
     values, sectors, onChange, onSubmit,
+    submitLabel = 'Cadastrar escola',
+    sectorHelp = 'A escola será cadastrada no setor selecionado.',
+    errors = {}, submitting = false, onCancel,
   } = props;
 
   return (
@@ -16,16 +19,24 @@ export default function SchoolForm (props) {
           name="sectorId"
           value={values.sectorId}
           onChange={onChange}
+          disabled={submitting}
+          isInvalid={Boolean(errors.sectorId)}
+          aria-invalid={errors.sectorId ? true : undefined}
           aria-required="true"
-          aria-describedby="school-sector-help"
+          aria-describedby={errors.sectorId ? 'school-sector-help school-sector-error' : 'school-sector-help'}
         >
           <option value="">Selecione um setor</option>
           {sectors.map((sector) => (
             <option key={sector.id} value={sector.id}>{sector.name}</option>
           ))}
         </Form.Control>
+        {errors.sectorId && (
+          <Form.Control.Feedback type="invalid" id="school-sector-error">
+            {errors.sectorId}
+          </Form.Control.Feedback>
+        )}
         <Form.Text id="school-sector-help">
-          A escola será cadastrada no setor selecionado.
+          {sectorHelp}
         </Form.Text>
       </Form.Group>
 
@@ -36,9 +47,17 @@ export default function SchoolForm (props) {
           name="name"
           value={values.name}
           onChange={onChange}
+          disabled={submitting}
+          isInvalid={Boolean(errors.name)}
+          aria-invalid={errors.name ? true : undefined}
           aria-required="true"
-          aria-describedby="school-name-help"
+          aria-describedby={errors.name ? 'school-name-help school-name-error' : 'school-name-help'}
         />
+        {errors.name && (
+          <Form.Control.Feedback type="invalid" id="school-name-error">
+            {errors.name}
+          </Form.Control.Feedback>
+        )}
         <Form.Text id="school-name-help">
           Informe o nome completo da escola, com até 100 caracteres.
         </Form.Text>
@@ -52,9 +71,17 @@ export default function SchoolForm (props) {
           name="address"
           value={values.address}
           onChange={onChange}
+          disabled={submitting}
+          isInvalid={Boolean(errors.address)}
+          aria-invalid={errors.address ? true : undefined}
           aria-required="true"
-          aria-describedby="school-address-help"
+          aria-describedby={errors.address ? 'school-address-help school-address-error' : 'school-address-help'}
         />
+        {errors.address && (
+          <Form.Control.Feedback type="invalid" id="school-address-error">
+            {errors.address}
+          </Form.Control.Feedback>
+        )}
         <Form.Text id="school-address-help">
           Informe o endereço completo em um único campo, com até 255 caracteres.
         </Form.Text>
@@ -67,8 +94,16 @@ export default function SchoolForm (props) {
           name="headteacher"
           value={values.headteacher}
           onChange={onChange}
-          aria-describedby="school-headteacher-help"
+          disabled={submitting}
+          isInvalid={Boolean(errors.headteacher)}
+          aria-invalid={errors.headteacher ? true : undefined}
+          aria-describedby={errors.headteacher ? 'school-headteacher-help school-headteacher-error' : 'school-headteacher-help'}
         />
+        {errors.headteacher && (
+          <Form.Control.Feedback type="invalid" id="school-headteacher-error">
+            {errors.headteacher}
+          </Form.Control.Feedback>
+        )}
         <Form.Text id="school-headteacher-help">
           Até 150 caracteres. Pode deixar em branco.
         </Form.Text>
@@ -82,17 +117,44 @@ export default function SchoolForm (props) {
           name="phone"
           value={values.phone}
           onChange={onChange}
-          aria-describedby="school-phone-help"
+          disabled={submitting}
+          isInvalid={Boolean(errors.phone)}
+          aria-invalid={errors.phone ? true : undefined}
+          aria-describedby={errors.phone ? 'school-phone-help school-phone-error' : 'school-phone-help'}
         />
+        {errors.phone && (
+          <Form.Control.Feedback type="invalid" id="school-phone-error">
+            {errors.phone}
+          </Form.Control.Feedback>
+        )}
         <Form.Text id="school-phone-help">
           Informe DDD e número. Exemplos: (22) 2345-6789 ou (22) 99876-5432.
         </Form.Text>
       </Form.Group>
 
-      <SubmitButton type="submit">Cadastrar escola</SubmitButton>
+      <Actions>
+        <SubmitButton type="submit" disabled={submitting}>
+          {submitting ? 'Salvando...' : submitLabel}
+        </SubmitButton>
+        {onCancel && (
+          <CancelButton type="button" variant="outline-secondary" onClick={onCancel} disabled={submitting}>
+            Cancelar
+          </CancelButton>
+        )}
+      </Actions>
     </Form>
   );
 }
+
+const Actions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+`;
+
+const CancelButton = styled(Button)`
+  margin-top: 8px;
+`;
 
 const SubmitButton = styled(Button)`
   background-color: var(--navy-blue);

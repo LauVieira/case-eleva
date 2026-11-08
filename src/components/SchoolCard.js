@@ -15,6 +15,7 @@ export default function SchoolCard (props) {
     address, headteacher, id, name, phone,
   } = schoolData;
   const link = `/escola/${id}/classes`;
+  const editLink = id ? `/escola/${id}/editar` : null;
 
   return (
     <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
@@ -49,9 +50,11 @@ export default function SchoolCard (props) {
         <SchoolItem>
           <ImInfo /> Dados avançados
         </SchoolItem>
-        <SchoolItem>
-          <BiEdit /> Editar informações
-        </SchoolItem>
+        {editLink && (
+          <SchoolItem action href={editLink}>
+            <BiEdit aria-hidden="true" focusable="false" /> Editar escola
+          </SchoolItem>
+        )}
         <SchoolItem>
           <ImBin /> Apagar informações
         </SchoolItem>

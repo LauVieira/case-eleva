@@ -1,0 +1,125 @@
+Evidência anterior — REV-03-FE-A003 — r05
+Data: 2026-11-08. Responsável: Codex. Método: inspeção de código.
+Frontend: commit 2aeca1b0a36095c608bc982a90c1386aa9c0f9bc, branch main; apenas package-lock.json possui alteração local preexistente.
+SchoolCard renderiza Editar informações em SchoolItem sem action, href ou onClick. Não há destino associado à ação nem rota /escola/:id/editar em App. O arquivo SchoolEditPage.js não existe.
+O backend existente declara PATCH /schools/:id e valida os campos name, address, headteacher, phone e sectorId. IDs e datas gerenciadas, capacidade calculada e vínculo das turmas não são campos de edição.
+R02 permite mudar a escola para outro setor existente, mantendo as turmas vinculadas à mesma escola. CT01–CT03 exigem nome/endereço, limites, normalização e opcionais null; R10 exige validação e preservação dos dados após erro.
+Esta evidência comprova a lacuna por código. Não foi executado clique ou gerado print antes da intervenção.
+
+src/components/SchoolCard.js:
+/* eslint-disable react/jsx-one-expression-per-line */
+
+import React from 'react';
+import styled from 'styled-components';
+import {
+  Card, ListGroup,
+} from 'react-bootstrap';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { BiEdit } from 'react-icons/bi';
+import { ImBin, ImInfo } from 'react-icons/im';
+
+export default function SchoolCard (props) {
+  const { schoolData } = props;
+  const {
+    address, headteacher, id, name, phone,
+  } = schoolData;
+  const link = `/escola/${id}/classes`;
+
+  return (
+    <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
+
+      <Card.Body>
+
+        <Card.Title>{name}</Card.Title>
+
+        <CardText>
+          Endereço: {address}
+        </CardText>
+        <CardText>
+          Telefone: {phone}
+        </CardText>
+        <CardText>
+          Diretor(a): {headteacher}
+        </CardText>
+        <CardText>
+          Capacidade máxima de alunos: -
+        </CardText>
+        <CardText>
+          Vagas ocupadas: -
+        </CardText>
+
+      </Card.Body>
+
+      <StyledListGroup className="list-group-flush">
+
+        <SchoolItem action href={link}>
+          <SiGoogleclassroom /> Ver turmas
+        </SchoolItem>
+        <SchoolItem>
+          <ImInfo /> Dados avançados
+        </SchoolItem>
+        <SchoolItem>
+          <BiEdit /> Editar informações
+        </SchoolItem>
+        <SchoolItem>
+          <ImBin /> Apagar informações
+        </SchoolItem>
+
+      </StyledListGroup>
+
+    </StyledCard>
+  );
+}
+
+const StyledListGroup = styled(ListGroup)`
+  margin-top: 15px;
+`;
+
+const StyledCard = styled(Card)`
+  box-shadow: 3px 2px 10px 1px #B7B5B2;
+  margin: 0 auto;
+
+  .card-title {
+    font-size: 24px !important;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+`;
+
+const CardText = styled(Card.Text)``;
+
+const SchoolItem = styled(ListGroup.Item)`
+  cursor: pointer;
+
+  svg {
+    margin: 0 5px -2px 0;
+  }
+`;
+
+
+src/App.js:
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import SignIn from './pages/SignIn';
+import LandingPage from './pages/LandingPage';
+import SectorPage from './pages/SectorPage';
+import SchoolPage from './pages/SchoolPage';
+import ClassesPage from './pages/ClassesPage';
+import SchoolCreatePage from './pages/SchoolCreatePage';
+
+export default function App () {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/login" component={SignIn} exact />
+        <Route path="/" component={LandingPage} exact />
+        <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
+        <Route path="/setor/:id" component={SectorPage} exact />
+        <Route path="/escola/:id" component={SchoolPage} exact />
+        <Route path="/escola/:id/classes" component={ClassesPage} exact />
+      </Switch>
+    </Router>
+  );
+}
+

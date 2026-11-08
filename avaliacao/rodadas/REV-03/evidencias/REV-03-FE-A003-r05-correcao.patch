@@ -1,0 +1,236 @@
+diff --git a/src/App.js b/src/App.js
+index 629d6a1..ff0a48f 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -7,6 +7,7 @@ import SectorPage from './pages/SectorPage';
+ import SchoolPage from './pages/SchoolPage';
+ import ClassesPage from './pages/ClassesPage';
+ import SchoolCreatePage from './pages/SchoolCreatePage';
++import SchoolEditPage from './pages/SchoolEditPage';
+ 
+ export default function App () {
+   return (
+@@ -16,6 +17,7 @@ export default function App () {
+         <Route path="/" component={LandingPage} exact />
+         <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
+         <Route path="/setor/:id" component={SectorPage} exact />
++        <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
+         <Route path="/escola/:id" component={SchoolPage} exact />
+         <Route path="/escola/:id/classes" component={ClassesPage} exact />
+       </Switch>
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index f4e1be1..0c0ac64 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -15,6 +15,7 @@ export default function SchoolCard (props) {
+     address, headteacher, id, name, phone,
+   } = schoolData;
+   const link = `/escola/${id}/classes`;
++  const editLink = id ? `/escola/${id}/editar` : null;
+ 
+   return (
+     <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
+@@ -49,9 +50,11 @@ export default function SchoolCard (props) {
+         <SchoolItem>
+           <ImInfo /> Dados avançados
+         </SchoolItem>
+-        <SchoolItem>
+-          <BiEdit /> Editar informações
+-        </SchoolItem>
++        {editLink && (
++          <SchoolItem action href={editLink}>
++            <BiEdit aria-hidden="true" focusable="false" /> Editar escola
++          </SchoolItem>
++        )}
+         <SchoolItem>
+           <ImBin /> Apagar informações
+         </SchoolItem>
+diff --git a/src/components/SchoolForm.js b/src/components/SchoolForm.js
+index dae9d94..3d1e702 100644
+--- a/src/components/SchoolForm.js
++++ b/src/components/SchoolForm.js
+@@ -5,6 +5,9 @@ import { Button, Form } from 'react-bootstrap';
+ export default function SchoolForm (props) {
+   const {
+     values, sectors, onChange, onSubmit,
++    submitLabel = 'Cadastrar escola',
++    sectorHelp = 'A escola será cadastrada no setor selecionado.',
++    errors = {}, submitting = false, onCancel,
+   } = props;
+ 
+   return (
+@@ -16,16 +19,24 @@ export default function SchoolForm (props) {
+           name="sectorId"
+           value={values.sectorId}
+           onChange={onChange}
++          disabled={submitting}
++          isInvalid={Boolean(errors.sectorId)}
++          aria-invalid={errors.sectorId ? true : undefined}
+           aria-required="true"
+-          aria-describedby="school-sector-help"
++          aria-describedby={errors.sectorId ? 'school-sector-help school-sector-error' : 'school-sector-help'}
+         >
+           <option value="">Selecione um setor</option>
+           {sectors.map((sector) => (
+             <option key={sector.id} value={sector.id}>{sector.name}</option>
+           ))}
+         </Form.Control>
++        {errors.sectorId && (
++          <Form.Control.Feedback type="invalid" id="school-sector-error">
++            {errors.sectorId}
++          </Form.Control.Feedback>
++        )}
+         <Form.Text id="school-sector-help">
+-          A escola será cadastrada no setor selecionado.
++          {sectorHelp}
+         </Form.Text>
+       </Form.Group>
+ 
+@@ -36,9 +47,17 @@ export default function SchoolForm (props) {
+           name="name"
+           value={values.name}
+           onChange={onChange}
++          disabled={submitting}
++          isInvalid={Boolean(errors.name)}
++          aria-invalid={errors.name ? true : undefined}
+           aria-required="true"
+-          aria-describedby="school-name-help"
++          aria-describedby={errors.name ? 'school-name-help school-name-error' : 'school-name-help'}
+         />
++        {errors.name && (
++          <Form.Control.Feedback type="invalid" id="school-name-error">
++            {errors.name}
++          </Form.Control.Feedback>
++        )}
+         <Form.Text id="school-name-help">
+           Informe o nome completo da escola, com até 100 caracteres.
+         </Form.Text>
+@@ -52,9 +71,17 @@ export default function SchoolForm (props) {
+           name="address"
+           value={values.address}
+           onChange={onChange}
++          disabled={submitting}
++          isInvalid={Boolean(errors.address)}
++          aria-invalid={errors.address ? true : undefined}
+           aria-required="true"
+-          aria-describedby="school-address-help"
++          aria-describedby={errors.address ? 'school-address-help school-address-error' : 'school-address-help'}
+         />
++        {errors.address && (
++          <Form.Control.Feedback type="invalid" id="school-address-error">
++            {errors.address}
++          </Form.Control.Feedback>
++        )}
+         <Form.Text id="school-address-help">
+           Informe o endereço completo em um único campo, com até 255 caracteres.
+         </Form.Text>
+@@ -67,8 +94,16 @@ export default function SchoolForm (props) {
+           name="headteacher"
+           value={values.headteacher}
+           onChange={onChange}
+-          aria-describedby="school-headteacher-help"
++          disabled={submitting}
++          isInvalid={Boolean(errors.headteacher)}
++          aria-invalid={errors.headteacher ? true : undefined}
++          aria-describedby={errors.headteacher ? 'school-headteacher-help school-headteacher-error' : 'school-headteacher-help'}
+         />
++        {errors.headteacher && (
++          <Form.Control.Feedback type="invalid" id="school-headteacher-error">
++            {errors.headteacher}
++          </Form.Control.Feedback>
++        )}
+         <Form.Text id="school-headteacher-help">
+           Até 150 caracteres. Pode deixar em branco.
+         </Form.Text>
+@@ -82,18 +117,45 @@ export default function SchoolForm (props) {
+           name="phone"
+           value={values.phone}
+           onChange={onChange}
+-          aria-describedby="school-phone-help"
++          disabled={submitting}
++          isInvalid={Boolean(errors.phone)}
++          aria-invalid={errors.phone ? true : undefined}
++          aria-describedby={errors.phone ? 'school-phone-help school-phone-error' : 'school-phone-help'}
+         />
++        {errors.phone && (
++          <Form.Control.Feedback type="invalid" id="school-phone-error">
++            {errors.phone}
++          </Form.Control.Feedback>
++        )}
+         <Form.Text id="school-phone-help">
+           Informe DDD e número. Exemplos: (22) 2345-6789 ou (22) 99876-5432.
+         </Form.Text>
+       </Form.Group>
+ 
+-      <SubmitButton type="submit">Cadastrar escola</SubmitButton>
++      <Actions>
++        <SubmitButton type="submit" disabled={submitting}>
++          {submitting ? 'Salvando...' : submitLabel}
++        </SubmitButton>
++        {onCancel && (
++          <CancelButton type="button" variant="outline-secondary" onClick={onCancel} disabled={submitting}>
++            Cancelar
++          </CancelButton>
++        )}
++      </Actions>
+     </Form>
+   );
+ }
+ 
++const Actions = styled.div`
++  display: flex;
++  flex-wrap: wrap;
++  gap: 12px;
++`;
++
++const CancelButton = styled(Button)`
++  margin-top: 8px;
++`;
++
+ const SubmitButton = styled(Button)`
+   background-color: var(--navy-blue);
+   border-color: var(--navy-blue);
+diff --git a/src/utils/schoolForm.js b/src/utils/schoolForm.js
+index 1b9843c..6ae105c 100644
+--- a/src/utils/schoolForm.js
++++ b/src/utils/schoolForm.js
+@@ -15,3 +15,39 @@ export function serializeSchoolForm (values) {
+ export function formatSchoolName (name) {
+   return name.replace(/\S+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+ }
++
++export function schoolToFormValues (school) {
++  return {
++    sectorId: String(school.sectorId),
++    name: formatSchoolName(school.name || ''),
++    address: school.address || '',
++    headteacher: school.headteacher || '',
++    phone: school.phone || '',
++  };
++}
++
++export function validateSchoolForm (values, sectors) {
++  const data = serializeSchoolForm(values);
++  const errors = {};
++
++  if (!Number.isInteger(data.sectorId) || data.sectorId <= 0
++    || !sectors.some((sector) => sector.id === data.sectorId)) {
++    errors.sectorId = 'Selecione um setor existente.';
++  }
++
++  if (!data.name) errors.name = 'Informe o nome da escola.';
++  else if (data.name.length > 100) errors.name = 'O nome deve ter até 100 caracteres após normalização.';
++
++  if (!data.address) errors.address = 'Informe o endereço da escola.';
++  else if (data.address.length > 255) errors.address = 'O endereço deve ter até 255 caracteres.';
++
++  if (data.headteacher && data.headteacher.length > 150) {
++    errors.headteacher = 'O nome do(a) diretor(a) deve ter até 150 caracteres.';
++  }
++
++  if (data.phone && !/^\+55\d{10,11}$/.test(data.phone)) {
++    errors.phone = 'Informe telefone com DDD e 8 ou 9 dígitos, como (22) 2345-6789.';
++  }
++
++  return errors;
++}

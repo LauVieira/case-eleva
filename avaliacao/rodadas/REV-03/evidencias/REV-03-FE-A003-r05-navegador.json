@@ -1,0 +1,177 @@
+{
+  "data": "2026-11-08",
+  "metodo": "Chrome/CDP; GETs e escritas da API simulados e interceptados antes do envio.",
+  "gravacoes_reais": false,
+  "dados": "Ficticios; escola 990002; setores 10 e 2.",
+  "resultados": [
+    {
+      "caso": "acesso_pelo_detalhe_e_campos_editaveis",
+      "resultado": "passou_com_respostas_simuladas",
+      "campos": [
+        {
+          "name": "sectorId",
+          "value": "10",
+          "label": "Setor (obrigatório)"
+        },
+        {
+          "name": "name",
+          "value": "Escola Exemplo",
+          "label": "Nome da escola (obrigatório)"
+        },
+        {
+          "name": "address",
+          "value": "Rua Fictícia, 10",
+          "label": "Endereço (obrigatório)"
+        },
+        {
+          "name": "headteacher",
+          "value": "Diretora Fictícia",
+          "label": "Diretor(a) (opcional)"
+        },
+        {
+          "name": "phone",
+          "value": "+552223456789",
+          "label": "Telefone (opcional)"
+        }
+      ],
+      "titulo": "Editar escola | Gestão Escolar"
+    },
+    {
+      "caso": "largura_320px",
+      "resultado": "passou_com_respostas_simuladas",
+      "largura": 320,
+      "conteudo": 305
+    },
+    {
+      "caso": "sem_alteracoes_e_cancelamento_sem_mutacao",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "validacao_dos_cinco_campos_sem_envio",
+      "resultado": "passou_com_respostas_simuladas",
+      "foco": "resumo_de_erros"
+    },
+    {
+      "caso": "conflito_409_preserva_dados_e_permite_reenvio",
+      "resultado": "passou_com_respostas_simuladas",
+      "primeiro_payload": {
+        "name": "nova escola"
+      },
+      "reenvio": {
+        "name": "outra escola"
+      }
+    },
+    {
+      "caso": "mudanca_de_setor_e_limpeza_de_opcionais",
+      "resultado": "passou_com_respostas_simuladas",
+      "payload": {
+        "sectorId": 2,
+        "headteacher": null,
+        "phone": null
+      },
+      "caminho": "/schools/990002"
+    },
+    {
+      "caso": "setor_removido_apos_carregamento_422",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "erro_500_preserva_dados_e_permite_reenvio",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "envio_unico_e_estado_salvando",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "opcionais_null_carregados_como_vazios",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "falha_no_carregamento_e_nova_tentativa",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "escola_inexistente_404",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "regressao_do_cadastro_compartilhado",
+      "resultado": "passou_com_respostas_simuladas"
+    }
+  ],
+  "requisicoes_de_escrita": [
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "name": "nova escola"
+      },
+      "scenario": "conflict"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "name": "outra escola"
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "sectorId": 2,
+        "headteacher": null,
+        "phone": null
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "sectorId": 2
+      },
+      "scenario": "sectorGone"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "address": "Rua Modificada, 20"
+      },
+      "scenario": "serverError"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "address": "Rua Modificada, 20"
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "PATCH",
+      "path": "/schools/990002",
+      "payload": {
+        "address": "Rua com envio único, 30"
+      },
+      "scenario": "slow"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola de criação",
+        "address": "Rua da Criação, 40",
+        "headteacher": null,
+        "phone": null
+      },
+      "scenario": "ok"
+    }
+  ],
+  "limites": "Nao comprova persistencia, unicidade concorrente, preservacao real das turmas/datas, NVDA, contraste, texto 200% ou teclado completo. Sem prints.",
+  "resultado": "passou_nos_casos_verificados"
+}

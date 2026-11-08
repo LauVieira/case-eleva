@@ -1,0 +1,125 @@
+{
+  "tipo_documento": "revisao",
+  "versao_formato": "1.0",
+  "rodada": "REV-03",
+  "execucao": "r05",
+  "achados": [
+    {
+      "id": "REV-03-FE-A003",
+      "titulo": "Edição de escola e mudança de setor não implementadas",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "lacuna_implementacao",
+      "requisitos": [
+        "R02",
+        "R10",
+        "CT01: Escola",
+        "CT02",
+        "CT03",
+        "FE05",
+        "FE06",
+        "FE07"
+      ],
+      "localizacao": "src/components/SchoolCard.js:52–54, Editar informações; src/App.js:14–18; conjunto de src/.",
+      "descricao": "Editar informações é apenas um item visual, sem destino nem manipulador que abra edição. Não há formulário ou PATCH para alterar dados, limpar opcionais ou mudar a escola para outro setor existente.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard renderiza SchoolItem contendo BiEdit e Editar informações, sem href, to ou onClick. SchoolItem deriva de ListGroup.Item; App só registra consulta de escola e listagem de turmas. Os arquivos examinados não contêm operação de atualização de escola. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A005 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na edição de escola e mudança de setor (R02/CT01). A operação da API foi tratada no achado anterior; este apontamento registra a interface de edição ainda ausente. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "Dados cadastrados não podem ser corrigidos e R02 não pode ser realizado pela interface.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Implementar a edição da escola e seleção de setor conforme os contratos, mantendo turmas vinculadas à mesma escola.",
+      "verificacao_pendente": "Conferir PATCH real em ambiente isolado: persistência dos campos, mudança de setor com manutenção do ID e das turmas na mesma escola, opcionais limpos como null, unicidade global, createdAt preservado e updatedAt refletindo edição. Exercitar falha de rede e respostas reais; concluir os métodos de acessibilidade não executados (teclado completo, NVDA, contraste, texto 200% e orientação). A autora ainda precisa confirmar/reavaliar o achado e a interface; não foi inferida confirmação humana desta solicitação de implementação.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_reavaliacao",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "2aeca1b0a36095c608bc982a90c1386aa9c0f9bc",
+          "backend": null,
+          "alteracoes_locais": "Edição ainda sem commit: src/App.js, src/components/SchoolCard.js, src/components/SchoolForm.js e src/utils/schoolForm.js alterados, com diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-correcao.patch, SHA-256 0B0421A8354CA6544F5CA61ADD8F25F81560BB8276E8B0DC8EDC55415669AA6B. Nova src/pages/SchoolEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-SchoolEditPage.js, SHA-256 473C9AA2DC269DD368569388846E0B2A75DBF6FCDEBBBBB0C01B1F831B702FF4. Alteração preexistente de package-lock.json e revisões r01–r04 mantidas."
+        },
+        "descricao": "Implementada página de edição com o mesmo SchoolForm e dimensões/paleta da criação. Editáveis somente nome, endereço, diretor(a), telefone e setor existente. Carrega dados atuais, permite limpar os opcionais, aplica normalização e validações antes do PATCH, envia apenas campos alterados e mantém IDs/datas/capacidade/turmas fora do corpo de edição. Incluídos cancelamento sem envio, prevenção de duplicação, estados de carregamento/sucesso/erro, resumo e erros por campo, preservação de dados e nova tentativa. O cadastro mantém seus recursos previamente adiados.",
+        "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+        "evidencia": "Estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-antes.txt, SHA-256 9E75E834E45D4F4D9FC1A71478AFA4912539E648778AC08A2A4F2FC044B83EE2: SchoolCard oferecia Editar informações sem destino e App não tinha rota de edição. Nova rota /escola/:id/editar em src/App.js; ação nativa com href em SchoolCard. SchoolEditPage carrega escola/setores, converte os opcionais null para campos vazios e coordena submissão, cancelamento, carregamento e erros. SchoolForm mantém os mesmos cinco campos e recebe opções de edição; schoolToFormValues/validateSchoolForm em src/utils/schoolForm.js tratam apresentação e contratos. O PATCH usa serializeSchoolForm seguido de comparação com os valores originais e envia somente alterações de name, address, headteacher, phone e sectorId. Não há controles de ID, datas, capacidade ou turmas. Diff e fonte nova preservados nos arquivos de evidência indicados na versão."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "2aeca1b0a36095c608bc982a90c1386aa9c0f9bc",
+          "backend": null,
+          "alteracoes_locais": "Edição ainda sem commit: src/App.js, src/components/SchoolCard.js, src/components/SchoolForm.js e src/utils/schoolForm.js alterados, com diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-correcao.patch, SHA-256 0B0421A8354CA6544F5CA61ADD8F25F81560BB8276E8B0DC8EDC55415669AA6B. Nova src/pages/SchoolEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-SchoolEditPage.js, SHA-256 473C9AA2DC269DD368569388846E0B2A75DBF6FCDEBBBBB0C01B1F831B702FF4. Alteração preexistente de package-lock.json e revisões r01–r04 mantidas."
+        },
+        "metodo": "r05: inspeção de código e contrato da API; compilação e consultas HTTP; interação no Chrome via CDP com GETs/PATCHs/POST simulados antes de atingir a API; conferência pontual dos utilitários em Node; sem mutação de banco ou prints.",
+        "responsavel": "Codex.",
+        "resultado": "inconclusivo",
+        "evidencia": "Execução em 2026-11-08, Windows, Node v24.16.0, Webpack 5.22.0 e Chrome 156.0.8078.49 sem interface. Compilação e HTTP da página/bundle passaram. Procedimento em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-navegador.cjs: navegação por clique e preenchimento no navegador via CDP; GETs de escola/setores e todas as escritas da API foram interceptados e simulados com dados fictícios. Treze casos passaram: acesso pelo detalhe e cinco campos pré-preenchidos; largura 320px; ausência de PATCH sem mudanças e no cancelamento; cinco campos inválidos bloqueados com foco no resumo; conflito 409 com preservação/reenvio; troca de setor com headteacher/phone null e omissão dos demais campos; setor indisponível 422; falha 500 com recuperação; bloqueio de envio duplicado; opcionais null; falha de carregamento com nova tentativa; escola inexistente; regressão positiva da criação. Foram oito escritas simuladas e nenhuma gravação real. Resultados e payloads em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-navegador.json, SHA-256 91D5AB28CDF96317952AAFA28E8466C3B481B7361895523C109363444865FEF4. DOM em REV-03-FE-A003-r05-formulario.html. Método, passos, esperado/observado, falha inicial do procedimento CDP e sua correção, saída 0 e limites em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-verificacao.txt, SHA-256 AA94C9ECD3168066FB7ECE3B1C92F60B2A6E15AC003E86BFFE17FBDEE885088E. Conferência pontual adicional em Node passou em 14 casos de validação, limites após tratamento, preenchimento de null e exclusão de campos gerenciados do payload. Não foi adicionado framework/suíte de testes ou gerado print; lint não foi executado nesta rodada. Os casos simulados não comprovam persistência, integridade/uniquidade concorrente, manutenção real das turmas/datas, contraste, texto 200%, orientação ou NVDA. Resultado global inconclusivo para o encerramento do achado: frontend passou nos casos simulados, mas integração/persistência reais e métodos pendentes não foram comprovados."
+      },
+      "historico": [
+        {
+          "data": "2026-11-07",
+          "rodada": "REV-03",
+          "evento": "identificacao_inicial_preservada",
+          "responsavel": "Codex, revisão por IA.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+          },
+          "resultado": "confirmado_no_codigo; identificação original e confirmação humana pendente preservadas.",
+          "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. SchoolCard renderiza SchoolItem contendo BiEdit e Editar informações, sem href, to ou onClick. SchoolItem deriva de ListGroup.Item; App só registra consulta de escola e listagem de turmas. Os arquivos examinados não contêm operação de atualização de escola. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A005 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação funcional na edição de escola e mudança de setor (R02/CT01). A operação da API foi tratada no achado anterior; este apontamento registra a interface de edição ainda ausente. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "solicitacao_implementacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Codex.",
+          "versao_codigo": {
+            "frontend": "2aeca1b0a36095c608bc982a90c1386aa9c0f9bc",
+            "backend": null,
+            "alteracoes_locais": "Antes da intervenção, os arquivos de código examinados correspondiam ao commit informado; somente package-lock.json mantinha alteração local preexistente."
+          },
+          "resultado": "Autorizada página de edição conforme os campos editáveis e o estilo da criação.",
+          "evidencia": "A autora solicitou nesta conversa, em 2026-11-08, a página de editar escola no mesmo estilo da criação, permitindo apenas os campos editáveis segundo o documento de regras. Foram mantidos os adiamentos específicos do cadastro; a edição usa validação e recuperação próprias. A solicitação autoriza implementar a tela, sem atribuir à autora os resultados das verificações técnicas ou uma aprovação humana da interface. C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-antes.txt."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "implementacao_edicao_escola",
+          "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "2aeca1b0a36095c608bc982a90c1386aa9c0f9bc",
+            "backend": null,
+            "alteracoes_locais": "Edição ainda sem commit: src/App.js, src/components/SchoolCard.js, src/components/SchoolForm.js e src/utils/schoolForm.js alterados, com diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-correcao.patch, SHA-256 0B0421A8354CA6544F5CA61ADD8F25F81560BB8276E8B0DC8EDC55415669AA6B. Nova src/pages/SchoolEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-SchoolEditPage.js, SHA-256 473C9AA2DC269DD368569388846E0B2A75DBF6FCDEBBBBB0C01B1F831B702FF4. Alteração preexistente de package-lock.json e revisões r01–r04 mantidas."
+          },
+          "resultado": "Edição implementada; validação/erros próprios da edição e cadastro existente preservado; alteração ainda sem commit.",
+          "evidencia": "Estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-antes.txt, SHA-256 9E75E834E45D4F4D9FC1A71478AFA4912539E648778AC08A2A4F2FC044B83EE2: SchoolCard oferecia Editar informações sem destino e App não tinha rota de edição. Nova rota /escola/:id/editar em src/App.js; ação nativa com href em SchoolCard. SchoolEditPage carrega escola/setores, converte os opcionais null para campos vazios e coordena submissão, cancelamento, carregamento e erros. SchoolForm mantém os mesmos cinco campos e recebe opções de edição; schoolToFormValues/validateSchoolForm em src/utils/schoolForm.js tratam apresentação e contratos. O PATCH usa serializeSchoolForm seguido de comparação com os valores originais e envia somente alterações de name, address, headteacher, phone e sectorId. Não há controles de ID, datas, capacidade ou turmas. Diff e fonte nova preservados nos arquivos de evidência indicados na versão."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_frontend_simulada",
+          "responsavel": "Codex.",
+          "versao_codigo": {
+            "frontend": "2aeca1b0a36095c608bc982a90c1386aa9c0f9bc",
+            "backend": null,
+            "alteracoes_locais": "Edição ainda sem commit: src/App.js, src/components/SchoolCard.js, src/components/SchoolForm.js e src/utils/schoolForm.js alterados, com diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-correcao.patch, SHA-256 0B0421A8354CA6544F5CA61ADD8F25F81560BB8276E8B0DC8EDC55415669AA6B. Nova src/pages/SchoolEditPage.js preservada em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-SchoolEditPage.js, SHA-256 473C9AA2DC269DD368569388846E0B2A75DBF6FCDEBBBBB0C01B1F831B702FF4. Alteração preexistente de package-lock.json e revisões r01–r04 mantidas."
+          },
+          "resultado": "inconclusivo no conjunto; 13 casos de navegador e 14 casos pontuais de validação passaram sem gravações reais.",
+          "evidencia": "Execução em 2026-11-08, Windows, Node v24.16.0, Webpack 5.22.0 e Chrome 156.0.8078.49 sem interface. Compilação e HTTP da página/bundle passaram. Procedimento em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-navegador.cjs: navegação por clique e preenchimento no navegador via CDP; GETs de escola/setores e todas as escritas da API foram interceptados e simulados com dados fictícios. Treze casos passaram: acesso pelo detalhe e cinco campos pré-preenchidos; largura 320px; ausência de PATCH sem mudanças e no cancelamento; cinco campos inválidos bloqueados com foco no resumo; conflito 409 com preservação/reenvio; troca de setor com headteacher/phone null e omissão dos demais campos; setor indisponível 422; falha 500 com recuperação; bloqueio de envio duplicado; opcionais null; falha de carregamento com nova tentativa; escola inexistente; regressão positiva da criação. Foram oito escritas simuladas e nenhuma gravação real. Resultados e payloads em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-navegador.json, SHA-256 91D5AB28CDF96317952AAFA28E8466C3B481B7361895523C109363444865FEF4. DOM em REV-03-FE-A003-r05-formulario.html. Método, passos, esperado/observado, falha inicial do procedimento CDP e sua correção, saída 0 e limites em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A003-r05-verificacao.txt, SHA-256 AA94C9ECD3168066FB7ECE3B1C92F60B2A6E15AC003E86BFFE17FBDEE885088E. Conferência pontual adicional em Node passou em 14 casos de validação, limites após tratamento, preenchimento de null e exclusão de campos gerenciados do payload. Não foi adicionado framework/suíte de testes ou gerado print; lint não foi executado nesta rodada. Os casos simulados não comprovam persistência, integridade/uniquidade concorrente, manutenção real das turmas/datas, contraste, texto 200%, orientação ou NVDA."
+        }
+      ]
+    }
+  ]
+}
