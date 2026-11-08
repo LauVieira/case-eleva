@@ -1,0 +1,121 @@
+{
+  "tipo_documento": "revisao",
+  "versao_formato": "1.0",
+  "rodada": "REV-03",
+  "execucao": "r02",
+  "achados": [
+    {
+      "id": "REV-03-FE-A012",
+      "titulo": "Consultas não distinguem carregamento, resultado vazio e erro",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+        "backend": null,
+        "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE10",
+        "FE01",
+        "H01",
+        "H09"
+      ],
+      "localizacao": "src/pages/LandingPage.js:13–22,30–42; src/pages/SectorPage.js:13–22,30–58; src/pages/ClassesPage.js:16–25,33–50; src/pages/SchoolPage.js:12–28; src/components/SchoolCard.js:14–17,46.",
+      "descricao": "Nas três listagens, uma resposta [] mantém Carregando... indefinidamente; a rejeição mostra alert genérico sem estado persistente de erro ou recuperação. Na consulta de escola, o cartão é montado com {} antes da resposta e continua assim após falha, incluindo um destino /escola/undefined/classes. Os controles de adição de escola/turma também só aparecem quando já há itens.",
+      "evidencia": "Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os arrays iniciam vazios e a condição de exibição é exclusivamente length === 0. Os catches apenas chamam alert, sem encerrar estado de carregamento, distinguir 404/erro ou disponibilizar nova tentativa. SchoolPage renderiza SchoolCard incondicionalmente, cujo link interpola schoolData.id ainda indefinido. São consequências do caminho de código, não estados observados no navegador. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A004 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação complementar na recuperação de falhas das consultas (H01/H09). O registro anterior trata da causa/campo/formato nas respostas da API; este trata do estado de consulta e do tratamento genérico no consumidor frontend. A confusão entre lista vazia e carregamento não é atribuída ao backend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados.",
+      "impacto": "Listas legitimamente vazias parecem estar em processamento, falhas não oferecem recuperação local e o detalhe pode disponibilizar navegação sem registro válido.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Separar estados de carregamento, sucesso com dados, sucesso vazio e erro; oferecer recuperação e montar ações apenas com identificação válida. Deixar adição disponível no estado vazio quando implementada.",
+      "verificacao_pendente": "Verificar e tratar as demais ocorrências de A012: listas vazias de setores e turmas; detalhe de escola antes dos dados ou após falha; 404/rejeição/erro de rede e recuperação nas consultas, inclusive SectorPage. As verificações de teclado e demais métodos não executados não podem ser inferidas do DOM. A criação da página de cadastro e o alcance do ponto 3 do plano foram adiados pela autora.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08, a autora indicou o A012 e descreveu a correção esperada para escolas: uma resposta vazia deve retirar Carregando... e deixar apenas o card de criar escola na coleção. Ao esclarecer o alcance nesta conversa, escolheu expressamente colher evidência, corrigir a listagem de escolas e verificar o resultado. Esta confirmação se refere ao problema e à intervenção solicitada; não representa aprovação humana de todas as ocorrências ou das verificações posteriores.",
+      "situacao": "persistente",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+          "backend": null,
+          "alteracoes_locais": "Correção parcial ainda sem commit, somente em src/pages/SectorPage.js. Diff preservado em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch, SHA-256 E31AA58204819EE40945298BAB96CE0125D1D759012B3D199A99FF5A41BB5193. O arquivo C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/achados-frontend.json foi preservado com SHA-256 FFECF9FF3B445E72175634A7E9E7CEA13500A0F968218A6902F5DC848D2299FB. Alteração preexistente de package-lock.json mantida; novos arquivos de evidência e de reavaliação r02 criados separadamente."
+        },
+        "descricao": "Correção parcial do sucesso vazio em SectorPage: separado o indicador de carregamento do tamanho da lista. Após uma resposta bem-sucedida, inclusive [], Carregando... deixa de ser renderizado e o card Adicionar Escola permanece na coleção. Com escolas, os cards continuam apresentados. Tratamento de falhas e demais telas não foram alterados nesta intervenção.",
+        "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+        "evidencia": "Commit base frontend e60fa6502bf43f37603b2f887c7ec7643f477026; src/pages/SectorPage.js, SectorPage/getSectors, linhas 13–14,20–22,32–34: isLoading inicia true; após sucesso da consulta, setSchools recebe a resposta e setIsLoading(false) encerra o carregamento; a escolha de renderização passa a usar isLoading, permitindo que [] renderize somente o card de adição. Trecho e estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-antes.txt; alteração exata em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+          "backend": null,
+          "alteracoes_locais": "Correção parcial ainda sem commit, somente em src/pages/SectorPage.js. Diff preservado em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch, SHA-256 E31AA58204819EE40945298BAB96CE0125D1D759012B3D199A99FF5A41BB5193. O arquivo C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/achados-frontend.json foi preservado com SHA-256 FFECF9FF3B445E72175634A7E9E7CEA13500A0F968218A6902F5DC848D2299FB. Alteração preexistente de package-lock.json mantida; novos arquivos de evidência e de reavaliação r02 criados separadamente."
+        },
+        "metodo": "r02: inspeção dos arquivos reais e do diff; consultas HTTP locais sem mutação; compilação de desenvolvimento; abertura das páginas /setor/10 e /setor/2 no Chrome sem interface com leitura do DOM após execução da aplicação. Sem suíte de testes automatizados e sem captura de tela.",
+        "responsavel": "Codex.",
+        "resultado": "persiste",
+        "evidencia": "Execução em 2026-11-08, Windows, Chrome 156.0.8078.49 sem interface, Node v24.16.0 e Webpack 5.22.0. Antes da alteração, GET http://localhost:3000/sectors/10/schools retornou HTTP 200 com []; o código então usava schools.length === 0 como condição de carregamento. Após a alteração, o Webpack recompilou com sucesso. Procedimento: abrir http://127.0.0.1:9000/setor/10 em perfil temporário do Chrome com --dump-dom --window-size=1280,900 --timeout=10000 --virtual-time-budget=3000 e inspecionar o DOM após os scripts/consultas; repetir em /setor/2. Esperado no setor 10: ausência de Carregando... e somente o card Adicionar Escola na coleção. Observado: sem Carregando..., Adicionar Escola presente e 1 elemento com a classe card. Esperado no setor 2, cuja consulta HTTP retornou 5 escolas: adição mais cinco cards. Observado: sem Carregando..., Adicionar Escola presente e 6 cards. Ambos os casos passaram; navegador e conferência do DOM concluíram sem falhas. DOMs preservados em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-setor-10.html e C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-setor-2.html; método, passos, esperado, observado, resultado e limitações em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-verificacao.txt. Não foram produzidos prints, atrasada a rede artificialmente, executada suíte de testes automatizados ou realizados percursos de teclado, clique no card, validação de formulário, recuperação de erro, contraste ou NVDA. Persistem, por inspeção do código no commit e60fa6502bf43f37603b2f887c7ec7643f477026 mais o patch desta intervenção: LandingPage e ClassesPage ainda usam length === 0 para carregamento; SchoolPage ainda monta SchoolCard com {} antes da resposta; os catches das consultas continuam com alert genérico, inclusive SectorPage, sem estado de erro/recuperação. Esses comportamentos não foram exercitados no navegador nesta reavaliação. A mudança atual confirma apenas sucesso vazio e sucesso com dados na listagem de escolas, e não encerra o A012 inteiro. O card Adicionar Escola mantém o destino anterior /, pertencente à lacuna A002, ainda sem implementação nesta etapa."
+      },
+      "historico": [
+        {
+          "data": "2026-11-07",
+          "rodada": "REV-03",
+          "evento": "identificacao_inicial_preservada",
+          "responsavel": "Codex, revisão por IA.",
+          "versao_codigo": {
+            "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+            "backend": null,
+            "alteracoes_locais": "Frontend: package-lock.json previamente modificado, preservado em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; instrumentos 01, 02, 04 e 06 não rastreados em avaliacao/. Nenhuma modificação local em src/, public/index.html, estilos ou configurações versionadas. Artefatos ignorados public/bundle.js e public/bundle.js.map preexistentes, sem recompilação; hashes e alcance no relatório."
+          },
+          "resultado": "confirmado_no_codigo; aguardando confirmação da autora na emissão original.",
+          "evidencia": "Registro original preservado em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/achados-frontend.json. Frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41. Os arrays iniciam vazios e a condição de exibição é exclusivamente length === 0. Os catches apenas chamam alert, sem encerrar estado de carregamento, distinguir 404/erro ou disponibilizar nova tentativa. SchoolPage renderiza SchoolCard incondicionalmente, cujo link interpola schoolData.id ainda indefinido. São consequências do caminho de código, não estados observados no navegador. Observação de relação com backend, na última etapa após a geração dos documentos: REV-01-BE-A004 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva-api/avaliacao/achados.json (SHA-256 ECD29FA28AC29008E97A829532B90A16169702BC7730151E740528E95BCAE550; consulta em 2026-11-07). Relação complementar na recuperação de falhas das consultas (H01/H09). O registro anterior trata da causa/campo/formato nas respostas da API; este trata do estado de consulta e do tratamento genérico no consumidor frontend. A confusão entre lista vazia e carregamento não é atribuída ao backend. No consolidado consultado, esses IDs constam com situacao resolvido_no_recorte; esse estado é informado pelo registro anterior e não foi reavaliado nesta execução. A relação não demonstra identidade de problema nem justifica marcar duplicado; o ID frontend, confirmacao_autora pendente, situacao aguardando_confirmacao e historico vazio foram preservados."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_e_delimitacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Codex.",
+          "versao_codigo": {
+            "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+            "backend": null,
+            "alteracoes_locais": "Antes desta intervenção, src/pages/SectorPage.js não tinha diferenças locais em relação ao commit informado. package-lock.json já estava modificado; o JSON original da revisão tinha uma atualização staged anterior a esta atividade e foi preservado sem alterações. Evidência do estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-antes.txt."
+          },
+          "resultado": "confirmado; autorizada correção da listagem de escolas após coleta da evidência anterior.",
+          "evidencia": "Em 2026-11-08, a autora indicou o A012 e descreveu a correção esperada para escolas: uma resposta vazia deve retirar Carregando... e deixar apenas o card de criar escola na coleção. Ao esclarecer o alcance nesta conversa, escolheu expressamente colher evidência, corrigir a listagem de escolas e verificar o resultado. Esta confirmação se refere ao problema e à intervenção solicitada; não representa aprovação humana de todas as ocorrências ou das verificações posteriores. C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-antes.txt registra código e resposta HTTP anteriores à alteração."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao_parcial",
+          "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+            "backend": null,
+            "alteracoes_locais": "Correção parcial ainda sem commit, somente em src/pages/SectorPage.js. Diff preservado em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch, SHA-256 E31AA58204819EE40945298BAB96CE0125D1D759012B3D199A99FF5A41BB5193. O arquivo C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/achados-frontend.json foi preservado com SHA-256 FFECF9FF3B445E72175634A7E9E7CEA13500A0F968218A6902F5DC848D2299FB. Alteração preexistente de package-lock.json mantida; novos arquivos de evidência e de reavaliação r02 criados separadamente."
+          },
+          "resultado": "Implementada a separação entre carregamento e sucesso vazio em SectorPage; correção ainda sem commit.",
+          "evidencia": "Commit base frontend e60fa6502bf43f37603b2f887c7ec7643f477026; src/pages/SectorPage.js, SectorPage/getSectors, linhas 13–14,20–22,32–34: isLoading inicia true; após sucesso da consulta, setSchools recebe a resposta e setIsLoading(false) encerra o carregamento; a escolha de renderização passa a usar isLoading, permitindo que [] renderize somente o card de adição. Trecho e estado anterior em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-antes.txt; alteração exata em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_parcial",
+          "responsavel": "Codex.",
+          "versao_codigo": {
+            "frontend": "e60fa6502bf43f37603b2f887c7ec7643f477026",
+            "backend": null,
+            "alteracoes_locais": "Correção parcial ainda sem commit, somente em src/pages/SectorPage.js. Diff preservado em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-correcao.patch, SHA-256 E31AA58204819EE40945298BAB96CE0125D1D759012B3D199A99FF5A41BB5193. O arquivo C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/achados-frontend.json foi preservado com SHA-256 FFECF9FF3B445E72175634A7E9E7CEA13500A0F968218A6902F5DC848D2299FB. Alteração preexistente de package-lock.json mantida; novos arquivos de evidência e de reavaliação r02 criados separadamente."
+          },
+          "resultado": "persiste; os dois casos de sucesso em SectorPage passaram, mas o achado permanece aberto nas demais ocorrências.",
+          "evidencia": "Execução em 2026-11-08, Windows, Chrome 156.0.8078.49 sem interface, Node v24.16.0 e Webpack 5.22.0. Antes da alteração, GET http://localhost:3000/sectors/10/schools retornou HTTP 200 com []; o código então usava schools.length === 0 como condição de carregamento. Após a alteração, o Webpack recompilou com sucesso. Procedimento: abrir http://127.0.0.1:9000/setor/10 em perfil temporário do Chrome com --dump-dom --window-size=1280,900 --timeout=10000 --virtual-time-budget=3000 e inspecionar o DOM após os scripts/consultas; repetir em /setor/2. Esperado no setor 10: ausência de Carregando... e somente o card Adicionar Escola na coleção. Observado: sem Carregando..., Adicionar Escola presente e 1 elemento com a classe card. Esperado no setor 2, cuja consulta HTTP retornou 5 escolas: adição mais cinco cards. Observado: sem Carregando..., Adicionar Escola presente e 6 cards. Ambos os casos passaram; navegador e conferência do DOM concluíram sem falhas. DOMs preservados em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-setor-10.html e C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-setor-2.html; método, passos, esperado, observado, resultado e limitações em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A012-r02-verificacao.txt. Não foram produzidos prints, atrasada a rede artificialmente, executada suíte de testes automatizados ou realizados percursos de teclado, clique no card, validação de formulário, recuperação de erro, contraste ou NVDA. Persistem, por inspeção do código no commit e60fa6502bf43f37603b2f887c7ec7643f477026 mais o patch desta intervenção: LandingPage e ClassesPage ainda usam length === 0 para carregamento; SchoolPage ainda monta SchoolCard com {} antes da resposta; os catches das consultas continuam com alert genérico, inclusive SectorPage, sem estado de erro/recuperação. Esses comportamentos não foram exercitados no navegador nesta reavaliação. A mudança atual confirma apenas sucesso vazio e sucesso com dados na listagem de escolas, e não encerra o A012 inteiro. O card Adicionar Escola mantém o destino anterior /, pertencente à lacuna A002, ainda sem implementação nesta etapa."
+        }
+      ]
+    }
+  ]
+}

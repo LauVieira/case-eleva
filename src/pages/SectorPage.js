@@ -11,6 +11,7 @@ import Header from '../components/Header';
 export default function SectorPage () {
   const { id } = useParams();
   const [schools, setSchools] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(getSectors, []);
 
@@ -18,6 +19,7 @@ export default function SectorPage () {
     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
     request.then((response) => {
       setSchools([...response.data]);
+      setIsLoading(false);
     });
     request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
   }
@@ -27,7 +29,7 @@ export default function SectorPage () {
 
       <Header />
 
-      {schools.length === 0
+      {isLoading
         ? <p>Carregando...</p>
         : (
           <StyledCardDeck>

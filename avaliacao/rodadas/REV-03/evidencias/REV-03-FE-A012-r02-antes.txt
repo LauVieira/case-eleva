@@ -1,0 +1,140 @@
+Evidência anterior à intervenção — REV-03-FE-A012 — r02
+Data: 2026-11-08. Responsável pela inspeção e consultas HTTP: Codex.
+Frontend: branch main; commit e60fa6502bf43f37603b2f887c7ec7643f477026.
+Backend consultado em execução: código disponível no commit a023d1eea2093d5511c22cfc444e11dfef704e4f; não foi examinado o estado do banco.
+Estado inicial: nenhuma diferença local em src/pages/SectorPage.js; package-lock.json previamente modificado e JSON da revisão com atualização staged anterior a esta atividade.
+SHA-256 do JSON original antes desta atividade: FFECF9FF3B445E72175634A7E9E7CEA13500A0F968218A6902F5DC848D2299FB.
+SHA-256 de src/pages/SectorPage.js antes da intervenção: 5DF5C3A7E45937AE986CA94983AB7A397D5453687C9DDD595B043E71A435E2B0.
+Procedimento 1: GET http://localhost:3000/sectors/10/schools, sem mutação de dados.
+Resultado HTTP: 200; corpo retornado: [].
+Setor 10: Setor Azul Marinho, identificado por GET /sectors.
+Procedimento 2: GET http://localhost:3000/sectors/2/schools, para referência de setor com escolas.
+Resultado HTTP: 200; quantidade de escolas retornadas: 5.
+Procedimento 3: GET http://127.0.0.1:9000/setor/10, com Accept: text/html.
+Resultado HTTP do documento: 200; este resultado comprova somente que o HTML foi servido, não o conteúdo assíncrono renderizado no navegador.
+Inspeção de código: o estado schools inicia []; o sucesso atribui response.data; a renderização usa somente schools.length === 0 para escolher Carregando... e mantém o card Adicionar Escola na outra ramificação. Logo, uma resposta [] não permite sair do ramo de carregamento.
+Esperado para a correção solicitada: após uma resposta vazia bem-sucedida, retirar Carregando... e apresentar somente o card de adicionar escola na coleção, mantendo o cabeçalho compartilhado.
+Limites: o comportamento visual anterior não foi observado nesta atividade. Não foram executados testes automatizados, percurso de teclado ou captura de tela. A evidência de fluxo é a inspeção do código combinada à resposta HTTP real; não se afirma execução completa no navegador.
+Outras ocorrências de A012 identificadas no registro original permanecem fora desta evidência específica: LandingPage, ClassesPage, detalhe de escola e tratamento/recuperação de erros.
+
+Fonte inspecionada — src/pages/SectorPage.js:
+   1: import React, { useEffect, useState } from 'react';
+   2: import { useParams } from 'react-router-dom';
+   3: import axios from 'axios';
+   4: import styled from 'styled-components';
+   5: import {
+   6:   Card, CardDeck, Container, Row, Col,
+   7: } from 'react-bootstrap';
+   8: import { BsPlusCircleFill } from 'react-icons/bs';
+   9: import Header from '../components/Header';
+  10: 
+  11: export default function SectorPage () {
+  12:   const { id } = useParams();
+  13:   const [schools, setSchools] = useState([]);
+  14: 
+  15:   useEffect(getSectors, []);
+  16: 
+  17:   function getSectors () {
+  18:     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
+  19:     request.then((response) => {
+  20:       setSchools([...response.data]);
+  21:     });
+  22:     request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
+  23:   }
+  24: 
+  25:   return (
+  26:     <StyledContainer fluid>
+  27: 
+  28:       <Header />
+  29: 
+  30:       {schools.length === 0
+  31:         ? <p>Carregando...</p>
+  32:         : (
+  33:           <StyledCardDeck>
+  34: 
+  35:             <Container fluid style={{ marginBottom: '20px' }}>
+  36:               <Row>
+  37:                 <Col md={3}>
+  38:                   <SchoolItem href="/" tabIndex="0">
+  39:                     <StyledCard>
+  40:                       <Card.Text className="add-school">
+  41:                         <BsPlusCircleFill />
+  42:                         Adicionar Escola
+  43:                       </Card.Text>
+  44:                     </StyledCard>
+  45:                   </SchoolItem>
+  46:                 </Col>
+  47:                 {
+  48:                   schools.map((school) => (
+  49:                     <Col md={3}>
+  50:                       <SchoolCard key={school.id} school={school} />
+  51:                     </Col>
+  52:                   ))
+  53:                 }
+  54:               </Row>
+  55:             </Container>
+  56: 
+  57:           </StyledCardDeck>
+  58:         )}
+  59: 
+  60:     </StyledContainer>
+  61:   );
+  62: }
+  63: 
+  64: function SchoolCard (props) {
+  65:   const { school } = props;
+  66:   const link = `/escola/${school.id}`;
+  67: 
+  68:   return (
+  69:     <SchoolItem href={link} tabIndex="0">
+  70:       <StyledCard style={{ width: '18rem' }}>
+  71:         <Card.Body>
+  72:           <Card.Title>{school.name}</Card.Title>
+  73:           <Card.Text>
+  74:             {school.address}
+  75:           </Card.Text>
+  76:         </Card.Body>
+  77:       </StyledCard>
+  78:     </SchoolItem>
+  79:   );
+  80: }
+  81: 
+  82: const StyledContainer = styled(Container)`
+  83:   padding-top: 100px;
+  84: `;
+  85: 
+  86: const StyledCardDeck = styled(CardDeck)``;
+  87: 
+  88: const SchoolItem = styled.a`
+  89:   display: flex;
+  90:   font-size: 18px;
+  91:   height: 200px;
+  92:   text-align: center;
+  93:   margin: 20px 0;
+  94:   color: initial;
+  95: 
+  96:   :hover {
+  97:     color: initial;
+  98:     text-decoration: none;
+  99:   }
+ 100: 
+ 101:   p {
+ 102:     margin-bottom: 0;
+ 103:   }
+ 104: 
+ 105:   svg {
+ 106:     font-size: 20px;
+ 107:     margin-right: 5px;
+ 108:   }
+ 109: `;
+ 110: 
+ 111: const StyledCard = styled(Card)`
+ 112:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+ 113: 
+ 114:   .add-school {
+ 115:     align-items: center;
+ 116:     display: flex;
+ 117:     height: 100%;
+ 118:     justify-content: center;
+ 119:   }
+ 120: `;
