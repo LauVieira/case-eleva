@@ -4,7 +4,6 @@ import axios from 'axios';
 import {
   Container, ListGroup,
 } from 'react-bootstrap';
-import { BsPlusCircleFill } from 'react-icons/bs';
 import colorContrast from 'color-contrast';
 
 import Header from '../components/Header';
@@ -31,12 +30,6 @@ export default function LandingPage () {
         ? <p>Carregando...</p>
         : (
           <StyledListGroup>
-            <SectorItem action href="/setor/novo" color="#fff" textColor="#000">
-              <span>
-                <BsPlusCircleFill />
-                Adicionar Setor
-              </span>
-            </SectorItem>
             {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
           </StyledListGroup>
         )}
@@ -81,10 +74,5 @@ const SectorItem = styled(ListGroup.Item)`
 
   p {
     margin-bottom: 0;
-  }
-
-  svg {
-    font-size: 20px;
-    margin: 0 8px -3px -3px;
   }
 `;

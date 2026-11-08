@@ -12,7 +12,7 @@ export default function SectorPage () {
   const { id } = useParams();
   const [schools, setSchools] = useState([]);
 
-  if (id !== 'novo') useEffect(getSectors, []);
+  useEffect(getSectors, []);
 
   function getSectors () {
     const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
