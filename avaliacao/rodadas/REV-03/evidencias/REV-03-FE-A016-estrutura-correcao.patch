@@ -1,0 +1,405 @@
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index 12b6eca..0734df1 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -32,7 +32,7 @@ export default function SchoolCard (props) {
+ 
+       <Card.Body>
+ 
+-        <Card.Title>{formatSchoolName(name || '')}</Card.Title>
++        <Card.Title as="h1">{formatSchoolName(name || '')}</Card.Title>
+ 
+         <CardText>
+           Endereço: {address}
+@@ -90,7 +90,10 @@ const StyledCard = styled(Card)`
+ 
+   .card-title {
+     font-size: 24px !important;
++    font-weight: 500;
++    line-height: 1.2;
+     margin-bottom: 25px;
++    margin-top: 0;
+     text-align: center;
+   }
+ `;
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index bf80f52..2846891 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -89,10 +89,18 @@ export default function ClassesPage () {
+     return () => { active = false; };
+   }, [id, loadAttempt]);
+ 
++  useEffect(() => {
++    const previousTitle = document.title;
++    if (schoolName) document.title = `Turmas | ${schoolName} | Gestão Escolar`;
++    else document.title = 'Turmas | Gestão Escolar';
++    return () => { document.title = previousTitle; };
++  }, [schoolName]);
++
+   return (
+     <StyledContainer fluid>
+-
++      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+       <Header />
++      <Main id="conteudo-principal" tabIndex={-1}>
+ 
+       {deletedClass && (
+         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+@@ -100,6 +108,8 @@ export default function ClassesPage () {
+         </Alert>
+       )}
+ 
++      <PageTitle>Turmas</PageTitle>
++
+       <ContextBar>
+         {schoolMissing && <p role="alert">Escola não encontrada.</p>}
+         {!schoolMissing && schoolState === 'loading' && <p role="status">Identificando a escola...</p>}
+@@ -162,6 +172,7 @@ export default function ClassesPage () {
+           </Button>
+         </QueryError>
+       )}
++      </Main>
+ 
+     </StyledContainer>
+   );
+@@ -175,7 +186,7 @@ function ClassCard (props) {
+     <ClassItem to={link}>
+       <StyledCard>
+         <Card.Body>
+-          <Card.Title>
++          <Card.Title as="h2">
+             Turma {formatClassName(classs.name)}
+           </Card.Title>
+           <Card.Text>
+@@ -203,6 +214,31 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const Main = styled.main`
++  scroll-margin-top: 100px;
++`;
++
++const PageTitle = styled.h1`
++  color: var(--navy-blue);
++  font-size: 28px;
++  margin: 0 0 16px;
++`;
++
++const SkipLink = styled.a`
++  background-color: #FFF;
++  color: var(--navy-blue);
++  left: 16px;
++  padding: 12px;
++  position: fixed;
++  top: 8px;
++  transform: translateY(-200%);
++  z-index: 1100;
++
++  :focus {
++    transform: translateY(0);
++  }
++`;
++
+ const ContextBar = styled.div`
+   align-items: baseline;
+   display: flex;
+@@ -282,6 +318,14 @@ const StyledCard = styled(Card)`
+   height: 100%;
+   width: 18rem;
+ 
++  h2.card-title {
++    font-size: 1.25rem;
++    font-weight: 500;
++    line-height: 1.2;
++    margin-bottom: 0.75rem;
++    margin-top: 0;
++  }
++
+   .add-class {
+     align-items: center;
+     display: flex;
+diff --git a/src/pages/LandingPage.js b/src/pages/LandingPage.js
+index b257f6a..18c332c 100644
+--- a/src/pages/LandingPage.js
++++ b/src/pages/LandingPage.js
+@@ -35,10 +35,18 @@ export default function LandingPage () {
+     return () => { active = false; };
+   }, [loadAttempt]);
+ 
++  useEffect(() => {
++    const previousTitle = document.title;
++    document.title = 'Setores | Gestão Escolar';
++    return () => { document.title = previousTitle; };
++  }, []);
++
+   return (
+     <StyledContainer fluid>
+-
++      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+       <Header />
++      <Main id="conteudo-principal" tabIndex={-1}>
++      <PageTitle>Setores</PageTitle>
+ 
+       {isLoading && <p role="status">Carregando...</p>}
+       {loadError && (
+@@ -55,6 +63,7 @@ export default function LandingPage () {
+           {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
+         </StyledListGroup>
+       )}
++      </Main>
+ 
+     </StyledContainer>
+   );
+@@ -78,6 +87,32 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const Main = styled.main`
++  scroll-margin-top: 100px;
++`;
++
++const PageTitle = styled.h1`
++  color: var(--navy-blue);
++  font-size: 28px;
++  margin: 0 auto 20px;
++  width: 90vw;
++`;
++
++const SkipLink = styled.a`
++  background-color: #FFF;
++  color: var(--navy-blue);
++  left: 16px;
++  padding: 12px;
++  position: fixed;
++  top: 8px;
++  transform: translateY(-200%);
++  z-index: 1100;
++
++  :focus {
++    transform: translateY(0);
++  }
++`;
++
+ const QueryError = styled.div`
+   align-items: center;
+   display: flex;
+diff --git a/src/pages/SchoolPage.js b/src/pages/SchoolPage.js
+index 0f3e72d..f1be22f 100644
+--- a/src/pages/SchoolPage.js
++++ b/src/pages/SchoolPage.js
+@@ -7,6 +7,7 @@ import Header from '../components/Header';
+ import SchoolCard from '../components/SchoolCard';
+ import SchoolDeleteModal from '../components/SchoolDeleteModal';
+ import api from '../services/api';
++import { formatSchoolName } from '../utils/schoolForm';
+ 
+ export default function SchoolPage () {
+   const { id } = useParams();
+@@ -53,21 +54,35 @@ export default function SchoolPage () {
+     });
+   }
+ 
++  useEffect(() => {
++    const previousTitle = document.title;
++    const name = schoolData && schoolData.name ? formatSchoolName(schoolData.name) : '';
++    if (name) document.title = `${name} | Gestão Escolar`;
++    else if (loadError && loadError.notFound) document.title = 'Escola não encontrada | Gestão Escolar';
++    else document.title = 'Escola | Gestão Escolar';
++    return () => { document.title = previousTitle; };
++  }, [schoolData, loadError]);
++
+   return (
+     <StyledContainer fluid>
+-
++      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+       <Header />
+-      <main>
++      <Main id="conteudo-principal" tabIndex={-1}>
+         {loadError && (
+           <QueryError>
+-            <p role="alert">{loadError.message}</p>
++            <PageTitle>{loadError.message}</PageTitle>
+             {!loadError.notFound && (
+               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
+             )}
+             <Link to="/">Voltar aos setores</Link>
+           </QueryError>
+         )}
+-        {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
++        {!schoolData && !loadError && (
++          <>
++            <PageTitle>Escola</PageTitle>
++            <p role="status">Carregando escola...</p>
++          </>
++        )}
+         {schoolData && (
+           <>
+             <ContextBar>
+@@ -83,7 +98,7 @@ export default function SchoolPage () {
+             />
+           </>
+         )}
+-      </main>
++      </Main>
+ 
+     </StyledContainer>
+   );
+@@ -124,6 +139,31 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const Main = styled.main`
++  scroll-margin-top: 100px;
++`;
++
++const PageTitle = styled.h1`
++  color: var(--navy-blue);
++  font-size: 28px;
++  margin: 0 0 20px;
++`;
++
++const SkipLink = styled.a`
++  background-color: #FFF;
++  color: var(--navy-blue);
++  left: 16px;
++  padding: 12px;
++  position: fixed;
++  top: 8px;
++  transform: translateY(-200%);
++  z-index: 1100;
++
++  :focus {
++    transform: translateY(0);
++  }
++`;
++
+ const ContextBar = styled.div`
+   align-items: baseline;
+   display: flex;
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index d1822d8..62d1cb8 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -77,10 +77,19 @@ export default function SectorPage () {
+ 
+   const sectorMissing = schoolsMissing || sectorState === 'missing';
+ 
++  useEffect(() => {
++    const previousTitle = document.title;
++    if (sector) document.title = `${sector.name} | Gestão Escolar`;
++    else if (sectorMissing) document.title = 'Setor não encontrado | Gestão Escolar';
++    else document.title = 'Setor | Gestão Escolar';
++    return () => { document.title = previousTitle; };
++  }, [sector, sectorMissing]);
++
+   return (
+     <StyledContainer fluid>
+-
++      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+       <Header />
++      <Main id="conteudo-principal" tabIndex={-1}>
+ 
+       {deletedSchool && (
+         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+@@ -89,20 +98,23 @@ export default function SectorPage () {
+       )}
+ 
+       <ContextBar>
+-        {sectorMissing && <p role="alert">Setor não encontrado.</p>}
++        <PageTitle>
++          {sectorMissing && 'Setor não encontrado.'}
++          {!sectorMissing && sector && (
++            <>
++              Setor:
++              {' '}
++              <strong>{sector.name}</strong>
++              {' · '}
++              Código:
++              {' '}
++              <strong>{sector.code}</strong>
++            </>
++          )}
++          {!sectorMissing && !sector && 'Setor'}
++        </PageTitle>
+         {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
+         {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
+-        {!sectorMissing && sector && (
+-          <p>
+-            Setor:
+-            {' '}
+-            <strong>{sector.name}</strong>
+-            {' · '}
+-            Código:
+-            {' '}
+-            <strong>{sector.code}</strong>
+-          </p>
+-        )}
+         <Link to="/">Voltar aos setores</Link>
+       </ContextBar>
+ 
+@@ -130,6 +142,7 @@ export default function SectorPage () {
+             ))}
+           </CardGrid>
+         )}
++      </Main>
+ 
+     </StyledContainer>
+   );
+@@ -143,7 +156,7 @@ function SchoolCard (props) {
+     <SchoolItem href={link} tabIndex="0">
+       <StyledCard>
+         <Card.Body>
+-          <Card.Title>{formatSchoolName(school.name || '')}</Card.Title>
++          <Card.Title as="h2">{formatSchoolName(school.name || '')}</Card.Title>
+           <Card.Text>
+             {school.address}
+           </Card.Text>
+@@ -157,6 +170,32 @@ const StyledContainer = styled(Container)`
+   padding-top: 100px;
+ `;
+ 
++const Main = styled.main`
++  scroll-margin-top: 100px;
++`;
++
++const PageTitle = styled.h1`
++  font-size: 1rem;
++  font-weight: 400;
++  line-height: 1.5;
++  margin: 0;
++`;
++
++const SkipLink = styled.a`
++  background-color: #FFF;
++  color: var(--navy-blue);
++  left: 16px;
++  padding: 12px;
++  position: fixed;
++  top: 8px;
++  transform: translateY(-200%);
++  z-index: 1100;
++
++  :focus {
++    transform: translateY(0);
++  }
++`;
++
+ const ContextBar = styled.div`
+   align-items: baseline;
+   display: flex;
+@@ -215,6 +254,14 @@ const StyledCard = styled(Card)`
+   height: 100%;
+   width: 18rem;
+ 
++  h2.card-title {
++    font-size: 1.25rem;
++    font-weight: 500;
++    line-height: 1.2;
++    margin-bottom: 0.75rem;
++    margin-top: 0;
++  }
++
+   .add-school {
+     align-items: center;
+     display: flex;

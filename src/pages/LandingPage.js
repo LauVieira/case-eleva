@@ -35,10 +35,18 @@ export default function LandingPage () {
     return () => { active = false; };
   }, [loadAttempt]);
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = 'Setores | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, []);
+
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
+      <Main id="conteudo-principal" tabIndex={-1}>
+      <PageTitle>Setores</PageTitle>
 
       {isLoading && <p role="status">Carregando...</p>}
       {loadError && (
@@ -55,6 +63,7 @@ export default function LandingPage () {
           {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
         </StyledListGroup>
       )}
+      </Main>
 
     </StyledContainer>
   );
@@ -76,6 +85,32 @@ function SectorCard (props) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  color: var(--navy-blue);
+  font-size: 28px;
+  margin: 0 auto 20px;
+  width: 90vw;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
 `;
 
 const QueryError = styled.div`

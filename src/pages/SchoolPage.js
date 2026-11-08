@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import SchoolCard from '../components/SchoolCard';
 import SchoolDeleteModal from '../components/SchoolDeleteModal';
 import api from '../services/api';
+import { formatSchoolName } from '../utils/schoolForm';
 
 export default function SchoolPage () {
   const { id } = useParams();
@@ -53,21 +54,35 @@ export default function SchoolPage () {
     });
   }
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    const name = schoolData && schoolData.name ? formatSchoolName(schoolData.name) : '';
+    if (name) document.title = `${name} | Gestão Escolar`;
+    else if (loadError && loadError.notFound) document.title = 'Escola não encontrada | Gestão Escolar';
+    else document.title = 'Escola | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, [schoolData, loadError]);
+
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
-      <main>
+      <Main id="conteudo-principal" tabIndex={-1}>
         {loadError && (
           <QueryError>
-            <p role="alert">{loadError.message}</p>
+            <PageTitle>{loadError.message}</PageTitle>
             {!loadError.notFound && (
               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
             )}
             <Link to="/">Voltar aos setores</Link>
           </QueryError>
         )}
-        {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
+        {!schoolData && !loadError && (
+          <>
+            <PageTitle>Escola</PageTitle>
+            <p role="status">Carregando escola...</p>
+          </>
+        )}
         {schoolData && (
           <>
             <ContextBar>
@@ -83,7 +98,7 @@ export default function SchoolPage () {
             />
           </>
         )}
-      </main>
+      </Main>
 
     </StyledContainer>
   );
@@ -122,6 +137,31 @@ function renderSectorContext (school, sectors, sectorsFailed) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  color: var(--navy-blue);
+  font-size: 28px;
+  margin: 0 0 20px;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
 `;
 
 const ContextBar = styled.div`

@@ -32,7 +32,7 @@ export default function SchoolCard (props) {
 
       <Card.Body>
 
-        <Card.Title>{formatSchoolName(name || '')}</Card.Title>
+        <Card.Title as="h1">{formatSchoolName(name || '')}</Card.Title>
 
         <CardText>
           Endereço: {address}
@@ -90,7 +90,10 @@ const StyledCard = styled(Card)`
 
   .card-title {
     font-size: 24px !important;
+    font-weight: 500;
+    line-height: 1.2;
     margin-bottom: 25px;
+    margin-top: 0;
     text-align: center;
   }
 `;

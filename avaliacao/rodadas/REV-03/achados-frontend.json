@@ -1924,7 +1924,7 @@
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+          "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
           "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff normalizado de SectorPage.js, SchoolCard.js, ClassesPage.js e SchoolDeleteModal.js corresponde integralmente ao patch REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
@@ -1935,7 +1935,7 @@
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+          "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
           "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
           "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff das quatro fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
         },
@@ -1977,12 +1977,25 @@
           "evento": "vinculacao_commit_nomes",
           "responsavel": "Autora Laura Vieira: commit e confirmação; Grok, no Cursor: conferência e associação, por solicitação da autora.",
           "versao_codigo": {
-            "frontend": "c400b98f9cb12a8e487192c444b001b600f0ebc4",
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
             "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
             "alteracoes_locais": "Apresentação dos nomes versionada em c400b98f9cb12a8e487192c444b001b600f0ebc4. O diff normalizado das quatro fontes corresponde integralmente ao patch REV-03-FE-A014-nomes-correcao.patch (SHA-256 9e86d489fd474b1fef360979c87b5380c551125fe46c445b702541513b6bd474). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
           },
           "resultado": "confirmado. Commit c400b98f9cb12a8e487192c444b001b600f0ebc4 associado à apresentação dos nomes. Sem novos testes.",
           "evidencia": "Commit c400b98f9cb12a8e487192c444b001b600f0ebc4, de 2026-11-08T18:14:06-03:00, mensagem fix: name capitalization. A autora declarou que já confirmou e commitou. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A014-vinculacao-c400b98.txt (SHA-256 129660c4e44bc9907b5c0d7b6465c036bf24c446ac64af2993f281415d0637f5)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "retificacao_versao_na_branch",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "O commit na branch main é aa86eda99669f9485c5928ccef81db1d5d60d73a, mensagem fix: name capitalization. c400b98f9cb12a8e487192c444b001b600f0ebc4 não é ancestral dele. git diff entre os dois não altera src/. A diferença são achados-frontend.json, relatorio-frontend.md e a evidência de vinculação. Esta nota não repete testes."
+          },
+          "resultado": "Versão da branch retificada para aa86eda99669f9485c5928ccef81db1d5d60d73a. O código conferido contra o patch permanece o mesmo. Sem novos testes.",
+          "evidencia": "git log mostra aa86eda sobre 04a5bb4. git diff c400b98 aa86eda --stat lista só avaliacao/rodadas/REV-03/achados-frontend.json, relatorio-frontend.md e REV-03-FE-A014-vinculacao-c400b98.txt."
         }
       ]
     },
@@ -2055,14 +2068,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Definir títulos de página e de cartões com níveis semânticos coerentes, preservando a aparência pretendida.",
-      "verificacao_pendente": "Conferir estrutura no DOM e navegação por títulos com NVDA ao final; a inspeção não comprova experiência de leitura.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "NVDA e navegação por títulos ficam para a etapa final. A inspeção do DOM não comprova a experiência de leitura.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que confirmou na página e commitou. A confirmação cobre os cabeçalhos que ela viu. Não inclui NVDA.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff normalizado das cinco fontes corresponde integralmente ao patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "As quatro telas passaram a ter um h1. Os cartões de escola na listagem do setor e os cartões de turma usam h2. O nome da escola no detalhe é o h1. O tamanho foi mantido: 16px na linha do setor, 20px nos cartões de lista e 24px no detalhe da escola.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A016-estrutura-antes.txt (SHA-256 f0376c90f5dd7b60c26e721e72f40d81c01d4d828adeebd97fa8a54914a3ff66). Patch: REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37). Compilação exit 0 em REV-03-FE-A016-estrutura-compilacao.txt (SHA-256 4b57c47f505d817cca815a1ffc973ef139d355290b0be2cad0e0ef6916e521ac). Evidência compartilhada com A017 e A019."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff das cinco fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e inspeção do DOM no navegador, com GET real. Sem NVDA. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, / teve h1 Setores; /setor/1 teve h1 do setor e h2 da escola em 20px; /escola/6 teve h1 de 24px centralizado; /escola/6/classes teve h1 Turmas e h2 das turmas. Setor e escola ausentes também tiveram h1. Passos na seção A016 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff). NVDA não foi executado. Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Cabeçalhos ainda sem commit, sobre aa86eda99669f9485c5928ccef81db1d5d60d73a, junto com a região principal e o título da aba. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "As quatro telas têm h1 e os cartões de escola e turma têm cabeçalho. Ainda sem commit.",
+          "evidencia": "Patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas fontes locais da correção, ainda sem commit. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "DOM conferido nas quatro telas e nos ids ausentes. Seção A016 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff). NVDA não executado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_hierarquia",
+          "responsavel": "Autora Laura Vieira: commit e confirmação na página; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff normalizado das cinco fontes corresponde integralmente ao patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado para os cabeçalhos vistos pela autora. Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd associado. Sem novos testes.",
+          "evidencia": "Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd, de 2026-11-08T19:03:39-03:00, mensagem chore: improve page's hierarchy and context. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A016-vinculacao-9b56d40.txt (SHA-256 ff1aa1d5c4db37334d4c59a062e558c5f4e5ddb379e7cddf8eb03da6cf2854e1)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A017",
@@ -2093,14 +2167,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Delimitar o conteúdo principal e adicionar acesso direto a ele com foco adequado.",
-      "verificacao_pendente": "Conferir mecanismo no navegador por teclado, foco não oculto sob cabeçalho fixo e reconhecimento das regiões com NVDA ao final.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "O percurso por Tab até o atalho não foi concluído: a tecla sintética não moveu o foco. NVDA fica para a etapa final.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que confirmou na página e commitou. A confirmação cobre a tela que ela viu. Não reexecuta o percurso por Tab nem inclui NVDA.",
+      "situacao": "aguardando_reavaliacao",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff das cinco fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "As quatro telas têm main com id conteudo-principal e o link Ir para o conteúdo principal antes do cabeçalho. O destino pode receber foco e tem scroll-margin para ficar abaixo do cabeçalho fixo.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes, patch e compilação compartilhados com A016: REV-03-FE-A016-estrutura-antes.txt (SHA-256 f0376c90f5dd7b60c26e721e72f40d81c01d4d828adeebd97fa8a54914a3ff66), REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37) e REV-03-FE-A016-estrutura-compilacao.txt (SHA-256 4b57c47f505d817cca815a1ffc973ef139d355290b0be2cad0e0ef6916e521ac)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff das cinco fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e navegador. O atalho foi acionado e o foco do destino foi medido. Tab sintético não moveu o foco. Sem NVDA. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "inconclusivo",
+        "evidencia": "Em /, o link é o primeiro da árvore. Acioná-lo definiu #conteudo-principal e o foco foi para o main, com topo 140 e o cabeçalho terminando em 72. A tecla Tab sintética deixou o foco no body e o estilo de foco do atalho não apareceu. Seção A017 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff). Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Região principal e atalho ainda sem commit, sobre aa86eda99669f9485c5928ccef81db1d5d60d73a, junto com os cabeçalhos e o título da aba. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "As quatro telas têm main e atalho. Ainda sem commit.",
+          "evidencia": "Patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas fontes locais da correção, ainda sem commit. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "inconclusivo",
+          "evidencia": "O acionamento do atalho focou o main abaixo do cabeçalho. O Tab sintético não moveu o foco. Seção A017 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_hierarquia",
+          "responsavel": "Autora Laura Vieira: commit e confirmação na página; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff normalizado das cinco fontes corresponde integralmente ao patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes nem o percurso por Tab. Backend sem alteração de código."
+          },
+          "resultado": "confirmado para a página vista pela autora. O percurso por Tab continua pendente. Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd associado. Sem novos testes.",
+          "evidencia": "Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd, de 2026-11-08T19:03:39-03:00, mensagem chore: improve page's hierarchy and context. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A016-vinculacao-9b56d40.txt (SHA-256 ff1aa1d5c4db37334d4c59a062e558c5f4e5ddb379e7cddf8eb03da6cf2854e1)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A018",
@@ -2167,14 +2302,75 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Atualizar o título por tela com identificação da tarefa e do setor/escola quando pertinente.",
-      "verificacao_pendente": "Conferir os títulos no navegador após navegação e anúncio com NVDA ao final.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "O anúncio da troca de título com NVDA fica para a etapa final.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora declarou que confirmou na página e commitou. A confirmação cobre os títulos da aba que ela viu. Não inclui o anúncio com NVDA.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff das cinco fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "A aba passou a identificar Setores, o nome do setor, o nome da escola e Turmas com o nome da escola. Setor ou escola ausentes também têm título próprio. O título base Gestão Escolar | Projeto Acadêmico continua no documento e é restaurado ao sair da tela.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes, patch e compilação compartilhados com A016: REV-03-FE-A016-estrutura-antes.txt (SHA-256 f0376c90f5dd7b60c26e721e72f40d81c01d4d828adeebd97fa8a54914a3ff66), REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37) e REV-03-FE-A016-estrutura-compilacao.txt (SHA-256 4b57c47f505d817cca815a1ffc973ef139d355290b0be2cad0e0ef6916e521ac)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff das cinco fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e leitura de document.title no navegador após cada navegação. Sem NVDA. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, os títulos foram Setores, Setor Azul, Setor não encontrado, Escola De Demonstração, Escola não encontrada e Turmas | Escola De Demonstração, todos com o sufixo Gestão Escolar. Seção A019 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff). Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Título da aba ainda sem commit, sobre aa86eda99669f9485c5928ccef81db1d5d60d73a, junto com os cabeçalhos e a região principal. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "Cada uma das quatro telas atualiza o título da aba. Ainda sem commit.",
+          "evidencia": "Patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "aa86eda99669f9485c5928ccef81db1d5d60d73a",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas fontes locais da correção, ainda sem commit. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "Títulos lidos depois da navegação. Seção A019 de REV-03-FE-A016-estrutura-verificacao.txt (SHA-256 17ac54fbe38ab1b1675031aed14db6951c5b0fcb4d7e6495137881d88761edff). NVDA não executado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_hierarquia",
+          "responsavel": "Autora Laura Vieira: commit e confirmação na página; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Hierarquia, região e título versionados em 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd. O diff normalizado das cinco fontes corresponde integralmente ao patch REV-03-FE-A016-estrutura-correcao.patch (SHA-256 7796fa902e1dde23582c25ce6918584a6c4c875e7e97bab93a313e4c79ae3f37). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado para os títulos da aba vistos pela autora. Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd associado. Sem novos testes.",
+          "evidencia": "Commit 9b56d40a4fb8472fa8c0734f28e621e1ae9ae4fd, de 2026-11-08T19:03:39-03:00, mensagem chore: improve page's hierarchy and context. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A016-vinculacao-9b56d40.txt (SHA-256 ff1aa1d5c4db37334d4c59a062e558c5f4e5ddb379e7cddf8eb03da6cf2854e1)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A020",

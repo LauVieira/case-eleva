@@ -89,16 +89,26 @@ export default function ClassesPage () {
     return () => { active = false; };
   }, [id, loadAttempt]);
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    if (schoolName) document.title = `Turmas | ${schoolName} | Gestão Escolar`;
+    else document.title = 'Turmas | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, [schoolName]);
+
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
+      <Main id="conteudo-principal" tabIndex={-1}>
 
       {deletedClass && (
         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
           Turma <strong>{formatClassName(deletedClass.name)}</strong> excluída com sucesso.
         </Alert>
       )}
+
+      <PageTitle>Turmas</PageTitle>
 
       <ContextBar>
         {schoolMissing && <p role="alert">Escola não encontrada.</p>}
@@ -162,6 +172,7 @@ export default function ClassesPage () {
           </Button>
         </QueryError>
       )}
+      </Main>
 
     </StyledContainer>
   );
@@ -175,7 +186,7 @@ function ClassCard (props) {
     <ClassItem to={link}>
       <StyledCard>
         <Card.Body>
-          <Card.Title>
+          <Card.Title as="h2">
             Turma {formatClassName(classs.name)}
           </Card.Title>
           <Card.Text>
@@ -201,6 +212,31 @@ function ClassCard (props) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  color: var(--navy-blue);
+  font-size: 28px;
+  margin: 0 0 16px;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
 `;
 
 const ContextBar = styled.div`
@@ -281,6 +317,14 @@ const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
   height: 100%;
   width: 18rem;
+
+  h2.card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
 
   .add-class {
     align-items: center;

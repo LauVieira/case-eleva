@@ -77,10 +77,19 @@ export default function SectorPage () {
 
   const sectorMissing = schoolsMissing || sectorState === 'missing';
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    if (sector) document.title = `${sector.name} | Gestão Escolar`;
+    else if (sectorMissing) document.title = 'Setor não encontrado | Gestão Escolar';
+    else document.title = 'Setor | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, [sector, sectorMissing]);
+
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
+      <Main id="conteudo-principal" tabIndex={-1}>
 
       {deletedSchool && (
         <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
@@ -89,20 +98,23 @@ export default function SectorPage () {
       )}
 
       <ContextBar>
-        {sectorMissing && <p role="alert">Setor não encontrado.</p>}
+        <PageTitle>
+          {sectorMissing && 'Setor não encontrado.'}
+          {!sectorMissing && sector && (
+            <>
+              Setor:
+              {' '}
+              <strong>{sector.name}</strong>
+              {' · '}
+              Código:
+              {' '}
+              <strong>{sector.code}</strong>
+            </>
+          )}
+          {!sectorMissing && !sector && 'Setor'}
+        </PageTitle>
         {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
         {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
-        {!sectorMissing && sector && (
-          <p>
-            Setor:
-            {' '}
-            <strong>{sector.name}</strong>
-            {' · '}
-            Código:
-            {' '}
-            <strong>{sector.code}</strong>
-          </p>
-        )}
         <Link to="/">Voltar aos setores</Link>
       </ContextBar>
 
@@ -130,6 +142,7 @@ export default function SectorPage () {
             ))}
           </CardGrid>
         )}
+      </Main>
 
     </StyledContainer>
   );
@@ -143,7 +156,7 @@ function SchoolCard (props) {
     <SchoolItem href={link} tabIndex="0">
       <StyledCard>
         <Card.Body>
-          <Card.Title>{formatSchoolName(school.name || '')}</Card.Title>
+          <Card.Title as="h2">{formatSchoolName(school.name || '')}</Card.Title>
           <Card.Text>
             {school.address}
           </Card.Text>
@@ -155,6 +168,32 @@ function SchoolCard (props) {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
 `;
 
 const ContextBar = styled.div`
@@ -214,6 +253,14 @@ const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
   height: 100%;
   width: 18rem;
+
+  h2.card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
 
   .add-school {
     align-items: center;
