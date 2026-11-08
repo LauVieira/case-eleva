@@ -1,0 +1,231 @@
+{
+  "data": "2026-11-08",
+  "metodo": "Chrome/CDP; GETs e POSTs da API simulados e interceptados antes do servidor.",
+  "gravacoes_reais": false,
+  "dados": "Ficticios; escola 990002; turma listada 880000.",
+  "resultados": [
+    {
+      "caso": "cartao_abre_cadastro_da_escola_sem_escrita",
+      "resultado": "passou_com_respostas_simuladas",
+      "campos": [
+        "name",
+        "segment",
+        "grade",
+        "shift",
+        "status",
+        "maxOccupancy"
+      ],
+      "links": [
+        "/styles/reset.css",
+        "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+        "/styles/styles.css",
+        "/images/gestao-escolar.svg",
+        "/",
+        "/login",
+        "/escola/990002/classes/nova",
+        "/"
+      ]
+    },
+    {
+      "caso": "largura_320px",
+      "resultado": "passou_com_respostas_simuladas",
+      "largura": 320,
+      "conteudo": 305
+    },
+    {
+      "caso": "validacao_inicial_sem_envio",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "grupo_depende_do_segmento_e_limpa_incompativel",
+      "resultado": "passou_com_respostas_simuladas",
+      "opcoes": [
+        "Berçário",
+        "Maternal I",
+        "Maternal II"
+      ]
+    },
+    {
+      "caso": "capacidade_invalida_bloqueada_sem_envio",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "cadastro_normaliza_nome_envia_zero_e_situacao_inicial",
+      "resultado": "passou_com_respostas_simuladas",
+      "payload": {
+        "name": "turma a",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 0
+      }
+    },
+    {
+      "caso": "conflito_409_preserva_dados_e_permite_reenvio",
+      "resultado": "passou_com_respostas_simuladas",
+      "reenvio": {
+        "name": "outra turma",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "completed",
+        "maxOccupancy": 10
+      }
+    },
+    {
+      "caso": "resposta_422_preserva_preenchimento",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "falha_500_preserva_dados_e_permite_reenvio",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "falha_de_rede_preserva_preenchimento",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "escola_ausente_no_envio_preserva_formulario",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "envio_unico_e_estado_salvando",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "voltar_sem_mutacao",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "falha_no_carregamento_e_nova_tentativa",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "escola_inexistente_404",
+      "resultado": "passou_com_respostas_simuladas"
+    }
+  ],
+  "requisicoes_de_escrita": [
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma a",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 0
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma a",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 0
+      },
+      "scenario": "conflict"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "outra turma",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "completed",
+        "maxOccupancy": 10
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma com erro",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 3
+      },
+      "scenario": "invalid"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma instavel",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 4
+      },
+      "scenario": "serverError"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma instavel",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 4
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma sem rede",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 5
+      },
+      "scenario": "networkError"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma orfa",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 6
+      },
+      "scenario": "missingSchool"
+    },
+    {
+      "method": "POST",
+      "path": "/schools/990002/classes",
+      "payload": {
+        "name": "turma unica",
+        "segment": "Ensino Fundamental",
+        "grade": "1º ano",
+        "shift": "Matutino",
+        "status": "current",
+        "maxOccupancy": 7
+      },
+      "scenario": "slow"
+    }
+  ],
+  "documento_dom": "avaliacao\\rodadas\\REV-03\\evidencias\\REV-03-FE-A005-cadastro-formulario-1794117731105.html",
+  "limites": "Nao comprova persistencia, unicidade real no banco, contraste, texto 200%, teclado completo ou NVDA. Sem prints.",
+  "resultado": "passou_nos_casos_verificados"
+}

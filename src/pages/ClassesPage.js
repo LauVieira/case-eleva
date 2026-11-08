@@ -37,7 +37,7 @@ export default function ClassesPage () {
         : (
           <StyledCardDeck>
 
-            <ClassItem to="/">
+            <ClassItem to={`/escola/${id}/classes/nova`}>
               <StyledCard>
                 <Card.Text className="add-class">
                   <BsPlusCircleFill />

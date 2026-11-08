@@ -8,6 +8,7 @@ import SchoolPage from './pages/SchoolPage';
 import ClassesPage from './pages/ClassesPage';
 import SchoolCreatePage from './pages/SchoolCreatePage';
 import SchoolEditPage from './pages/SchoolEditPage';
+import ClassCreatePage from './pages/ClassCreatePage';
 
 export default function App () {
   return (
@@ -19,6 +20,7 @@ export default function App () {
         <Route path="/setor/:id" component={SectorPage} exact />
         <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
         <Route path="/escola/:id" component={SchoolPage} exact />
+        <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
         <Route path="/escola/:id/classes" component={ClassesPage} exact />
       </Switch>
     </Router>

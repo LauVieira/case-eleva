@@ -593,14 +593,101 @@
       "prioridade": "alta",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Implementar cadastro de turma vinculada à escola do contexto, com current inicial enviado pelo frontend, menus dependentes e capacidade inteira maior ou igual a zero.",
-      "verificacao_pendente": "Após implementação, verificar escola existente, zero, limites técnicos, segmentos/grupos, nomes normalizados e duplicidade de ativas.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora declarou, em 2026-11-08, que realizou a validação de unicidade real que estava pendente e pediu para relacionar a captura, confirmar o achado e marcá-lo como resolvido. A imagem REV-03-FE-A005-unicidade-real.png mostra o cadastro da Escola de Demonstração recusando o nome jardim com a mensagem de turma ativa duplicada, preservando o preenchimento. A confirmação humana é distinta da verificação simulada anterior.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Cadastro de turma ainda sem commit, sobre o frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. Alterados src/App.js e src/pages/ClassesPage.js; diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-correcao.patch (SHA-256 b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb). Novos arquivos preservados em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-fontes/src: pages/ClassCreatePage.js SHA-256 01bfd2d66360edc258b62019523ff0eaaff9e384f6d0232f86fbe8d7d2a8ccd3; components/ClassForm.js SHA-256 17b5e74004d6754e7dc7125da0ff03a7dfed6235420348abfe8aa84ea1c6daf2; utils/classForm.js SHA-256 ed879fb5959d09a6bffaad2edd33840b462df95e219995c0d169d7e737860656. package-lock.json do frontend já estava modificado e foi preservado. Backend consultado sem alteração de código; package-lock.json do backend também já estava modificado. HANDOVER.md segue não rastreado."
+        },
+        "descricao": "Implementada a rota /escola/:id/classes/nova e o formulário de cadastro ligado à escola do contexto. A escola é mostrada pelo nome e não é editável; o POST /schools/:id/classes envia name, grade, segment, shift, status e maxOccupancy, sem schoolId no corpo. A situação começa em Ativa (current) e o valor escolhido é enviado, inclusive Encerrada. Grupo/ano depende do segmento: a opção incompatível é limpa e nenhuma outra é escolhida no lugar. O nome é normalizado antes do envio e, na confirmação, aparece em maiúsculas. Capacidade zero é aceita; vazio, negativo, fracionário e acima de 2147483647 são bloqueados no cliente. Erros 409, 422, 404, 500 e falha de rede preservam o preenchimento. Um envio em andamento não dispara outro. Voltar para as turmas não envia o cadastro. O cartão Adicionar Classe passou a abrir essa rota; o destino dos cartões de turma já listados não foi alterado.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-antes.txt (SHA-256 cf657a198ead14205b23ac18c7b419cebdb22e86295bbfc19b10597f9e0d444b), frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. Depois: patch SHA-256 b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb e cópias em REV-03-FE-A005-cadastro-fontes, com os hashes de versao_codigo. ClassCreatePage carrega a escola, valida, envia o POST e trata sucesso, 409, 422, 404, 500 e rede. ClassForm reúne os seis campos e o retorno sem mutação. classForm.js normaliza o nome, serializa a capacidade e valida segmento, grupo/ano, turno, situação e limite técnico. Não foi executado POST real."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Cadastro de turma no índice e ainda sem commit: src/App.js, src/pages/ClassesPage.js, src/pages/ClassCreatePage.js, src/components/ClassForm.js e src/utils/classForm.js. package-lock.json continua modificado fora do índice. A captura fornecida pela autora foi renomeada de image.png para REV-03-FE-A005-unicidade-real.png. Esta atualização é documental e posterior à verificação simulada."
+        },
+        "metodo": "Exame visual da captura fornecida pela autora e registro da declaração dela de que a unicidade foi verificada na aplicação em execução. Sem novo POST, sem consulta ao banco e sem repetir os casos simulados.",
+        "responsavel": "Autora Laura Vieira: execução da unicidade real, captura e decisão de confirmação e encerramento. Grok, no Cursor: exame da imagem, renomeação e registro.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "A autora informou que a validação pendente de unicidade real foi feita por ela. A captura, antes nomeada image.png, foi renomeada para C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-unicidade-real.png (SHA-256 04747c124de3f4d4a3446110aeb0b2b336c3519ee6ee2cb723f36f49ab71fc7b, 59693 bytes). Observado na imagem: tela Cadastrar turma; escola Escola De Demonstração, apresentada como vínculo não editável; nome jardim mantido no campo; resumo e mensagem do campo com o texto \"Já existe uma turma ativa com este nome nesta escola. Informe outro nome.\" A imagem não exibe a requisição, a resposta HTTP nem o registro no banco. A autora declarou que essa conferência foi a unicidade real e pediu confirmação e resolução do achado. A verificação simulada anterior permanece no histórico e não foi reexecutada."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "autorizacao_implementacao",
+          "responsavel": "Autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+            "backend": null,
+            "alteracoes_locais": "Antes da intervenção, package-lock.json estava modificado no frontend e HANDOVER.md não estava rastreado. Nenhum arquivo de src/ estava modificado."
+          },
+          "resultado": "Autorizada a implementação do cadastro de turma conforme o plano apresentado. Não se atribuiu confirmação do diagnóstico nem aprovação técnica à autora.",
+          "evidencia": "Pedido nesta conversa, depois do plano: “ok, pode seguir”. Baseline em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-antes.txt (SHA-256 cf657a198ead14205b23ac18c7b419cebdb22e86295bbfc19b10597f9e0d444b)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "implementacao_cadastro_turma",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Cadastro de turma ainda sem commit, sobre o frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. Alterados src/App.js e src/pages/ClassesPage.js; diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-correcao.patch (SHA-256 b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb). Novos arquivos preservados em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-fontes/src: pages/ClassCreatePage.js SHA-256 01bfd2d66360edc258b62019523ff0eaaff9e384f6d0232f86fbe8d7d2a8ccd3; components/ClassForm.js SHA-256 17b5e74004d6754e7dc7125da0ff03a7dfed6235420348abfe8aa84ea1c6daf2; utils/classForm.js SHA-256 ed879fb5959d09a6bffaad2edd33840b462df95e219995c0d169d7e737860656. package-lock.json do frontend já estava modificado e foi preservado. Backend consultado sem alteração de código; package-lock.json do backend também já estava modificado. HANDOVER.md segue não rastreado."
+          },
+          "resultado": "Fluxo implementado; sem commit de correção ainda.",
+          "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-antes.txt (SHA-256 cf657a198ead14205b23ac18c7b419cebdb22e86295bbfc19b10597f9e0d444b), frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. Depois: patch SHA-256 b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb e cópias em REV-03-FE-A005-cadastro-fontes, com os hashes de versao_codigo. ClassCreatePage carrega a escola, valida, envia o POST e trata sucesso, 409, 422, 404, 500 e rede. ClassForm reúne os seis campos e o retorno sem mutação. classForm.js normaliza o nome, serializa a capacidade e valida segmento, grupo/ano, turno, situação e limite técnico. Não foi executado POST real."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_frontend_simulada",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Cadastro de turma ainda sem commit, sobre o frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc. Alterados src/App.js e src/pages/ClassesPage.js; diff em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-correcao.patch (SHA-256 b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb). Novos arquivos preservados em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-fontes/src: pages/ClassCreatePage.js SHA-256 01bfd2d66360edc258b62019523ff0eaaff9e384f6d0232f86fbe8d7d2a8ccd3; components/ClassForm.js SHA-256 17b5e74004d6754e7dc7125da0ff03a7dfed6235420348abfe8aa84ea1c6daf2; utils/classForm.js SHA-256 ed879fb5959d09a6bffaad2edd33840b462df95e219995c0d169d7e737860656. package-lock.json do frontend já estava modificado e foi preservado. Backend consultado sem alteração de código; package-lock.json do backend também já estava modificado. HANDOVER.md segue não rastreado."
+          },
+          "resultado": "inconclusivo no conjunto; 15 casos de navegador e 4 grupos de funções passaram, com 9 POSTs simulados e nenhuma gravação real.",
+          "evidencia": "Execução em 2026-11-08; frontend 0ea1d0810e5f8b309cb415759dff1baf0ec372bc mais as alterações locais preservadas; Windows, Node v24.16.0, Webpack 5.22.0, Chrome 156.0.8078.49 sem interface. Compilação com exit 0 em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-compilacao.txt (SHA-256 9dd3ce2ba1ac023c6350b7abbe2e7b0616e99bda75466a6e40b977c1e6e30f33). Utilitários em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-utilitarios.cjs e resultado C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-utilitarios.json (SHA-256 5e69b0174826a8af03678a68518c8c0664fbaec71cb65d828fe542ba1d0a942c): quatro grupos passaram, incluindo opções iguais ao backend, nome normalizado, capacidade zero sem schoolId e rejeição do limite 2147483648. Navegador em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-navegador.cjs e resultado C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-navegador.json (SHA-256 066586853fe345b6d355546ba64294a999f3d48bcdb7ad59a975cb0d40c79eb1): 15 casos passaram, nove POSTs fictícios para /schools/990002/classes e nenhuma gravação real. Escola fictícia 990002. O payload válido observado foi name turma a, segmento Ensino Fundamental, grade 1º ano, turno Matutino, status current e maxOccupancy 0. O reenvio após 409 saiu como outra turma, completed e capacidade 10. O cartão existente permaneceu em /. Passos, tentativas incompletas do CDP e limites em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-verificacao.txt (SHA-256 6e568d14229dbb4ce1e3baa46e8aca5a0ba4a8cc3ead9ae8e395eb7c290addea). DOM complementar em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-cadastro-formulario-1794117731105.html; não é print. Não foram executados npm test, lint nem POST real. Persistência, unicidade no banco, teclado completo, contraste, texto a 200%, NVDA e confirmação da autora permanecem pendentes. Resultado inconclusivo para encerramento do achado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Cadastro de turma no índice e ainda sem commit: src/App.js, src/pages/ClassesPage.js, src/pages/ClassCreatePage.js, src/components/ClassForm.js e src/utils/classForm.js. package-lock.json continua modificado fora do índice. A captura fornecida pela autora foi renomeada de image.png para REV-03-FE-A005-unicidade-real.png. Esta atualização é documental e posterior à verificação simulada."
+          },
+          "resultado": "confirmado",
+          "evidencia": "A autora declarou, em 2026-11-08, que realizou a validação de unicidade real que estava pendente e pediu para relacionar a captura, confirmar o achado e marcá-lo como resolvido. A imagem REV-03-FE-A005-unicidade-real.png mostra o cadastro da Escola de Demonstração recusando o nome jardim com a mensagem de turma ativa duplicada, preservando o preenchimento. A confirmação humana é distinta da verificação simulada anterior."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_unicidade_real",
+          "responsavel": "Autora Laura Vieira: execução da unicidade real, captura e decisão de confirmação e encerramento. Grok, no Cursor: exame da imagem, renomeação e registro.",
+          "versao_codigo": {
+            "frontend": "0ea1d0810e5f8b309cb415759dff1baf0ec372bc",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Cadastro de turma no índice e ainda sem commit: src/App.js, src/pages/ClassesPage.js, src/pages/ClassCreatePage.js, src/components/ClassForm.js e src/utils/classForm.js. package-lock.json continua modificado fora do índice. A captura fornecida pela autora foi renomeada de image.png para REV-03-FE-A005-unicidade-real.png. Esta atualização é documental e posterior à verificação simulada."
+          },
+          "resultado": "resolveu_no_recorte; situacao atualizada para resolvido_no_recorte por solicitação expressa da autora.",
+          "evidencia": "A autora informou que a validação pendente de unicidade real foi feita por ela. A captura, antes nomeada image.png, foi renomeada para C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A005-unicidade-real.png (SHA-256 04747c124de3f4d4a3446110aeb0b2b336c3519ee6ee2cb723f36f49ab71fc7b, 59693 bytes). Observado na imagem: tela Cadastrar turma; escola Escola De Demonstração, apresentada como vínculo não editável; nome jardim mantido no campo; resumo e mensagem do campo com o texto \"Já existe uma turma ativa com este nome nesta escola. Informe outro nome.\" A imagem não exibe a requisição, a resposta HTTP nem o registro no banco. A autora declarou que essa conferência foi a unicidade real e pediu confirmação e resolução do achado. A verificação simulada anterior permanece no histórico e não foi reexecutada."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A006",

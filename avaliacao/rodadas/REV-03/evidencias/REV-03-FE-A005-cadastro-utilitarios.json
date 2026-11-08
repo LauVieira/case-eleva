@@ -1,0 +1,23 @@
+{
+  "data": "2026-11-08",
+  "metodo": "Node, funcoes de src/utils/classForm.js carregadas por Babel, sem navegador e sem API.",
+  "resultados": [
+    {
+      "caso": "opcoes_iguais_ao_contrato",
+      "resultado": "passou"
+    },
+    {
+      "caso": "normalizacao_apresentacao_e_rotulos",
+      "resultado": "passou"
+    },
+    {
+      "caso": "payload_zero_sem_school_id",
+      "resultado": "passou"
+    },
+    {
+      "caso": "validacao_de_nome_combinacao_situacao_e_capacidade",
+      "resultado": "passou"
+    }
+  ],
+  "resultado": "passou_nos_casos_verificados"
+}
