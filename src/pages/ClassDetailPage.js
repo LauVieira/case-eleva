@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Container } from 'react-bootstrap';
 
 import Header from '../components/Header';
+import ClassDeleteModal from '../components/ClassDeleteModal';
 import api from '../services/api';
 import { formatSchoolName } from '../utils/schoolForm';
 import {
@@ -15,6 +16,8 @@ const maxId = 2147483647;
 export default function ClassDetailPage () {
   const { id } = useParams();
   const classId = Number(id);
+  const history = useHistory();
+  const [showDelete, setShowDelete] = useState(false);
   const [classData, setClassData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
@@ -26,6 +29,7 @@ export default function ClassDetailPage () {
     setIsLoading(true);
     setLoadError(null);
     setClassData(null);
+    setShowDelete(false);
 
     const validId = Number.isInteger(classId) && classId > 0 && classId <= maxId;
     if (!validId) {
@@ -130,8 +134,19 @@ export default function ClassDetailPage () {
         </DetailList>
         <Actions>
           <Link to={`/turma/${classData.id}/editar`}>Editar turma</Link>
+          <Button type="button" variant="danger" onClick={() => setShowDelete(true)}>
+            Excluir turma
+          </Button>
           <Link to={classesPath}>Voltar para as turmas</Link>
         </Actions>
+        <ClassDeleteModal
+          classData={classData}
+          show={showDelete}
+          onHide={() => setShowDelete(false)}
+          onDeleted={() => history.replace(classesPath, {
+            deletedClass: { name: formatClassName(classData.name) },
+          })}
+        />
       </>
     );
   }

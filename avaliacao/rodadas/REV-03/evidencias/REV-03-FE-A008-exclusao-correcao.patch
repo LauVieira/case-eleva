@@ -1,0 +1,106 @@
+diff --git a/src/pages/ClassDetailPage.js b/src/pages/ClassDetailPage.js
+index e046eb7..949fc18 100644
+--- a/src/pages/ClassDetailPage.js
++++ b/src/pages/ClassDetailPage.js
+@@ -1,9 +1,10 @@
+ import React, { useEffect, useRef, useState } from 'react';
+-import { Link, useParams } from 'react-router-dom';
++import { Link, useHistory, useParams } from 'react-router-dom';
+ import styled from 'styled-components';
+ import { Button, Container } from 'react-bootstrap';
+ 
+ import Header from '../components/Header';
++import ClassDeleteModal from '../components/ClassDeleteModal';
+ import api from '../services/api';
+ import { formatSchoolName } from '../utils/schoolForm';
+ import {
+@@ -15,6 +16,8 @@ const maxId = 2147483647;
+ export default function ClassDetailPage () {
+   const { id } = useParams();
+   const classId = Number(id);
++  const history = useHistory();
++  const [showDelete, setShowDelete] = useState(false);
+   const [classData, setClassData] = useState(null);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadError, setLoadError] = useState(null);
+@@ -26,6 +29,7 @@ export default function ClassDetailPage () {
+     setIsLoading(true);
+     setLoadError(null);
+     setClassData(null);
++    setShowDelete(false);
+ 
+     const validId = Number.isInteger(classId) && classId > 0 && classId <= maxId;
+     if (!validId) {
+@@ -130,8 +134,19 @@ export default function ClassDetailPage () {
+         </DetailList>
+         <Actions>
+           <Link to={`/turma/${classData.id}/editar`}>Editar turma</Link>
++          <Button type="button" variant="danger" onClick={() => setShowDelete(true)}>
++            Excluir turma
++          </Button>
+           <Link to={classesPath}>Voltar para as turmas</Link>
+         </Actions>
++        <ClassDeleteModal
++          classData={classData}
++          show={showDelete}
++          onHide={() => setShowDelete(false)}
++          onDeleted={() => history.replace(classesPath, {
++            deletedClass: { name: formatClassName(classData.name) },
++          })}
++        />
+       </>
+     );
+   }
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index 2b19ff1..db0bd49 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -1,11 +1,11 @@
+ /* eslint-disable react/jsx-one-expression-per-line */
+ 
+-import React, { useEffect, useState } from 'react';
+-import { useParams } from 'react-router-dom';
++import React, { useEffect, useRef, useState } from 'react';
++import { useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+-  Card, CardDeck, Container,
++  Alert, Card, CardDeck, Container,
+ } from 'react-bootstrap';
+ import { LinkContainer } from 'react-router-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+@@ -13,9 +13,20 @@ import Header from '../components/Header';
+ 
+ export default function ClassesPage () {
+   const { id } = useParams();
++  const location = useLocation();
++  const history = useHistory();
++  const [deletedClass] = useState(() => location.state && location.state.deletedClass);
++  const noticeRef = useRef(null);
+   const [classes, setClasses] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+ 
++  useEffect(() => {
++    if (deletedClass && noticeRef.current) {
++      noticeRef.current.focus();
++      history.replace({ ...location, state: { ...location.state, deletedClass: null } });
++    }
++  }, []);
++
+   useEffect(getClasses, []);
+ 
+   function getClasses () {
+@@ -32,6 +43,12 @@ export default function ClassesPage () {
+ 
+       <Header />
+ 
++      {deletedClass && (
++        <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
++          Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
++        </Alert>
++      )}
++
+       {isLoading
+         ? <p>Carregando...</p>
+         : (

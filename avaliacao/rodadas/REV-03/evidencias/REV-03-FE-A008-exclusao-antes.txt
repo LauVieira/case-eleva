@@ -1,0 +1,227 @@
+REV-03 / REV-03-FE-A008
+Data: 2026-11-08T16:48:03.349Z
+Frontend: ff4e9d1d624f333e01409614c99299d8cbc5e88f
+Branch: main
+Backend em execucao, sem alteracao de codigo: a023d1eea2093d5511c22cfc444e11dfef704e4f
+Estado local antes da edicao deste achado:
+M package-lock.json
+?? HANDOVER.md
+?? avaliacao/rodadas/REV-03/evidencias/_tmp-a008-antes.cjs
+Pedido: implementar a exclusao de turma, com confirmacao e cancelamento sem mutacao.
+Metodo antes: inspecao do codigo atual. Nao houve DELETE.
+Constatacao: ClassDetailPage oferece Editar turma e voltar, sem Excluir turma. Nao ha modal nem DELETE /classes/:id no frontend.
+
+ARQUIVO src/pages/ClassDetailPage.js SHA256 5d0b77d8e689c34699b526253d3088a618dcd632840b02fc19bf71a9adb2ed96
+1: import React, { useEffect, useRef, useState } from 'react';
+2: import { Link, useParams } from 'react-router-dom';
+3: import styled from 'styled-components';
+4: import { Button, Container } from 'react-bootstrap';
+5: 
+6: import Header from '../components/Header';
+7: import api from '../services/api';
+8: import { formatSchoolName } from '../utils/schoolForm';
+9: import {
+10:   formatClassDate, formatClassName, formatClassStatus, gradeFieldLabel,
+11: } from '../utils/classForm';
+12: 
+13: const maxId = 2147483647;
+14: 
+15: export default function ClassDetailPage () {
+16:   const { id } = useParams();
+17:   const classId = Number(id);
+18:   const [classData, setClassData] = useState(null);
+19:   const [isLoading, setIsLoading] = useState(true);
+20:   const [loadError, setLoadError] = useState(null);
+21:   const [loadAttempt, setLoadAttempt] = useState(0);
+22:   const headingRef = useRef(null);
+23: 
+24:   useEffect(() => {
+25:     let active = true;
+26:     setIsLoading(true);
+27:     setLoadError(null);
+28:     setClassData(null);
+29: 
+30:     const validId = Number.isInteger(classId) && classId > 0 && classId <= maxId;
+31:     if (!validId) {
+32:       setLoadError({ notFound: true, message: 'Turma não encontrada.' });
+33:       setIsLoading(false);
+34:     } else {
+35:       api.get(`/classes/${classId}`)
+36:         .then((response) => {
+37:           if (active) {
+38:             setClassData(response.data);
+39:             setIsLoading(false);
+40:           }
+41:         })
+42:         .catch((error) => {
+43:           if (!active) return;
+44:           const status = error.response && error.response.status;
+45:           const notFound = status === 404 || status === 422;
+46:           setLoadError({
+47:             notFound,
+48:             message: notFound ? 'Turma não encontrada.' : 'Não foi possível carregar a turma.',
+49:           });
+50:           setIsLoading(false);
+51:         });
+52:     }
+53: 
+54:     return () => { active = false; };
+55:   }, [classId, loadAttempt]);
+56: 
+57:   useEffect(() => {
+58:     const previousTitle = document.title;
+59:     document.title = classData
+60:       ? 'Detalhe da turma | Gestão Escolar'
+61:       : 'Turma | Gestão Escolar';
+62:     return () => { document.title = previousTitle; };
+63:   }, [classData]);
+64: 
+65:   useEffect(() => {
+66:     if (!isLoading && headingRef.current) headingRef.current.focus();
+67:   }, [isLoading, classData]);
+68: 
+69:   const school = classData && classData.school;
+70:   const schoolId = classData && (classData.schoolId || (school && school.id));
+71:   const schoolName = school && school.name ? formatSchoolName(school.name) : '';
+72:   const classesPath = schoolId ? `/escola/${schoolId}/classes` : '/';
+73:   const schoolPath = schoolId ? `/escola/${schoolId}` : '/';
+74: 
+75:   function renderContent () {
+76:     if (isLoading) return <p role="status">Carregando turma...</p>;
+77: 
+78:     if (loadError) {
+79:       return (
+80:         <>
+81:           <p role="alert">{loadError.message}</p>
+82:           <Actions>
+83:             {!loadError.notFound && (
+84:               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+85:                 Tentar novamente
+86:               </Button>
+87:             )}
+88:             <Link to="/">Ver setores</Link>
+89:           </Actions>
+90:         </>
+91:       );
+92:     }
+93: 
+94:     return (
+95:       <>
+96:         <ContextText>
+97:           Escola:
+98:           {' '}
+99:           <Link to={schoolPath}>{schoolName}</Link>
+100:         </ContextText>
+101:         <DetailList>
+102:           <div>
+103:             <dt>{gradeFieldLabel(classData.segment)}</dt>
+104:             <dd>{classData.grade}</dd>
+105:           </div>
+106:           <div>
+107:             <dt>Segmento</dt>
+108:             <dd>{classData.segment}</dd>
+109:           </div>
+110:           <div>
+111:             <dt>Turno</dt>
+112:             <dd>{classData.shift}</dd>
+113:           </div>
+114:           <div>
+115:             <dt>Situação</dt>
+116:             <dd>{formatClassStatus(classData.status)}</dd>
+117:           </div>
+118:           <div>
+119:             <dt>Capacidade</dt>
+120:             <dd>{classData.maxOccupancy}</dd>
+121:           </div>
+122:           <div>
+123:             <dt>Criada em</dt>
+124:             <dd>{formatClassDate(classData.createdAt)}</dd>
+125:           </div>
+126:           <div>
+127:             <dt>Atualizada em</dt>
+128:             <dd>{formatClassDate(classData.updatedAt)}</dd>
+129:           </div>
+130:         </DetailList>
+131:         <Actions>
+132:           <Link to={`/turma/${classData.id}/editar`}>Editar turma</Link>
+133:           <Link to={classesPath}>Voltar para as turmas</Link>
+134:         </Actions>
+135:       </>
+136:     );
+137:   }
+138: 
+139:   return (
+140:     <StyledContainer fluid>
+141:       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+142:       <Header />
+143:       <Main id="conteudo-principal" tabIndex={-1}>
+144:         <Heading ref={headingRef} tabIndex={-1}>
+145:           {classData ? formatClassName(classData.name) : 'Turma'}
+146:         </Heading>
+147:         {renderContent()}
+148:       </Main>
+149:     </StyledContainer>
+150:   );
+151: }
+152: 
+153: const StyledContainer = styled(Container)`
+154:   padding-bottom: 40px;
+155:   padding-top: 100px;
+156: `;
+157: 
+158: const Main = styled.main`
+159:   margin: 0 auto;
+160:   max-width: 720px;
+161: `;
+162: 
+163: const Heading = styled.h1`
+164:   color: var(--navy-blue);
+165:   font-size: 28px;
+166:   margin-bottom: 20px;
+167: `;
+168: 
+169: const ContextText = styled.p`
+170:   margin-bottom: 24px;
+171: `;
+172: 
+173: const DetailList = styled.dl`
+174:   display: grid;
+175:   gap: 16px;
+176:   margin-bottom: 8px;
+177: 
+178:   div { margin: 0; }
+179:   dt {
+180:     color: #5c6b73;
+181:     font-size: 14px;
+182:     margin-bottom: 4px;
+183:   }
+184:   dd {
+185:     font-size: 18px;
+186:     margin-bottom: 0;
+187:   }
+188: `;
+189: 
+190: const Actions = styled.div`
+191:   align-items: center;
+192:   display: flex;
+193:   flex-wrap: wrap;
+194:   gap: 20px;
+195:   margin-top: 24px;
+196: `;
+197: 
+198: const SkipLink = styled.a`
+199:   background-color: #FFF;
+200:   color: var(--navy-blue);
+201:   left: 16px;
+202:   padding: 12px;
+203:   position: fixed;
+204:   top: 8px;
+205:   transform: translateY(-200%);
+206:   z-index: 1100;
+207: 
+208:   :focus { transform: translateY(0); }
+209: `;
+210: 
+
+AUSENTE src/components/ClassDeleteModal.js existe=false
+Contrato lido: DELETE /classes/:id retorna 204. Turma ausente responde 404. Nao ha bloqueio por matricula neste escopo.

@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Card, CardDeck, Container,
+  Alert, Card, CardDeck, Container,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -13,8 +13,19 @@ import Header from '../components/Header';
 
 export default function ClassesPage () {
   const { id } = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const [deletedClass] = useState(() => location.state && location.state.deletedClass);
+  const noticeRef = useRef(null);
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (deletedClass && noticeRef.current) {
+      noticeRef.current.focus();
+      history.replace({ ...location, state: { ...location.state, deletedClass: null } });
+    }
+  }, []);
 
   useEffect(getClasses, []);
 
@@ -31,6 +42,12 @@ export default function ClassesPage () {
     <StyledContainer fluid>
 
       <Header />
+
+      {deletedClass && (
+        <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+          Turma <strong>{deletedClass.name}</strong> excluída com sucesso.
+        </Alert>
+      )}
 
       {isLoading
         ? <p>Carregando...</p>

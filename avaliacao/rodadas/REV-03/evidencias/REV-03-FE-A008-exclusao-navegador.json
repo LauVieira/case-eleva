@@ -1,0 +1,80 @@
+{
+  "data": "2026-11-08",
+  "metodo": "Chrome/CDP; GET real; DELETE interceptado e simulado. Nenhuma exclusao real.",
+  "gravacoes_reais": false,
+  "turma": {
+    "id": 8,
+    "name": "jardim",
+    "schoolId": 6
+  },
+  "resultados": [
+    {
+      "caso": "confirmacao_identifica_a_turma_sem_envio",
+      "resultado": "passou_com_delete_simulado",
+      "nome": "JARDIM"
+    },
+    {
+      "caso": "cancelar_sem_mutacao",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "escape_sem_mutacao",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "exclusao_simulada_retorna_a_listagem",
+      "resultado": "passou_com_delete_simulado",
+      "destino": "/escola/6/classes"
+    },
+    {
+      "caso": "falha_500_permite_nova_tentativa",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "turma_ausente_404_sem_sucesso",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "falha_de_rede_permite_cancelar",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "envio_unico",
+      "resultado": "passou_com_delete_simulado"
+    },
+    {
+      "caso": "dialogo_320px",
+      "resultado": "passou_com_delete_simulado",
+      "largura": 320,
+      "conteudo": 304
+    }
+  ],
+  "deletes_simulados": [
+    {
+      "path": "/classes/8",
+      "scenario": "ok"
+    },
+    {
+      "path": "/classes/8",
+      "scenario": "serverError"
+    },
+    {
+      "path": "/classes/8",
+      "scenario": "ok"
+    },
+    {
+      "path": "/classes/8",
+      "scenario": "missing"
+    },
+    {
+      "path": "/classes/8",
+      "scenario": "networkError"
+    },
+    {
+      "path": "/classes/8",
+      "scenario": "slow"
+    }
+  ],
+  "limites": "A listagem consultada depois do 204 simulado ainda pode mostrar a turma, porque ela nao foi apagada no banco. Sem teclado completo alem de Escape, contraste, texto 200% ou NVDA.",
+  "resultado": "passou_nos_casos_verificados"
+}
