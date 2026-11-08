@@ -12,13 +12,17 @@ export default function SignIn () {
       <MainWrapper fluid>
 
         <ColLeft sm={7}>
-          <H1>Prefeitura</H1>
           <Image
-            src="/images/brasaomacae.png"
-            alt="Brasão da cidade"
+            src="/images/gestao-escolar.svg"
+            alt=""
+            width="128"
+            height="128"
           />
-          <H2>MACAÉ</H2>
-          <H3>Secretaria de Educação</H3>
+          <H1>Gestão Escolar</H1>
+          <Subtitle>Protótipo acadêmico</Subtitle>
+          <AcademicNotice>
+            Protótipo desenvolvido para TCC. Aplicação não oficial.
+          </AcademicNotice>
         </ColLeft>
 
         <ColRight>
@@ -33,7 +37,7 @@ export default function SignIn () {
 
 const MainWrapper = styled(Row)`
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const ColLeft = styled(Col)`
@@ -43,10 +47,12 @@ const ColLeft = styled(Col)`
   flex-direction: column;
   font-family: 'Source Sans Pro', sans-serif;
   justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
 
   img {
-    min-width: 40%;
-    max-width: 60%;
+    margin-bottom: 24px;
+    max-width: 40vw;
   }
 `;
 
@@ -59,16 +65,21 @@ const ColRight = styled(Col)`
 `;
 
 const H1 = styled.h1`
-  font-size: 50px;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
 `;
 
-const H2 = styled.h2`
-  font-size: 44px;
-  margin: 10px 0 5px 0;
+const Subtitle = styled.p`
+  font-size: 18px;
+  margin-bottom: 16px;
 `;
 
-const H3 = styled.h3`
-  border-top: 1px solid;
-  font-size: 40px;
-  text-align: center;
+const AcademicNotice = styled.p`
+  color: #535662;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  max-width: 26rem;
 `;

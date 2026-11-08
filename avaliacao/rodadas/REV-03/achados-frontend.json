@@ -41,25 +41,25 @@
       "correcao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
           "backend": null,
-          "alteracoes_locais": "Correção ainda sem commit, aplicada sobre o commit frontend informado: src/pages/LandingPage.js e src/pages/SectorPage.js; diff completo em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch, SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D. package-lock.json já estava modificado antes da correção, conforme avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; não foi alterado pela intervenção. Arquivos de avaliação e capturas não rastreados em avaliacao/."
+          "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
         },
-        "descricao": "Removidos o item Adicionar Setor da listagem inicial, o import de BsPlusCircleFill e o estilo de SVG utilizado por esse item em LandingPage. Removido o tratamento especial de id novo em SectorPage, mantendo a consulta dos setores existentes. Intervenção realizada no turno anterior desta conversa, por solicitação da autora; a data exata da execução da correção não foi registrada.",
+        "descricao": "Removidos o item Adicionar Setor da listagem inicial, o import de BsPlusCircleFill e o estilo de SVG utilizado por esse item em LandingPage. Removido o tratamento especial de id novo em SectorPage, mantendo a consulta dos setores existentes. Intervenção realizada no turno anterior desta conversa, por solicitação da autora; a data exata da execução da correção não foi registrada. A autora versionou a correção no commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, em 2026-11-08T00:08:14-03:00; a data de versionamento não substitui a data não registrada da intervenção.",
         "responsavel": "Codex, por solicitação da autora Laura Vieira.",
-        "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch (SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D); src/pages/LandingPage.js:4–7,29–34,61–78, LandingPage/SectorItem; src/pages/SectorPage.js:15, SectorPage. O diff registra a remoção do controle, importação do ícone e estilo exclusivo, além da retirada da condição id !== 'novo'. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png complementa a evidência de código."
+        "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch (SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D); src/pages/LandingPage.js:4–7,29–34,61–78, LandingPage/SectorItem; src/pages/SectorPage.js:15, SectorPage. O diff registra a remoção do controle, importação do ícone e estilo exclusivo, além da retirada da condição id !== 'novo'. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png complementa a evidência de código. Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit."
       },
       "reavaliacao": {
         "rodada": "REV-03",
         "versao_codigo": {
-          "frontend": "a87aec2e79771b4c74c3e21ede75e4a2fef55c41",
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
           "backend": null,
-          "alteracoes_locais": "Correção ainda sem commit, aplicada sobre o commit frontend informado: src/pages/LandingPage.js e src/pages/SectorPage.js; diff completo em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch, SHA-256 27DD0FBB4A22A88025ECFC65814DE04AE0288F2DAEB782EE190047F307AED71D. package-lock.json já estava modificado antes da correção, conforme avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; não foi alterado pela intervenção. Arquivos de avaliação e capturas não rastreados em avaliacao/."
+          "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
         },
         "metodo": "Inspeção de código e do diff da correção, comparação visual dos dois prints de navegador fornecidos pela autora e registro da confirmação humana nesta conversa, em 2026-11-08. Sem nova execução de testes ou interação no navegador.",
         "responsavel": "Codex: inspeção do código, diff e capturas; autora Laura Vieira: fornecimento dos prints e confirmação do achado e da resolução.",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "Esperado no recorte R01: a listagem oferece consulta dos setores previamente cadastrados sem comando Adicionar Setor. Observado na comparação visual: o comando existe na captura anterior e está ausente na posterior; os cartões dos setores existentes continuam visíveis. Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. Inspeção atual de src/pages/LandingPage.js:29–34,43–50 e src/pages/SectorPage.js:15, confrontada com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch: não restam a ação, o destino literal /setor/novo ou o tratamento especial de novo em src/. Resultado limitado à remoção prevista em R01; não comprova percursos de teclado, navegação completa, acessibilidade, contraste ou ausência de outros defeitos. Nenhum teste automatizado ou interação no navegador foi executado nesta atualização."
+        "evidencia": "Esperado no recorte R01: a listagem oferece consulta dos setores previamente cadastrados sem comando Adicionar Setor. Observado na comparação visual: o comando existe na captura anterior e está ausente na posterior; os cartões dos setores existentes continuam visíveis. Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. Inspeção atual de src/pages/LandingPage.js:29–34,43–50 e src/pages/SectorPage.js:15, confrontada com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch: não restam a ação, o destino literal /setor/novo ou o tratamento especial de novo em src/. Resultado limitado à remoção prevista em R01; não comprova percursos de teclado, navegação completa, acessibilidade, contraste ou ausência de outros defeitos. Nenhum teste automatizado ou interação no navegador foi executado nesta atualização. Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit. O vínculo identifica em commit o mesmo conteúdo de código já reavaliado; não representa nova execução dos testes ou dos percursos de interface."
       },
       "historico": [
         {
@@ -113,6 +113,19 @@
           },
           "resultado": "resolveu_no_recorte; situacao atualizada para resolvido_no_recorte e verificacao_pendente encerrada para a remoção da ação em R01.",
           "evidencia": "Esperado no recorte R01: a listagem oferece consulta dos setores previamente cadastrados sem comando Adicionar Setor. Observado na comparação visual: o comando existe na captura anterior e está ausente na posterior; os cartões dos setores existentes continuam visíveis. Capturas de navegador fornecidas pela autora e examinadas visualmente em 2026-11-08: avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A001.png (SHA-256 7640852405678720736AA7DD31DB939AD836BCF8F99387709F5FC403FB1D2674) mostra http://localhost:9000/ com Adicionar Setor acima dos setores; avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A001.png (SHA-256 54530C50187669F4897567F202FA24B2411698E0602C6790DBB6FB8A9B31BF02) mostra a listagem sem essa ação, com os setores existentes ainda apresentados. O commit executado, a versão exata do navegador, a viewport, o zoom e a data exata da captura não são demonstrados pelas imagens. Inspeção atual de src/pages/LandingPage.js:29–34,43–50 e src/pages/SectorPage.js:15, confrontada com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch: não restam a ação, o destino literal /setor/novo ou o tratamento especial de novo em src/. Resultado limitado à remoção prevista em R01; não comprova percursos de teclado, navegação completa, acessibilidade, contraste ou ausência de outros defeitos. Nenhum teste automatizado ou interação no navegador foi executado nesta atualização. Atualização do registro no JSON da rodada realizada por solicitação expressa da autora nesta conversa."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Autora Laura Vieira: commit da correção; Codex: conferência do diff e atualização do registro, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "A correção em src/pages/LandingPage.js e src/pages/SectorPage.js está integralmente versionada neste commit e não apresenta diferenças locais. package-lock.json continua com a alteração preexistente, preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch e sem participação na correção. Esta vinculação do commit ao JSON é uma atualização documental posterior ao commit."
+          },
+          "resultado": "Commit de correção associado aos campos correcao e reavaliacao; confirmação e situação resolvido_no_recorte preservadas. Versão da primeira identificação e eventos anteriores mantidos.",
+          "evidencia": "Vinculação posterior, em 2026-11-08: commit frontend 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, de autoria de Laura Vieira, registrado em 2026-11-08T00:08:14-03:00, mensagem 'chore: first evaluation and add sector feature removal'. A comparação de git diff 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436^ 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436 -- src/pages/LandingPage.js src/pages/SectorPage.js com avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A001.patch confirmou correspondência integral. Os dois arquivos da correção não apresentam diferenças locais em relação ao commit. Os eventos históricos anteriores descrevem o estado ainda sem commit observado naquelas etapas e não foram reescritos."
         }
       ]
     },
@@ -907,6 +920,119 @@
       "correcao": null,
       "reavaliacao": null,
       "historico": []
+    },
+    {
+      "id": "REV-03-FE-A022",
+      "titulo": "Identidade institucional sugere vínculo oficial com a Prefeitura de Macaé",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-08",
+      "origem": "inspecao_autora",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+        "backend": null,
+        "alteracoes_locais": "Na identificação pela autora, public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js ainda correspondiam ao commit informado. public/images/gestao-escolar.svg havia sido criado nesta conversa, mas ainda não estava integrado. package-lock.json já tinha a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; o JSON de acompanhamento também tinha atualizações locais anteriores, referentes ao achado 01."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "Decisão da autora em 2026-11-08: identificar a aplicação como projeto acadêmico não oficial",
+        "FE02: identificação do documento e imagens",
+        "FE12: coerência da identidade e dos textos",
+        "H02",
+        "H04"
+      ],
+      "localizacao": "Estado anterior no commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436: public/index.html:8,12; src/components/Header.js:13–18; src/pages/SignIn.js:14–21; referências a public/images/favicon.ico, header.png e brasaomacae.png.",
+      "descricao": "A aplicação acadêmica utiliza título SEMED Macaé e identidade visual/textual da prefeitura no favicon, cabeçalho e login, sem explicitar sua condição de protótipo não oficial. A autora identificou essa associação e definiu uma identidade acadêmica própria.",
+      "evidencia": "Apontamento da autora nesta conversa, em 2026-11-08: título e ícone estavam associados à Prefeitura de Macaé, embora a aplicação não fosse oficial. No commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, public/index.html:8,12 usa SEMED Macaé e favicon.ico; src/components/Header.js:13–18 usa /images/header.png com alt Logotipo da prefeitura; src/pages/SignIn.js:14–21 exibe Prefeitura, brasaomacae.png, MACAÉ e Secretaria de Educação. avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png, SHA-256 91047E8F1116161F1B8F653A994639BD991F3AC1279D10F759A1197DCB18AD8F, é uma captura anterior à alteração, gerada por Codex nesta execução, mostrando a marca da prefeitura no cabeçalho.",
+      "impacto": "Pode levar quem acessa o projeto a interpretá-lo como aplicação oficial da prefeitura e atribuir ao órgão público sua operação ou conteúdo.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Usar Gestão Escolar como nome, Protótipo acadêmico como subtítulo, livro aberto como ícone e aviso de aplicação não oficial, com identidade consistente nas páginas.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "A autora declarou que a aplicação não é oficial e solicitou a troca da identidade associada à prefeitura. Em seguida autorizou expressamente todas as alterações sugeridas e pediu o registro como achado apontado por ela e já corrigido. Forneceu a imagem posterior como image.png e autorizou sua renomeação e vinculação. A autoria das verificações técnicas permanece atribuída a Codex.",
+      "situacao": "resolvido_no_recorte",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+          "backend": null,
+          "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+        },
+        "descricao": "Aplicada a identidade Gestão Escolar / Protótipo acadêmico: título Gestão Escolar | Projeto Acadêmico; favicon e imagens de cabeçalho/login substituídos pelo livro aberto em SVG; removidos os textos institucionais do login; incluído o aviso Protótipo desenvolvido para TCC. Aplicação não oficial. no cabeçalho compartilhado e no login. Definida a variável de cor já utilizada pelo login/formulário para manter a paleta do projeto. O acesso inicial no cabeçalho usa Link com texto identificável. A correção cobre as cinco rotas existentes, sem implementar autenticação ou outras operações.",
+        "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch registra as quatro alterações em arquivos versionados; avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg preserva o novo SVG. Fontes atuais: public/index.html:8,12; src/components/Header.js, Header/BrandLink/AcademicNotice; src/pages/SignIn.js, SignIn/Subtitle/AcademicNotice; public/styles/styles.css, :root. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png, SHA-256 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803, é a captura posterior produzida pela autora, recebida como image.png e renomeada sem alterar seu conteúdo."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+          "backend": null,
+          "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+        },
+        "metodo": "Inspeção de código; compilação de desenvolvimento; conferência dos cinco componentes com ReactDOMServer/StaticRouter; consultas HTTP locais; XML do SVG; comparação das capturas anterior e posterior. Captura posterior produzida pela autora.",
+        "responsavel": "Codex: implementação e verificações técnicas; autora Laura Vieira: identificação, autorização da correção e captura posterior.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Esperado: identificação acadêmica coerente no documento, ícone, cabeçalho e login, sem apresentação institucional da prefeitura. Observado: compilação Webpack 5.22.0 concluída; renderToStaticMarkup de LandingPage, SectorPage, SchoolPage, ClassesPage e SignIn dentro de StaticRouter/Route gerou o nome, subtítulo, aviso e novo SVG sem as referências institucionais anteriores; processo Node retornou 0. GET /, /setor/1, /escola/1, /escola/1/classes e /login com Accept: text/html retornaram 200 com título e favicon atualizados; SVG válido e bundle atualizado retornaram 200. Comandos/método, saídas e limites preservados em avaliacao/rodadas/REV-03/evidencias/verificacao_REV-03-FE-A022.txt. Comparação visual de avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png: o cabeçalho institucional foi substituído pelo livro, Gestão Escolar e Protótipo acadêmico, com aviso de aplicação não oficial. A captura posterior mostra somente a página inicial; não comprova título/ícone da aba, layout das demais páginas, navegação completa, teclado, contraste ou NVDA. Demais páginas conferidas por código, renderização no servidor e HTTP; efeitos e consultas de dados não foram exercitados nessa renderização. Não foi executada uma suíte de testes automatizados da aplicação. O achado REV-03-FE-A019, sobre título específico por tela, permanece separado e sem mudança de situação."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "identificacao_e_confirmacao_autora",
+          "responsavel": "Autora Laura Vieira; registro organizado por Codex.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Na identificação pela autora, public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js ainda correspondiam ao commit informado. public/images/gestao-escolar.svg havia sido criado nesta conversa, mas ainda não estava integrado. package-lock.json já tinha a alteração preexistente preservada em avaliacao/rodadas/REV-03/evidencias/frontend-package-lock.patch; o JSON de acompanhamento também tinha atualizações locais anteriores, referentes ao achado 01."
+          },
+          "resultado": "Achado apontado e confirmado pela autora; solicitada identidade acadêmica própria e registro da correção.",
+          "evidencia": "Apontamento da autora nesta conversa, em 2026-11-08: título e ícone estavam associados à Prefeitura de Macaé, embora a aplicação não fosse oficial. No commit 7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436, public/index.html:8,12 usa SEMED Macaé e favicon.ico; src/components/Header.js:13–18 usa /images/header.png com alt Logotipo da prefeitura; src/pages/SignIn.js:14–21 exibe Prefeitura, brasaomacae.png, MACAÉ e Secretaria de Educação. avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png, SHA-256 91047E8F1116161F1B8F653A994639BD991F3AC1279D10F759A1197DCB18AD8F, é uma captura anterior à alteração, gerada por Codex nesta execução, mostrando a marca da prefeitura no cabeçalho. A autora declarou que a aplicação não é oficial e solicitou a troca da identidade associada à prefeitura. Em seguida autorizou expressamente todas as alterações sugeridas e pediu o registro como achado apontado por ela e já corrigido. Forneceu a imagem posterior como image.png e autorizou sua renomeação e vinculação. A autoria das verificações técnicas permanece atribuída a Codex."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Codex, por solicitação da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "Identidade acadêmica aplicada no título, favicon, cabeçalho e login, com aviso de aplicação não oficial; correção ainda sem commit.",
+          "evidencia": "Aplicada a identidade Gestão Escolar / Protótipo acadêmico: título Gestão Escolar | Projeto Acadêmico; favicon e imagens de cabeçalho/login substituídos pelo livro aberto em SVG; removidos os textos institucionais do login; incluído o aviso Protótipo desenvolvido para TCC. Aplicação não oficial. no cabeçalho compartilhado e no login. Definida a variável de cor já utilizada pelo login/formulário para manter a paleta do projeto. O acesso inicial no cabeçalho usa Link com texto identificável. A correção cobre as cinco rotas existentes, sem implementar autenticação ou outras operações. avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch registra as quatro alterações em arquivos versionados; avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg preserva o novo SVG. Fontes atuais: public/index.html:8,12; src/components/Header.js, Header/BrandLink/AcademicNotice; src/pages/SignIn.js, SignIn/Subtitle/AcademicNotice; public/styles/styles.css, :root. avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png, SHA-256 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803, é a captura posterior produzida pela autora, recebida como image.png e renomeada sem alterar seu conteúdo."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao_e_resolucao",
+          "responsavel": "Codex: verificações técnicas e inspeção das imagens; autora: fornecimento da captura posterior.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "resolveu_no_recorte; situação resolvido_no_recorte no aspecto da identidade acadêmica.",
+          "evidencia": "Esperado: identificação acadêmica coerente no documento, ícone, cabeçalho e login, sem apresentação institucional da prefeitura. Observado: compilação Webpack 5.22.0 concluída; renderToStaticMarkup de LandingPage, SectorPage, SchoolPage, ClassesPage e SignIn dentro de StaticRouter/Route gerou o nome, subtítulo, aviso e novo SVG sem as referências institucionais anteriores; processo Node retornou 0. GET /, /setor/1, /escola/1, /escola/1/classes e /login com Accept: text/html retornaram 200 com título e favicon atualizados; SVG válido e bundle atualizado retornaram 200. Comandos/método, saídas e limites preservados em avaliacao/rodadas/REV-03/evidencias/verificacao_REV-03-FE-A022.txt. Comparação visual de avaliacao/rodadas/REV-03/evidencias/evidencia_REV-03-FE-A022.png e avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png: o cabeçalho institucional foi substituído pelo livro, Gestão Escolar e Protótipo acadêmico, com aviso de aplicação não oficial. A captura posterior mostra somente a página inicial; não comprova título/ícone da aba, layout das demais páginas, navegação completa, teclado, contraste ou NVDA. Demais páginas conferidas por código, renderização no servidor e HTTP; efeitos e consultas de dados não foram exercitados nessa renderização. Não foi executada uma suíte de testes automatizados da aplicação. O achado REV-03-FE-A019, sobre título específico por tela, permanece separado e sem mudança de situação."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_evidencia_autora",
+          "responsavel": "Autora Laura Vieira: captura da tela; Codex: renomeação e referência por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "7d2cd568bcdcdc757f07af4d7efb2ce8e97d3436",
+            "backend": null,
+            "alteracoes_locais": "Correção ainda sem commit: alterações em public/index.html, public/styles/styles.css, src/components/Header.js e src/pages/SignIn.js preservadas em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022.patch, SHA-256 86D7264FD0000CAD15E7EB5C75CE16CA332A8D0755908F43E5956C0DA99E0F84. Novo public/images/gestao-escolar.svg preservado em avaliacao/rodadas/REV-03/evidencias/correcao_REV-03-FE-A022-gestao-escolar.svg, SHA-256 2632FF5FEB5728E5603B14175FA305DAC45149B4CE54566CBC9A4091ADA95CA6. Alteração preexistente de package-lock.json mantida; registros de avaliação e evidências atualizados separadamente."
+          },
+          "resultado": "image.png renomeada para evidencia_correcao_REV-03-FE-A022.png, com conteúdo e hash preservados.",
+          "evidencia": "avaliacao/rodadas/REV-03/evidencias/evidencia_correcao_REV-03-FE-A022.png; SHA-256 antes e depois da renomeação: 26BC39861CC9101E7F29A8F6B064ABD4632C6199739DBBB69CFE31FD816B4803."
+        }
+      ]
     }
   ]
 }
