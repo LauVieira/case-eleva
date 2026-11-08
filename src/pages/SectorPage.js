@@ -3,7 +3,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Alert, Card, CardDeck, Container, Row, Col,
+  Alert, Button, Card, Container,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
@@ -16,8 +16,29 @@ export default function SectorPage () {
   const noticeRef = useRef(null);
   const [schools, setSchools] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
 
-  useEffect(getSectors, []);
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+    setLoadError(false);
+
+    axios.get(`http://localhost:3000/sectors/${id}/schools`)
+      .then((response) => {
+        if (!active) return;
+        setSchools([...response.data]);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setSchools([]);
+        setLoadError(true);
+        setIsLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [id, loadAttempt]);
 
   useEffect(() => {
     if (deletedSchool && noticeRef.current) {
@@ -25,15 +46,6 @@ export default function SectorPage () {
       history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
     }
   }, []);
-
-  function getSectors () {
-    const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
-    request.then((response) => {
-      setSchools([...response.data]);
-      setIsLoading(false);
-    });
-    request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
-  }
 
   return (
     <StyledContainer fluid>
@@ -46,34 +58,29 @@ export default function SectorPage () {
         </Alert>
       )}
 
-      {isLoading
-        ? <p>Carregando...</p>
-        : (
-          <StyledCardDeck>
-
-            <Container fluid style={{ marginBottom: '20px' }}>
-              <Row>
-                <Col md={3}>
-                  <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
-                    <StyledCard>
-                      <Card.Text className="add-school">
-                        <BsPlusCircleFill />
-                        Adicionar Escola
-                      </Card.Text>
-                    </StyledCard>
-                  </SchoolItem>
-                </Col>
-                {
-                  schools.map((school) => (
-                    <Col md={3}>
-                      <SchoolCard key={school.id} school={school} />
-                    </Col>
-                  ))
-                }
-              </Row>
-            </Container>
-
-          </StyledCardDeck>
+      {isLoading && <p role="status">Carregando...</p>}
+      {loadError && (
+        <QueryError>
+          <p role="alert">Não foi possível carregar as escolas.</p>
+          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+            Tentar novamente
+          </Button>
+        </QueryError>
+      )}
+      {!isLoading && !loadError && (
+          <CardGrid>
+            <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+              <StyledCard>
+                <Card.Text className="add-school">
+                  <BsPlusCircleFill />
+                  Adicionar Escola
+                </Card.Text>
+              </StyledCard>
+            </SchoolItem>
+            {schools.map((school) => (
+              <SchoolCard key={school.id} school={school} />
+            ))}
+          </CardGrid>
         )}
 
     </StyledContainer>
@@ -86,7 +93,7 @@ function SchoolCard (props) {
 
   return (
     <SchoolItem href={link} tabIndex="0">
-      <StyledCard style={{ width: '18rem' }}>
+      <StyledCard>
         <Card.Body>
           <Card.Title>{school.name}</Card.Title>
           <Card.Text>
@@ -102,15 +109,31 @@ const StyledContainer = styled(Container)`
   padding-top: 100px;
 `;
 
-const StyledCardDeck = styled(CardDeck)``;
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 48px auto;
+  text-align: center;
+`;
+
+const CardGrid = styled.div`
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+`;
 
 const SchoolItem = styled.a`
+  color: initial;
   display: flex;
+  flex: 0 0 18rem;
   font-size: 18px;
   height: 200px;
+  max-width: 100%;
   text-align: center;
-  margin: 20px 0;
-  color: initial;
+  width: 18rem;
 
   :hover {
     color: initial;
@@ -129,6 +152,8 @@ const SchoolItem = styled.a`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
+  height: 100%;
+  width: 18rem;
 
   .add-school {
     align-items: center;

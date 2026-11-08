@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 import Header from '../components/Header';
 import SchoolForm from '../components/SchoolForm';
@@ -18,6 +18,8 @@ export default function SchoolCreatePage () {
   const { id } = useParams();
   const [sectors, setSectors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [values, setValues] = useState(() => emptyForm(id));
   const [createdSchool, setCreatedSchool] = useState(null);
   const headingRef = useRef(null);
@@ -25,18 +27,23 @@ export default function SchoolCreatePage () {
   useEffect(() => {
     let active = true;
     setIsLoading(true);
+    setLoadError(false);
     setValues(emptyForm(id));
     setCreatedSchool(null);
 
     api.get('/sectors').then((response) => {
-      if (active) {
-        setSectors(response.data);
-        setIsLoading(false);
-      }
+      if (!active) return;
+      setSectors(response.data);
+      setIsLoading(false);
+    }).catch(() => {
+      if (!active) return;
+      setSectors([]);
+      setLoadError(true);
+      setIsLoading(false);
     });
 
     return () => { active = false; };
-  }, [id]);
+  }, [id, loadAttempt]);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -67,6 +74,17 @@ export default function SchoolCreatePage () {
 
   function renderContent () {
     if (isLoading) return <p role="status">Carregando setores...</p>;
+
+    if (loadError) {
+      return (
+        <QueryError>
+          <p role="alert">Não foi possível carregar os setores.</p>
+          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+            Tentar novamente
+          </Button>
+        </QueryError>
+      );
+    }
 
     if (sectors.length === 0) {
       return (
@@ -135,6 +153,14 @@ export default function SchoolCreatePage () {
 const StyledContainer = styled(Container)`
   padding-bottom: 40px;
   padding-top: 100px;
+`;
+
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 24px auto;
+  text-align: center;
 `;
 
 const Main = styled.main`

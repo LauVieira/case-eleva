@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Alert, Button, Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 import Header from '../components/Header';
 import SchoolCard from '../components/SchoolCard';
@@ -46,13 +46,13 @@ export default function SchoolPage () {
       <Header />
       <main>
         {loadError && (
-          <Alert variant="danger" role="alert">
-            <p>{loadError.message}</p>
+          <QueryError>
+            <p role="alert">{loadError.message}</p>
             {!loadError.notFound && (
               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
             )}
-            {' '}<Link to="/">Voltar aos setores</Link>
-          </Alert>
+            <Link to="/">Voltar aos setores</Link>
+          </QueryError>
         )}
         {!schoolData && !loadError && <p role="status">Carregando escola...</p>}
         {schoolData && (
@@ -75,4 +75,13 @@ export default function SchoolPage () {
 
 const StyledContainer = styled(Container)`
   padding-top: 100px;
+`;
+
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 48px auto;
+  text-align: center;
 `;

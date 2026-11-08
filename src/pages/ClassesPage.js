@@ -5,7 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  Alert, Card, CardDeck, Container,
+  Alert, Button, Card, Container,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -28,6 +28,7 @@ export default function ClassesPage () {
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [statusFilter, setStatusFilter] = useState('current');
   const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
 
@@ -55,9 +56,8 @@ export default function ClassesPage () {
       setClasses([]);
       setLoadFailed(true);
       setIsLoading(false);
-      alert('Erro ao buscar as turmas da escola selecionada');
     });
-  }, [id, statusFilter]);
+  }, [id, statusFilter, loadAttempt]);
 
   return (
     <StyledContainer fluid>
@@ -86,12 +86,11 @@ export default function ClassesPage () {
         ))}
       </StatusFilter>
 
-      {isLoading
-        ? <p role="status">Carregando...</p>
-        : (
+      {isLoading && <p role="status">Carregando...</p>}
+      {!isLoading && (
           <>
             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
-            <StyledCardDeck>
+            <CardGrid>
 
               <ClassItem to={`/escola/${id}/classes/nova`}>
                 <StyledCard>
@@ -104,9 +103,17 @@ export default function ClassesPage () {
 
               {!loadFailed && classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
 
-            </StyledCardDeck>
+            </CardGrid>
           </>
         )}
+      {loadFailed && (
+        <QueryError>
+          <p role="alert">Erro ao buscar as turmas da escola selecionada.</p>
+          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+            Tentar novamente
+          </Button>
+        </QueryError>
+      )}
 
     </StyledContainer>
   );
@@ -118,7 +125,7 @@ function ClassCard (props) {
 
   return (
     <ClassItem to={link}>
-      <StyledCard style={{ width: '18rem' }}>
+      <StyledCard>
         <Card.Body>
           <Card.Title>
             Turma {classs.name}
@@ -177,11 +184,28 @@ const StatusFilter = styled.fieldset`
   }
 `;
 
-const StyledCardDeck = styled(CardDeck)``;
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 48px auto;
+  text-align: center;
+`;
+
+const CardGrid = styled.div`
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+`;
 
 const ClassItem = styled(LinkContainer)`
   cursor: pointer;
+  flex: 0 0 18rem;
   font-size: 18px;
+  max-width: 100%;
+  width: 18rem;
 
   p {
     margin-bottom: 0;
@@ -195,11 +219,14 @@ const ClassItem = styled(LinkContainer)`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
+  height: 100%;
+  width: 18rem;
 
   .add-class {
     align-items: center;
     display: flex;
     height: 100%;
     justify-content: center;
+    min-height: 180px;
   }
 `;

@@ -1,0 +1,16 @@
+REV-03 / REV-03-FE-A012 — vinculação do commit da falha de consulta e do layout
+Data: 2026-11-08
+Commit: 140d3a7656ea5703b7aa01b18eba3abfe6ed43ec
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T17:11:52-03:00
+Mensagem: fix: adjust visualization when server error or empty list
+
+O diff do commit não é idêntico ao patch inicial REV-03-FE-A012-falha-consulta-correcao.patch (SHA-256 d9eefd5434777840d9554ce61e8c01d8cd245dd82bb5fca566af831c75924e8c, 9247 bytes). O commit tem 16145 bytes de diff nas fontes e também altera src/pages/SchoolPage.js e src/components/SchoolCard.js.
+
+Conteúdo além do patch inicial, feito depois da verificação manual da autora com a API desligada:
+- O botão Tentar novamente ficou solto e o cartão Adicionar Turma esticou pela largura da página.
+- A autora pediu largura fixa nos cartões de escola e de turma, em fileira da esquerda para a direita, sem centralizar o conjunto.
+- Em seguida o cartão ficou no meio da página, à esquerda. Ela pediu os cartões acima e a mensagem com o botão depois deles.
+- Ela declarou que o botão funcionou perfeitamente e commitou.
+
+A associação não repete a compilação nem os percursos. A confirmação do botão é declaração da autora.

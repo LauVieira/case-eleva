@@ -27,7 +27,7 @@ export default function SchoolCard (props) {
   const editLink = id ? `/escola/${id}/editar` : null;
 
   return (
-    <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
+    <StyledCard>
 
       <Card.Body>
 
@@ -82,7 +82,8 @@ const StyledListGroup = styled(ListGroup)`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
-  margin: 0 auto;
+  max-width: 95%;
+  width: 50rem;
 
   .card-title {
     font-size: 24px !important;

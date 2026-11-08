@@ -1,0 +1,281 @@
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index bfcfdb5..eff2605 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -5,7 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+-  Alert, Card, CardDeck, Container,
++  Alert, Button, Card, CardDeck, Container,
+ } from 'react-bootstrap';
+ import { LinkContainer } from 'react-router-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+@@ -28,6 +28,7 @@ export default function ClassesPage () {
+   const [classes, setClasses] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadFailed, setLoadFailed] = useState(false);
++  const [loadAttempt, setLoadAttempt] = useState(0);
+   const [statusFilter, setStatusFilter] = useState('current');
+   const selectedFilter = STATUS_FILTERS.find((item) => item.value === statusFilter) || STATUS_FILTERS[0];
+ 
+@@ -55,9 +56,8 @@ export default function ClassesPage () {
+       setClasses([]);
+       setLoadFailed(true);
+       setIsLoading(false);
+-      alert('Erro ao buscar as turmas da escola selecionada');
+     });
+-  }, [id, statusFilter]);
++  }, [id, statusFilter, loadAttempt]);
+ 
+   return (
+     <StyledContainer fluid>
+@@ -86,9 +86,16 @@ export default function ClassesPage () {
+         ))}
+       </StatusFilter>
+ 
+-      {isLoading
+-        ? <p role="status">Carregando...</p>
+-        : (
++      {isLoading && <p role="status">Carregando...</p>}
++      {loadFailed && (
++        <>
++          <p role="alert">Erro ao buscar as turmas da escola selecionada.</p>
++          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
++            Tentar novamente
++          </Button>
++        </>
++      )}
++      {!isLoading && (
+           <>
+             {!loadFailed && classes.length === 0 && <p role="status">{selectedFilter.empty}</p>}
+             <StyledCardDeck>
+diff --git a/src/pages/LandingPage.js b/src/pages/LandingPage.js
+index acc3de6..4264981 100644
+--- a/src/pages/LandingPage.js
++++ b/src/pages/LandingPage.js
+@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
+ import styled from 'styled-components';
+ import axios from 'axios';
+ import {
+-  Container, ListGroup,
++  Button, Container, ListGroup,
+ } from 'react-bootstrap';
+ import colorContrast from 'color-contrast';
+ 
+@@ -10,29 +10,51 @@ import Header from '../components/Header';
+ 
+ export default function LandingPage () {
+   const [sectors, setSectors] = useState([]);
++  const [isLoading, setIsLoading] = useState(true);
++  const [loadError, setLoadError] = useState(false);
++  const [loadAttempt, setLoadAttempt] = useState(0);
+ 
+-  useEffect(getSectors, []);
++  useEffect(() => {
++    let active = true;
++    setIsLoading(true);
++    setLoadError(false);
+ 
+-  function getSectors () {
+-    const request = axios.get('http://localhost:3000/sectors');
+-    request.then((response) => {
+-      setSectors([...response.data]);
+-    });
+-    request.catch(() => alert('Erro ao buscar o setor selecionado'));
+-  }
++    axios.get('http://localhost:3000/sectors')
++      .then((response) => {
++        if (!active) return;
++        setSectors([...response.data]);
++        setIsLoading(false);
++      })
++      .catch(() => {
++        if (!active) return;
++        setSectors([]);
++        setLoadError(true);
++        setIsLoading(false);
++      });
++
++    return () => { active = false; };
++  }, [loadAttempt]);
+ 
+   return (
+     <StyledContainer fluid>
+ 
+       <Header />
+ 
+-      {sectors.length === 0
+-        ? <p>Carregando...</p>
+-        : (
+-          <StyledListGroup>
+-            {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
+-          </StyledListGroup>
+-        )}
++      {isLoading && <p role="status">Carregando...</p>}
++      {loadError && (
++        <>
++          <p role="alert">Não foi possível carregar os setores.</p>
++          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
++            Tentar novamente
++          </Button>
++        </>
++      )}
++      {!isLoading && !loadError && sectors.length === 0 && <p>Nenhum setor cadastrado.</p>}
++      {!isLoading && !loadError && sectors.length > 0 && (
++        <StyledListGroup>
++          {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
++        </StyledListGroup>
++      )}
+ 
+     </StyledContainer>
+   );
+diff --git a/src/pages/SchoolCreatePage.js b/src/pages/SchoolCreatePage.js
+index 93dcf66..db4da39 100644
+--- a/src/pages/SchoolCreatePage.js
++++ b/src/pages/SchoolCreatePage.js
+@@ -1,7 +1,7 @@
+ import React, { useEffect, useRef, useState } from 'react';
+ import { Link, useParams } from 'react-router-dom';
+ import styled from 'styled-components';
+-import { Container } from 'react-bootstrap';
++import { Button, Container } from 'react-bootstrap';
+ 
+ import Header from '../components/Header';
+ import SchoolForm from '../components/SchoolForm';
+@@ -18,6 +18,8 @@ export default function SchoolCreatePage () {
+   const { id } = useParams();
+   const [sectors, setSectors] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [loadError, setLoadError] = useState(false);
++  const [loadAttempt, setLoadAttempt] = useState(0);
+   const [values, setValues] = useState(() => emptyForm(id));
+   const [createdSchool, setCreatedSchool] = useState(null);
+   const headingRef = useRef(null);
+@@ -25,18 +27,23 @@ export default function SchoolCreatePage () {
+   useEffect(() => {
+     let active = true;
+     setIsLoading(true);
++    setLoadError(false);
+     setValues(emptyForm(id));
+     setCreatedSchool(null);
+ 
+     api.get('/sectors').then((response) => {
+-      if (active) {
+-        setSectors(response.data);
+-        setIsLoading(false);
+-      }
++      if (!active) return;
++      setSectors(response.data);
++      setIsLoading(false);
++    }).catch(() => {
++      if (!active) return;
++      setSectors([]);
++      setLoadError(true);
++      setIsLoading(false);
+     });
+ 
+     return () => { active = false; };
+-  }, [id]);
++  }, [id, loadAttempt]);
+ 
+   useEffect(() => {
+     const previousTitle = document.title;
+@@ -68,6 +75,17 @@ export default function SchoolCreatePage () {
+   function renderContent () {
+     if (isLoading) return <p role="status">Carregando setores...</p>;
+ 
++    if (loadError) {
++      return (
++        <>
++          <p role="alert">Não foi possível carregar os setores.</p>
++          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
++            Tentar novamente
++          </Button>
++        </>
++      );
++    }
++
+     if (sectors.length === 0) {
+       return (
+         <>
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index 66853e3..d094e3c 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -3,7 +3,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
+ import axios from 'axios';
+ import styled from 'styled-components';
+ import {
+-  Alert, Card, CardDeck, Container, Row, Col,
++  Alert, Button, Card, CardDeck, Col, Container, Row,
+ } from 'react-bootstrap';
+ import { BsPlusCircleFill } from 'react-icons/bs';
+ import Header from '../components/Header';
+@@ -16,8 +16,29 @@ export default function SectorPage () {
+   const noticeRef = useRef(null);
+   const [schools, setSchools] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [loadError, setLoadError] = useState(false);
++  const [loadAttempt, setLoadAttempt] = useState(0);
+ 
+-  useEffect(getSectors, []);
++  useEffect(() => {
++    let active = true;
++    setIsLoading(true);
++    setLoadError(false);
++
++    axios.get(`http://localhost:3000/sectors/${id}/schools`)
++      .then((response) => {
++        if (!active) return;
++        setSchools([...response.data]);
++        setIsLoading(false);
++      })
++      .catch(() => {
++        if (!active) return;
++        setSchools([]);
++        setLoadError(true);
++        setIsLoading(false);
++      });
++
++    return () => { active = false; };
++  }, [id, loadAttempt]);
+ 
+   useEffect(() => {
+     if (deletedSchool && noticeRef.current) {
+@@ -26,15 +47,6 @@ export default function SectorPage () {
+     }
+   }, []);
+ 
+-  function getSectors () {
+-    const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
+-    request.then((response) => {
+-      setSchools([...response.data]);
+-      setIsLoading(false);
+-    });
+-    request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
+-  }
+-
+   return (
+     <StyledContainer fluid>
+ 
+@@ -46,9 +58,16 @@ export default function SectorPage () {
+         </Alert>
+       )}
+ 
+-      {isLoading
+-        ? <p>Carregando...</p>
+-        : (
++      {isLoading && <p role="status">Carregando...</p>}
++      {loadError && (
++        <>
++          <p role="alert">Não foi possível carregar as escolas.</p>
++          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
++            Tentar novamente
++          </Button>
++        </>
++      )}
++      {!isLoading && !loadError && (
+           <StyledCardDeck>
+ 
+             <Container fluid style={{ marginBottom: '20px' }}>
