@@ -30,6 +30,19 @@ export function formatClassName (name) {
   return String(name == null ? '' : name).toLocaleUpperCase('pt-BR');
 }
 
+export function formatClassStatus (status) {
+  if (status === 'current') return 'Ativa';
+  if (status === 'completed') return 'Encerrada';
+  return '';
+}
+
+export function formatClassDate (value) {
+  if (value == null || value === '') return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+}
+
 export function emptyClassForm () {
   return {
     name: '',

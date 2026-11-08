@@ -1,0 +1,168 @@
+REV-03 / REV-03-FE-A006
+Data: 2026-11-08T16:18:37.945Z
+Frontend: 80f94caeba704c65553a8c20b332fd8fdb9187a3
+Branch: main
+Backend inspecionado, sem alteracao de codigo: a023d1eea2093d5511c22cfc444e11dfef704e4f
+Estado local antes da edicao deste achado:
+M package-lock.json
+?? HANDOVER.md
+?? avaliacao/rodadas/REV-03/evidencias/_tmp-a006-antes.cjs
+Pedido: implementar a consulta de detalhe da turma. O cadastro A005 ja esta no indice e nao faz parte desta correcao.
+Metodo antes: inspecao do codigo atual. Nao houve clique no cartao de turma nesta coleta.
+Constatacao: ClassCard ainda define link = "/". App nao tem rota /turma/:id. A listagem nao mostra createdAt nem updatedAt.
+
+ARQUIVO src/pages/ClassesPage.js SHA256 04b52706186f4df35b922822493f8243949f9b31126a67558dd86fcb77034e11
+1: /* eslint-disable react/jsx-one-expression-per-line */
+2: 
+3: import React, { useEffect, useState } from 'react';
+4: import { useParams } from 'react-router-dom';
+5: import axios from 'axios';
+6: import styled from 'styled-components';
+7: import {
+8:   Card, CardDeck, Container,
+9: } from 'react-bootstrap';
+10: import { LinkContainer } from 'react-router-bootstrap';
+11: import { BsPlusCircleFill } from 'react-icons/bs';
+12: import Header from '../components/Header';
+13: 
+14: export default function ClassesPage () {
+15:   const { id } = useParams();
+16:   const [classes, setClasses] = useState([]);
+17:   const [isLoading, setIsLoading] = useState(true);
+18: 
+19:   useEffect(getClasses, []);
+20: 
+21:   function getClasses () {
+22:     const request = axios.get(`http://localhost:3000/schools/${id}/classes`);
+23:     request.then((response) => {
+24:       setClasses([...response.data]);
+25:       setIsLoading(false);
+26:     });
+27:     request.catch(() => alert('Erro ao buscar as classes da escola selecionada'));
+28:   }
+29: 
+30:   return (
+31:     <StyledContainer fluid>
+32: 
+33:       <Header />
+34: 
+35:       {isLoading
+36:         ? <p>Carregando...</p>
+37:         : (
+38:           <StyledCardDeck>
+39: 
+40:             <ClassItem to={`/escola/${id}/classes/nova`}>
+41:               <StyledCard>
+42:                 <Card.Text className="add-class">
+43:                   <BsPlusCircleFill />
+44:                   Adicionar Classe
+45:                 </Card.Text>
+46:               </StyledCard>
+47:             </ClassItem>
+48: 
+49:             {classes.map((classs) => <ClassCard key={classs.id} classs={classs} />)}
+50: 
+51:           </StyledCardDeck>
+52:         )}
+53: 
+54:     </StyledContainer>
+55:   );
+56: }
+57: 
+58: function ClassCard (props) {
+59:   const { classs } = props;
+60:   const link = '/';
+61: 
+62:   return (
+63:     <ClassItem to={link}>
+64:       <StyledCard style={{ width: '18rem' }}>
+65:         <Card.Body>
+66:           <Card.Title>
+67:             Turma {classs.name}
+68:           </Card.Title>
+69:           <Card.Text>
+70:             {classs.grade}
+71:           </Card.Text>
+72:           <Card.Text>
+73:             {classs.segment}
+74:           </Card.Text>
+75:           <Card.Text>
+76:             Período: {classs.shift}
+77:           </Card.Text>
+78:           <Card.Text>
+79:             Limite de alunos: {classs.maxOccupancy}
+80:           </Card.Text>
+81:           <Card.Text>
+82:             Alunos matriculados: -
+83:           </Card.Text>
+84:         </Card.Body>
+85:       </StyledCard>
+86:     </ClassItem>
+87:   );
+88: }
+89: 
+90: const StyledContainer = styled(Container)`
+91:   padding-top: 100px;
+92: `;
+93: 
+94: const StyledCardDeck = styled(CardDeck)``;
+95: 
+96: const ClassItem = styled(LinkContainer)`
+97:   cursor: pointer;
+98:   font-size: 18px;
+99: 
+100:   p {
+101:     margin-bottom: 0;
+102:   }
+103: 
+104:   svg {
+105:     font-size: 20px;
+106:     margin-right: 5px;
+107:   }
+108: `;
+109: 
+110: const StyledCard = styled(Card)`
+111:   box-shadow: 3px 2px 10px 1px #B7B5B2;
+112: 
+113:   .add-class {
+114:     align-items: center;
+115:     display: flex;
+116:     height: 100%;
+117:     justify-content: center;
+118:   }
+119: `;
+120: 
+
+ARQUIVO src/App.js SHA256 6939c8a4185a9325811d709c54f4f994cfebaa6f3aec2dcd3024ce3dd187faca
+1: import React from 'react';
+2: import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+3: 
+4: import SignIn from './pages/SignIn';
+5: import LandingPage from './pages/LandingPage';
+6: import SectorPage from './pages/SectorPage';
+7: import SchoolPage from './pages/SchoolPage';
+8: import ClassesPage from './pages/ClassesPage';
+9: import SchoolCreatePage from './pages/SchoolCreatePage';
+10: import SchoolEditPage from './pages/SchoolEditPage';
+11: import ClassCreatePage from './pages/ClassCreatePage';
+12: 
+13: export default function App () {
+14:   return (
+15:     <Router>
+16:       <Switch>
+17:         <Route path="/login" component={SignIn} exact />
+18:         <Route path="/" component={LandingPage} exact />
+19:         <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
+20:         <Route path="/setor/:id" component={SectorPage} exact />
+21:         <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
+22:         <Route path="/escola/:id" component={SchoolPage} exact />
+23:         <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
+24:         <Route path="/escola/:id/classes" component={ClassesPage} exact />
+25:       </Switch>
+26:     </Router>
+27:   );
+28: }
+29: 
+
+AUSENTE src/pages/ClassDetailPage.js existe=false
+Contrato lido, sem alterar o backend: GET /classes/:id retorna 200 com a turma, createdAt, updatedAt e school {id, name}. 404 para id inexistente. 422 para id invalido. A consulta nao altera dados.

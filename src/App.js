@@ -9,6 +9,7 @@ import ClassesPage from './pages/ClassesPage';
 import SchoolCreatePage from './pages/SchoolCreatePage';
 import SchoolEditPage from './pages/SchoolEditPage';
 import ClassCreatePage from './pages/ClassCreatePage';
+import ClassDetailPage from './pages/ClassDetailPage';
 
 export default function App () {
   return (
@@ -21,6 +22,7 @@ export default function App () {
         <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
         <Route path="/escola/:id" component={SchoolPage} exact />
         <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
+        <Route path="/turma/:id" component={ClassDetailPage} exact />
         <Route path="/escola/:id/classes" component={ClassesPage} exact />
       </Switch>
     </Router>

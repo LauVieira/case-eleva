@@ -57,7 +57,7 @@ export default function ClassesPage () {
 
 function ClassCard (props) {
   const { classs } = props;
-  const link = '/';
+  const link = `/turma/${classs.id}`;
 
   return (
     <ClassItem to={link}>

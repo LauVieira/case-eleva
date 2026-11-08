@@ -1,0 +1,16 @@
+REV-03 / REV-03-FE-A005 — vinculação do commit de cadastro de turma
+Data: 2026-11-08
+Commit: 80f94caeba704c65553a8c20b332fd8fdb9187a3
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T13:14:57-03:00
+Mensagem: feat: implements create class
+Pedido da autora: associar este commit à resolução do cadastro de turma. A abertura da turma na aplicação foi esclarecida por ela como validação do detalhe, REV-03-FE-A006, e não deste cadastro.
+
+Conferência, sem nova execução de testes:
+- src/pages/ClassCreatePage.js do commit é idêntico à cópia REV-03-FE-A005-cadastro-fontes/src/pages/ClassCreatePage.js. SHA-256 01bfd2d66360edc258b62019523ff0eaaff9e384f6d0232f86fbe8d7d2a8ccd3.
+- src/components/ClassForm.js do commit é idêntico à cópia correspondente. SHA-256 17b5e74004d6754e7dc7125da0ff03a7dfed6235420348abfe8aa84ea1c6daf2.
+- src/utils/classForm.js do commit é idêntico à cópia correspondente. SHA-256 ed879fb5959d09a6bffaad2edd33840b462df95e219995c0d169d7e737860656.
+- git diff 80f94ca~1 80f94ca -- src/App.js src/pages/ClassesPage.js, com fins de linha normalizadas, é idêntico a REV-03-FE-A005-cadastro-correcao.patch. SHA-256 do patch b8264dc23efa27b3acee149e3702d5da8b4d29e430810558be13e02bc6bc54fb.
+
+O commit não contém ClassDetailPage.js nem a rota /turma/:id. As alterações locais posteriores do detalhe permanecem fora dele.
+A associação não repete a verificação simulada nem a unicidade registrada pela autora.
