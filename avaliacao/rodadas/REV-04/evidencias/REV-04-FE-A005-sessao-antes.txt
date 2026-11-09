@@ -1,0 +1,45 @@
+REV-04 / REV-04-FE-A005
+Data: 2026-11-09T20:57:36.302Z
+Frontend: 4f95cf924e7c5400fd33667139aa006e04816bb7
+Branch: main
+Estado local: package-lock.json modificado; HANDOVER_front.md sem rastreamento; achados e relatorio da REV-04 com a confirmacao do A004 ainda sem commit.
+Pedido: confirmar o achado e remover Entrar e Sair.
+
+HASH src/components/Header.js dba7a04f58a2b03c68bb2fd3878380ca881a1eefc8c3eeef0002bacd921e4d84
+HASH src/components/LoginForm.js 86113af0bec86c36bc5a126b32cc43402e98af1a6981b1f56591d5c1ade78966
+HASH src/pages/SignIn.js fc34f0b7cfb0b41488b1cc773bc519606cdc10fc5aae0aba27780588f6506c36
+HASH src/App.js ad0177a51900d607c559879745d55daed3d7b1cd56048315363d95081b94bb9f
+
+Header Sair
+  20|         <LogoutLink to="/login">
+  21|           <IoMdLogOut />
+  22|           <p>Sair</p>
+  23|         </LogoutLink>
+
+LoginForm Entrar
+   7| export default function LoginForm() {
+   8|   return (
+   9|     <StyledForm>
+  10|       <Form.Group controlId="formBasicEmail">
+  11|         <Form.Label>Email</Form.Label>
+  12|         <Form.Control type="email" placeholder="Email" />
+  13|       </Form.Group>
+  14| 
+  15|       <Form.Group controlId="formBasicPassword">
+  16|         <Form.Label>Senha</Form.Label>
+  17|         <Form.Control type="password" placeholder="Senha" />
+  18|       </Form.Group>
+  19|       <StyledButton variant="primary" type="submit">
+  20|         Entrar
+  21|       </StyledButton>
+  22|     </StyledForm>
+
+SignIn
+  27| 
+  28|         <ColRight>
+  29|           <LoginForm />
+  30|         </ColRight>
+
+App rota login
+  19|         <Route path="/login" component={SignIn} exact />
+  20|         <Route path="/" component={LandingPage} exact />

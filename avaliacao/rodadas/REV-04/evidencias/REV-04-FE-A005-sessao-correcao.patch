@@ -1,0 +1,143 @@
+diff --git a/src/components/Header.js b/src/components/Header.js
+index 53ae5a8..ab8b633 100644
+--- a/src/components/Header.js
++++ b/src/components/Header.js
+@@ -2,7 +2,6 @@ import React from 'react';
+ import styled from 'styled-components';
+ import { Image, Navbar } from 'react-bootstrap';
+ import { Link } from 'react-router-dom';
+-import { IoMdLogOut } from 'react-icons/io';
+ 
+ export default function Header () {
+   return (
+@@ -17,11 +16,6 @@ export default function Header () {
+           </BrandText>
+         </BrandLink>
+ 
+-        <LogoutLink to="/login">
+-          <IoMdLogOut />
+-          <p>Sair</p>
+-        </LogoutLink>
+-
+       </StyledNavbar>
+       <AcademicNotice>
+         Protótipo desenvolvido para TCC. Aplicação não oficial.
+@@ -80,27 +74,3 @@ const AcademicNotice = styled.p`
+   margin: 0 0 20px;
+   text-align: center;
+ `;
+-
+-const LogoutLink = styled(Link)`
+-  align-items: center;
+-  color: #FFF;
+-  display: flex;
+-  flex-direction: column;
+-  font-size: 18px;
+-  justify-content: center;
+-  text-decoration: none;
+-
+-  :hover {
+-    color: #FFF;
+-    text-decoration: none;
+-  }
+-
+-  p {
+-    margin-bottom: 0;
+-  }
+-
+-  svg {
+-    font-size: 22px;
+-    margin: 0;
+-  }
+-`;
+diff --git a/src/components/LoginForm.js b/src/components/LoginForm.js
+deleted file mode 100644
+index 3a21312..0000000
+--- a/src/components/LoginForm.js
++++ /dev/null
+@@ -1,40 +0,0 @@
+-import React from 'react';
+-import styled from 'styled-components';
+-import {
+-  Button, Form,
+-} from 'react-bootstrap';
+-
+-export default function LoginForm() {
+-  return (
+-    <StyledForm>
+-      <Form.Group controlId="formBasicEmail">
+-        <Form.Label>Email</Form.Label>
+-        <Form.Control type="email" placeholder="Email" />
+-      </Form.Group>
+-
+-      <Form.Group controlId="formBasicPassword">
+-        <Form.Label>Senha</Form.Label>
+-        <Form.Control type="password" placeholder="Senha" />
+-      </Form.Group>
+-      <StyledButton variant="primary" type="submit">
+-        Entrar
+-      </StyledButton>
+-    </StyledForm>
+-  );
+-}
+-
+-const StyledForm = styled(Form)`
+-  background-color: #FFF;
+-  border-radius: 4px;
+-  padding: 30px;
+-
+-  label {
+-    font-size: 18px;
+-  }
+-`;
+-
+-const StyledButton = styled(Button)`
+-  background-color: var(--navy-blue)!important;
+-  font-size: 20px;
+-  width: 100%;
+-`;
+diff --git a/src/pages/SignIn.js b/src/pages/SignIn.js
+index 6a1434a..786a5e7 100644
+--- a/src/pages/SignIn.js
++++ b/src/pages/SignIn.js
+@@ -1,9 +1,9 @@
+ import React from 'react';
++import { Link } from 'react-router-dom';
+ import styled from 'styled-components';
+ import {
+   Col, Container, Image, Row,
+ } from 'react-bootstrap';
+-import LoginForm from '../components/LoginForm';
+ 
+ export default function SignIn () {
+   return (
+@@ -26,7 +26,10 @@ export default function SignIn () {
+         </ColLeft>
+ 
+         <ColRight>
+-          <LoginForm />
++          <AccessNotice>
++            <p>Este protótipo não tem acesso por conta.</p>
++            <Link to="/">Ver setores</Link>
++          </AccessNotice>
+         </ColRight>
+ 
+       </MainWrapper>
+@@ -83,3 +86,17 @@ const AcademicNotice = styled.p`
+   margin-bottom: 0;
+   max-width: 26rem;
+ `;
++
++const AccessNotice = styled.div`
++  background-color: #FFF;
++  border-radius: 4px;
++  font-size: 18px;
++  line-height: 1.5;
++  max-width: 24rem;
++  padding: 30px;
++  text-align: center;
++
++  p {
++    margin-bottom: 16px;
++  }
++`;

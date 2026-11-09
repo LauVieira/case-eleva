@@ -1,0 +1,27 @@
+REV-04 / REV-04-FE-A005 — verificação da remoção de Entrar e Sair
+Data: 2026-11-09T18:05:00-03:00
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: 4f95cf924e7c5400fd33667139aa006e04816bb7, branch main.
+Alteração local ainda sem commit: src/components/Header.js, src/pages/SignIn.js e remoção de src/components/LoginForm.js.
+Compilação: REV-04-FE-A005-sessao-compilacao.txt. Comando com --openssl-legacy-provider. Observado: webpack compiled successfully. O aviso de Browserslist foi para stderr; nenhuma dependência foi atualizada.
+
+ANTES
+REV-04-FE-A005-sessao-antes.txt
+Procedimento: REV-04-FE-A005-sessao-navegador-antes.cjs
+Resultado: REV-04-FE-A005-sessao-navegador-antes.json
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface, porta 9336, frontend em http://127.0.0.1:9000.
+Nenhuma escrita. Nenhuma sessão foi criada.
+Esperado: Sair sai do percurso e abre o formulário; Entrar não entra na aplicação.
+Observado: em / havia o link Sair com destino /login. O clique abriu /login, com e-mail, senha e o botão Entrar. O e-mail foi preenchido com pessoa@exemplo.test. O clique em Entrar permaneceu em /login, esvaziou o e-mail e o botão Entrar continuou na tela. A navegação registrada foi do tipo navigate.
+
+DEPOIS
+Sair saiu do cabeçalho. O formulário de e-mail, senha e Entrar saiu de /login. A rota permanece e informa que o protótipo não tem acesso por conta, com o link Ver setores. Patch: REV-04-FE-A005-sessao-correcao.patch.
+Procedimento: REV-04-FE-A005-sessao-navegador-depois.cjs
+Resultado: REV-04-FE-A005-sessao-navegador-depois.json
+Observado:
+1. / — sem Sair, sem Entrar, sem campos de e-mail ou senha; a marca Gestão Escolar — início continua
+2. /escola/6 — sem Sair e sem Entrar; a marca continua; título Escola De Demonstração | Gestão Escolar
+3. /login — sem Sair, sem Entrar e sem campos; o texto Este protótipo não tem acesso por conta. está na tela
+4. Ver setores em /login — abriu /
+
+A marca e o aviso de protótipo acadêmico foram mantidos. Não houve commit. A autora confirmou o diagnóstico e pediu a remoção; o olhar dela sobre a tela já corrigida continua pendente.

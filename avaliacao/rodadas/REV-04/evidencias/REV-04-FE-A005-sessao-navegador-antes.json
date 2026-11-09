@@ -1,0 +1,35 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "setores": {
+    "url": "/",
+    "titulo": "Setores | Gestão Escolar",
+    "controles": [
+      {
+        "tag": "A",
+        "type": "",
+        "href": "#conteudo-principal",
+        "texto": "Ir para o conteúdo principal"
+      },
+      {
+        "tag": "A",
+        "type": "",
+        "href": "/",
+        "texto": "Gestão Escolar Protótipo acadêmico"
+      },
+      {
+        "tag": "A",
+        "type": "",
+        "href": "/login",
+        "texto": "Sair"
+      }
+    ]
+  },
+  "emailAntesDoEnvio": "pessoa@exemplo.test",
+  "depoisDoEnvio": {
+    "url": "/login",
+    "titulo": "Gestão Escolar | Projeto Acadêmico",
+    "email": "",
+    "navegacao": "navigate",
+    "entrar": true
+  }
+}

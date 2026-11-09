@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Image, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { IoMdLogOut } from 'react-icons/io';
 
 export default function Header () {
   return (
@@ -16,11 +15,6 @@ export default function Header () {
             <BrandSubtitle>Protótipo acadêmico</BrandSubtitle>
           </BrandText>
         </BrandLink>
-
-        <LogoutLink to="/login">
-          <IoMdLogOut />
-          <p>Sair</p>
-        </LogoutLink>
 
       </StyledNavbar>
       <AcademicNotice>
@@ -79,28 +73,4 @@ const AcademicNotice = styled.p`
   line-height: 1.5;
   margin: 0 0 20px;
   text-align: center;
-`;
-
-const LogoutLink = styled(Link)`
-  align-items: center;
-  color: #FFF;
-  display: flex;
-  flex-direction: column;
-  font-size: 18px;
-  justify-content: center;
-  text-decoration: none;
-
-  :hover {
-    color: #FFF;
-    text-decoration: none;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-
-  svg {
-    font-size: 22px;
-    margin: 0;
-  }
 `;

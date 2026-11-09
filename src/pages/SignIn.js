@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   Col, Container, Image, Row,
 } from 'react-bootstrap';
-import LoginForm from '../components/LoginForm';
 
 export default function SignIn () {
   return (
@@ -26,7 +26,10 @@ export default function SignIn () {
         </ColLeft>
 
         <ColRight>
-          <LoginForm />
+          <AccessNotice>
+            <p>Este protótipo não tem acesso por conta.</p>
+            <Link to="/">Ver setores</Link>
+          </AccessNotice>
         </ColRight>
 
       </MainWrapper>
@@ -82,4 +85,18 @@ const AcademicNotice = styled.p`
   line-height: 1.5;
   margin-bottom: 0;
   max-width: 26rem;
+`;
+
+const AccessNotice = styled.div`
+  background-color: #FFF;
+  border-radius: 4px;
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 24rem;
+  padding: 30px;
+  text-align: center;
+
+  p {
+    margin-bottom: 16px;
+  }
 `;
