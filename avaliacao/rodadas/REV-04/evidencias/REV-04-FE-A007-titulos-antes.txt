@@ -1,0 +1,26 @@
+REV-04 / REV-04-FE-A007
+Data: 2026-11-09T21:43:00.000Z
+Frontend: 588c24f066190335d1f8e4c60249e49d9aa41883
+Branch: main
+Estado local: package-lock.json modificado; HANDOVER_front.md sem rastreamento; achados e relatorio da REV-04 com o A006 ainda sem commit.
+Pedido: padronizar todos os h1 no padrão visual de setores e turmas, azul-marinho e 28px.
+
+src/pages/LandingPage.js e src/pages/ClassesPage.js já usam color var(--navy-blue) e font-size 28px.
+
+src/pages/SectorPage.js
+ 191| const PageTitle = styled.h1`
+ 192|   font-size: 1rem;
+ 193|   font-weight: 400;
+ 194|   line-height: 1.5;
+ 195|   margin: 0;
+ 196| `;
+
+src/components/SchoolCard.js
+  90|   .card-title {
+  91|     font-size: 24px !important;
+  92|     font-weight: 500;
+
+src/pages/SignIn.js
+  70| const H1 = styled.h1`
+  71|   font-size: clamp(32px, 5vw, 48px);
+  72|   font-weight: 700;

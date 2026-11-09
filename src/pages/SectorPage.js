@@ -189,10 +189,10 @@ const Main = styled.main`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
+  color: var(--navy-blue);
+  flex: 1 0 100%;
+  font-size: 28px;
+  margin: 0 0 16px;
 `;
 
 const SkipLink = styled.a`

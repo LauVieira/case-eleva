@@ -68,8 +68,9 @@ const ColRight = styled(Col)`
 `;
 
 const H1 = styled.h1`
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 700;
+  color: var(--navy-blue);
+  font-size: 28px;
+  font-weight: 500;
   line-height: 1.15;
   margin-bottom: 12px;
 `;

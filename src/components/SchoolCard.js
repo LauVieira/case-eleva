@@ -89,7 +89,8 @@ const StyledCard = styled(Card)`
   width: 50rem;
 
   .card-title {
-    font-size: 24px !important;
+    color: var(--navy-blue);
+    font-size: 28px !important;
     font-weight: 500;
     line-height: 1.2;
     margin-bottom: 25px;
