@@ -1,0 +1,14 @@
+REV-04 / REV-04-FE-A010
+Data: 2026-11-09T23:15:00.000Z
+Frontend: 250f8450ec07f9faea400b6469c71ff5a5b2bfbe
+Branch: main
+Pedido: manter preto quando o contraste com preto for maior que 7; abaixo disso, escolher preto ou branco pelo maior contraste. O hover não força preto.
+
+src/pages/LandingPage.js
+function SectorCard
+  const contrast = colorContrast(sector.color, '#000');
+  const textColor = contrast > 7 ? '#000' : '#FFF';
+
+SectorItem
+  color: textColor;
+  :hover { color: #000; }
