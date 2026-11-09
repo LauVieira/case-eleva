@@ -465,31 +465,31 @@
       "sugestao": "Retirar Entrar e Sair enquanto o escopo não incluir autenticação, para não oferecer uma ação que a interface não realiza.",
       "verificacao_pendente": null,
       "confirmacao_autora": "confirmado",
-      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09 que Entrar e Sair prometem uma sessão que não existe e pediu a remoção desses controles.",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09 o diagnóstico e, depois da remoção, verificou a tela e disse que estava redonda. O commit da correção é 588c24f066190335d1f8e4c60249e49d9aa41883, mensagem chore: remove login.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "4f95cf924e7c5400fd33667139aa006e04816bb7",
+          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
           "backend": null,
-          "alteracoes_locais": "src/components/Header.js e src/pages/SignIn.js sem commit. src/components/LoginForm.js removido. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "Sair saiu do cabeçalho. E-mail, senha e Entrar saíram de /login. A rota permanece com o aviso de que o protótipo não tem acesso por conta e com o link Ver setores.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-correcao.patch"
+        "evidencia": "Commit 588c24f066190335d1f8e4c60249e49d9aa41883, mensagem chore: remove login. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "4f95cf924e7c5400fd33667139aa006e04816bb7",
+          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
           "backend": null,
-          "alteracoes_locais": "Header.js, SignIn.js e a remoção de LoginForm.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-correcao.patch."
+          "alteracoes_locais": null
         },
-        "metodo": "Chrome 156 sem interface. Clique em Sair e em Entrar antes da correção. Depois, leitura de /, /escola/6 e /login e acionamento de Ver setores.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "metodo": "Verificação da autora na tela já corrigida.",
+        "responsavel": "Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-verificacao.txt"
+        "evidencia": "Commit 588c24f066190335d1f8e4c60249e49d9aa41883. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-verificacao.txt."
       },
       "historico": [
         {
@@ -530,6 +530,32 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T18:08:52-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. A autora verificou a tela corrigida e disse que estava redonda.",
+          "evidencia": "Commit 588c24f066190335d1f8e4c60249e49d9aa41883, mensagem chore: remove login."
+        },
+        {
+          "data": "2026-11-09T18:08:52-03:00",
+          "rodada": "REV-04",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Laura Vieira: commit da correção. Grok 4.7, no Cursor: conferência do diff e atualização do registro, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+            "backend": null,
+            "alteracoes_locais": "Header.js, SignIn.js e a remoção de LoginForm.js estão neste commit e não têm diferença local. package-lock.json continua modificado e fora da correção. HANDOVER_front.md segue sem rastreamento. A vinculação é posterior ao commit e não repete a verificação."
+          },
+          "resultado": "Commit associado à correção já verificada. A versão da identificação e os eventos anteriores foram mantidos.",
+          "evidencia": "git diff 4f95cf924e7c5400fd33667139aa006e04816bb7 588c24f066190335d1f8e4c60249e49d9aa41883 de Header.js, LoginForm.js e SignIn.js é igual a avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A005-sessao-correcao.patch."
         }
       ]
     },
@@ -563,11 +589,59 @@
       "verificacao_pendente": "Confirmar o nome anunciado com NVDA na etapa final.",
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "backend": null,
+          "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+        },
+        "descricao": "O aria-label da marca foi removido. O nome acessível passa a ser o texto visível Gestão Escolar e Protótipo acadêmico. O ícone permanece com alt vazio.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "backend": null,
+          "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+        },
+        "metodo": "Chrome 156 sem interface. Nome calculado pela árvore de acessibilidade em /, antes e depois da remoção do aria-label. NVDA não executado.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T18:20:00-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+            "backend": null,
+            "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+          },
+          "resultado": "O aria-label Gestão Escolar — início foi removido da marca.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T18:20:00-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+            "backend": null,
+            "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-verificacao.txt"
+        }
+      ]
     },
     {
       "id": "REV-04-FE-A007",

@@ -1,0 +1,24 @@
+REV-04 / REV-04-FE-A006 — verificação do nome acessível da marca
+Data: 2026-11-09T18:20:00-03:00
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: 588c24f066190335d1f8e4c60249e49d9aa41883, branch main.
+Alteração local ainda sem commit: src/components/Header.js.
+Compilação: REV-04-FE-A006-marca-compilacao.txt. Comando com --openssl-legacy-provider. Observado: webpack compiled successfully. O aviso de Browserslist foi para stderr; nenhuma dependência foi atualizada.
+NVDA não foi executado.
+
+ANTES
+REV-04-FE-A006-marca-antes.txt
+Procedimento: REV-04-FE-A006-marca-navegador.cjs
+Resultado: REV-04-FE-A006-marca-navegador-antes.json
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface, porta 9336, frontend em http://127.0.0.1:9000.
+O nome veio da árvore de acessibilidade do Chrome, não de um leitor de tela.
+Esperado: o aria-label substitui os textos visíveis.
+Observado: em /, o link da marca tinha aria-label Gestão Escolar — início. O texto visível era Gestão Escolar Protótipo acadêmico. O alt da imagem era vazio. O nome acessível calculado foi Gestão Escolar — início.
+
+DEPOIS
+O aria-label foi removido. O ícone continua com alt vazio. Patch: REV-04-FE-A006-marca-correcao.patch.
+Procedimento: o mesmo REV-04-FE-A006-marca-navegador.cjs
+Resultado: REV-04-FE-A006-marca-navegador-depois.json
+Observado: aria-label nulo. Texto visível Gestão Escolar Protótipo acadêmico. Nome acessível calculado Gestão Escolar Protótipo acadêmico. A palavra início não entra no nome.
+
+A confirmação da autora permanece pendente. O anúncio com NVDA continua para a etapa final. Não houve commit.

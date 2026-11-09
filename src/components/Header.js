@@ -8,7 +8,7 @@ export default function Header () {
     <>
       <StyledNavbar fixed="top" expand="md">
 
-        <BrandLink to="/" aria-label="Gestão Escolar — início">
+        <BrandLink to="/">
           <BrandIcon src="/images/gestao-escolar.svg" alt="" width="48" height="48" />
           <BrandText>
             <BrandName>Gestão Escolar</BrandName>
