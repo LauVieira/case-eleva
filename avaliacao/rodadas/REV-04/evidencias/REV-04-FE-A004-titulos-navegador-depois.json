@@ -1,0 +1,77 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "casos": [
+    {
+      "caso": "detalhe_turma_encontrada",
+      "url": "/turma/8",
+      "titulo": "JARDIM | Gestão Escolar",
+      "h1": "JARDIM"
+    },
+    {
+      "caso": "detalhe_turma_ausente",
+      "url": "/turma/999999",
+      "titulo": "Turma não encontrada | Gestão Escolar",
+      "h1": "Turma não encontrada."
+    },
+    {
+      "caso": "editar_turma_ausente",
+      "url": "/turma/999999/editar",
+      "titulo": "Turma não encontrada | Gestão Escolar",
+      "h1": "Turma não encontrada."
+    },
+    {
+      "caso": "editar_escola_ausente",
+      "url": "/escola/999999/editar",
+      "titulo": "Escola não encontrada | Gestão Escolar",
+      "h1": "Escola não encontrada."
+    },
+    {
+      "caso": "turmas_escola_ausente",
+      "url": "/escola/999999/classes",
+      "titulo": "Escola não encontrada | Gestão Escolar",
+      "h1": "Escola não encontrada."
+    },
+    {
+      "caso": "cadastrar_turma_escola_ausente",
+      "url": "/escola/999999/classes/nova",
+      "titulo": "Escola não encontrada | Gestão Escolar",
+      "h1": "Escola não encontrada."
+    },
+    {
+      "caso": "cadastrar_escola_setor_ausente",
+      "url": "/setor/999999/escolas/nova",
+      "titulo": "Setor não encontrado | Gestão Escolar",
+      "h1": "Setor não encontrado."
+    },
+    {
+      "caso": "editar_escola_encontrada",
+      "url": "/escola/6/editar",
+      "titulo": "Editar escola | Gestão Escolar",
+      "h1": "Editar escola"
+    },
+    {
+      "caso": "editar_turma_encontrada",
+      "url": "/turma/8/editar",
+      "titulo": "Editar turma | Gestão Escolar",
+      "h1": "Editar turma"
+    },
+    {
+      "caso": "cadastrar_turma_escola_encontrada",
+      "url": "/escola/6/classes/nova",
+      "titulo": "Cadastrar turma | Gestão Escolar",
+      "h1": "Cadastrar turma"
+    },
+    {
+      "caso": "cadastrar_escola_setor_encontrado",
+      "url": "/setor/1/escolas/nova",
+      "titulo": "Cadastrar escola | Gestão Escolar",
+      "h1": "Cadastrar escola"
+    },
+    {
+      "caso": "turmas_escola_encontrada",
+      "url": "/escola/6/classes",
+      "titulo": "Turmas | Escola De Demonstração | Gestão Escolar",
+      "h1": "Turmas"
+    }
+  ]
+}

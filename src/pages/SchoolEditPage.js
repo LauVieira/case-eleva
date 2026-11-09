@@ -84,13 +84,17 @@ export default function SchoolEditPage () {
     };
   }, [schoolId, loadAttempt]);
 
+  const schoolMissing = !isLoading && Boolean(loadError && loadError.notFound);
+
   useEffect(() => {
     const previousTitle = document.title;
     document.title = savedSchool
       ? 'Escola atualizada | Gestão Escolar'
-      : 'Editar escola | Gestão Escolar';
+      : schoolMissing
+        ? 'Escola não encontrada | Gestão Escolar'
+        : 'Editar escola | Gestão Escolar';
     return () => { document.title = previousTitle; };
-  }, [savedSchool]);
+  }, [savedSchool, schoolMissing]);
 
   useEffect(() => {
     if (!isLoading && headingRef.current) headingRef.current.focus();
@@ -246,7 +250,7 @@ export default function SchoolEditPage () {
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
         <Heading ref={headingRef} tabIndex={-1}>
-          {savedSchool ? 'Escola atualizada' : 'Editar escola'}
+          {savedSchool ? 'Escola atualizada' : schoolMissing ? 'Escola não encontrada.' : 'Editar escola'}
         </Heading>
         {renderContent()}
       </Main>

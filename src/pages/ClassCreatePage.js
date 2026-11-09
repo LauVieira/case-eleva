@@ -83,13 +83,17 @@ export default function ClassCreatePage () {
     };
   }, [schoolId, loadAttempt, id]);
 
+  const schoolMissing = !isLoading && Boolean(loadError && loadError.notFound);
+
   useEffect(() => {
     const previousTitle = document.title;
     document.title = createdClass
       ? 'Turma cadastrada | Gestão Escolar'
-      : 'Cadastrar turma | Gestão Escolar';
+      : schoolMissing
+        ? 'Escola não encontrada | Gestão Escolar'
+        : 'Cadastrar turma | Gestão Escolar';
     return () => { document.title = previousTitle; };
-  }, [createdClass]);
+  }, [createdClass, schoolMissing]);
 
   useEffect(() => {
     if (!isLoading && headingRef.current) headingRef.current.focus();
@@ -231,7 +235,7 @@ export default function ClassCreatePage () {
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
         <Heading ref={headingRef} tabIndex={-1}>
-          {createdClass ? 'Turma cadastrada' : 'Cadastrar turma'}
+          {createdClass ? 'Turma cadastrada' : schoolMissing ? 'Escola não encontrada.' : 'Cadastrar turma'}
         </Heading>
         {renderContent()}
       </Main>

@@ -58,13 +58,22 @@ export default function ClassDetailPage () {
     return () => { active = false; };
   }, [classId, loadAttempt]);
 
+  const classMissing = !isLoading && Boolean(loadError && loadError.notFound);
+  const classHeading = classData
+    ? formatClassName(classData.name)
+    : classMissing
+      ? 'Turma não encontrada.'
+      : 'Turma';
+
   useEffect(() => {
     const previousTitle = document.title;
     document.title = classData
-      ? 'Detalhe da turma | Gestão Escolar'
-      : 'Turma | Gestão Escolar';
+      ? `${formatClassName(classData.name)} | Gestão Escolar`
+      : classMissing
+        ? 'Turma não encontrada | Gestão Escolar'
+        : 'Turma | Gestão Escolar';
     return () => { document.title = previousTitle; };
-  }, [classData]);
+  }, [classData, classMissing]);
 
   useEffect(() => {
     if (!isLoading && headingRef.current) headingRef.current.focus();
@@ -157,7 +166,7 @@ export default function ClassDetailPage () {
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
         <Heading ref={headingRef} tabIndex={-1}>
-          {classData ? formatClassName(classData.name) : 'Turma'}
+          {classHeading}
         </Heading>
         {renderContent()}
       </Main>

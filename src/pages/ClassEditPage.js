@@ -97,13 +97,17 @@ export default function ClassEditPage () {
     };
   }, [classId, loadAttempt]);
 
+  const classMissing = !isLoading && Boolean(loadError && loadError.notFound);
+
   useEffect(() => {
     const previousTitle = document.title;
     document.title = savedClass
       ? 'Turma atualizada | Gestão Escolar'
-      : 'Editar turma | Gestão Escolar';
+      : classMissing
+        ? 'Turma não encontrada | Gestão Escolar'
+        : 'Editar turma | Gestão Escolar';
     return () => { document.title = previousTitle; };
-  }, [savedClass]);
+  }, [savedClass, classMissing]);
 
   useEffect(() => {
     if (!isLoading && headingRef.current) headingRef.current.focus();
@@ -281,7 +285,7 @@ export default function ClassEditPage () {
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
         <Heading ref={headingRef} tabIndex={-1}>
-          {savedClass ? 'Turma atualizada' : 'Editar turma'}
+          {savedClass ? 'Turma atualizada' : classMissing ? 'Turma não encontrada.' : 'Editar turma'}
         </Heading>
         {renderContent()}
       </Main>

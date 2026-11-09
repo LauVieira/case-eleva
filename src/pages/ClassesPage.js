@@ -100,10 +100,11 @@ export default function ClassesPage () {
 
   useEffect(() => {
     const previousTitle = document.title;
-    if (schoolName) document.title = `Turmas | ${schoolName} | Gestão Escolar`;
+    if (schoolMissing) document.title = 'Escola não encontrada | Gestão Escolar';
+    else if (schoolName) document.title = `Turmas | ${schoolName} | Gestão Escolar`;
     else document.title = 'Turmas | Gestão Escolar';
     return () => { document.title = previousTitle; };
-  }, [schoolName]);
+  }, [schoolName, schoolMissing]);
 
   return (
     <StyledContainer fluid>
@@ -117,7 +118,9 @@ export default function ClassesPage () {
         </Alert>
       )}
 
-      <PageTitle ref={headingRef} tabIndex={-1}>Turmas</PageTitle>
+      <PageTitle ref={headingRef} tabIndex={-1}>
+        {schoolMissing ? 'Escola não encontrada.' : 'Turmas'}
+      </PageTitle>
 
       <ContextBar>
         {schoolMissing && <p role="alert">Escola não encontrada.</p>}

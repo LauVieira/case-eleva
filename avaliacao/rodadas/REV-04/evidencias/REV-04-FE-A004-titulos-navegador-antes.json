@@ -1,0 +1,71 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "casos": [
+    {
+      "caso": "detalhe_turma_encontrada",
+      "url": "/turma/8",
+      "titulo": "Detalhe da turma | Gestão Escolar",
+      "h1": "JARDIM"
+    },
+    {
+      "caso": "detalhe_turma_ausente",
+      "url": "/turma/999999",
+      "titulo": "Turma | Gestão Escolar",
+      "h1": "Turma"
+    },
+    {
+      "caso": "editar_turma_ausente",
+      "url": "/turma/999999/editar",
+      "titulo": "Editar turma | Gestão Escolar",
+      "h1": "Editar turma"
+    },
+    {
+      "caso": "editar_escola_ausente",
+      "url": "/escola/999999/editar",
+      "titulo": "Editar escola | Gestão Escolar",
+      "h1": "Editar escola"
+    },
+    {
+      "caso": "turmas_escola_ausente",
+      "url": "/escola/999999/classes",
+      "titulo": "Turmas | Gestão Escolar",
+      "h1": "Turmas"
+    },
+    {
+      "caso": "cadastrar_turma_escola_ausente",
+      "url": "/escola/999999/classes/nova",
+      "titulo": "Cadastrar turma | Gestão Escolar",
+      "h1": "Cadastrar turma"
+    },
+    {
+      "caso": "cadastrar_escola_setor_ausente",
+      "url": "/setor/999999/escolas/nova",
+      "titulo": "Cadastrar escola | Gestão Escolar",
+      "h1": "Cadastrar escola"
+    },
+    {
+      "caso": "editar_escola_encontrada",
+      "url": "/escola/6/editar",
+      "titulo": "Editar escola | Gestão Escolar",
+      "h1": "Editar escola"
+    },
+    {
+      "caso": "editar_turma_encontrada",
+      "url": "/turma/8/editar",
+      "titulo": "Editar turma | Gestão Escolar",
+      "h1": "Editar turma"
+    },
+    {
+      "caso": "cadastrar_turma_escola_encontrada",
+      "url": "/escola/6/classes/nova",
+      "titulo": "Cadastrar turma | Gestão Escolar",
+      "h1": "Cadastrar turma"
+    },
+    {
+      "caso": "cadastrar_escola_setor_encontrado",
+      "url": "/setor/1/escolas/nova",
+      "titulo": "Cadastrar escola | Gestão Escolar",
+      "h1": "Cadastrar escola"
+    }
+  ]
+}

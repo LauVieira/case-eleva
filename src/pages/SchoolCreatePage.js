@@ -72,12 +72,16 @@ export default function SchoolCreatePage () {
 
   useEffect(() => {
     const previousTitle = document.title;
+    const originMissing = !isLoading && !loadError && sectors.length > 0
+      && !sectors.some((sector) => sector.id === Number(id));
     document.title = createdSchool
       ? 'Escola cadastrada | Gestão Escolar'
-      : 'Cadastrar escola | Gestão Escolar';
+      : originMissing
+        ? 'Setor não encontrado | Gestão Escolar'
+        : 'Cadastrar escola | Gestão Escolar';
 
     return () => { document.title = previousTitle; };
-  }, [createdSchool]);
+  }, [createdSchool, isLoading, loadError, sectors, id]);
 
   useEffect(() => {
     if (!isLoading && headingRef.current) headingRef.current.focus();
@@ -88,6 +92,7 @@ export default function SchoolCreatePage () {
   }, [errorFocusKey]);
 
   const originSector = sectors.find((sector) => sector.id === Number(id));
+  const originMissing = !isLoading && !loadError && sectors.length > 0 && !originSector;
 
   function handleChange (event) {
     const { name, value } = event.target;
@@ -225,7 +230,7 @@ export default function SchoolCreatePage () {
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
         <Heading ref={headingRef} tabIndex={-1}>
-          {createdSchool ? 'Escola cadastrada' : 'Cadastrar escola'}
+          {createdSchool ? 'Escola cadastrada' : originMissing ? 'Setor não encontrado.' : 'Cadastrar escola'}
         </Heading>
         {renderContent()}
       </Main>
