@@ -1,0 +1,62 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "gravacoesReais": 0,
+  "casos": [
+    {
+      "caso": "escola_botao_excluir_sem_contorno_do_projeto",
+      "resultado": "observado_antes_da_correcao",
+      "foco": {
+        "tag": "BUTTON",
+        "texto": "Excluir escola",
+        "outlineStyle": "none",
+        "outlineWidth": "0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "boxShadow": "presente",
+        "rootEnabled": true,
+        "bodyEnabled": false,
+        "floaterClass": "floating-focus enabled",
+        "floaterOverlap": false
+      }
+    },
+    {
+      "caso": "escola_link_409_sem_contorno_do_projeto",
+      "resultado": "observado_antes_da_correcao",
+      "foco": {
+        "tag": "A",
+        "texto": "Ver turmas da escola",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "outlineColor": "rgb(0, 123, 255)",
+        "boxShadow": "none",
+        "rootEnabled": true,
+        "bodyEnabled": false,
+        "floaterClass": "floating-focus enabled",
+        "floaterOverlap": false
+      },
+      "escritas": 1
+    },
+    {
+      "caso": "turma_botao_excluir_sem_contorno_do_projeto",
+      "resultado": "observado_antes_da_correcao",
+      "foco": {
+        "tag": "BUTTON",
+        "texto": "Excluir turma",
+        "outlineStyle": "none",
+        "outlineWidth": "0px",
+        "outlineColor": "rgb(255, 255, 255)",
+        "boxShadow": "presente",
+        "rootEnabled": true,
+        "bodyEnabled": false,
+        "floaterClass": "floating-focus enabled",
+        "floaterOverlap": false
+      }
+    }
+  ],
+  "escritas": [
+    {
+      "method": "DELETE",
+      "path": "/schools/6",
+      "scenario": "conflict"
+    }
+  ]
+}

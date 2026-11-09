@@ -143,7 +143,8 @@ Examinado sem apontamento não declara atendimento do critério. Onde o método 
 
 | Verificação | Motivo da pendência | Método necessário | Momento previsto | IDs relacionados |
 |---|---|---|---|---|
-| Percurso de teclado, foco visível e foco após troca de tela | Navegador não aberto nesta rodada | IN | rodada seguinte ou avaliação final | REV-04-FE-A002, REV-04-FE-A003 |
+| Foco visível nos diálogos de exclusão | Tab no Chrome em 2026-11-09, com exclusão interceptada | IN | verificado no recorte; confirmação da autora pendente | REV-04-FE-A002 |
+| Foco após troca de tela | Ainda não percorrido | IN | quando a autora pedir REV-04-FE-A003 | REV-04-FE-A003 |
 | Cores efetivas dos setores | API não consultada e tela não medida | IN + CC | quando a API de setores estiver disponível | REV-04-FE-A010 |
 | Cadastro de escola com dado inválido e nome repetido | Conferido pela autora na interface em 2026-11-09 | IN | concluído para o recorte confirmado | REV-04-FE-A001 |
 | Entrar e Sair acionados | Recarregamento e saída não observados na tela | IN | rodada seguinte | REV-04-FE-A005 |
@@ -156,7 +157,7 @@ Examinado sem apontamento não declara atendimento do critério. Onde o método 
 
 ## Fechamento pela autora
 
-- Data e versão após intervenções: 2026-11-09; correção de REV-04-FE-A001 no commit 40cfca0457a2dd66c0bb10371c18036df2bd7137
+- Data e versão após intervenções: 2026-11-09; correção de REV-04-FE-A001 no commit b1f17f6487a3059f16a4eb24f6b42a388be4708e
 - IDs reavaliados: REV-04-FE-A001, confirmado pela autora na interface
 - IDs que permanecem pendentes: REV-04-FE-A002, REV-04-FE-A003, REV-04-FE-A004, REV-04-FE-A005, REV-04-FE-A006, REV-04-FE-A007, REV-04-FE-A008, REV-04-FE-A009, REV-04-FE-A010, REV-04-FE-A011 e REV-03-FE-A021
 - Arquivos de reavaliação: avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png

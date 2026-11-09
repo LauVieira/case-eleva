@@ -1,0 +1,30 @@
+REV-04 / REV-04-FE-A002 — verificação após o indicador de foco nos diálogos de exclusão
+Data: 2026-11-09T03:20:00.000Z
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: b1f17f6487a3059f16a4eb24f6b42a388be4708e, branch main.
+Alteração local ainda sem commit: src/index.js.
+SHA-256 antes: 24a463e066d19d08d384c2520455e89b3d32b15a6e5cf7135df1b995f893c382
+SHA-256 depois: cf57e14069396ea696e22ff50ce5ddf494d7ec2f12416cec7e6b3ee6625fd4f6
+styles.css e os dois modais não foram alterados.
+
+ANTES
+REV-04-FE-A002-foco-antes.txt
+Procedimento: REV-04-FE-A002-foco-navegador-antes.cjs
+Resultado: REV-04-FE-A002-foco-navegador-antes.json
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface, porta 9334, frontend em http://127.0.0.1:9000.
+DELETE e GET interceptados. Nenhuma exclusão real.
+Esperado: Tab no diálogo deixa o controle sem o anel do projeto, porque o indicador está limitado a #root.
+Observado: nos botões Excluir escola e Excluir turma, outline-style none e outline-width 0px; só havia a sombra do Bootstrap. No link Ver turmas da escola, outline-style none. A classe floating-focus-enabled estava em #root, não em body, e o anel flutuante não cobria o controle focado.
+
+DEPOIS
+O construtor de FloatingFocus passou de #root para document.body. Patch: REV-04-FE-A002-foco-correcao.patch.
+Compilação: REV-04-FE-A002-foco-compilacao.txt. Comando com --openssl-legacy-provider. Observado: webpack compiled successfully. O aviso de Browserslist foi para stderr; nenhuma dependência foi atualizada.
+Procedimento: REV-04-FE-A002-foco-navegador-depois.cjs
+Resultado: REV-04-FE-A002-foco-navegador-depois.json
+Esperado: o mesmo Tab mostra o anel do projeto sobre o botão e sobre o link, com a classe no body.
+Observado: 3 casos passaram. outline-width 2px, cor rgb(30, 144, 255), bodyEnabled verdadeiro e o anel flutuante visível sobre o controle.
+1. escola_botao_excluir_com_indicador
+2. escola_link_409_com_indicador
+3. turma_botao_excluir_com_indicador
+
+A confirmação da autora permanece pendente. Não houve commit.

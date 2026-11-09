@@ -44,24 +44,24 @@
       "sugestao": "Validar com validateSchoolForm antes do POST, bloquear envio duplicado e mostrar o erro no resumo e no campo, sem limpar o que foi digitado.",
       "verificacao_pendente": null,
       "confirmacao_autora": "confirmado",
-      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09, na interface, após o commit 40cfca0457a2dd66c0bb10371c18036df2bd7137. No cadastro de escola, um nome já existente mostrou a mensagem de erro e o endereço preenchido permaneceu; escola sem nome foi recusada; telefone inválido foi recusado. Ela também conferiu a tela de criar turma e uma tela de edição. A captura avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png mostra Cadastrar escola, Setor Branco, o resumo e o campo com a mensagem de nome repetido, o nome Escola Teste e o endereço Rua dos Bobos, nº 0 ainda preenchido.",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09, na interface, após o commit b1f17f6487a3059f16a4eb24f6b42a388be4708e. No cadastro de escola, um nome já existente mostrou a mensagem de erro e o endereço preenchido permaneceu; escola sem nome foi recusada; telefone inválido foi recusado. Ela também conferiu a tela de criar turma e uma tela de edição. A captura avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png mostra Cadastrar escola, Setor Branco, o resumo e o campo com a mensagem de nome repetido, o nome Escola Teste e o endereço Rua dos Bobos, nº 0 ainda preenchido.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
           "backend": null,
           "alteracoes_locais": null
         },
         "descricao": "O cadastro de escola passou a validar com validateSchoolForm antes do POST, impedir envio duplicado e mostrar o erro no resumo e no campo, preservando o preenchimento.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "Commit 40cfca0457a2dd66c0bb10371c18036df2bd7137, mensagem chore: REV-04 and error handler improvement. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch."
+        "evidencia": "Commit b1f17f6487a3059f16a4eb24f6b42a388be4708e, mensagem chore: REV-04 and error handler improvement. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
           "backend": null,
           "alteracoes_locais": null
         },
@@ -103,7 +103,7 @@
           "evento": "confirmacao_autora",
           "responsavel": "Laura Vieira",
           "versao_codigo": {
-            "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+            "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
             "backend": null,
             "alteracoes_locais": null
           },
@@ -140,14 +140,62 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Fazer o indicador de foco cobrir também o diálogo portado para document.body, sem depender apenas da sombra padrão dos botões.",
-      "verificacao_pendente": "Percorrer com teclado os dois diálogos, inclusive o link do erro 409 da escola, e observar se o foco fica perceptível.",
+      "verificacao_pendente": null,
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
       "situacao": "aguardando_confirmacao",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+          "backend": null,
+          "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+        },
+        "descricao": "FloatingFocus passou a usar document.body, para o anel de foco cobrir os diálogos de exclusão portados para fora de #root.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+          "backend": null,
+          "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+        },
+        "metodo": "Tab no Chrome com DELETE interceptado, sem exclusão real. Medição do contorno e do anel flutuante.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T03:20:00-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+            "backend": null,
+            "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+          },
+          "resultado": "Indicador de foco passou a ser criado em document.body.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T03:20:00-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+            "backend": null,
+            "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+        }
+      ]
     },
     {
       "id": "REV-04-FE-A003",
