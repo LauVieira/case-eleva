@@ -165,7 +165,7 @@ export default function ClassesPage () {
                 <ClassItem to={`/escola/${id}/classes/nova`}>
                   <StyledCard as="a">
                     <Card.Text className="add-class">
-                      <BsPlusCircleFill />
+                      <BsPlusCircleFill aria-hidden="true" focusable="false" />
                       Adicionar Turma
                     </Card.Text>
                   </StyledCard>

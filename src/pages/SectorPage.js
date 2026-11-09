@@ -143,7 +143,7 @@ export default function SectorPage () {
               <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
                 <StyledCard>
                   <Card.Text className="add-school">
-                    <BsPlusCircleFill />
+                    <BsPlusCircleFill aria-hidden="true" focusable="false" />
                     Adicionar Escola
                   </Card.Text>
                 </StyledCard>

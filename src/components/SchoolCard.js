@@ -58,7 +58,7 @@ export default function SchoolCard (props) {
       <StyledListGroup className="list-group-flush">
 
         <SchoolItem action href={link}>
-          <SiGoogleclassroom /> Ver turmas
+          <SiGoogleclassroom aria-hidden="true" focusable="false" /> Ver turmas
         </SchoolItem>
         {editLink && (
           <SchoolItem action href={editLink}>

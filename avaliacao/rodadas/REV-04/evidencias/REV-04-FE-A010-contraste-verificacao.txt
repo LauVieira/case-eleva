@@ -21,4 +21,5 @@ Procedimento: o mesmo REV-04-FE-A010-contraste-navegador.cjs
 Resultado: REV-04-FE-A010-contraste-navegador-depois.json
 Observado: cinza e vermelho passaram a texto preto. Os outros nove permaneceram. No hover, cada cartão conservou o mesmo fundo e a mesma cor de texto do repouso. Azul-marinho, marrom e vinho continuam com texto branco.
 
-A confirmação da autora permanece pendente. Não houve commit.
+A confirmação da autora foi registrada em 2026-11-09, com o commit 028813662bbf777b5b5cb1ad21c6092cc488caa7. As capturas do código de SectorCard, fornecidas pela autora para o TCC, foram renomeadas: REV-04-FE-A010-contraste-antes.png era Captura de tela 2026-11-09 200543.png; REV-04-FE-A010-contraste-depois.png era image.png. A primeira mostra a escolha preto se o contraste com preto passa de 7 e branco nos demais casos. A segunda mostra a comparação com preto e com branco e a escolha da maior razão abaixo desse limiar.
+

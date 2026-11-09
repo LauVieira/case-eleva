@@ -1,0 +1,39 @@
+diff --git a/src/components/SchoolCard.js b/src/components/SchoolCard.js
+index 77af7c2..6181c92 100644
+--- a/src/components/SchoolCard.js
++++ b/src/components/SchoolCard.js
+@@ -58,7 +58,7 @@ export default function SchoolCard (props) {
+       <StyledListGroup className="list-group-flush">
+ 
+         <SchoolItem action href={link}>
+-          <SiGoogleclassroom /> Ver turmas
++          <SiGoogleclassroom aria-hidden="true" focusable="false" /> Ver turmas
+         </SchoolItem>
+         {editLink && (
+           <SchoolItem action href={editLink}>
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index c0c9eba..d9f0ca3 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -165,7 +165,7 @@ export default function ClassesPage () {
+                 <ClassItem to={`/escola/${id}/classes/nova`}>
+                   <StyledCard as="a">
+                     <Card.Text className="add-class">
+-                      <BsPlusCircleFill />
++                      <BsPlusCircleFill aria-hidden="true" focusable="false" />
+                       Adicionar Turma
+                     </Card.Text>
+                   </StyledCard>
+diff --git a/src/pages/SectorPage.js b/src/pages/SectorPage.js
+index c07d80e..99a45a8 100644
+--- a/src/pages/SectorPage.js
++++ b/src/pages/SectorPage.js
+@@ -143,7 +143,7 @@ export default function SectorPage () {
+               <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+                 <StyledCard>
+                   <Card.Text className="add-school">
+-                    <BsPlusCircleFill />
++                    <BsPlusCircleFill aria-hidden="true" focusable="false" />
+                     Adicionar Escola
+                   </Card.Text>
+                 </StyledCard>

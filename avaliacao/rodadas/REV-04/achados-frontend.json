@@ -950,32 +950,32 @@
       "classificacao": "indicio",
       "sugestao": "Escolher preto ou branco pelo que atingir pelo menos 4,5:1 contra a cor efetiva do setor e medir as cores retornadas pela API.",
       "verificacao_pendente": null,
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira revisou e aprovou em 2026-11-09, depois de ver a aplicação. O commit da correção é 028813662bbf777b5b5cb1ad21c6092cc488caa7, mensagem fix: optimizing contrast. As capturas do código antes e depois estão em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-antes.png e REV-04-FE-A010-contraste-depois.png.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "250f8450ec07f9faea400b6469c71ff5a5b2bfbe",
+          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
           "backend": null,
-          "alteracoes_locais": "src/pages/LandingPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "Preto permanece quando o contraste com preto é maior que 7. Abaixo disso, a cor do texto é a de maior contraste entre preto e branco. Hover, foco e ativo conservam o fundo do setor e essa cor.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-correcao.patch"
+        "evidencia": "Commit 028813662bbf777b5b5cb1ad21c6092cc488caa7, mensagem fix: optimizing contrast. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-correcao.patch. Capturas: REV-04-FE-A010-contraste-antes.png e REV-04-FE-A010-contraste-depois.png."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "250f8450ec07f9faea400b6469c71ff5a5b2bfbe",
+          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
           "backend": null,
-          "alteracoes_locais": "src/pages/LandingPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-correcao.patch."
+          "alteracoes_locais": null
         },
-        "metodo": "Chrome 156 sem interface. Estilo computado dos onze cartões de setor no repouso e no hover, com as cores vindas de GET /sectors.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "metodo": "Revisão da autora na aplicação. A medição anterior no Chrome permanece em REV-04-FE-A010-contraste-verificacao.txt.",
+        "responsavel": "Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-verificacao.txt"
+        "evidencia": "Commit 028813662bbf777b5b5cb1ad21c6092cc488caa7. Capturas do código em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-antes.png e REV-04-FE-A010-contraste-depois.png. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-verificacao.txt."
       },
       "historico": [
         {
@@ -1003,6 +1003,32 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T20:27:35-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. A autora revisou a aplicação e aprovou.",
+          "evidencia": "Commit 028813662bbf777b5b5cb1ad21c6092cc488caa7, mensagem fix: optimizing contrast. Capturas renomeadas: avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-antes.png e REV-04-FE-A010-contraste-depois.png."
+        },
+        {
+          "data": "2026-11-09T20:27:35-03:00",
+          "rodada": "REV-04",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Laura Vieira: commit da correção. Grok 4.7, no Cursor: conferência do diff, renomeação das capturas e atualização do registro, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+            "backend": null,
+            "alteracoes_locais": "LandingPage.js está neste commit e não tem diferença local. As capturas entraram no commit com os nomes antigos e foram renomeadas depois, ainda sem novo commit. A vinculação não repete a medição."
+          },
+          "resultado": "Commit associado à correção já verificada. As capturas do código antes e depois ficaram com nome estável para o TCC.",
+          "evidencia": "git diff 250f8450ec07f9faea400b6469c71ff5a5b2bfbe 028813662bbf777b5b5cb1ad21c6092cc488caa7 de LandingPage.js é igual a avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A010-contraste-correcao.patch. REV-04-FE-A010-contraste-antes.png era Captura de tela 2026-11-09 200543.png. REV-04-FE-A010-contraste-depois.png era image.png."
         }
       ]
     },
@@ -1036,11 +1062,59 @@
       "verificacao_pendente": "Confirmar com NVDA, na etapa final, se esses ícones entram na leitura.",
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+          "backend": null,
+          "alteracoes_locais": "src/components/SchoolCard.js, src/pages/SectorPage.js e src/pages/ClassesPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+        },
+        "descricao": "Ver turmas, Adicionar Escola e Adicionar Turma marcam o ícone com aria-hidden e focusable false. O ícone de Sair já não existe desde a remoção desse controle.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+          "backend": null,
+          "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+        },
+        "metodo": "Chrome 156 sem interface. Atributos do svg em Ver turmas, Adicionar Escola, Adicionar Turma, Editar escola e Excluir escola. NVDA não executado.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T20:40:00-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+            "backend": null,
+            "alteracoes_locais": "src/components/SchoolCard.js, src/pages/SectorPage.js e src/pages/ClassesPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+          },
+          "resultado": "Os três ícones que repetem texto visível foram marcados como decorativos.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T20:40:00-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+            "backend": null,
+            "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-verificacao.txt"
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A021",
