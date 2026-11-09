@@ -594,25 +594,25 @@
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "frontend": "e7665bb532dac8b90b68c07921b73ed59799cdad",
           "backend": null,
-          "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "O aria-label da marca foi removido. O nome acessível passa a ser o texto visível Gestão Escolar e Protótipo acadêmico. O ícone permanece com alt vazio.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch"
+        "evidencia": "Commit e7665bb532dac8b90b68c07921b73ed59799cdad, mensagem fix REV-04-FE-A006. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "frontend": "e7665bb532dac8b90b68c07921b73ed59799cdad",
           "backend": null,
-          "alteracoes_locais": "src/components/Header.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
+          "alteracoes_locais": null
         },
         "metodo": "Chrome 156 sem interface. Nome calculado pela árvore de acessibilidade em /, antes e depois da remoção do aria-label. NVDA não executado.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-verificacao.txt"
+        "evidencia": "Commit e7665bb532dac8b90b68c07921b73ed59799cdad. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-verificacao.txt."
       },
       "historico": [
         {
@@ -640,6 +640,19 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T18:38:58-03:00",
+          "rodada": "REV-04",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Laura Vieira: commit da correção. Grok 4.7, no Cursor: conferência do diff e atualização do registro.",
+          "versao_codigo": {
+            "frontend": "e7665bb532dac8b90b68c07921b73ed59799cdad",
+            "backend": null,
+            "alteracoes_locais": "Header.js está neste commit e não tem diferença local. A vinculação não é uma nova confirmação da autora e não repete a verificação."
+          },
+          "resultado": "Commit associado à correção já verificada. A confirmação da autora continua pendente.",
+          "evidencia": "git diff 588c24f066190335d1f8e4c60249e49d9aa41883 e7665bb532dac8b90b68c07921b73ed59799cdad de Header.js é igual a avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A006-marca-correcao.patch."
         }
       ]
     },
@@ -673,32 +686,32 @@
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Dar ao h1 do setor destaque visual de título da página, acima do peso dos h2 dos cartões.",
       "verificacao_pendente": "Na etapa final, percorrer os títulos com NVDA.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira aprovou em 2026-11-09, depois de visualizar a aplicação. O commit da correção é f94fc63d3e00702018dac45342f63e9ee6a88f2d, mensagem chore: standardizing h1 layout.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
           "backend": null,
-          "alteracoes_locais": "src/pages/SectorPage.js, src/components/SchoolCard.js e src/pages/SignIn.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "Todos os h1 passaram ao padrão já usado em setores e turmas: 28px, peso 500 e azul-marinho. O setor, o nome da escola e o título de /login eram os que divergiam.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-correcao.patch"
+        "evidencia": "Commit f94fc63d3e00702018dac45342f63e9ee6a88f2d, mensagem chore: standardizing h1 layout. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "588c24f066190335d1f8e4c60249e49d9aa41883",
+          "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
           "backend": null,
-          "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-correcao.patch."
+          "alteracoes_locais": null
         },
-        "metodo": "Chrome 156 sem interface. Estilo computado dos h1 em setores, setor, escola, turmas, detalhe da turma, login, cadastro e edição de escola.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "metodo": "Visualização da autora na aplicação.",
+        "responsavel": "Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-verificacao.txt"
+        "evidencia": "Commit f94fc63d3e00702018dac45342f63e9ee6a88f2d. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-verificacao.txt."
       },
       "historico": [
         {
@@ -726,6 +739,32 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T19:00:31-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. A autora visualizou a aplicação e aprovou.",
+          "evidencia": "Commit f94fc63d3e00702018dac45342f63e9ee6a88f2d, mensagem chore: standardizing h1 layout."
+        },
+        {
+          "data": "2026-11-09T19:00:31-03:00",
+          "rodada": "REV-04",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Laura Vieira: commit da correção. Grok 4.7, no Cursor: conferência do diff e atualização do registro, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+            "backend": null,
+            "alteracoes_locais": "SectorPage.js, SchoolCard.js e SignIn.js estão neste commit e não têm diferença local. package-lock.json continua modificado e fora da correção. HANDOVER_front.md segue sem rastreamento. A vinculação é posterior ao commit e não repete a verificação."
+          },
+          "resultado": "Commit associado à correção já verificada. A versão da identificação e os eventos anteriores foram mantidos.",
+          "evidencia": "git diff e7665bb532dac8b90b68c07921b73ed59799cdad f94fc63d3e00702018dac45342f63e9ee6a88f2d das três fontes é igual a avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A007-titulos-correcao.patch."
         }
       ]
     },
@@ -761,11 +800,59 @@
       "verificacao_pendente": null,
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+          "backend": null,
+          "alteracoes_locais": "src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch."
+        },
+        "descricao": "Detalhe, formulário e mensagens de validação de maxOccupancy passaram a Limite de alunos, o termo já usado nos cartões. A frase de que o total da escola soma só turmas ativas não foi pedida e não foi acrescentada.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+          "backend": null,
+          "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch."
+        },
+        "metodo": "Chrome 156 sem interface. Rótulos no detalhe, no cadastro e na edição da turma 8 e da escola 6. Envio do cadastro com o campo vazio para ler a mensagem.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T19:25:00-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+            "backend": null,
+            "alteracoes_locais": "src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch."
+          },
+          "resultado": "O termo Capacidade foi substituído por Limite de alunos no detalhe, no formulário e nas mensagens de validação.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T19:25:00-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+            "backend": null,
+            "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A008-termo-verificacao.txt"
+        }
+      ]
     },
     {
       "id": "REV-04-FE-A009",
@@ -800,13 +887,27 @@
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Na edição, usar uma instrução que descreva a alteração da situação, sem dizer que a turma começa como Ativa nem que o envio é o do cadastro.",
       "verificacao_pendente": null,
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "confirmacao_autora": "rejeitado",
+      "justificativa_confirmacao": "Laura Vieira decidiu em 2026-11-09 desconsiderar REV-04-FE-A009. O achado não entra no consolidado nem nos resultados do TCC. Não houve correção.",
+      "situacao": "rejeitado",
       "duplicado_de": null,
       "correcao": null,
       "reavaliacao": null,
-      "historico": []
+      "historico": [
+        {
+          "data": "2026-11-09T19:22:00-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "f94fc63d3e00702018dac45342f63e9ee6a88f2d",
+            "backend": null,
+            "alteracoes_locais": "Nenhuma alteração de código para este achado."
+          },
+          "resultado": "rejeitado. Não considerável para o consolidado nem para os resultados do TCC.",
+          "evidencia": "Pedido desta conversa em 2026-11-09. O consolidado em case-eleva-api/avaliacao/achados.json não contém REV-04-FE-A009."
+        }
+      ]
     },
     {
       "id": "REV-04-FE-A010",

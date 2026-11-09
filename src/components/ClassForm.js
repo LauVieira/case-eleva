@@ -154,7 +154,7 @@ export default function ClassForm (props) {
       </Form.Group>
 
       <Form.Group controlId="class-occupancy">
-        <Form.Label>Capacidade (obrigatório)</Form.Label>
+        <Form.Label>Limite de alunos (obrigatório)</Form.Label>
         <Form.Control
           type="text"
           inputMode="numeric"

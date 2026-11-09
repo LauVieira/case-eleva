@@ -1,0 +1,18 @@
+REV-04 / REV-04-FE-A008
+Data: 2026-11-09T22:23:00.000Z
+Frontend: f94fc63d3e00702018dac45342f63e9ee6a88f2d
+Branch: main
+Estado local: package-lock.json modificado; HANDOVER_front.md sem rastreamento; achados e relatorio da REV-04 com a confirmacao do A007 ainda sem commit.
+Pedido: padronizar o termo de maxOccupancy para Limite de alunos.
+
+src/pages/ClassDetailPage.js
+            <dt>Capacidade</dt>
+
+src/components/ClassForm.js
+        <Form.Label>Capacidade (obrigatório)</Form.Label>
+
+src/utils/classForm.js
+  if (!text) return 'Informe a capacidade da turma.';
+    return 'A capacidade deve ser um inteiro de 0 a 2147483647.';
+
+src/components/SchoolCard.js e src/pages/ClassesPage.js ja usam Limite de alunos.

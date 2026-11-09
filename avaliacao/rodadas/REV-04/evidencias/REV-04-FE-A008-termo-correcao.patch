@@ -1,0 +1,45 @@
+diff --git a/src/components/ClassForm.js b/src/components/ClassForm.js
+index 5f2df41..d9909aa 100644
+--- a/src/components/ClassForm.js
++++ b/src/components/ClassForm.js
+@@ -154,7 +154,7 @@ export default function ClassForm (props) {
+       </Form.Group>
+ 
+       <Form.Group controlId="class-occupancy">
+-        <Form.Label>Capacidade (obrigatório)</Form.Label>
++        <Form.Label>Limite de alunos (obrigatório)</Form.Label>
+         <Form.Control
+           type="text"
+           inputMode="numeric"
+diff --git a/src/pages/ClassDetailPage.js b/src/pages/ClassDetailPage.js
+index 747515c..4e10125 100644
+--- a/src/pages/ClassDetailPage.js
++++ b/src/pages/ClassDetailPage.js
+@@ -129,7 +129,7 @@ export default function ClassDetailPage () {
+             <dd>{formatClassStatus(classData.status)}</dd>
+           </div>
+           <div>
+-            <dt>Capacidade</dt>
++            <dt>Limite de alunos</dt>
+             <dd>{classData.maxOccupancy}</dd>
+           </div>
+           <div>
+diff --git a/src/utils/classForm.js b/src/utils/classForm.js
+index 0a0ed8c..1c16f19 100644
+--- a/src/utils/classForm.js
++++ b/src/utils/classForm.js
+@@ -73,12 +73,12 @@ export function emptyClassForm () {
+ 
+ function occupancyError (raw) {
+   const text = String(raw == null ? '' : raw).trim();
+-  if (!text) return 'Informe a capacidade da turma.';
++  if (!text) return 'Informe o limite de alunos da turma.';
+   if (!/^(0|[1-9]\d*)$/.test(text)) {
+     return 'Informe um número inteiro maior ou igual a zero.';
+   }
+   if (text.length > 10 || Number(text) > MAX_OCCUPANCY) {
+-    return 'A capacidade deve ser um inteiro de 0 a 2147483647.';
++    return 'O limite de alunos deve ser um inteiro de 0 a 2147483647.';
+   }
+   return '';
+ }

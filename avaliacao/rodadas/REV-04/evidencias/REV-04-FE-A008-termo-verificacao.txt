@@ -1,0 +1,24 @@
+REV-04 / REV-04-FE-A008 — verificação do termo Limite de alunos
+Data: 2026-11-09T19:25:00-03:00
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: f94fc63d3e00702018dac45342f63e9ee6a88f2d, branch main.
+Alteração local ainda sem commit: src/pages/ClassDetailPage.js, src/components/ClassForm.js e src/utils/classForm.js.
+Compilação: REV-04-FE-A008-termo-compilacao.txt. Comando com --openssl-legacy-provider. Observado: webpack compiled successfully. O aviso de Browserslist foi para stderr; nenhuma dependência foi atualizada.
+
+ANTES
+REV-04-FE-A008-termo-antes.txt
+Procedimento: REV-04-FE-A008-termo-navegador.cjs
+Resultado: REV-04-FE-A008-termo-navegador-antes.json
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface, porta 9336, frontend em http://127.0.0.1:9000.
+Observado: o detalhe da turma 8 dizia Capacidade. O cadastro e a edição diziam Capacidade (obrigatório). As mensagens de validação diziam capacidade.
+
+DEPOIS
+O termo visível e as duas mensagens de validação passaram a Limite de alunos. O cartão da escola e o cartão da turma já usavam esse rótulo e não foram alterados. Patch: REV-04-FE-A008-termo-correcao.patch.
+Procedimento dos rótulos: o mesmo REV-04-FE-A008-termo-navegador.cjs
+Resultado: REV-04-FE-A008-termo-navegador-depois.json
+Observado: detalhe Limite de alunos; cadastro e edição Limite de alunos (obrigatório).
+Procedimento da mensagem vazia: REV-04-FE-A008-termo-erro.cjs
+Resultado: REV-04-FE-A008-termo-erro.json
+Observado: Informe o limite de alunos da turma. O valor 1,5 foi escrito no DOM, mas o estado do React permaneceu vazio, então a frase do teto numérico não apareceu nessa execução. Essa frase foi alterada no mesmo occupancyError e está no patch: O limite de alunos deve ser um inteiro de 0 a 2147483647.
+
+O total da escola continua Limite de alunos, sem a frase de que a soma considera só turmas ativas. Isso não foi pedido. A confirmação da autora permanece pendente. Não houve commit.

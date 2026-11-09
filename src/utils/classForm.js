@@ -73,12 +73,12 @@ export function emptyClassForm () {
 
 function occupancyError (raw) {
   const text = String(raw == null ? '' : raw).trim();
-  if (!text) return 'Informe a capacidade da turma.';
+  if (!text) return 'Informe o limite de alunos da turma.';
   if (!/^(0|[1-9]\d*)$/.test(text)) {
     return 'Informe um número inteiro maior ou igual a zero.';
   }
   if (text.length > 10 || Number(text) > MAX_OCCUPANCY) {
-    return 'A capacidade deve ser um inteiro de 0 a 2147483647.';
+    return 'O limite de alunos deve ser um inteiro de 0 a 2147483647.';
   }
   return '';
 }

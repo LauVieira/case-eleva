@@ -129,7 +129,7 @@ export default function ClassDetailPage () {
             <dd>{formatClassStatus(classData.status)}</dd>
           </div>
           <div>
-            <dt>Capacidade</dt>
+            <dt>Limite de alunos</dt>
             <dd>{classData.maxOccupancy}</dd>
           </div>
           <div>
