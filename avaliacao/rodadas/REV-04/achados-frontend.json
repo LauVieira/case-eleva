@@ -1,0 +1,527 @@
+{
+  "tipo_documento": "revisao",
+  "versao_formato": "1.0",
+  "rodada": "REV-04",
+  "execucao": "r01",
+  "achados": [
+    {
+      "id": "REV-04-FE-A001",
+      "titulo": "Cadastro de escola não valida nem recupera erro",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "funcional",
+        "usabilidade",
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "CT01: Escola",
+        "CT02: Escola.name",
+        "CT03",
+        "R10",
+        "FE05",
+        "FE06",
+        "FE07",
+        "A24",
+        "A25",
+        "H05",
+        "H09"
+      ],
+      "localizacao": "src/pages/SchoolCreatePage.js, envio do formulário; src/utils/schoolForm.js, validateSchoolForm, usado só na edição",
+      "descricao": "Achado novo. REV-03-FE-A002 registrava a ausência do cadastro de escola; no código examinado o formulário, o estado e o POST existem. A falha atual é outra: o cadastro não aplica as mesmas regras da edição. O envio chama serializeSchoolForm e posta em /schools sem validateSchoolForm, sem impedir um segundo envio e sem tratar rejeição. Nome vazio, telefone fora do formato canônico ou resposta 409/422 não geram resumo nem erro no campo. Os valores digitados permanecem no estado, mas a pessoa não recebe causa nem correção.",
+      "evidencia": "Inspeção de src/pages/SchoolCreatePage.js: handleSubmit só faz preventDefault e api.post('/schools', serializeSchoolForm(values)).then, sem catch e sem validação. O import traz formatSchoolName e serializeSchoolForm, não validateSchoolForm. src/pages/SchoolEditPage.js chama validateSchoolForm antes do PATCH e mantém os campos no erro. Navegador não executado nesta rodada.",
+      "impacto": "A pessoa pode concluir que o cadastro não respondeu, repetir o envio ou não saber qual campo corrigir. O contrato pede a mesma validação no cadastro e na edição, antes de salvar.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Validar com validateSchoolForm antes do POST, bloquear envio duplicado e mostrar o erro no resumo e no campo, sem limpar o que foi digitado.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09, na interface, após o commit 40cfca0457a2dd66c0bb10371c18036df2bd7137. No cadastro de escola, um nome já existente mostrou a mensagem de erro e o endereço preenchido permaneceu; escola sem nome foi recusada; telefone inválido foi recusado. Ela também conferiu a tela de criar turma e uma tela de edição. A captura avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png mostra Cadastrar escola, Setor Branco, o resumo e o campo com a mensagem de nome repetido, o nome Escola Teste e o endereço Rua dos Bobos, nº 0 ainda preenchido.",
+      "situacao": "resolvido_no_recorte",
+      "duplicado_de": null,
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+          "backend": null,
+          "alteracoes_locais": null
+        },
+        "descricao": "O cadastro de escola passou a validar com validateSchoolForm antes do POST, impedir envio duplicado e mostrar o erro no resumo e no campo, preservando o preenchimento.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "Commit 40cfca0457a2dd66c0bb10371c18036df2bd7137, mensagem chore: REV-04 and error handler improvement. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch."
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+          "backend": null,
+          "alteracoes_locais": null
+        },
+        "metodo": "Validacao pessoal da autora na interface, com a captura do nome repetido.",
+        "responsavel": "Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T02:53:00.270Z",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+            "backend": null,
+            "alteracoes_locais": "src/pages/SchoolCreatePage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch."
+          },
+          "resultado": "Cadastro passou a validar, bloquear o segundo envio e explicar a falha da API sem limpar o formulario.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T02:53:00.270Z",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+            "backend": null,
+            "alteracoes_locais": "src/pages/SchoolCreatePage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T00:02:00-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "40cfca0457a2dd66c0bb10371c18036df2bd7137",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. Nome repetido, nome vazio e telefone inválido recusados na interface; endereço preenchido preservado. Também conferiu criar turma e uma tela de edição.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png"
+        }
+      ]
+    },
+    {
+      "id": "REV-04-FE-A002",
+      "titulo": "Indicador de foco não alcança o diálogo de exclusão",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE04",
+        "A01",
+        "A31"
+      ],
+      "localizacao": "public/styles/styles.css, regra de foco; src/index.js, FloatingFocus em #root; src/components/SchoolDeleteModal.js e src/components/ClassDeleteModal.js",
+      "descricao": "Achado novo. REV-03-FE-A017 tratava da ausência de região principal e de atalho; nas telas com cabeçalho esses dois existem e não são este problema. O contorno nativo é removido de todo elemento focado. O indicador substituto só é ativado para um descendente de #root. Os diálogos de exclusão são portados para document.body, fora de #root, então a biblioteca trata o foco ali como saída. Links dentro do alerta do diálogo ficam sem o contorno do projeto. Botões Bootstrap podem conservar só a sombra própria do .btn:focus; o contraste dessa sombra não foi medido na tela.",
+      "evidencia": "public/styles/styles.css remove outline em *:focus e só o devolve sob .floating-focus-enabled. src/index.js cria FloatingFocus no elemento #root. Em @q42/floating-focus-a11y 1.3.3, o foco fora de container chama o caminho que esconde o indicador, e a classe floating-focus-enabled fica no container. react-overlays resolve container nulo para document.body e cria o portal nesse elemento. Os dois modais não informam container. Navegador não executado.",
+      "impacto": "Quem opera a confirmação de exclusão pelo teclado pode não ver qual ação está focada, em especial o link de recuperação exibido quando a exclusão da escola é bloqueada.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Fazer o indicador de foco cobrir também o diálogo portado para document.body, sem depender apenas da sombra padrão dos botões.",
+      "verificacao_pendente": "Percorrer com teclado os dois diálogos, inclusive o link do erro 409 da escola, e observar se o foco fica perceptível.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A003",
+      "titulo": "Quatro telas não posicionam o foco ao entrar por navegação interna",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE04",
+        "A01"
+      ],
+      "localizacao": "src/pages/LandingPage.js, src/pages/SectorPage.js, src/pages/SchoolPage.js e src/pages/ClassesPage.js, entrada por Link",
+      "descricao": "Achado novo. Cadastro e edição de escola, cadastro, edição e detalhe de turma movem o foco para o h1 quando o carregamento termina. As telas de setores, setor, escola e turmas não fazem isso. O cabeçalho é remontado em cada tela, então um Link interno que dispara a troca perde o elemento focado. O aviso de exclusão nessas listagens é uma exceção: ele recebe foco quando a navegação traz o registro excluído.",
+      "evidencia": "Inspeção dos efeitos de foco. SchoolCreatePage, SchoolEditPage, ClassCreatePage, ClassEditPage e ClassDetailPage focam headingRef ao fim do carregamento. LandingPage, SectorPage, SchoolPage e ClassesPage não focam o main nem o h1 na entrada comum. SectorPage e ClassesPage só focam o alerta quando location.state traz a exclusão. Destino efetivo do foco não observado no navegador.",
+      "impacto": "Depois de voltar ao setor, à escola, às turmas ou ao início por um link interno, o próximo Tab pode recomeçar sem relação com o conteúdo que acabou de abrir.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Na entrada dessas quatro telas por navegação interna, mover o foco para o conteúdo principal, no mesmo padrão já usado nos formulários e no detalhe.",
+      "verificacao_pendente": "Abrir cada uma das quatro telas por Link interno e registrar o elemento que fica focado.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A004",
+      "titulo": "Título e h1 não identificam ausência nem o nome da turma",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "A07",
+        "A35",
+        "H01",
+        "H06"
+      ],
+      "localizacao": "Títulos de ClassDetailPage, ClassCreatePage, ClassEditPage, SchoolCreatePage, SchoolEditPage e ClassesPage nos estados de registro ou pai ausente",
+      "descricao": "Achado novo. REV-03-FE-A019 tratava de um título único para todas as rotas; isso não é o código atual, em que setores, setor, escola e a listagem de turmas já recebem títulos próprios. Permanecem estados em que o título e o h1 continuam nomeando a ação, enquanto o texto diz que o registro não existe: cadastrar ou editar escola, cadastrar ou editar turma, detalhe de turma e listagem quando a escola não é encontrada. No detalhe com turma carregada, o h1 é o nome e o título do documento fica Detalhe da turma, sem o nome que a tela da escola inclui.",
+      "evidencia": "Inspeção dos efeitos de document.title e dos h1. SchoolEditPage e ClassEditPage alternam o título só entre a ação e o sucesso. ClassDetailPage usa Detalhe da turma quando há dados e Turma quando não há. ClassesPage usa Turmas, ou Turmas mais o nome, e não troca o título quando schoolMissing é verdadeiro, embora o corpo mostre Escola não encontrada. SchoolPage, no caminho de escola ausente, já usa Escola não encontrada. Navegador não executado.",
+      "impacto": "A aba, o histórico e a navegação por título anunciam uma edição ou um detalhe genérico quando a pessoa está diante de um registro inexistente, ou não distinguem qual turma está aberta.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Nos estados de ausência, alinhar título e h1 a essa condição. No detalhe da turma encontrada, incluir no título o mesmo nome exibido no h1.",
+      "verificacao_pendente": "Abrir os estados de ausência e o detalhe de uma turma e conferir o título renderizado da aba.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A005",
+      "titulo": "Entrar e Sair prometem uma sessão que não existe",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE01",
+        "FE12",
+        "H03",
+        "H08"
+      ],
+      "localizacao": "src/components/LoginForm.js e o link Sair de src/components/Header.js; rota /login",
+      "descricao": "Achado novo. Autenticação está fora do escopo e as telas de setor, escola e turma não dependem de sessão. Ainda assim o cabeçalho oferece Sair em todas essas telas, levando a /login, e o formulário oferece Entrar. O formulário não tem manipulador de envio: o botão é submit de um form sem action, o que recarrega /login. Não há sessão para encerrar nem entrada para concluir.",
+      "evidencia": "Inspeção de LoginForm: Form sem onSubmit e Button type submit. Header: LogoutLink com destino /login e texto Sair, sem leitura ou limpeza de sessão. App.js não protege rotas. Nenhum outro módulo de autenticação foi encontrado em src. Acionamento no navegador não executado.",
+      "impacto": "Sair tira a pessoa do percurso de escolas e turmas e a deixa numa tela que parece aceitar credenciais, mas não entra na aplicação.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Retirar Entrar e Sair enquanto o escopo não incluir autenticação, para não oferecer uma ação que a interface não realiza.",
+      "verificacao_pendente": "Acionar Sair a partir de uma tela de escolas e Entrar no formulário, e observar o resultado.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A006",
+      "titulo": "Nome acessível da marca omite o texto visível",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE03",
+        "A38"
+      ],
+      "localizacao": "src/components/Header.js, link da marca para /",
+      "descricao": "Achado novo. O link da marca mostra Gestão Escolar e Protótipo acadêmico. O aria-label Gestão Escolar — início substitui o nome calculado pelo conteúdo. O subtítulo visível fica de fora do nome acessível, e a palavra início não aparece na tela.",
+      "evidencia": "Inspeção de Header.js: BrandLink tem aria-label Gestão Escolar — início e, no mesmo link, BrandName Gestão Escolar e BrandSubtitle Protótipo acadêmico. O ícone tem alt vazio. NVDA não executado.",
+      "impacto": "O nome anunciado e o texto que a pessoa vê no controle não coincidem. Quem aciona pelo rótulo visível completo não encontra esse subtítulo no nome acessível.",
+      "prioridade": "baixa",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Incluir no nome acessível os dois textos visíveis do link, sem substituir o subtítulo por um rótulo que não está na tela.",
+      "verificacao_pendente": "Confirmar o nome anunciado com NVDA na etapa final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A007",
+      "titulo": "O h1 do setor fica visualmente abaixo dos cartões",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade",
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE02",
+        "A07",
+        "H06"
+      ],
+      "localizacao": "src/pages/SectorPage.js, PageTitle e o h2 do cartão de escola",
+      "descricao": "Achado novo. REV-03-FE-A016 tratava da ausência de cabeçalhos; o h1 e os h2 existem e não são este problema. Na tela do setor, o h1 tem 1rem e peso 400, no mesmo bloco do link de volta. O h2 de cada escola tem 1,25rem e peso 500. O título semântico da página fica visualmente mais fraco do que os títulos dos cartões.",
+      "evidencia": "Inspeção dos estilos de SectorPage: PageTitle é h1 com font-size 1rem e font-weight 400. StyledCard define h2.card-title com font-size 1.25rem e font-weight 500. NVDA não executado.",
+      "impacto": "A organização da tela do setor não acompanha a hierarquia: o nome da escola no cartão parece o título, e o setor fica com aparência de texto comum.",
+      "prioridade": "baixa",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Dar ao h1 do setor destaque visual de título da página, acima do peso dos h2 dos cartões.",
+      "verificacao_pendente": "Na etapa final, percorrer os títulos com NVDA e conferir se a hierarquia visual corresponde à semântica.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A008",
+      "titulo": "Capacidade e limite de alunos nomeiam o mesmo dado",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE12",
+        "R06",
+        "H02",
+        "H04"
+      ],
+      "localizacao": "src/components/SchoolCard.js, src/pages/ClassesPage.js, src/pages/ClassDetailPage.js e src/components/ClassForm.js",
+      "descricao": "Achado novo. REV-03-FE-A011 tratava de Vagas ocupadas, Dados avançados, Alunos matriculados, Apagar informações, Classe e Período; essas ocorrências não estão no código examinado. O que permanece é outro desvio: o cartão da escola e o cartão da turma dizem Limite de alunos, enquanto o detalhe e o formulário da turma dizem Capacidade para maxOccupancy. A soma da escola também aparece como Limite de alunos, sem dizer que reúne só turmas ativas.",
+      "evidencia": "Inspeção dos rótulos. SchoolCard e ClassCard usam Limite de alunos. ClassDetailPage usa o termo Capacidade no dt. ClassForm rotula o campo maxOccupancy como Capacidade. Busca em src não encontrou Vagas ocupadas, Dados avançados, Alunos matriculados nem Apagar informações.",
+      "impacto": "A pessoa compara listagem, detalhe e formulário sem um termo único para o mesmo número, e pode não entender por que a soma da escola ignora turmas encerradas.",
+      "prioridade": "baixa",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Usar um único termo para maxOccupancy e deixar explícito, no total da escola, que a soma considera apenas turmas ativas.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A009",
+      "titulo": "Instrução de situação da turma descreve só o cadastro",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "usabilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE05",
+        "FE12",
+        "CT04: status",
+        "R04",
+        "A23",
+        "H04",
+        "H10"
+      ],
+      "localizacao": "src/components/ClassForm.js, texto de ajuda do campo situação, compartilhado com a edição",
+      "descricao": "Achado novo. O mesmo formulário diz que a turma começa como Ativa e que a situação escolhida é enviada no cadastro. Na edição, a turma pode já estar encerrada e o controle altera a situação existente. A instrução continua falando de início e de cadastro.",
+      "evidencia": "Inspeção de ClassForm.js, Form.Text de id class-status-help. ClassCreatePage e ClassEditPage renderizam esse componente sem trocar o texto de ajuda. O select oferece Ativa e Encerrada nos dois fluxos.",
+      "impacto": "Na edição, a ajuda contradiz o estado que a pessoa está vendo e o efeito de salvar uma turma já encerrada.",
+      "prioridade": "baixa",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Na edição, usar uma instrução que descreva a alteração da situação, sem dizer que a turma começa como Ativa nem que o envio é o do cadastro.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A010",
+      "titulo": "A cor do texto do setor pode ficar abaixo de 4,5:1",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "indicio",
+      "requisitos": [
+        "FE11",
+        "A30"
+      ],
+      "localizacao": "src/pages/LandingPage.js, SectorCard, escolha de textColor a partir de sector.color",
+      "descricao": "Achado novo. O texto do cartão de setor usa preto só quando o contraste dessa cor de fundo com preto é maior que 7; nos demais casos usa branco. Nesse intervalo em que o contraste com preto fica entre cerca de 4,6 e 7, o preto já atenderia 4,5:1 e o branco fica abaixo de 4,5:1. As cores efetivas dos setores não foram lidas da API nem medidas na tela, então não há par renderizado confirmado abaixo do limiar.",
+      "evidencia": "Inspeção de SectorCard em LandingPage.js e cálculo em avaliacao/rodadas/REV-04/evidencias/contraste-cores-declaradas.txt. Pares fixos medidos só pela fórmula: navy #25117d com branco 14,43; aviso #535662 com branco 7,30; texto de ajuda #6c757d com branco 4,69; erro #842029 com #fff5f5 8,84. Nenhum desses pares fixos ficou abaixo de 4,5:1. O estado de repouso do setor depende de sector.color, não calculado aqui.",
+      "impacto": "Um setor cuja cor caia nesse intervalo mostra nome e código com texto branco abaixo do contraste mínimo do recorte.",
+      "prioridade": "media",
+      "classificacao": "indicio",
+      "sugestao": "Escolher preto ou branco pelo que atingir pelo menos 4,5:1 contra a cor efetiva do setor e medir as cores retornadas pela API.",
+      "verificacao_pendente": "Medir, na tela, o texto de cada setor sobre a cor vinda de GET /sectors.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-04-FE-A011",
+      "titulo": "Ícones com texto ao lado não são marcados como decoração",
+      "rodada_identificacao": "REV-04",
+      "data_identificacao": "2026-11-08",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "indicio",
+      "requisitos": [
+        "FE03",
+        "A05"
+      ],
+      "localizacao": "src/components/SchoolCard.js, ação Ver turmas; src/pages/SectorPage.js e src/pages/ClassesPage.js, cartões de adicionar; src/components/Header.js, ícone de Sair",
+      "descricao": "Achado novo. Editar escola e Excluir escola marcam o ícone com aria-hidden e focusable false. Ver turmas, Adicionar Escola, Adicionar Turma e Sair mostram ícone junto de texto visível sem esse ocultamento. react-icons 4.2.0, no iconBase deste projeto, não define aria-hidden por conta própria. Não foi verificado se o leitor anuncia esses ícones ou os ignora.",
+      "evidencia": "Inspeção de SchoolCard.js: SiGoogleclassroom sem aria-hidden; BiEdit e ImBin com aria-hidden true e focusable false. SectorPage e ClassesPage renderizam BsPlusCircleFill ao lado do texto de adicionar. Header renderiza IoMdLogOut ao lado de Sair. NVDA não executado.",
+      "impacto": "Se o leitor expuser o SVG sem nome, a ação que já tem texto visível ganha um item gráfico extra na leitura.",
+      "prioridade": "baixa",
+      "classificacao": "indicio",
+      "sugestao": "Marcar como decorativos os ícones que apenas repetem um texto visível, do mesmo modo que Editar escola e Excluir escola.",
+      "verificacao_pendente": "Confirmar com NVDA, na etapa final, se esses ícones entram na leitura.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-03-FE-A021",
+      "titulo": "Endereço da API está fixo e repetido nas listagens",
+      "rodada_identificacao": "REV-03",
+      "data_identificacao": "2026-11-07",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "77f2e8a9041db90c8cb9f13232ec04e97f847811",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src. package-lock.json modificado e não usado como comportamento da interface."
+      },
+      "categoria": [
+        "arquitetura"
+      ],
+      "tipo": "melhoria_estrutural",
+      "requisitos": [
+        "FE13"
+      ],
+      "localizacao": "src/pages/LandingPage.js, src/pages/SectorPage.js e src/pages/ClassesPage.js; cliente não usado em src/services/api.js",
+      "descricao": "Achado repetido de REV-03-FE-A021. Na primeira identificação, em 2026-11-07, as páginas chamavam http://localhost:3000 direto e não havia cliente compartilhado. No código desta rodada o cliente existe em src/services/api.js e é usado nos fluxos de escola e de turma. As três listagens continuam com axios.get no mesmo endereço fixo, fora desse cliente.",
+      "evidencia": "Inspeção de LandingPage.js, SectorPage.js e ClassesPage.js: chamadas a http://localhost:3000/sectors, /sectors/:id/schools, /schools/:id/classes e /schools/:id. src/services/api.js define baseURL http://localhost:3000 e é importado por SchoolPage, SchoolCreatePage, SchoolEditPage, ClassCreatePage, ClassEditPage, ClassDetailPage e pelos modais. A primeira versão registrada do achado era o frontend a87aec2e79771b4c74c3e21ede75e4a2fef55c41.",
+      "impacto": "Uma troca do endereço da API precisa ser feita no cliente e de novo nas três listagens. Se só o cliente mudar, setores, escolas do setor e turmas continuam no endereço antigo.",
+      "prioridade": "baixa",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Fazer as três listagens usarem o cliente já existente, deixando o endereço configurado em um único ponto.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    }
+  ]
+}

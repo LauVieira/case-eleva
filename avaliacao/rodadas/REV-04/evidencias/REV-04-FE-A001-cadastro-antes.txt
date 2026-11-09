@@ -1,0 +1,221 @@
+REV-04 / REV-04-FE-A001
+Data: 2026-11-09T02:29:38.419Z
+Frontend: 77f2e8a9041db90c8cb9f13232ec04e97f847811
+Branch: main
+Estado inicial: package-lock.json modificado e preservado. Nenhuma alteracao local em src/.
+Pedido: corrigir o cadastro de escola (REV-04-FE-A001), preservando evidencias antes e depois.
+Metodo antes: copia do codigo com hash e percurso no Chrome com POST interceptado, sem gravacao na API.
+Constatacao: SchoolCreatePage envia POST /schools sem validateSchoolForm e sem tratar a rejeicao. SchoolForm e validateSchoolForm ja existem e nao serao alterados nesta correcao.
+
+ARQUIVO src/pages/SchoolCreatePage.js SHA256 e15e08618316affabab9b2fe1c46b984ca9f25b78eb5d3f5fce696500fb8714e
+
+1: import React, { useEffect, useRef, useState } from 'react';
+2: import { Link, useParams } from 'react-router-dom';
+3: import styled from 'styled-components';
+4: import { Button, Container } from 'react-bootstrap';
+5: 
+6: import Header from '../components/Header';
+7: import SchoolForm from '../components/SchoolForm';
+8: import api from '../services/api';
+9: import { formatSchoolName, serializeSchoolForm } from '../utils/schoolForm';
+10: 
+11: function emptyForm (sectorId) {
+12:   return {
+13:     sectorId, name: '', address: '', headteacher: '', phone: '',
+14:   };
+15: }
+16: 
+17: export default function SchoolCreatePage () {
+18:   const { id } = useParams();
+19:   const [sectors, setSectors] = useState([]);
+20:   const [isLoading, setIsLoading] = useState(true);
+21:   const [loadError, setLoadError] = useState(false);
+22:   const [loadAttempt, setLoadAttempt] = useState(0);
+23:   const [values, setValues] = useState(() => emptyForm(id));
+24:   const [createdSchool, setCreatedSchool] = useState(null);
+25:   const headingRef = useRef(null);
+26: 
+27:   useEffect(() => {
+28:     let active = true;
+29:     setIsLoading(true);
+30:     setLoadError(false);
+31:     setValues(emptyForm(id));
+32:     setCreatedSchool(null);
+33: 
+34:     api.get('/sectors').then((response) => {
+35:       if (!active) return;
+36:       setSectors(response.data);
+37:       setIsLoading(false);
+38:     }).catch(() => {
+39:       if (!active) return;
+40:       setSectors([]);
+41:       setLoadError(true);
+42:       setIsLoading(false);
+43:     });
+44: 
+45:     return () => { active = false; };
+46:   }, [id, loadAttempt]);
+47: 
+48:   useEffect(() => {
+49:     const previousTitle = document.title;
+50:     document.title = createdSchool
+51:       ? 'Escola cadastrada | Gestão Escolar'
+52:       : 'Cadastrar escola | Gestão Escolar';
+53: 
+54:     return () => { document.title = previousTitle; };
+55:   }, [createdSchool]);
+56: 
+57:   useEffect(() => {
+58:     if (!isLoading && headingRef.current) headingRef.current.focus();
+59:   }, [isLoading, createdSchool]);
+60: 
+61:   const originSector = sectors.find((sector) => sector.id === Number(id));
+62: 
+63:   function handleChange (event) {
+64:     const { name, value } = event.target;
+65:     setValues((previous) => ({ ...previous, [name]: value }));
+66:   }
+67: 
+68:   function handleSubmit (event) {
+69:     event.preventDefault();
+70:     api.post('/schools', serializeSchoolForm(values)).then((response) => {
+71:       setCreatedSchool(response.data);
+72:     });
+73:   }
+74: 
+75:   function renderContent () {
+76:     if (isLoading) return <p role="status">Carregando setores...</p>;
+77: 
+78:     if (loadError) {
+79:       return (
+80:         <QueryError>
+81:           <p role="alert">Não foi possível carregar os setores.</p>
+82:           <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+83:             Tentar novamente
+84:           </Button>
+85:         </QueryError>
+86:       );
+87:     }
+88: 
+89:     if (sectors.length === 0) {
+90:       return (
+91:         <>
+92:           <p>Nenhum setor disponível para cadastrar uma escola.</p>
+93:           <Link to="/">Ver setores</Link>
+94:         </>
+95:       );
+96:     }
+97: 
+98:     if (!originSector) {
+99:       return (
+100:         <>
+101:           <p>Setor não encontrado.</p>
+102:           <Link to="/">Ver setores</Link>
+103:         </>
+104:       );
+105:     }
+106: 
+107:     if (createdSchool) {
+108:       return (
+109:         <>
+110:           <p role="status">
+111:             Escola cadastrada com sucesso.
+112:           </p>
+113:           <SchoolName>{formatSchoolName(createdSchool.name)}</SchoolName>
+114:           <SuccessLinks>
+115:             <Link to={`/escola/${createdSchool.id}`}>Ver escola</Link>
+116:             <Link to={`/setor/${createdSchool.sectorId}`}>Voltar ao setor</Link>
+117:           </SuccessLinks>
+118:         </>
+119:       );
+120:     }
+121: 
+122:     return (
+123:       <>
+124:         <ContextText>
+125:           Setor de origem:
+126:           {' '}
+127:           <strong>{originSector.name}</strong>
+128:         </ContextText>
+129:         <SchoolForm
+130:           values={values}
+131:           sectors={sectors}
+132:           onChange={handleChange}
+133:           onSubmit={handleSubmit}
+134:         />
+135:       </>
+136:     );
+137:   }
+138: 
+139:   return (
+140:     <StyledContainer fluid>
+141:       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
+142:       <Header />
+143:       <Main id="conteudo-principal" tabIndex={-1}>
+144:         <Heading ref={headingRef} tabIndex={-1}>
+145:           {createdSchool ? 'Escola cadastrada' : 'Cadastrar escola'}
+146:         </Heading>
+147:         {renderContent()}
+148:       </Main>
+149:     </StyledContainer>
+150:   );
+151: }
+152: 
+153: const StyledContainer = styled(Container)`
+154:   padding-bottom: 40px;
+155:   padding-top: 100px;
+156: `;
+157: 
+158: const QueryError = styled.div`
+159:   align-items: center;
+160:   display: flex;
+161:   flex-direction: column;
+162:   margin: 24px auto;
+163:   text-align: center;
+164: `;
+165: 
+166: const Main = styled.main`
+167:   margin: 0 auto;
+168:   max-width: 720px;
+169: `;
+170: 
+171: const Heading = styled.h1`
+172:   color: var(--navy-blue);
+173:   font-size: 28px;
+174:   margin-bottom: 20px;
+175: `;
+176: 
+177: const ContextText = styled.p`
+178:   margin-bottom: 24px;
+179: `;
+180: 
+181: const SchoolName = styled.p`
+182:   font-size: 20px;
+183:   font-weight: 700;
+184: `;
+185: 
+186: const SuccessLinks = styled.div`
+187:   display: flex;
+188:   flex-wrap: wrap;
+189:   gap: 20px;
+190:   margin-top: 24px;
+191: `;
+192: 
+193: const SkipLink = styled.a`
+194:   background-color: #FFF;
+195:   color: var(--navy-blue);
+196:   left: 16px;
+197:   padding: 12px;
+198:   position: fixed;
+199:   top: 8px;
+200:   transform: translateY(-200%);
+201:   z-index: 1100;
+202: 
+203:   :focus {
+204:     transform: translateY(0);
+205:   }
+206: `;
+207: 
+
+HASH src/components/SchoolForm.js 18ff6993a96b08cab8a057e07f04ba1cf2f6651cdbfd4c78ade223207a1aa23c
+HASH src/utils/schoolForm.js fb9f1613cae8a99acffee09e1de7474598ede84ddbec4bbbaddb0d70b11ac27f

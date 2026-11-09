@@ -1,0 +1,73 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "protocolo": "1.3",
+  "gravacoesReais": 0,
+  "casos": [
+    {
+      "caso": "envio_vazio_dispara_post_sem_erro",
+      "resultado": "observado_antes_da_correcao",
+      "payload": {
+        "sectorId": 10,
+        "name": "",
+        "address": "",
+        "headteacher": null,
+        "phone": null
+      },
+      "tela": {
+        "titulo": "Cadastrar escola | Gestão Escolar",
+        "alerta": "",
+        "invalidos": 0,
+        "nome": "",
+        "endereco": "",
+        "telefone": "",
+        "sucesso": false
+      }
+    },
+    {
+      "caso": "telefone_invalido_e_falha_de_rede_sem_explicacao",
+      "resultado": "observado_antes_da_correcao",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola ficticia",
+        "address": "Rua Ficticia, 10",
+        "headteacher": null,
+        "phone": "+55123"
+      },
+      "tela": {
+        "titulo": "Cadastrar escola | Gestão Escolar",
+        "alerta": "",
+        "invalidos": 0,
+        "nome": "Escola Ficticia",
+        "endereco": "Rua Ficticia, 10",
+        "telefone": "123",
+        "sucesso": false
+      }
+    }
+  ],
+  "escritas": [
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "",
+        "address": "",
+        "headteacher": null,
+        "phone": null
+      },
+      "scenario": "invalid"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola ficticia",
+        "address": "Rua Ficticia, 10",
+        "headteacher": null,
+        "phone": "+55123"
+      },
+      "scenario": "networkError"
+    }
+  ]
+}

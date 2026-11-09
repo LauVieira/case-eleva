@@ -1,0 +1,137 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "protocolo": "1.3",
+  "gravacoesReais": 0,
+  "casos": [
+    {
+      "caso": "envio_vazio_sem_post_com_resumo",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "telefone_invalido_sem_post_preserva_campos",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "cadastro_valido_normaliza_e_confirma",
+      "resultado": "passou_com_respostas_simuladas",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      }
+    },
+    {
+      "caso": "conflito_409_preserva_formulario",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "setor_422_preserva_formulario",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "resposta_422_preserva_preenchimento",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "resposta_404_preserva_formulario",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "falha_de_rede_preserva_preenchimento",
+      "resultado": "passou_com_respostas_simuladas"
+    },
+    {
+      "caso": "dois_cliques_geram_um_post",
+      "resultado": "passou_com_respostas_simuladas",
+      "escritas": 1
+    }
+  ],
+  "escritas": [
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "ok"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "conflict"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "invalidSector"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "invalid"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "missing"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "networkError"
+    },
+    {
+      "method": "POST",
+      "path": "/schools",
+      "payload": {
+        "sectorId": 10,
+        "name": "escola fictícia",
+        "address": "Rua Fictícia, 10",
+        "headteacher": null,
+        "phone": "+552223456789"
+      },
+      "scenario": "slow"
+    }
+  ]
+}
