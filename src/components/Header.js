@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Image, Navbar,
-} from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Image, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { IoMdLogOut } from 'react-icons/io';
 
@@ -20,12 +17,10 @@ export default function Header () {
           </BrandText>
         </BrandLink>
 
-        <LinkContainer to="/login">
-          <NavbarText>
-            <IoMdLogOut />
-            <p>Sair</p>
-          </NavbarText>
-        </LinkContainer>
+        <LogoutLink to="/login">
+          <IoMdLogOut />
+          <p>Sair</p>
+        </LogoutLink>
 
       </StyledNavbar>
       <AcademicNotice>
@@ -86,16 +81,19 @@ const AcademicNotice = styled.p`
   text-align: center;
 `;
 
-const NavbarText = styled(Navbar.Text)`
+const LogoutLink = styled(Link)`
   align-items: center;
-  color: #FFF!important;
-  cursor: pointer;
+  color: #FFF;
   display: flex;
   flex-direction: column;
   font-size: 18px;
   justify-content: center;
-  margin-right: 0;
-  padding: 0;
+  text-decoration: none;
+
+  :hover {
+    color: #FFF;
+    text-decoration: none;
+  }
 
   p {
     margin-bottom: 0;

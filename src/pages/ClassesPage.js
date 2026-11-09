@@ -151,7 +151,7 @@ export default function ClassesPage () {
             <CardGrid>
               <CollectionItem>
                 <ClassItem to={`/escola/${id}/classes/nova`}>
-                  <StyledCard>
+                  <StyledCard as="a">
                     <Card.Text className="add-class">
                       <BsPlusCircleFill />
                       Adicionar Turma
@@ -188,7 +188,7 @@ function ClassCard (props) {
 
   return (
     <ClassItem to={link}>
-      <StyledCard>
+      <StyledCard as="a">
         <Card.Body>
           <Card.Title as="h2">
             Turma {formatClassName(classs.name)}
@@ -308,11 +308,18 @@ const CollectionItem = styled.li`
 `;
 
 const ClassItem = styled(LinkContainer)`
+  color: inherit;
   cursor: pointer;
   flex: 0 0 18rem;
   font-size: 18px;
   max-width: 100%;
+  text-decoration: none;
   width: 18rem;
+
+  :hover {
+    color: inherit;
+    text-decoration: none;
+  }
 
   p {
     margin-bottom: 0;

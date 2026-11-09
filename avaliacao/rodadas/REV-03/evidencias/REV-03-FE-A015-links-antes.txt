@@ -1,0 +1,9 @@
+REV-03-FE-A015 — links nativos no Sair e nos cartoes de turma
+Data: 2026-11-09T01:13:01.251Z
+Frontend: 0e4d3e18b653a347dce719f918562788337c2e75
+Branch: main
+Estado local antes da edicao: M package-lock.json; ?? HANDOVER.md
+Pedido: Sair e cartao de turma como ancora, sem mudar a aparencia.
+
+ARQUIVO src/components/Header.js SHA256 2ac7e0cc51516af0a77b7cd08064eac14515943f62cb45e2a295f6b852a6a010
+ARQUIVO src/pages/ClassesPage.js SHA256 2b9968aeb6682a2b19ef6e5a820c571e380241cc64f54abaae499f6c95f2d2f3

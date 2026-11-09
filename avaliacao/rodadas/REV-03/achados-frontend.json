@@ -2032,14 +2032,88 @@
       "prioridade": "alta",
       "classificacao": "indicio",
       "sugestao": "Conferir o DOM gerado e utilizar elementos de navegação nativos nos filhos de LinkContainer quando confirmado o problema.",
-      "verificacao_pendente": "Inspecionar HTML/DOM de cada ocorrência, percorrer por Tab/Shift+Tab e acionar por teclado; conferir função e nome com NVDA ao final. A ação Sair não teve autenticação avaliada.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "NVDA para nome e função dos destinos fica em outro estágio.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Em 2026-11-08 a autora pediu para confirmar da parte dela e informou que já fez o commit. Os testes com NVDA ficam para outro estágio.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Links nativos versionados em 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8. O diff normalizado de Header.js e ClassesPage.js corresponde integralmente ao patch REV-03-FE-A015-links-correcao.patch (SHA-256 64bad1851a13e41ea37c6da0c1bdf42af24bdb9573cb4843e339da9f7a16a758). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "descricao": "Sair passou a ser um Link. O cartão de adicionar turma e os cartões de turma passam a ser âncoras, com cor herdada e sem sublinhado. O logotipo já era um link e não foi alterado.",
+        "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+        "evidencia": "Antes: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A015-links-antes.txt (SHA-256 3e2b345532f6cbb96345e4e5a2a7b8b80beb4bdecdfae5ade746456aa953bb3b). Patch: REV-03-FE-A015-links-correcao.patch (SHA-256 64bad1851a13e41ea37c6da0c1bdf42af24bdb9573cb4843e339da9f7a16a758). Compilação exit 0 em REV-03-FE-A015-links-compilacao.txt (SHA-256 ffef2814348a5361193c5a04cdc6d555a15e1f548d3e51b88aa25171445e2ecb)."
+      },
+      "reavaliacao": {
+        "rodada": "REV-03",
+        "versao_codigo": {
+          "frontend": "7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8",
+          "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+          "alteracoes_locais": "Links nativos versionados em 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8. O diff das duas fontes corresponde ao patch já verificado. package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+        },
+        "metodo": "Compilação e inspeção do DOM em /escola/6/classes, com GET real. Sem escrita e sem NVDA. A vinculação do commit não repete esses testes.",
+        "responsavel": "Grok, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "Em 2026-11-08, Sair era span com tabIndex -1 e o cartão da turma 8 era div com tabIndex -1. Depois, Sair é a branca, sem sublinhado, tabIndex 0. O cartão é a com href /turma/8, tabIndex 0, cor do texto, sem sublinhado e 288px. Adicionar Turma também é a. Passos em REV-03-FE-A015-links-verificacao.txt (SHA-256 4b90941bb9f2e50e4e579c4ec06f91a5ae3fba5614da9daeb0f2a6c298a53d9e). Confirmação da autora pendente."
+      },
+      "historico": [
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "confirmacao_dom",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "0e4d3e18b653a347dce719f918562788337c2e75",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Inspeção antes da correção, em 0e4d3e18b653a347dce719f918562788337c2e75. package-lock.json modificado. HANDOVER.md não rastreado."
+          },
+          "resultado": "O indício foi confirmado no DOM: Sair era span e o cartão da turma era div, ambos com href e fora do Tab. O logotipo já era link.",
+          "evidencia": "Leitura do DOM em /escola/6/classes antes da edição, registrada na conversa de 2026-11-08 e no antes REV-03-FE-A015-links-antes.txt."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "correcao",
+          "responsavel": "Grok, no Cursor, a pedido da autora Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "0e4d3e18b653a347dce719f918562788337c2e75",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Links nativos ainda sem commit, sobre 0e4d3e18b653a347dce719f918562788337c2e75, em Header.js e ClassesPage.js. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "Sair e os cartões de turma são âncoras. Ainda sem commit.",
+          "evidencia": "Patch REV-03-FE-A015-links-correcao.patch (SHA-256 64bad1851a13e41ea37c6da0c1bdf42af24bdb9573cb4843e339da9f7a16a758)."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "reavaliacao",
+          "responsavel": "Grok, no Cursor.",
+          "versao_codigo": {
+            "frontend": "0e4d3e18b653a347dce719f918562788337c2e75",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Mesmas duas fontes locais da correção, ainda sem commit. package-lock.json continua modificado. HANDOVER.md não rastreado. Backend sem alteração de código."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "DOM em REV-03-FE-A015-links-verificacao.txt (SHA-256 4b90941bb9f2e50e4e579c4ec06f91a5ae3fba5614da9daeb0f2a6c298a53d9e). NVDA não executado."
+        },
+        {
+          "data": "2026-11-08",
+          "rodada": "REV-03",
+          "evento": "vinculacao_commit_links",
+          "responsavel": "Autora Laura Vieira: commit e confirmação; Grok, no Cursor: conferência e associação, por solicitação da autora.",
+          "versao_codigo": {
+            "frontend": "7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8",
+            "backend": "a023d1eea2093d5511c22cfc444e11dfef704e4f",
+            "alteracoes_locais": "Links nativos versionados em 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8. O diff normalizado de Header.js e ClassesPage.js corresponde integralmente ao patch REV-03-FE-A015-links-correcao.patch (SHA-256 64bad1851a13e41ea37c6da0c1bdf42af24bdb9573cb4843e339da9f7a16a758). package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Esta vinculação não repete testes. Backend sem alteração de código."
+          },
+          "resultado": "confirmado pela autora. NVDA fica para outro estágio. Commit 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8 associado. Sem novos testes.",
+          "evidencia": "Commit 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8, de 2026-11-08T22:22:19-03:00, mensagem chore: improve class accessibility. Conferência em C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva/avaliacao/rodadas/REV-03/evidencias/REV-03-FE-A015-vinculacao-7db77a1.txt (SHA-256 db3ca843cb65b7a8f123bf616d57cdfbc185cb6da7cd701dad2222ff370790e4)."
+        }
+      ]
     },
     {
       "id": "REV-03-FE-A016",

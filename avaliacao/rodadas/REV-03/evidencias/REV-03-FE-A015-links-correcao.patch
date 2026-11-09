@@ -1,0 +1,99 @@
+diff --git a/src/components/Header.js b/src/components/Header.js
+index 7791941..53ae5a8 100644
+--- a/src/components/Header.js
++++ b/src/components/Header.js
+@@ -1,9 +1,6 @@
+ import React from 'react';
+ import styled from 'styled-components';
+-import {
+-  Image, Navbar,
+-} from 'react-bootstrap';
+-import { LinkContainer } from 'react-router-bootstrap';
++import { Image, Navbar } from 'react-bootstrap';
+ import { Link } from 'react-router-dom';
+ import { IoMdLogOut } from 'react-icons/io';
+ 
+@@ -20,12 +17,10 @@ export default function Header () {
+           </BrandText>
+         </BrandLink>
+ 
+-        <LinkContainer to="/login">
+-          <NavbarText>
+-            <IoMdLogOut />
+-            <p>Sair</p>
+-          </NavbarText>
+-        </LinkContainer>
++        <LogoutLink to="/login">
++          <IoMdLogOut />
++          <p>Sair</p>
++        </LogoutLink>
+ 
+       </StyledNavbar>
+       <AcademicNotice>
+@@ -86,16 +81,19 @@ const AcademicNotice = styled.p`
+   text-align: center;
+ `;
+ 
+-const NavbarText = styled(Navbar.Text)`
++const LogoutLink = styled(Link)`
+   align-items: center;
+-  color: #FFF!important;
+-  cursor: pointer;
++  color: #FFF;
+   display: flex;
+   flex-direction: column;
+   font-size: 18px;
+   justify-content: center;
+-  margin-right: 0;
+-  padding: 0;
++  text-decoration: none;
++
++  :hover {
++    color: #FFF;
++    text-decoration: none;
++  }
+ 
+   p {
+     margin-bottom: 0;
+diff --git a/src/pages/ClassesPage.js b/src/pages/ClassesPage.js
+index de6572c..588ce06 100644
+--- a/src/pages/ClassesPage.js
++++ b/src/pages/ClassesPage.js
+@@ -151,7 +151,7 @@ export default function ClassesPage () {
+             <CardGrid>
+               <CollectionItem>
+                 <ClassItem to={`/escola/${id}/classes/nova`}>
+-                  <StyledCard>
++                  <StyledCard as="a">
+                     <Card.Text className="add-class">
+                       <BsPlusCircleFill />
+                       Adicionar Turma
+@@ -188,7 +188,7 @@ function ClassCard (props) {
+ 
+   return (
+     <ClassItem to={link}>
+-      <StyledCard>
++      <StyledCard as="a">
+         <Card.Body>
+           <Card.Title as="h2">
+             Turma {formatClassName(classs.name)}
+@@ -308,12 +308,19 @@ const CollectionItem = styled.li`
+ `;
+ 
+ const ClassItem = styled(LinkContainer)`
++  color: inherit;
+   cursor: pointer;
+   flex: 0 0 18rem;
+   font-size: 18px;
+   max-width: 100%;
++  text-decoration: none;
+   width: 18rem;
+ 
++  :hover {
++    color: inherit;
++    text-decoration: none;
++  }
++
+   p {
+     margin-bottom: 0;
+   }

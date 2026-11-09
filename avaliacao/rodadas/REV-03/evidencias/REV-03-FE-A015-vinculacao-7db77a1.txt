@@ -1,0 +1,17 @@
+REV-03 / REV-03-FE-A015 — vinculação do commit dos links
+Data: 2026-11-08
+Commit: 7db77a1d0e4cc087f5865728cc881bc9a6c9ccd8
+Autor: Laura Vieira <lauramvieira.aus@gmail.com>
+Data do commit: 2026-11-08T22:22:19-03:00
+Mensagem: chore: improve class accessibility
+Base: 0e4d3e18b653a347dce719f918562788337c2e75
+
+Arquivos do commit: achados-frontend.json, relatorio-frontend.md, as quatro evidências REV-03-FE-A015-links-*, src/components/Header.js e src/pages/ClassesPage.js.
+
+O diff normalizado dessas duas fontes, de 0e4d3e18 para 7db77a1, é idêntico ao patch REV-03-FE-A015-links-correcao.patch (SHA-256 64bad1851a13e41ea37c6da0c1bdf42af24bdb9573cb4843e339da9f7a16a758, 2549 bytes).
+
+A autora pediu para confirmar da parte dela e informou que já fez o commit. Os testes com NVDA ficam para outro estágio.
+
+package-lock.json continua modificado fora do commit. HANDOVER.md não rastreado. Backend sem alteração de código.
+
+A associação não repete a compilação nem a inspeção do DOM. A confirmação é declaração da autora.
