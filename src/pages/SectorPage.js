@@ -15,6 +15,7 @@ export default function SectorPage () {
   const history = useHistory();
   const [deletedSchool] = useState(() => location.state && location.state.deletedSchool);
   const noticeRef = useRef(null);
+  const headingRef = useRef(null);
   const [schools, setSchools] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -22,6 +23,7 @@ export default function SectorPage () {
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [sector, setSector] = useState(null);
   const [sectorState, setSectorState] = useState('loading');
+  const [sectorRequestId, setSectorRequestId] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -51,6 +53,7 @@ export default function SectorPage () {
     let active = true;
     setSector(null);
     setSectorState('loading');
+    setSectorRequestId(null);
 
     axios.get('http://localhost:3000/sectors')
       .then((response) => {
@@ -58,11 +61,13 @@ export default function SectorPage () {
         const found = response.data.find((item) => String(item.id) === String(id));
         setSector(found || null);
         setSectorState(found ? 'found' : 'missing');
+        setSectorRequestId(String(id));
       })
       .catch(() => {
         if (!active) return;
         setSector(null);
         setSectorState('error');
+        setSectorRequestId(String(id));
       });
 
     return () => { active = false; };
@@ -85,6 +90,11 @@ export default function SectorPage () {
     return () => { document.title = previousTitle; };
   }, [sector, sectorMissing]);
 
+  useEffect(() => {
+    if (deletedSchool || String(sectorRequestId) !== String(id) || !headingRef.current) return;
+    headingRef.current.focus();
+  }, [deletedSchool, sectorRequestId, id]);
+
   return (
     <StyledContainer fluid>
       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
@@ -98,7 +108,7 @@ export default function SectorPage () {
       )}
 
       <ContextBar>
-        <PageTitle>
+        <PageTitle ref={headingRef} tabIndex={-1}>
           {sectorMissing && 'Setor não encontrado.'}
           {!sectorMissing && sector && (
             <>

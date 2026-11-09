@@ -1,0 +1,15 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "titulo": {
+    "url": "/escola/6",
+    "tag": "H1",
+    "href": null,
+    "texto": "Escola De Demonstração"
+  },
+  "tabSeguinte": {
+    "url": "/escola/6",
+    "tag": "A",
+    "href": "/escola/6/classes",
+    "texto": "Ver turmas"
+  }
+}

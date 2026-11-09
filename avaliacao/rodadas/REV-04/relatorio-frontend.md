@@ -143,8 +143,8 @@ Examinado sem apontamento não declara atendimento do critério. Onde o método 
 
 | Verificação | Motivo da pendência | Método necessário | Momento previsto | IDs relacionados |
 |---|---|---|---|---|
-| Foco visível nos diálogos de exclusão | Tab no Chrome em 2026-11-09, com exclusão interceptada | IN | verificado no recorte; confirmação da autora pendente | REV-04-FE-A002 |
-| Foco após troca de tela | Ainda não percorrido | IN | quando a autora pedir REV-04-FE-A003 | REV-04-FE-A003 |
+| Foco visível nos diálogos de exclusão | A autora navegou pelo teclado em 2026-11-09 e confirmou | IN | concluído para o recorte confirmado | REV-04-FE-A002 |
+| Foco após troca de tela | Percorrido em 2026-11-09 no Chrome, com GET real e DELETE interceptado | IN | concluído para o recorte verificado; confirmação da autora e NVDA pendentes | REV-04-FE-A003 |
 | Cores efetivas dos setores | API não consultada e tela não medida | IN + CC | quando a API de setores estiver disponível | REV-04-FE-A010 |
 | Cadastro de escola com dado inválido e nome repetido | Conferido pela autora na interface em 2026-11-09 | IN | concluído para o recorte confirmado | REV-04-FE-A001 |
 | Entrar e Sair acionados | Recarregamento e saída não observados na tela | IN | rodada seguinte | REV-04-FE-A005 |
@@ -153,13 +153,13 @@ Examinado sem apontamento não declara atendimento do critério. Onde o método 
 | NVDA: títulos, listas, nomes, ícones e anúncio de estado | Procedimento reservado à etapa final | LT | avaliação final | REV-04-FE-A006, REV-04-FE-A007, REV-04-FE-A011 |
 | Compreensão com usuários | Procedimento reservado à etapa final | sessões previstas no documento 01 | avaliação final | nenhum |
 | Contratos de integridade, soma da capacidade e unicidade | Backend ausente neste repositório | API e banco de teste | revisão do backend, se houver | nenhum |
-| Confirmação da autora | REV-04-FE-A001 confirmado em 2026-11-09 | conferência do JSON | os demais IDs seguem aguardando | demais IDs do JSON |
+| Confirmação da autora | REV-04-FE-A001 e REV-04-FE-A002 confirmados em 2026-11-09 | conferência do JSON | os demais IDs seguem aguardando | demais IDs do JSON |
 
 ## Fechamento pela autora
 
-- Data e versão após intervenções: 2026-11-09; correção de REV-04-FE-A001 no commit b1f17f6487a3059f16a4eb24f6b42a388be4708e
-- IDs reavaliados: REV-04-FE-A001, confirmado pela autora na interface
-- IDs que permanecem pendentes: REV-04-FE-A002, REV-04-FE-A003, REV-04-FE-A004, REV-04-FE-A005, REV-04-FE-A006, REV-04-FE-A007, REV-04-FE-A008, REV-04-FE-A009, REV-04-FE-A010, REV-04-FE-A011 e REV-03-FE-A021
-- Arquivos de reavaliação: avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png
-- Limites da cobertura e destino das verificações pendentes: navegador, NVDA, usuários e API ficam para execução posterior nos IDs ainda pendentes; o registro da REV-03 não foi alterado
-- Decisão de fechamento: REV-04-FE-A001 resolvido no recorte; a rodada segue aberta para os demais IDs
+- Data e versão após intervenções: 2026-11-09; REV-04-FE-A001 no commit b1f17f6487a3059f16a4eb24f6b42a388be4708e; REV-04-FE-A002 no commit be267b6714d8cf153dbfb00eacd3a34773da30a1; REV-04-FE-A003 ainda sem commit, sobre be267b6714d8cf153dbfb00eacd3a34773da30a1
+- IDs reavaliados: REV-04-FE-A001, confirmado na interface; REV-04-FE-A002, confirmado pela autora no teclado; REV-04-FE-A003, verificado no navegador e aguardando confirmação da autora
+- IDs que permanecem pendentes: REV-04-FE-A004, REV-04-FE-A005, REV-04-FE-A006, REV-04-FE-A007, REV-04-FE-A008, REV-04-FE-A009, REV-04-FE-A010, REV-04-FE-A011 e REV-03-FE-A021
+- Arquivos de reavaliação: avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A001-cadastro-nome-repetido.png, avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt e avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-verificacao.txt
+- Limites da cobertura e destino das verificações pendentes: a confirmação da autora e o NVDA seguem pendentes em REV-04-FE-A003; navegador, NVDA, usuários e API ficam para execução posterior nos IDs ainda pendentes; o registro da REV-03 não foi alterado
+- Decisão de fechamento: REV-04-FE-A001, REV-04-FE-A002 e REV-04-FE-A003 resolvidos no recorte; a confirmação da autora do A003 continua pendente; a rodada segue aberta para os demais IDs

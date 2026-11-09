@@ -1,0 +1,37 @@
+REV-04 / REV-04-FE-A003 — verificação do foco na entrada de setores, setor, escola e turmas
+Data: 2026-11-09T00:54:07-03:00
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: be267b6714d8cf153dbfb00eacd3a34773da30a1, branch main.
+Alteração local ainda sem commit: src/pages/LandingPage.js, src/pages/SectorPage.js, src/pages/SchoolPage.js, src/pages/ClassesPage.js e src/components/SchoolCard.js.
+Compilação: REV-04-FE-A003-foco-compilacao.txt. Comando com --openssl-legacy-provider. Observado: webpack compiled successfully. O aviso de Browserslist foi para stderr; nenhuma dependência foi atualizada.
+
+ANTES
+REV-04-FE-A003-foco-antes.txt
+Procedimento: REV-04-FE-A003-foco-navegador-antes.cjs
+Resultado: REV-04-FE-A003-foco-navegador-antes.json
+Windows, Node v24.16.0, Chrome 156.0.8078.49 sem interface, porta 9336, frontend em http://127.0.0.1:9000.
+GET reais em http://localhost:3000. DELETE interceptado com 204 e não chegou à API.
+Esperado: nas quatro entradas por link o foco fica fora do h1; o aviso de exclusão recebe o foco.
+Observado: setor, escola, turmas e setores ficaram com o foco no body. O Tab seguinte em setores caiu em Ir para o conteúdo principal. O rádio Encerradas permaneceu focado. Os avisos de exclusão da escola 6 e da turma 8 ficaram focados. Escola 6 e turma 8 continuaram na API depois do procedimento.
+
+DEPOIS
+O h1 recebe foco na entrada. O aviso de exclusão continua dono do foco. O filtro de turmas não dispara outro foco. Patch: REV-04-FE-A003-foco-correcao.patch.
+Procedimento: REV-04-FE-A003-foco-navegador-depois.cjs
+Resultado: REV-04-FE-A003-foco-navegador-depois.json
+Esperado: o elemento focado nas quatro entradas é o h1; o Tab seguinte em setores entra no conteúdo; o filtro permanece no rádio; os avisos continuam focados.
+Observado: 8 casos no mesmo percurso.
+1. link_interno_setor — h1 Setor: Setor Azul · Código: SA-1, topo 140, barra até 72
+2. link_interno_escola — h1 Escola De Demonstração, topo 205
+3. link_interno_turmas — h1 Turmas, topo 140
+4. filtro_encerradas_sem_nova_entrada — o rádio continuou focado
+5. link_interno_setores — h1 Setores, topo 140
+6. tab_seguinte_depois_de_setores — link Setor Amarelo SA-2
+7. aviso_exclusao_escola — alerta Escola De Demonstração excluída com sucesso
+8. aviso_exclusao_turma — alerta Turma JARDIM excluída com sucesso
+As duas exclusões foram de novo interceptadas. Escola 6 e turma 8 seguiram consultáveis.
+
+Tab na escola, depois do h1 do nome: REV-04-FE-A003-foco-escola-tab.json. O Tab seguinte foi o link Ver turmas. Voltar ao setor fica antes desse h1.
+
+Teclado: Tab até Setor Amarelo e Enter. REV-04-FE-A003-foco-teclado-tab.json. O h1 do setor ficou focado, com topo 140. O Tab seguinte foi Voltar aos setores, e o indicador flutuante voltou a ficar habilitado nesse link. O cartão de setor é uma âncora comum, então o Enter recarrega o documento e o anel, que só nasce no Tab ou nas setas, não está visível no h1 nesse instante. REV-04-FE-A003-foco-anel.json registra o mesmo limite no percurso com ponteiro: a classe floating-focus-enabled fica ausente enquanto a entrada é por clique.
+
+A confirmação da autora permanece pendente. NVDA não foi executado. Não houve commit.

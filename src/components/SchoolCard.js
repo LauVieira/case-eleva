@@ -20,7 +20,7 @@ function formatTotalCapacity (value) {
 }
 
 export default function SchoolCard (props) {
-  const { schoolData, onDelete } = props;
+  const { schoolData, onDelete, headingRef } = props;
   const {
     address, createdAt, headteacher, id, name, phone, totalCapacity, updatedAt,
   } = schoolData;
@@ -32,7 +32,7 @@ export default function SchoolCard (props) {
 
       <Card.Body>
 
-        <Card.Title as="h1">{formatSchoolName(name || '')}</Card.Title>
+        <Card.Title as="h1" ref={headingRef} tabIndex={-1}>{formatSchoolName(name || '')}</Card.Title>
 
         <CardText>
           Endereço: {address}

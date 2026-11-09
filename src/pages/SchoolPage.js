@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Container } from 'react-bootstrap';
@@ -18,6 +18,7 @@ export default function SchoolPage () {
   const [showDelete, setShowDelete] = useState(false);
   const [sectors, setSectors] = useState(null);
   const [sectorsFailed, setSectorsFailed] = useState(false);
+  const headingRef = useRef(null);
 
   useEffect(() => {
     let active = true;
@@ -63,6 +64,10 @@ export default function SchoolPage () {
     return () => { document.title = previousTitle; };
   }, [schoolData, loadError]);
 
+  useEffect(() => {
+    if ((schoolData || loadError) && headingRef.current) headingRef.current.focus();
+  }, [schoolData, loadError]);
+
   return (
     <StyledContainer fluid>
       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
@@ -70,7 +75,7 @@ export default function SchoolPage () {
       <Main id="conteudo-principal" tabIndex={-1}>
         {loadError && (
           <QueryError>
-            <PageTitle>{loadError.message}</PageTitle>
+            <PageTitle ref={headingRef} tabIndex={-1}>{loadError.message}</PageTitle>
             {!loadError.notFound && (
               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
             )}
@@ -88,7 +93,11 @@ export default function SchoolPage () {
             <ContextBar>
               {renderSectorContext(schoolData, sectors, sectorsFailed)}
             </ContextBar>
-            <SchoolCard schoolData={schoolData} onDelete={() => setShowDelete(true)} />
+            <SchoolCard
+              schoolData={schoolData}
+              headingRef={headingRef}
+              onDelete={() => setShowDelete(true)}
+            />
             <SchoolDeleteModal
               key={schoolData.id}
               school={schoolData}

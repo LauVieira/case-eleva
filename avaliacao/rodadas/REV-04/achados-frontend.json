@@ -141,32 +141,32 @@
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Fazer o indicador de foco cobrir também o diálogo portado para document.body, sem depender apenas da sombra padrão dos botões.",
       "verificacao_pendente": null,
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09, depois de navegar pela aplicação pelo teclado. O commit da correção é be267b6714d8cf153dbfb00eacd3a34773da30a1, mensagem fix REV-04-FE-A002.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+          "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
           "backend": null,
-          "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "FloatingFocus passou a usar document.body, para o anel de foco cobrir os diálogos de exclusão portados para fora de #root.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+        "evidencia": "Commit be267b6714d8cf153dbfb00eacd3a34773da30a1, mensagem fix REV-04-FE-A002. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "b1f17f6487a3059f16a4eb24f6b42a388be4708e",
+          "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
           "backend": null,
-          "alteracoes_locais": "src/index.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-correcao.patch."
+          "alteracoes_locais": null
         },
-        "metodo": "Tab no Chrome com DELETE interceptado, sem exclusão real. Medição do contorno e do anel flutuante.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "metodo": "Navegação pelo teclado feita pela autora na aplicação.",
+        "responsavel": "Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+        "evidencia": "Commit be267b6714d8cf153dbfb00eacd3a34773da30a1. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt."
       },
       "historico": [
         {
@@ -194,6 +194,19 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A002-foco-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T00:24:08-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. A autora navegou pela aplicação pelo teclado e confirmou a correção.",
+          "evidencia": "Commit be267b6714d8cf153dbfb00eacd3a34773da30a1, mensagem fix REV-04-FE-A002."
         }
       ]
     },
@@ -224,14 +237,62 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Na entrada dessas quatro telas por navegação interna, mover o foco para o conteúdo principal, no mesmo padrão já usado nos formulários e no detalhe.",
-      "verificacao_pendente": "Abrir cada uma das quatro telas por Link interno e registrar o elemento que fica focado.",
+      "verificacao_pendente": null,
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
+          "backend": null,
+          "alteracoes_locais": "src/pages/LandingPage.js, src/pages/SectorPage.js, src/pages/SchoolPage.js, src/pages/ClassesPage.js e src/components/SchoolCard.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch."
+        },
+        "descricao": "Setores, setor, escola e turmas focam o h1 quando a entrada assenta. O aviso de exclusão conserva o foco. A troca Ativas, Todas e Encerradas não dispara outro foco.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
+          "backend": null,
+          "alteracoes_locais": "As cinco fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch."
+        },
+        "metodo": "Chrome 156 sem interface, com GET real e DELETE interceptado em 204. Percurso por link nas quatro telas, Tab em setores e na escola, Enter num cartão de setor e troca do filtro para Encerradas.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T00:54:07-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
+            "backend": null,
+            "alteracoes_locais": "src/pages/LandingPage.js, src/pages/SectorPage.js, src/pages/SchoolPage.js, src/pages/ClassesPage.js e src/components/SchoolCard.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch."
+          },
+          "resultado": "As quatro telas focam o h1 na entrada. O aviso de exclusão e o filtro de turmas ficaram como estavam.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T00:54:07-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "be267b6714d8cf153dbfb00eacd3a34773da30a1",
+            "backend": null,
+            "alteracoes_locais": "As cinco fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A003-foco-verificacao.txt"
+        }
+      ]
     },
     {
       "id": "REV-04-FE-A004",

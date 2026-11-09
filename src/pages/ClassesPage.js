@@ -25,6 +25,8 @@ export default function ClassesPage () {
   const history = useHistory();
   const [deletedClass] = useState(() => location.state && location.state.deletedClass);
   const noticeRef = useRef(null);
+  const headingRef = useRef(null);
+  const focusedSchoolId = useRef(null);
   const requestVersion = useRef(0);
   const [classes, setClasses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +46,13 @@ export default function ClassesPage () {
       history.replace({ ...location, state: { ...location.state, deletedClass: null } });
     }
   }, []);
+
+  useEffect(() => {
+    if (deletedClass || isLoading || focusedSchoolId.current === String(id)) return;
+    if (!headingRef.current) return;
+    headingRef.current.focus();
+    focusedSchoolId.current = String(id);
+  }, [deletedClass, isLoading, id]);
 
   useEffect(() => {
     const version = requestVersion.current + 1;
@@ -108,7 +117,7 @@ export default function ClassesPage () {
         </Alert>
       )}
 
-      <PageTitle>Turmas</PageTitle>
+      <PageTitle ref={headingRef} tabIndex={-1}>Turmas</PageTitle>
 
       <ContextBar>
         {schoolMissing && <p role="alert">Escola não encontrada.</p>}

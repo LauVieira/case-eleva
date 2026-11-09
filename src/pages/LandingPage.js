@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import {
@@ -13,6 +13,7 @@ export default function LandingPage () {
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const headingRef = useRef(null);
 
   useEffect(() => {
     let active = true;
@@ -41,12 +42,16 @@ export default function LandingPage () {
     return () => { document.title = previousTitle; };
   }, []);
 
+  useEffect(() => {
+    if (!isLoading && headingRef.current) headingRef.current.focus();
+  }, [isLoading]);
+
   return (
     <StyledContainer fluid>
       <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
       <Main id="conteudo-principal" tabIndex={-1}>
-      <PageTitle>Setores</PageTitle>
+      <PageTitle ref={headingRef} tabIndex={-1}>Setores</PageTitle>
 
       {isLoading && <p role="status">Carregando...</p>}
       {loadError && (

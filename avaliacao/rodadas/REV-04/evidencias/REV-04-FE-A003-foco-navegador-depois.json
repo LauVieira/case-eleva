@@ -1,0 +1,156 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "gravacoesReais": 0,
+  "casos": [
+    {
+      "caso": "link_interno_setor",
+      "foco": {
+        "url": "/setor/1",
+        "tag": "H1",
+        "id": "",
+        "role": "",
+        "tabindex": "-1",
+        "texto": "Setor: Setor Azul · Código: SA-1",
+        "eCorpo": false,
+        "eH1": true,
+        "h1": "Setor: Setor Azul · Código: SA-1",
+        "outlineWidth": "3px",
+        "h1Top": 140,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "link_interno_escola",
+      "foco": {
+        "url": "/escola/6",
+        "tag": "H1",
+        "id": "",
+        "role": "",
+        "tabindex": "-1",
+        "texto": "Escola De Demonstração",
+        "eCorpo": false,
+        "eH1": true,
+        "h1": "Escola De Demonstração",
+        "outlineWidth": "3px",
+        "h1Top": 205,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "link_interno_turmas",
+      "foco": {
+        "url": "/escola/6/classes",
+        "tag": "H1",
+        "id": "",
+        "role": "",
+        "tabindex": "-1",
+        "texto": "Turmas",
+        "eCorpo": false,
+        "eH1": true,
+        "h1": "Turmas",
+        "outlineWidth": "3px",
+        "h1Top": 140,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "filtro_encerradas_sem_nova_entrada",
+      "foco": {
+        "url": "/escola/6/classes",
+        "tag": "INPUT",
+        "id": "",
+        "role": "",
+        "tabindex": null,
+        "texto": "",
+        "eCorpo": false,
+        "eH1": false,
+        "h1": "Turmas",
+        "outlineWidth": "3px",
+        "h1Top": 140,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "link_interno_setores",
+      "foco": {
+        "url": "/",
+        "tag": "H1",
+        "id": "",
+        "role": "",
+        "tabindex": "-1",
+        "texto": "Setores",
+        "eCorpo": false,
+        "eH1": true,
+        "h1": "Setores",
+        "outlineWidth": "0px",
+        "h1Top": 140,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "tab_seguinte_depois_de_setores",
+      "foco": {
+        "url": "/",
+        "tag": "A",
+        "id": "",
+        "role": "",
+        "tabindex": null,
+        "texto": "Setor Amarelo SA-2",
+        "eCorpo": false,
+        "eH1": false,
+        "h1": "Setores",
+        "outlineWidth": "2px",
+        "h1Top": 140,
+        "navBottom": 72
+      }
+    },
+    {
+      "caso": "aviso_exclusao_escola",
+      "foco": {
+        "url": "/setor/1",
+        "tag": "DIV",
+        "id": "",
+        "role": "status",
+        "tabindex": "-1",
+        "texto": "Escola Escola De Demonstração excluída com sucesso.",
+        "eCorpo": false,
+        "eH1": false,
+        "h1": "Setor: Setor Azul · Código: SA-1",
+        "outlineWidth": "0px",
+        "h1Top": 206,
+        "navBottom": 72
+      },
+      "escritas": 1
+    },
+    {
+      "caso": "aviso_exclusao_turma",
+      "foco": {
+        "url": "/escola/6/classes",
+        "tag": "DIV",
+        "id": "",
+        "role": "status",
+        "tabindex": "-1",
+        "texto": "Turma JARDIM excluída com sucesso.",
+        "eCorpo": false,
+        "eH1": false,
+        "h1": "Turmas",
+        "outlineWidth": "0px",
+        "h1Top": 206,
+        "navBottom": 72
+      },
+      "escritas": 2
+    }
+  ],
+  "escritas": [
+    {
+      "method": "DELETE",
+      "path": "/schools/6",
+      "destino": "interceptado_204"
+    },
+    {
+      "method": "DELETE",
+      "path": "/classes/8",
+      "destino": "interceptado_204"
+    }
+  ]
+}

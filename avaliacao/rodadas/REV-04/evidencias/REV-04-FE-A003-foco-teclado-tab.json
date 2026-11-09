@@ -1,0 +1,38 @@
+{
+  "navegador": "Chrome/156.0.8078.49",
+  "casos": {
+    "linkAntesDoEnter": {
+      "url": "/",
+      "tag": "A",
+      "href": "/setor/2",
+      "texto": "Setor Amarelo SA-2",
+      "bodyEnabled": true,
+      "floater": "floating-focus enabled visible helper moving",
+      "overlap": false,
+      "h1Top": 140,
+      "navBottom": 72
+    },
+    "setorDepoisDoEnter": {
+      "url": "/setor/2",
+      "tag": "H1",
+      "href": null,
+      "texto": "Setor: Setor Amarelo · Código: SA-2",
+      "bodyEnabled": false,
+      "floater": "",
+      "overlap": false,
+      "h1Top": 140,
+      "navBottom": 72
+    },
+    "tabSeguinte": {
+      "url": "/setor/2",
+      "tag": "A",
+      "href": "/",
+      "texto": "Voltar aos setores",
+      "bodyEnabled": true,
+      "floater": "floating-focus enabled visible helper",
+      "overlap": false,
+      "h1Top": 140,
+      "navBottom": 72
+    }
+  }
+}

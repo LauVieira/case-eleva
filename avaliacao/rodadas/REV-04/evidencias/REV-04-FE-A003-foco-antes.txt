@@ -1,0 +1,112 @@
+REV-04 / REV-04-FE-A003
+Data: 2026-11-09T03:41:27.325Z
+Frontend: be267b6714d8cf153dbfb00eacd3a34773da30a1
+Branch: main
+Estado local: package-lock.json modificado; HANDOVER_front.md sem rastreamento; achados-frontend.json e relatorio-frontend.md da REV-04 modificados e preservados.
+Pedido: posicionar o foco no h1 ao entrar em setores, setor, escola e turmas por link interno.
+Metodo antes: hash das fontes e percurso por link no Chrome, com GET real e DELETE interceptado em 204.
+Constatacao prevista: as quatro telas nao movem o foco para o h1. O aviso de exclusao continua recebendo foco.
+
+HASH src/pages/LandingPage.js b5f5417498974b88732ac1eb6cc5afe6403e524dfb06028d3e10a5fcdc278bbf
+HASH src/pages/SectorPage.js 74f78922e38ab08cdef085e97fe818a191a45f73aa572b91ef5c599470fc14be
+HASH src/pages/SchoolPage.js 3dc046cb189b551b1dc6609c15bb1bb049b49dc761c018b3c317192d7719ae6c
+HASH src/pages/ClassesPage.js 7949399cf3266f974787bc65adb5ba5e113a618ac0a6df3ac46c3c3686ed8a0f
+HASH src/components/SchoolCard.js 7da56f8b956c8235552801a2ff8d9e1db5607025301afeb96ddfe349352605eb
+HASH src/pages/SchoolCreatePage.js ff18dbe6914d02714de6715f960794ca9be0ff28472ad76fb41a5c6d8c11c1f0
+
+REFERENCIA src/pages/SchoolCreatePage.js efeito que as quatro telas ainda nao tem
+  82|   useEffect(() => {
+  83|     if (!isLoading && headingRef.current) headingRef.current.focus();
+  84|   }, [isLoading, createdSchool]);
+
+src/pages/LandingPage.js sem headingRef e sem focus
+  11| export default function LandingPage () {
+  12|   const [sectors, setSectors] = useState([]);
+  13|   const [isLoading, setIsLoading] = useState(true);
+  14|   const [loadError, setLoadError] = useState(false);
+  15|   const [loadAttempt, setLoadAttempt] = useState(0);
+  16| 
+  17|   useEffect(() => {
+  18|     let active = true;
+  19|     setIsLoading(true);
+  20|     setLoadError(false);
+  21| 
+  22|     axios.get('http://localhost:3000/sectors')
+  23|       .then((response) => {
+  24|         if (!active) return;
+  25|         setSectors([...response.data]);
+  26|         setIsLoading(false);
+  27|       })
+  28|       .catch(() => {
+  29|         if (!active) return;
+  30|         setSectors([]);
+  31|         setLoadError(true);
+  32|         setIsLoading(false);
+  33|       });
+  34| 
+  35|     return () => { active = false; };
+  36|   }, [loadAttempt]);
+  37| 
+  38|   useEffect(() => {
+  39|     const previousTitle = document.title;
+  40|     document.title = 'Setores | Gestão Escolar';
+  41|     return () => { document.title = previousTitle; };
+  42|   }, []);
+  48|       <Main id="conteudo-principal" tabIndex={-1}>
+  49|       <PageTitle>Setores</PageTitle>
+
+src/pages/SectorPage.js so foca o aviso de exclusao
+  71|   useEffect(() => {
+  72|     if (deletedSchool && noticeRef.current) {
+  73|       noticeRef.current.focus();
+  74|       history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
+  75|     }
+  76|   }, []);
+ 100|       <ContextBar>
+ 101|         <PageTitle>
+ 102|           {sectorMissing && 'Setor não encontrado.'}
+ 103|           {!sectorMissing && sector && (
+ 104|             <>
+ 105|               Setor:
+ 106|               {' '}
+ 107|               <strong>{sector.name}</strong>
+ 108|               {' · '}
+ 109|               Código:
+ 110|               {' '}
+ 111|               <strong>{sector.code}</strong>
+ 112|             </>
+ 113|           )}
+ 114|           {!sectorMissing && !sector && 'Setor'}
+ 115|         </PageTitle>
+
+src/pages/SchoolPage.js sem focus; o h1 de sucesso esta em SchoolCard
+  70|       <Main id="conteudo-principal" tabIndex={-1}>
+  71|         {loadError && (
+  72|           <QueryError>
+  73|             <PageTitle>{loadError.message}</PageTitle>
+  74|             {!loadError.notFound && (
+  75|               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
+  76|             )}
+  77|             <Link to="/">Voltar aos setores</Link>
+  78|           </QueryError>
+  79|         )}
+  80|         {!schoolData && !loadError && (
+  81|           <>
+  82|             <PageTitle>Escola</PageTitle>
+  83|             <p role="status">Carregando escola...</p>
+  84|           </>
+src/components/SchoolCard.js
+  33|       <Card.Body>
+  34| 
+  35|         <Card.Title as="h1">{formatSchoolName(name || '')}</Card.Title>
+
+src/pages/ClassesPage.js so foca o aviso de exclusao
+  41|   useEffect(() => {
+  42|     if (deletedClass && noticeRef.current) {
+  43|       noticeRef.current.focus();
+  44|       history.replace({ ...location, state: { ...location.state, deletedClass: null } });
+  45|     }
+  46|   }, []);
+ 109|       )}
+ 110| 
+ 111|       <PageTitle>Turmas</PageTitle>
