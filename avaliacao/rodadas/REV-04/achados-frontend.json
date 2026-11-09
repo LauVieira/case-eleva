@@ -1060,32 +1060,32 @@
       "classificacao": "indicio",
       "sugestao": "Marcar como decorativos os ícones que apenas repetem um texto visível, do mesmo modo que Editar escola e Excluir escola.",
       "verificacao_pendente": "Confirmar com NVDA, na etapa final, se esses ícones entram na leitura.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira confirmou a correção em 2026-11-09 e commitou. O commit é 460f48355293985675c6c4a99e8fe786a8ced182, mensagem fix REV-04-FE-A011.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+          "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
           "backend": null,
-          "alteracoes_locais": "src/components/SchoolCard.js, src/pages/SectorPage.js e src/pages/ClassesPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+          "alteracoes_locais": null
         },
         "descricao": "Ver turmas, Adicionar Escola e Adicionar Turma marcam o ícone com aria-hidden e focusable false. O ícone de Sair já não existe desde a remoção desse controle.",
         "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch"
+        "evidencia": "Commit 460f48355293985675c6c4a99e8fe786a8ced182, mensagem fix REV-04-FE-A011. Patch anterior em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
       },
       "reavaliacao": {
         "rodada": "REV-04",
         "versao_codigo": {
-          "frontend": "028813662bbf777b5b5cb1ad21c6092cc488caa7",
+          "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
           "backend": null,
-          "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
+          "alteracoes_locais": null
         },
-        "metodo": "Chrome 156 sem interface. Atributos do svg em Ver turmas, Adicionar Escola, Adicionar Turma, Editar escola e Excluir escola. NVDA não executado.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "metodo": "Confirmação da autora depois da correção. A conferência anterior dos atributos no Chrome permanece em REV-04-FE-A011-icones-verificacao.txt. NVDA não executado.",
+        "responsavel": "Laura Vieira",
         "resultado": "resolveu_no_recorte",
-        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-verificacao.txt"
+        "evidencia": "Commit 460f48355293985675c6c4a99e8fe786a8ced182. Verificação anterior do agente em avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-verificacao.txt."
       },
       "historico": [
         {
@@ -1113,6 +1113,32 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-verificacao.txt"
+        },
+        {
+          "data": "2026-11-09T20:43:20-03:00",
+          "rodada": "REV-04",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "confirmado; situacao resolvido_no_recorte. A autora confirmou a correção.",
+          "evidencia": "Commit 460f48355293985675c6c4a99e8fe786a8ced182, mensagem fix REV-04-FE-A011."
+        },
+        {
+          "data": "2026-11-09T20:43:20-03:00",
+          "rodada": "REV-04",
+          "evento": "vinculacao_commit_correcao",
+          "responsavel": "Laura Vieira: commit da correção. Grok 4.7, no Cursor: conferência do diff e atualização do registro, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+            "backend": null,
+            "alteracoes_locais": "SchoolCard.js, SectorPage.js e ClassesPage.js estão neste commit no trecho dos ícones e não têm diferença local nesse trecho. A vinculação não repete a verificação. NVDA continua pendente."
+          },
+          "resultado": "Commit associado à correção já verificada. A versão da identificação e os eventos anteriores foram mantidos.",
+          "evidencia": "git diff 028813662bbf777b5b5cb1ad21c6092cc488caa7 460f48355293985675c6c4a99e8fe786a8ced182 das três fontes é igual a avaliacao/rodadas/REV-04/evidencias/REV-04-FE-A011-icones-correcao.patch."
         }
       ]
     },
@@ -1145,11 +1171,59 @@
       "verificacao_pendente": null,
       "confirmacao_autora": "pendente",
       "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+          "backend": null,
+          "alteracoes_locais": "src/pages/LandingPage.js, src/pages/SectorPage.js e src/pages/ClassesPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch."
+        },
+        "descricao": "As três listagens passaram a usar api.get. O endereço http://localhost:3000 ficou só em src/services/api.js. Os caminhos e o parâmetro status=current foram mantidos.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch"
+      },
+      "reavaliacao": {
+        "rodada": "REV-04",
+        "versao_codigo": {
+          "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+          "backend": null,
+          "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch."
+        },
+        "metodo": "Chrome 156 sem interface. Setores, setor 1 e turmas da escola 6, com as URLs registradas em performance e o h1 de cada tela.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-verificacao.txt"
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T20:50:00-03:00",
+          "rodada": "REV-04",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+            "backend": null,
+            "alteracoes_locais": "src/pages/LandingPage.js, src/pages/SectorPage.js e src/pages/ClassesPage.js sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch."
+          },
+          "resultado": "As listagens usam o cliente compartilhado. O endereço ficou num único ponto.",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch"
+        },
+        {
+          "data": "2026-11-09T20:50:00-03:00",
+          "rodada": "REV-04",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira",
+          "versao_codigo": {
+            "frontend": "460f48355293985675c6c4a99e8fe786a8ced182",
+            "backend": null,
+            "alteracoes_locais": "As três fontes sem commit. Patch em avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-correcao.patch."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-04/evidencias/REV-03-FE-A021-api-verificacao.txt"
+        }
+      ]
     }
   ]
 }

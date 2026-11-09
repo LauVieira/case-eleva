@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import {
   Button, Container, ListGroup,
 } from 'react-bootstrap';
 import colorContrast from 'color-contrast';
 
 import Header from '../components/Header';
+import api from '../services/api';
 
 export default function LandingPage () {
   const [sectors, setSectors] = useState([]);
@@ -20,7 +20,7 @@ export default function LandingPage () {
     setIsLoading(true);
     setLoadError(false);
 
-    axios.get('http://localhost:3000/sectors')
+    api.get('/sectors')
       .then((response) => {
         if (!active) return;
         setSectors([...response.data]);

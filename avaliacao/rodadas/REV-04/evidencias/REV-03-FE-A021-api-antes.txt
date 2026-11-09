@@ -1,0 +1,19 @@
+REV-04 / REV-03-FE-A021
+Data: 2026-11-09T23:45:00.000Z
+Frontend: 460f48355293985675c6c4a99e8fe786a8ced182
+Branch: main
+Pedido: fazer as três listagens usarem o cliente em src/services/api.js.
+
+src/services/api.js
+  baseURL: 'http://localhost:3000'
+
+src/pages/LandingPage.js
+    axios.get('http://localhost:3000/sectors')
+
+src/pages/SectorPage.js
+    axios.get(`http://localhost:3000/sectors/${id}/schools`)
+    axios.get('http://localhost:3000/sectors')
+
+src/pages/ClassesPage.js
+    axios.get(`http://localhost:3000/schools/${id}/classes`, { params: { status: statusFilter } })
+    axios.get(`http://localhost:3000/schools/${id}`)

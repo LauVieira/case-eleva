@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import {
   Alert, Button, Card, Container,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import api from '../services/api';
 import { formatSchoolName } from '../utils/schoolForm';
 
 export default function SectorPage () {
@@ -31,7 +31,7 @@ export default function SectorPage () {
     setLoadError(false);
     setSchoolsMissing(false);
 
-    axios.get(`http://localhost:3000/sectors/${id}/schools`)
+    api.get(`/sectors/${id}/schools`)
       .then((response) => {
         if (!active) return;
         setSchools([...response.data]);
@@ -55,7 +55,7 @@ export default function SectorPage () {
     setSectorState('loading');
     setSectorRequestId(null);
 
-    axios.get('http://localhost:3000/sectors')
+    api.get('/sectors')
       .then((response) => {
         if (!active) return;
         const found = response.data.find((item) => String(item.id) === String(id));

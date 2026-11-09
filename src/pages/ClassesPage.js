@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import {
   Alert, Button, Card, Container,
@@ -10,6 +9,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import api from '../services/api';
 import { formatClassName, formatClassStatus } from '../utils/classForm';
 import { formatSchoolName } from '../utils/schoolForm';
 
@@ -61,7 +61,7 @@ export default function ClassesPage () {
     setLoadFailed(false);
     setClassesMissing(false);
 
-    axios.get(`http://localhost:3000/schools/${id}/classes`, {
+    api.get(`/schools/${id}/classes`, {
       params: { status: statusFilter },
     }).then((response) => {
       if (version !== requestVersion.current) return;
@@ -82,7 +82,7 @@ export default function ClassesPage () {
     setSchool(null);
     setSchoolState('loading');
 
-    axios.get(`http://localhost:3000/schools/${id}`)
+    api.get(`/schools/${id}`)
       .then((response) => {
         if (!active) return;
         setSchool(response.data);
