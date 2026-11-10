@@ -85,15 +85,76 @@
       "impacto": "Quem aciona Salvar no fim do formulário pode não ver resposta nenhuma. A edição não é enviada, mas a tela do botão continua igual.",
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
-      "sugestao": "Ao informar que não há alteração, levar o foco à mensagem ou rolá-la para junto do botão acionado, nas duas edições.",
-      "verificacao_pendente": "Acionar Salvar alterações sem editar campos e observar a mensagem na área visível. O anúncio do role status fica para o NVDA da etapa final.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "sugestao": "Mostrar Nenhuma alteração para salvar imediatamente acima dos botões Salvar e Cancelar, nas duas edições, e mover o foco para essa mensagem. O cadastro não usa esse aviso.",
+      "verificacao_pendente": "A autora ainda não viu a tela corrigida. O anúncio com NVDA fica para a etapa final.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09 o problema: concordou com o achado e relatou que quase não viu o aviso. A correção posterior foi verificada no navegador, sem confirmação dela sobre a tela corrigida.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-05",
+        "versao_codigo": {
+          "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+          "backend": null,
+          "alteracoes_locais": "src/pages/SchoolEditPage.js, src/pages/ClassEditPage.js, src/components/SchoolForm.js e src/components/ClassForm.js ainda sem commit. Patch em avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-correcao.patch."
+        },
+        "descricao": "O aviso Nenhuma alteração para salvar passou para imediatamente acima dos botões, na edição de escola e na edição de turma. O foco vai para a mensagem e a rolagem a centraliza. O cadastro não exibe esse aviso.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-correcao.patch e REV-05-FE-A002-aviso-verificacao.txt."
+      },
+      "reavaliacao": {
+        "rodada": "REV-05",
+        "versao_codigo": {
+          "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+          "backend": null,
+          "alteracoes_locais": "As quatro fontes da correção, sem commit."
+        },
+        "metodo": "Navegador, formulário sem campos alterados, em viewport 1280x720. Escola 2 e turma 8. Nenhuma gravação.",
+        "responsavel": "Grok 4.7, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-navegador-antes.json, REV-05-FE-A002-aviso-navegador-depois.json e REV-05-FE-A002-aviso-verificacao.txt. Antes, o aviso ficava 618 px acima do botão e o foco continuava no h1. Depois, nas duas edições, o aviso ficou focado, 20 px acima de Salvar alterações, e os dois couberam na área visível."
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T21:43:00-03:00",
+          "rodada": "REV-05",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "786011554113870b35a08c3d67d5030b016a5028",
+            "backend": null,
+            "alteracoes_locais": "Nenhuma alteração de código para este achado."
+          },
+          "resultado": "confirmado. A autora viu o aviso e quase não o percebeu.",
+          "evidencia": "Pedido desta conversa em 2026-11-09."
+        },
+        {
+          "data": "2026-11-09T21:52:00-03:00",
+          "rodada": "REV-05",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+            "backend": null,
+            "alteracoes_locais": "Quatro fontes sem commit. Patch REV-05-FE-A002-aviso-correcao.patch."
+          },
+          "resultado": "aviso movido para junto dos botões, com foco, nas duas edições.",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt e REV-05-FE-A002-aviso-correcao.patch."
+        },
+        {
+          "data": "2026-11-09T21:55:00-03:00",
+          "rodada": "REV-05",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor.",
+          "versao_codigo": {
+            "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+            "backend": null,
+            "alteracoes_locais": "As quatro fontes da correção, sem commit."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-navegador-depois.json e REV-05-FE-A002-aviso-verificacao.txt."
+        }
+      ]
     },
     {
       "id": "REV-05-FE-A003",

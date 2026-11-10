@@ -1,0 +1,26 @@
+{
+  "id": "REV-05-FE-A002",
+  "momento": "antes",
+  "data": "2026-11-09T21:50:00-03:00",
+  "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+  "url": "http://localhost:9000/escola/2/editar",
+  "procedimento": "Formulário carregado sem editar campos. form.requestSubmit() no Chrome do Cursor. Nenhum campo foi alterado; a página permaneceu em Editar escola.",
+  "viewport_altura": 1080,
+  "scroll_y": 0,
+  "foco": {
+    "tag": "H1",
+    "texto": "Editar escola"
+  },
+  "aviso": {
+    "texto": "Nenhuma alteração para salvar.",
+    "focado": false,
+    "top": 241,
+    "bottom": 265
+  },
+  "botao_salvar": {
+    "top": 883,
+    "bottom": 921
+  },
+  "distancia_aviso_ate_botao_px": 618,
+  "observado": "O aviso ficou acima do formulário e o foco continuou no h1. O botão Salvar alterações ficou 618 px abaixo do aviso."
+}

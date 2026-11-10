@@ -120,9 +120,9 @@ Examinado sem apontamento não significa aprovação do critério inteiro. Onde 
 ## Fechamento pela autora
 
 - Data e versão após intervenções: não informado
-- IDs reavaliados: não se aplica; esta execução não corrigiu código
-- IDs que permanecem pendentes: REV-05-FE-A002 e REV-05-FE-A003, aguardando confirmação. REV-05-FE-A001 foi rejeitado pela autora em 2026-11-09.
-- Arquivos de reavaliação: não se aplica
+- IDs reavaliados: REV-05-FE-A002, corrigido e verificado no navegador em 2026-11-09, ainda sem commit
+- IDs que permanecem pendentes: REV-05-FE-A003, aguardando confirmação. REV-05-FE-A002 foi confirmado, corrigido e verificado no recorte em 2026-11-09; a autora ainda não viu a tela corrigida. REV-05-FE-A001 foi rejeitado.
+- Arquivos de reavaliação: avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-navegador-antes.json, REV-05-FE-A002-aviso-correcao.patch, REV-05-FE-A002-aviso-navegador-depois.json e REV-05-FE-A002-aviso-verificacao.txt
 - Limites da cobertura e destino das verificações pendentes: NVDA e usuários continuam na etapa final; teclado, alerta de exclusão e turma persistida dependem de nova conferência de interface. A listagem de escolas foi conferida pela autora e o REV-05-FE-A001 não segue.
 - Decisão de fechamento: pendente da autora
 

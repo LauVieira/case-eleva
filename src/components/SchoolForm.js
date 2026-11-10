@@ -8,6 +8,7 @@ export default function SchoolForm (props) {
     submitLabel = 'Cadastrar escola',
     sectorHelp = 'A escola será cadastrada no setor selecionado.',
     errors = {}, submitting = false, onCancel,
+    notice = '', noticeRef,
   } = props;
 
   return (
@@ -132,6 +133,11 @@ export default function SchoolForm (props) {
         </Form.Text>
       </Form.Group>
 
+      {notice && (
+        <Notice ref={noticeRef} tabIndex={-1} role="status">
+          {notice}
+        </Notice>
+      )}
       <Actions>
         <SubmitButton type="submit" disabled={submitting}>
           {submitting ? 'Salvando...' : submitLabel}
@@ -145,6 +151,10 @@ export default function SchoolForm (props) {
     </Form>
   );
 }
+
+const Notice = styled.p`
+  margin-bottom: 12px;
+`;
 
 const Actions = styled.div`
   display: flex;

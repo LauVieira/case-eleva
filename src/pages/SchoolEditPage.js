@@ -35,8 +35,10 @@ export default function SchoolEditPage () {
   const [isSaving, setIsSaving] = useState(false);
   const [savedSchool, setSavedSchool] = useState(null);
   const [errorFocusKey, setErrorFocusKey] = useState(0);
+  const [noticeFocusKey, setNoticeFocusKey] = useState(0);
   const headingRef = useRef(null);
   const errorRef = useRef(null);
+  const noticeRef = useRef(null);
   const saveInProgress = useRef(false);
   const requestVersion = useRef(0);
 
@@ -104,6 +106,13 @@ export default function SchoolEditPage () {
     if (errorFocusKey > 0 && errorRef.current) errorRef.current.focus();
   }, [errorFocusKey]);
 
+  useEffect(() => {
+    if (noticeFocusKey > 0 && noticeRef.current) {
+      noticeRef.current.focus();
+      noticeRef.current.scrollIntoView({ block: 'center', inline: 'nearest' });
+    }
+  }, [noticeFocusKey]);
+
   function handleChange (event) {
     const { name, value } = event.target;
     setValues((previous) => ({ ...previous, [name]: value }));
@@ -131,6 +140,7 @@ export default function SchoolEditPage () {
     );
     if (Object.keys(changes).length === 0) {
       setNotice('Nenhuma alteração para salvar.');
+      setNoticeFocusKey((key) => key + 1);
       return;
     }
 
@@ -227,7 +237,6 @@ export default function SchoolEditPage () {
             )}
           </ErrorSummary>
         )}
-        {notice && <p role="status">{notice}</p>}
         {isSaving && <p role="status">Salvando alterações...</p>}
         <SchoolForm
           values={values}
@@ -238,6 +247,8 @@ export default function SchoolEditPage () {
           sectorHelp="A escola ficará no setor selecionado. Suas turmas permanecem vinculadas à mesma escola."
           errors={errors}
           submitting={isSaving}
+          notice={notice}
+          noticeRef={noticeRef}
           onCancel={() => history.push(`/escola/${schoolId}`)}
         />
       </>

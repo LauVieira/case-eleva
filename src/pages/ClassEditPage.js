@@ -45,8 +45,10 @@ export default function ClassEditPage () {
   const [isSaving, setIsSaving] = useState(false);
   const [savedClass, setSavedClass] = useState(null);
   const [errorFocusKey, setErrorFocusKey] = useState(0);
+  const [noticeFocusKey, setNoticeFocusKey] = useState(0);
   const headingRef = useRef(null);
   const errorRef = useRef(null);
+  const noticeRef = useRef(null);
   const saveInProgress = useRef(false);
   const requestVersion = useRef(0);
 
@@ -117,6 +119,13 @@ export default function ClassEditPage () {
     if (errorFocusKey > 0 && errorRef.current) errorRef.current.focus();
   }, [errorFocusKey]);
 
+  useEffect(() => {
+    if (noticeFocusKey > 0 && noticeRef.current) {
+      noticeRef.current.focus();
+      noticeRef.current.scrollIntoView({ block: 'center', inline: 'nearest' });
+    }
+  }, [noticeFocusKey]);
+
   function handleChange (event) {
     const { name, value } = event.target;
     setValues((previous) => {
@@ -151,6 +160,7 @@ export default function ClassEditPage () {
     const changes = changedClassFields(serializeClassForm(values), original);
     if (Object.keys(changes).length === 0) {
       setNotice('Nenhuma alteração para salvar.');
+      setNoticeFocusKey((key) => key + 1);
       return;
     }
 
@@ -263,7 +273,6 @@ export default function ClassEditPage () {
             )}
           </ErrorSummary>
         )}
-        {notice && <p role="status">{notice}</p>}
         {isSaving && <p role="status">Salvando turma...</p>}
         <ClassForm
           values={values}
@@ -271,6 +280,8 @@ export default function ClassEditPage () {
           onSubmit={handleSubmit}
           errors={errors}
           submitting={isSaving}
+          notice={notice}
+          noticeRef={noticeRef}
           onBack={() => history.push(detailPath)}
           submitLabel="Salvar alterações"
           cancelLabel="Cancelar"

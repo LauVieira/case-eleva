@@ -10,6 +10,7 @@ export default function ClassForm (props) {
   const {
     values, onChange, onSubmit, errors = {}, submitting = false, onBack,
     submitLabel = 'Cadastrar turma', cancelLabel = 'Voltar para as turmas',
+    notice = '', noticeRef,
   } = props;
   const grades = GRADES_BY_SEGMENT[values.segment] || [];
   const gradeLabel = gradeFieldLabel(values.segment);
@@ -177,6 +178,11 @@ export default function ClassForm (props) {
         </Form.Text>
       </Form.Group>
 
+      {notice && (
+        <Notice ref={noticeRef} tabIndex={-1} role="status">
+          {notice}
+        </Notice>
+      )}
       <Actions>
         <SubmitButton type="submit" disabled={submitting}>
           {submitting ? 'Salvando...' : submitLabel}
@@ -190,6 +196,10 @@ export default function ClassForm (props) {
     </Form>
   );
 }
+
+const Notice = styled.p`
+  margin-bottom: 12px;
+`;
 
 const Actions = styled.div`
   align-items: center;

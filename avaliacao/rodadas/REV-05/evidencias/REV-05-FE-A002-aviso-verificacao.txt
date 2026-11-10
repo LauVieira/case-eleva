@@ -1,0 +1,37 @@
+REV-05 / REV-05-FE-A002 — verificação do aviso de nenhuma alteração
+Data: 2026-11-09T21:55:00-03:00
+Responsável: Grok 4.7, no Cursor, a pedido de Laura Vieira.
+Frontend base: d0665d4579f9c12f4c0583a351ccf70f05a36db3, branch main, mensagem chore: nova rodada de review.
+Identificação original do achado: 786011554113870b35a08c3d67d5030b016a5028.
+Alteração local ainda sem commit: src/pages/SchoolEditPage.js, src/pages/ClassEditPage.js, src/components/SchoolForm.js e src/components/ClassForm.js.
+Ambiente: Windows, frontend já em http://localhost:9000, API já em http://localhost:3000, Chrome do Cursor, viewport 1280x720 na medição depois. Nenhuma gravação.
+
+SHA-256 antes
+src/pages/SchoolEditPage.js dd82a94bd6d1b46dacbec6b4f78c525ad158360d8352590a40aa1afa8b0b0dd4
+src/pages/ClassEditPage.js 0fbfc57570888be722a875574d7f47bbdf9390558e849cd5f6238d36edda085f
+src/components/SchoolForm.js 18ff6993a96b08cab8a057e07f04ba1cf2f6651cdbfd4c78ade223207a1aa23c
+src/components/ClassForm.js d1125188f513c54ef85fa9c0740c76f53c1fdb992a57d1c13df5e27230848dd7
+
+SHA-256 depois
+src/pages/SchoolEditPage.js f81c085b76b3663a88eb5e8650c45e689c8c528cf1aa011be61655916dd2a733
+src/pages/ClassEditPage.js 154d0c8cefda1dee30c5e5ebecb12dc90a5670872150c435d2a6a2d3f37167de
+src/components/SchoolForm.js 152a1d021283500e8fefe917ffe2aababe4be8afa234dcc4996d61884462878f
+src/components/ClassForm.js d74961df979766d14e3f7eafbc4b1695e524265361bfda53628f1f140eb8a270
+
+ANTES
+REV-05-FE-A002-aviso-antes.txt
+REV-05-FE-A002-aviso-navegador-antes.json
+Esperado: o aviso fica acima do formulário, longe do botão, e o foco não vai para ele.
+Observado em /escola/2/editar, viewport de 1080 px de altura, sem alterar campos: texto "Nenhuma alteração para salvar.", foco no h1 Editar escola, aviso em top 241 e botão Salvar alterações em top 883. Distância de 618 px. A página continuou na edição.
+
+DEPOIS
+Patch: REV-05-FE-A002-aviso-correcao.patch.
+O aviso passou para imediatamente acima dos botões, nas duas edições, com role status, tabIndex -1 e foco. A rolagem centraliza a mensagem.
+Resultado: REV-05-FE-A002-aviso-navegador-depois.json.
+Esperado: aviso visível junto de Salvar alterações e foco nele, sem enviar a edição.
+Observado, viewport 1280x720:
+1. Escola 2: aviso focado, top 598, botão top 642, distância 20 px, os dois na área visível, título Editar escola.
+2. Turma 8, escola 6: o mesmo resultado, título Editar turma.
+3. Na escola 2, incluir e remover um espaço no nome apagou o aviso e devolveu o valor original. Não houve salvamento.
+
+A autora confirmou o problema antes da correção. Ela ainda não viu esta tela corrigida. Não houve commit. O anúncio com NVDA continua para a etapa final.

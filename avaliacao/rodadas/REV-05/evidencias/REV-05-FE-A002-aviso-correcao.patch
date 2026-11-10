@@ -1,0 +1,178 @@
+diff --git a/src/components/ClassForm.js b/src/components/ClassForm.js
+index d9909aa..72d655b 100644
+--- a/src/components/ClassForm.js
++++ b/src/components/ClassForm.js
+@@ -10,6 +10,7 @@ export default function ClassForm (props) {
+   const {
+     values, onChange, onSubmit, errors = {}, submitting = false, onBack,
+     submitLabel = 'Cadastrar turma', cancelLabel = 'Voltar para as turmas',
++    notice = '', noticeRef,
+   } = props;
+   const grades = GRADES_BY_SEGMENT[values.segment] || [];
+   const gradeLabel = gradeFieldLabel(values.segment);
+@@ -177,6 +178,11 @@ export default function ClassForm (props) {
+         </Form.Text>
+       </Form.Group>
+ 
++      {notice && (
++        <Notice ref={noticeRef} tabIndex={-1} role="status">
++          {notice}
++        </Notice>
++      )}
+       <Actions>
+         <SubmitButton type="submit" disabled={submitting}>
+           {submitting ? 'Salvando...' : submitLabel}
+@@ -191,6 +197,10 @@ export default function ClassForm (props) {
+   );
+ }
+ 
++const Notice = styled.p`
++  margin-bottom: 12px;
++`;
++
+ const Actions = styled.div`
+   align-items: center;
+   display: flex;
+diff --git a/src/components/SchoolForm.js b/src/components/SchoolForm.js
+index 3d1e702..37c88bf 100644
+--- a/src/components/SchoolForm.js
++++ b/src/components/SchoolForm.js
+@@ -8,6 +8,7 @@ export default function SchoolForm (props) {
+     submitLabel = 'Cadastrar escola',
+     sectorHelp = 'A escola será cadastrada no setor selecionado.',
+     errors = {}, submitting = false, onCancel,
++    notice = '', noticeRef,
+   } = props;
+ 
+   return (
+@@ -132,6 +133,11 @@ export default function SchoolForm (props) {
+         </Form.Text>
+       </Form.Group>
+ 
++      {notice && (
++        <Notice ref={noticeRef} tabIndex={-1} role="status">
++          {notice}
++        </Notice>
++      )}
+       <Actions>
+         <SubmitButton type="submit" disabled={submitting}>
+           {submitting ? 'Salvando...' : submitLabel}
+@@ -146,6 +152,10 @@ export default function SchoolForm (props) {
+   );
+ }
+ 
++const Notice = styled.p`
++  margin-bottom: 12px;
++`;
++
+ const Actions = styled.div`
+   display: flex;
+   flex-wrap: wrap;
+diff --git a/src/pages/ClassEditPage.js b/src/pages/ClassEditPage.js
+index 7076ba7..d0cc09e 100644
+--- a/src/pages/ClassEditPage.js
++++ b/src/pages/ClassEditPage.js
+@@ -45,8 +45,10 @@ export default function ClassEditPage () {
+   const [isSaving, setIsSaving] = useState(false);
+   const [savedClass, setSavedClass] = useState(null);
+   const [errorFocusKey, setErrorFocusKey] = useState(0);
++  const [noticeFocusKey, setNoticeFocusKey] = useState(0);
+   const headingRef = useRef(null);
+   const errorRef = useRef(null);
++  const noticeRef = useRef(null);
+   const saveInProgress = useRef(false);
+   const requestVersion = useRef(0);
+ 
+@@ -117,6 +119,13 @@ export default function ClassEditPage () {
+     if (errorFocusKey > 0 && errorRef.current) errorRef.current.focus();
+   }, [errorFocusKey]);
+ 
++  useEffect(() => {
++    if (noticeFocusKey > 0 && noticeRef.current) {
++      noticeRef.current.focus();
++      noticeRef.current.scrollIntoView({ block: 'center', inline: 'nearest' });
++    }
++  }, [noticeFocusKey]);
++
+   function handleChange (event) {
+     const { name, value } = event.target;
+     setValues((previous) => {
+@@ -151,6 +160,7 @@ export default function ClassEditPage () {
+     const changes = changedClassFields(serializeClassForm(values), original);
+     if (Object.keys(changes).length === 0) {
+       setNotice('Nenhuma alteração para salvar.');
++      setNoticeFocusKey((key) => key + 1);
+       return;
+     }
+ 
+@@ -263,7 +273,6 @@ export default function ClassEditPage () {
+             )}
+           </ErrorSummary>
+         )}
+-        {notice && <p role="status">{notice}</p>}
+         {isSaving && <p role="status">Salvando turma...</p>}
+         <ClassForm
+           values={values}
+@@ -271,6 +280,8 @@ export default function ClassEditPage () {
+           onSubmit={handleSubmit}
+           errors={errors}
+           submitting={isSaving}
++          notice={notice}
++          noticeRef={noticeRef}
+           onBack={() => history.push(detailPath)}
+           submitLabel="Salvar alterações"
+           cancelLabel="Cancelar"
+diff --git a/src/pages/SchoolEditPage.js b/src/pages/SchoolEditPage.js
+index 147594e..e75d98d 100644
+--- a/src/pages/SchoolEditPage.js
++++ b/src/pages/SchoolEditPage.js
+@@ -35,8 +35,10 @@ export default function SchoolEditPage () {
+   const [isSaving, setIsSaving] = useState(false);
+   const [savedSchool, setSavedSchool] = useState(null);
+   const [errorFocusKey, setErrorFocusKey] = useState(0);
++  const [noticeFocusKey, setNoticeFocusKey] = useState(0);
+   const headingRef = useRef(null);
+   const errorRef = useRef(null);
++  const noticeRef = useRef(null);
+   const saveInProgress = useRef(false);
+   const requestVersion = useRef(0);
+ 
+@@ -104,6 +106,13 @@ export default function SchoolEditPage () {
+     if (errorFocusKey > 0 && errorRef.current) errorRef.current.focus();
+   }, [errorFocusKey]);
+ 
++  useEffect(() => {
++    if (noticeFocusKey > 0 && noticeRef.current) {
++      noticeRef.current.focus();
++      noticeRef.current.scrollIntoView({ block: 'center', inline: 'nearest' });
++    }
++  }, [noticeFocusKey]);
++
+   function handleChange (event) {
+     const { name, value } = event.target;
+     setValues((previous) => ({ ...previous, [name]: value }));
+@@ -131,6 +140,7 @@ export default function SchoolEditPage () {
+     );
+     if (Object.keys(changes).length === 0) {
+       setNotice('Nenhuma alteração para salvar.');
++      setNoticeFocusKey((key) => key + 1);
+       return;
+     }
+ 
+@@ -227,7 +237,6 @@ export default function SchoolEditPage () {
+             )}
+           </ErrorSummary>
+         )}
+-        {notice && <p role="status">{notice}</p>}
+         {isSaving && <p role="status">Salvando alterações...</p>}
+         <SchoolForm
+           values={values}
+@@ -238,6 +247,8 @@ export default function SchoolEditPage () {
+           sectorHelp="A escola ficará no setor selecionado. Suas turmas permanecem vinculadas à mesma escola."
+           errors={errors}
+           submitting={isSaving}
++          notice={notice}
++          noticeRef={noticeRef}
+           onCancel={() => history.push(`/escola/${schoolId}`)}
+         />
+       </>
