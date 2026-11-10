@@ -16,3 +16,7 @@ body {
   outline: dodgerblue solid 2px;
   outline-offset: 8px;
 }
+
+.floating-focus.helper::after {
+  opacity: 0 !important;
+}

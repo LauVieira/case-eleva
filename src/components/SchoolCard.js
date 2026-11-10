@@ -55,7 +55,7 @@ export default function SchoolCard (props) {
 
       </Card.Body>
 
-      <StyledListGroup className="list-group-flush">
+      <StyledListGroup className="list-group-flush" activeKey={null}>
 
         <SchoolItem action href={link}>
           <SiGoogleclassroom aria-hidden="true" focusable="false" /> Ver turmas
@@ -103,6 +103,16 @@ const CardText = styled(Card.Text)``;
 
 const SchoolItem = styled(ListGroup.Item)`
   cursor: pointer;
+
+  &&,
+  &&:hover,
+  &&:focus,
+  &&:active,
+  &&.active {
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.125);
+    color: #495057;
+  }
 
   svg {
     margin: 0 5px -2px 0;
