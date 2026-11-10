@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   Alert, Button, Card, Container,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import ContextLink from '../components/ContextLink';
 import api from '../services/api';
 import { formatSchoolName } from '../utils/schoolForm';
 
@@ -125,7 +126,7 @@ export default function SectorPage () {
         </PageTitle>
         {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
         {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
-        <Link to="/">Voltar aos setores</Link>
+        <ContextLink to="/">Voltar aos setores</ContextLink>
       </ContextBar>
 
       {isLoading && !sectorMissing && <p role="status">Carregando...</p>}

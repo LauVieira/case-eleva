@@ -1,0 +1,5 @@
+REV-05 / REV-05-FE-A003 — reversão da regra global
+Data: 2026-11-09T22:18:00-03:00
+A autora pediu para desfazer a cor aplicada em a e a:visited, porque ela trocou a letra de outros lugares.
+public/styles/styles.css voltou ao commit ec78f9594bc1a03b35e0e7723469e6832000511a.
+Este arquivo foi reescrito depois do rollback para o histórico do achado continuar apontando para uma evidência existente.

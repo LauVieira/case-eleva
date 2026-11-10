@@ -119,11 +119,11 @@ Examinado sem apontamento não significa aprovação do critério inteiro. Onde 
 
 ## Fechamento pela autora
 
-- Data e versão após intervenções: não informado
-- IDs reavaliados: REV-05-FE-A002, corrigido e verificado no navegador em 2026-11-09, ainda sem commit
-- IDs que permanecem pendentes: REV-05-FE-A003, aguardando confirmação. REV-05-FE-A002 foi confirmado, corrigido e verificado no recorte em 2026-11-09; a autora ainda não viu a tela corrigida. REV-05-FE-A001 foi rejeitado.
-- Arquivos de reavaliação: avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-navegador-antes.json, REV-05-FE-A002-aviso-correcao.patch, REV-05-FE-A002-aviso-navegador-depois.json e REV-05-FE-A002-aviso-verificacao.txt
+- Data e versão após intervenções: 2026-11-09, commit ec78f9594bc1a03b35e0e7723469e6832000511a, mensagem chore: reposition nothing to edit message, de Laura Vieira. Esse commit corrige o REV-05-FE-A002. O JSON gravado dentro dele ainda apontava a correção para d0665d4579f9c12f4c0583a351ccf70f05a36db3; a vinculação foi recolocada no registro.
+- IDs reavaliados: REV-05-FE-A002, verificado no navegador antes do commit. A vinculação de ec78f95 confere as quatro fontes e não repete esse teste. A autora aprovou a tela corrigida.
+- IDs que permanecem pendentes: REV-05-FE-A003 corrigido no recorte com ContextLink, ainda sem o olhar da autora e sem as listas carregadas, porque a API não respondeu. REV-05-FE-A001 foi rejeitado.
+- Arquivos de reavaliação: avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-navegador-antes.json, REV-05-FE-A002-aviso-correcao.patch, REV-05-FE-A002-aviso-navegador-depois.json, REV-05-FE-A002-aviso-verificacao.txt e REV-05-FE-A002-aviso-vinculacao-ec78f95.txt
 - Limites da cobertura e destino das verificações pendentes: NVDA e usuários continuam na etapa final; teclado, alerta de exclusão e turma persistida dependem de nova conferência de interface. A listagem de escolas foi conferida pela autora e o REV-05-FE-A001 não segue.
 - Decisão de fechamento: pendente da autora
 
-Esta seção de fechamento apenas reserva a decisão humana. A confirmação de cada achado não foi preenchida.
+A autora aprovou a correção do REV-05-FE-A002. O commit que a contém é ec78f9594bc1a03b35e0e7723469e6832000511a. O REV-05-FE-A003 segue aberto.

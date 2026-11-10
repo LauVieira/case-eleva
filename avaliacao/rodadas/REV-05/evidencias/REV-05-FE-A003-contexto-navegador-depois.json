@@ -1,0 +1,21 @@
+{
+  "id": "REV-05-FE-A003",
+  "momento": "depois-do-componente",
+  "data": "2026-11-09T22:28:00-03:00",
+  "api": "http://localhost:3000 não respondeu. As listas com dados não foram renderizadas.",
+  "setor": {
+    "url": "http://localhost:9000/setor/2",
+    "voltar_aos_setores": "rgb(0, 105, 217)",
+    "atalho": "rgb(37, 17, 125)",
+    "marca": "rgb(255, 255, 255)"
+  },
+  "escola_erro": {
+    "url": "http://localhost:9000/escola/2",
+    "voltar_aos_setores": "rgb(0, 105, 217)",
+    "tentar_novamente": "rgb(255, 255, 255)",
+    "marca": "rgb(255, 255, 255)",
+    "atalho": "rgb(37, 17, 125)"
+  },
+  "razao_0069d9_sobre_branco": 5.22,
+  "observado": "Só Voltar aos setores mudou para rgb(0, 105, 217). Marca, atalho e o botão Tentar novamente ficaram como estavam."
+}

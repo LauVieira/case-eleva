@@ -1,0 +1,19 @@
+REV-05 / REV-05-FE-A002 — vinculação do commit
+Data: 2026-11-09T22:05:32-03:00
+Commit: ec78f9594bc1a03b35e0e7723469e6832000511a
+Mensagem: chore: reposition nothing to edit message
+Autora: Laura Vieira
+Branch: main
+Ancestral: d0665d4579f9c12f4c0583a351ccf70f05a36db3
+
+Este arquivo foi reescrito depois do rollback, porque a cópia anterior saiu do disco. A comparação abaixo foi refeita contra o commit, sem novo teste no navegador.
+
+Fontes: src/pages/SchoolEditPage.js, src/pages/ClassEditPage.js, src/components/SchoolForm.js e src/components/ClassForm.js.
+O texto dos hunks dessas quatro fontes em ec78f95 é o da correção verificada em REV-05-FE-A002-aviso-correcao.patch.
+SHA-256 no commit, iguais aos do depois em REV-05-FE-A002-aviso-verificacao.txt:
+src/pages/SchoolEditPage.js f81c085b76b3663a88eb5e8650c45e689c8c528cf1aa011be61655916dd2a733
+src/pages/ClassEditPage.js 154d0c8cefda1dee30c5e5ebecb12dc90a5670872150c435d2a6a2d3f37167de
+src/components/SchoolForm.js 152a1d021283500e8fefe917ffe2aababe4be8afa234dcc4996d61884462878f
+src/components/ClassForm.js d74961df979766d14e3f7eafbc4b1695e524265361bfda53628f1f140eb8a270
+
+A autora disse que gostou e que ficou bom. Essa aprovação e a vinculação do commit não estavam no JSON gravado dentro de ec78f95, que ainda apontava a correção para d0665d4579f9c12f4c0583a351ccf70f05a36db3 e dizia que ela não tinha visto a tela corrigida.

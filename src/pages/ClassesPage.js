@@ -9,6 +9,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import ContextLink from '../components/ContextLink';
 import api from '../services/api';
 import { formatClassName, formatClassStatus } from '../utils/classForm';
 import { formatSchoolName } from '../utils/schoolForm';
@@ -130,12 +131,12 @@ export default function ClassesPage () {
           <p>
             Escola:
             {' '}
-            <Link to={`/escola/${id}`}>{schoolName}</Link>
+            <ContextLink to={`/escola/${id}`}>{schoolName}</ContextLink>
           </p>
         )}
         {schoolMissing
           ? <Link to="/">Ver setores</Link>
-          : <Link to={`/escola/${id}`}>Voltar para a escola</Link>}
+          : <ContextLink to={`/escola/${id}`}>Voltar para a escola</ContextLink>}
       </ContextBar>
 
       {!schoolMissing && (

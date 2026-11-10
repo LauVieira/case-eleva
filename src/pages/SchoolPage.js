@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Container } from 'react-bootstrap';
 
 import Header from '../components/Header';
+import ContextLink from '../components/ContextLink';
 import SchoolCard from '../components/SchoolCard';
 import SchoolDeleteModal from '../components/SchoolDeleteModal';
 import api from '../services/api';
@@ -79,7 +80,7 @@ export default function SchoolPage () {
             {!loadError.notFound && (
               <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>Tentar novamente</Button>
             )}
-            <Link to="/">Voltar aos setores</Link>
+            <ContextLink to="/">Voltar aos setores</ContextLink>
           </QueryError>
         )}
         {!schoolData && !loadError && (
@@ -121,7 +122,7 @@ function renderSectorContext (school, sectors, sectorsFailed) {
     return (
       <>
         <p role="alert">Não foi possível identificar o setor.</p>
-        <Link to={sectorPath}>Voltar ao setor</Link>
+        <ContextLink to={sectorPath}>Voltar ao setor</ContextLink>
       </>
     );
   }
@@ -133,13 +134,13 @@ function renderSectorContext (school, sectors, sectorsFailed) {
       <p>
         Setor:
         {' '}
-        <Link to={sectorPath}>{sector.name}</Link>
+        <ContextLink to={sectorPath}>{sector.name}</ContextLink>
         {' · '}
         Código:
         {' '}
         <strong>{sector.code}</strong>
       </p>
-      <Link to={sectorPath}>Voltar ao setor</Link>
+      <ContextLink to={sectorPath}>Voltar ao setor</ContextLink>
     </>
   );
 }
