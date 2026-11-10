@@ -23,4 +23,5 @@ Observado:
 3. /escola/6/classes — h1 Turmas; /schools/6/classes?status=current e /schools/6
 Busca em src: http://localhost:3000 ficou só em src/services/api.js.
 
-A confirmação da autora permanece pendente. Não houve commit.
+A confirmação da autora foi registrada em 2026-11-09, com o commit 786011554113870b35a08c3d67d5030b016a5028. Observação pedida por ela: o ajuste tem relação direta com o princípio de não repetir código do Clean Code. O endereço da API deixa de ser escrito de novo em cada listagem e permanece só em src/services/api.js.
+

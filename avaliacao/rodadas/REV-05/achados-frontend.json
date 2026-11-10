@@ -1,0 +1,135 @@
+{
+  "tipo_documento": "revisao",
+  "versao_formato": "1.0",
+  "rodada": "REV-05",
+  "execucao": "r01",
+  "achados": [
+    {
+      "id": "REV-05-FE-A001",
+      "titulo": "Listagem de escolas não informa o resultado vazio",
+      "rodada_identificacao": "REV-05",
+      "data_identificacao": "2026-11-09",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "786011554113870b35a08c3d67d5030b016a5028",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src, public, server.js ou webpack.config.js. package-lock.json modificado e HANDOVER_front.md não rastreado; nenhum dos dois foi tratado como comportamento da interface."
+      },
+      "categoria": [
+        "usabilidade",
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE10",
+        "H01",
+        "H04",
+        "A39"
+      ],
+      "localizacao": "src/pages/SectorPage.js, lista de escolas de /setor/:id quando a consulta retorna array vazio",
+      "descricao": "Recorte ainda aberto de REV-03-FE-A012. O carregamento infinito, o alert genérico e a omissão do cartão de adicionar não foram revistos aqui: a listagem mostra Carregando, o erro com Tentar novamente e o cartão Adicionar Escola mesmo sem escolas. O que permanece é o resultado vazio da lista de escolas. Setores sem registros dizem Nenhum setor cadastrado e turmas dizem Nenhuma turma ativa, Nenhuma turma nesta escola ou Nenhuma turma encerrada, com role status. A lista de escolas, no mesmo estado, renderiza só o cartão Adicionar Escola, que também aparece quando já existem escolas. Não há frase de vazio nem região de estado para esse resultado.",
+      "evidencia": "Commit 786011554113870b35a08c3d67d5030b016a5028. Em SectorPage.js, o ramo !isLoading && !loadError && !sectorMissing monta a grade com Adicionar Escola e o map das escolas, sem mensagem quando schools.length é 0. Em ClassesPage.js, o vazio usa o texto de STATUS_FILTERS com role status. Em LandingPage.js, o vazio é o parágrafo Nenhum setor cadastrado. Nesta execução, /setor/2 tinha quatro escolas, então a tela vazia não foi renderizada. A ausência do texto está no ramo de renderização.",
+      "impacto": "Depois do carregamento, a pessoa vê apenas a ação de cadastrar. Não fica explícito que a consulta terminou sem escolas, ao contrário das outras duas coleções do mesmo percurso.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "No resultado vazio, mostrar uma mensagem textual no mesmo padrão já usado para setores e turmas, sem esconder Adicionar Escola.",
+      "verificacao_pendente": null,
+      "confirmacao_autora": "rejeitado",
+      "justificativa_confirmacao": "Laura Vieira decidiu em 2026-11-09 desconsiderar REV-05-FE-A001. Ela confirmou na página que a listagem está visualmente correta. O achado não entra no consolidado nem nos resultados do TCC. Não houve correção.",
+      "situacao": "rejeitado",
+      "duplicado_de": "REV-03-FE-A012",
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": [
+        {
+          "data": "2026-11-09T21:40:00-03:00",
+          "rodada": "REV-05",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "786011554113870b35a08c3d67d5030b016a5028",
+            "backend": null,
+            "alteracoes_locais": "Nenhuma alteração de código para este achado."
+          },
+          "resultado": "rejeitado. Não considerável para o consolidado nem para os resultados do TCC.",
+          "evidencia": "Pedido desta conversa em 2026-11-09. A autora confirmou na página que a listagem está visualmente correta."
+        }
+      ]
+    },
+    {
+      "id": "REV-05-FE-A002",
+      "titulo": "Salvar sem mudanças não traz a mensagem para a ação",
+      "rodada_identificacao": "REV-05",
+      "data_identificacao": "2026-11-09",
+      "origem": "revisao_ia",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "786011554113870b35a08c3d67d5030b016a5028",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src, public, server.js ou webpack.config.js. package-lock.json modificado e HANDOVER_front.md não rastreado; nenhum dos dois foi tratado como comportamento da interface."
+      },
+      "categoria": [
+        "usabilidade",
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE10",
+        "H01",
+        "A39"
+      ],
+      "localizacao": "src/pages/SchoolEditPage.js e src/pages/ClassEditPage.js, envio sem diferença em relação ao original",
+      "descricao": "Achado novo. Se a edição não altera nenhum campo, as duas páginas interrompem o envio e definem o texto Nenhuma alteração para salvar em um parágrafo com role status, acima do formulário. Não movem o foco para essa mensagem nem rolam a página até ela. O botão permanece Salvar alterações. No formulário de escola medido nesta execução, o form tinha 640 px de altura e o botão ficava no fim. Em uma viewport de 720 px, com o botão já rolado para a área visível, o ponto em que a mensagem entra estava nos 40 px do topo. Em alturas menores, esse ponto fica acima da área visível.",
+      "evidencia": "Commit 786011554113870b35a08c3d67d5030b016a5028. SchoolEditPage.handleSubmit e ClassEditPage.handleSubmit retornam depois de setNotice, sem errorFocusKey, focus ou scrollIntoView. O parágrafo só é montado quando notice está preenchido, antes de SchoolForm ou ClassForm. Em /escola/2/editar, no Chrome do Cursor, viewport 1280x720, o form mediu top 40, altura 640 e o botão top 642, com scrollY 201. O clique em Salvar alterações não foi executado, para não disparar gravação; a posição é a do ponto de inserção da mensagem.",
+      "impacto": "Quem aciona Salvar no fim do formulário pode não ver resposta nenhuma. A edição não é enviada, mas a tela do botão continua igual.",
+      "prioridade": "media",
+      "classificacao": "confirmado_no_codigo",
+      "sugestao": "Ao informar que não há alteração, levar o foco à mensagem ou rolá-la para junto do botão acionado, nas duas edições.",
+      "verificacao_pendente": "Acionar Salvar alterações sem editar campos e observar a mensagem na área visível. O anúncio do role status fica para o NVDA da etapa final.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    },
+    {
+      "id": "REV-05-FE-A003",
+      "titulo": "Links de navegação ficam abaixo de 4,5:1",
+      "rodada_identificacao": "REV-05",
+      "data_identificacao": "2026-11-09",
+      "origem": "navegador",
+      "repositorio": "frontend",
+      "versao_codigo": {
+        "frontend": "786011554113870b35a08c3d67d5030b016a5028",
+        "backend": null,
+        "alteracoes_locais": "Nenhuma alteração em src, public, server.js ou webpack.config.js. package-lock.json modificado e HANDOVER_front.md não rastreado; nenhum dos dois foi tratado como comportamento da interface."
+      },
+      "categoria": [
+        "acessibilidade"
+      ],
+      "tipo": "defeito",
+      "requisitos": [
+        "FE11",
+        "A30"
+      ],
+      "localizacao": "Links textuais sem cor própria sobre fundo branco: Voltar aos setores, nome do setor, Voltar ao setor, nome da escola e Voltar para a escola. public/index.html carrega o Bootstrap 4.0.0, e public/styles/styles.css não redefine a cor de a.",
+      "descricao": "Achado novo. Os links de retorno e de contexto usam o Link do React Router sem cor própria. Na tela, a cor computada é rgb(0, 123, 255), o #007bff do Bootstrap 4, em texto de 16 px e peso 400, sobre fundo branco. A razão medida pelo pacote color-contrast do projeto é 3,98:1, abaixo do mínimo de 4,5:1 para texto que não é grande. O mesmo azul, se permanecer dentro do alerta vermelho da exclusão bloqueada, calcula 2,98:1 sobre #f8d7da. Esse alerta não foi aberto nesta execução. Os textos de ajuda medidos saíram em rgb(33, 37, 41), e os links de ação Ver turmas, Editar escola e Excluir escola saíram em rgb(73, 80, 87); esses pares não entram neste achado.",
+      "evidencia": "Commit 786011554113870b35a08c3d67d5030b016a5028. Chrome do Cursor em http://localhost:9000/setor/2: o link Voltar aos setores tinha color rgb(0, 123, 255), font-size 16px e font-weight 400. Em /escola/2, Setor Amarelo e Voltar ao setor repetiram rgb(0, 123, 255) a 16 px. Cálculo com color-contrast 1.0.0: #007bff sobre #ffffff = 3,98; #007bff sobre #f8d7da = 2,98. As cores dos cartões de setor da API, com a regra atual de LandingPage.js, ficaram todas em ou acima de 4,5:1 e não fazem parte deste achado.",
+      "impacto": "O caminho de volta e o nome do setor ou da escola, que identificam o contexto da tarefa, ficam com contraste insuficiente no fundo branco usado pelas telas.",
+      "prioridade": "alta",
+      "classificacao": "confirmado_em_execucao",
+      "sugestao": "Definir para esses links uma cor com pelo menos 4,5:1 sobre branco e sobre o fundo do alerta de erro, em vez do azul padrão do Bootstrap 4.",
+      "verificacao_pendente": "Medir o link dentro do alerta de exclusão bloqueada, que não foi aberto nesta execução.",
+      "confirmacao_autora": "pendente",
+      "justificativa_confirmacao": null,
+      "situacao": "aguardando_confirmacao",
+      "duplicado_de": null,
+      "correcao": null,
+      "reavaliacao": null,
+      "historico": []
+    }
+  ]
+}
