@@ -86,21 +86,21 @@
       "prioridade": "media",
       "classificacao": "confirmado_no_codigo",
       "sugestao": "Mostrar Nenhuma alteração para salvar imediatamente acima dos botões Salvar e Cancelar, nas duas edições, e mover o foco para essa mensagem. O cadastro não usa esse aviso.",
-      "verificacao_pendente": "A autora ainda não viu a tela corrigida. O anúncio com NVDA fica para a etapa final.",
+      "verificacao_pendente": "O anúncio com NVDA fica para a etapa final.",
       "confirmacao_autora": "confirmado",
-      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09 o problema: concordou com o achado e relatou que quase não viu o aviso. A correção posterior foi verificada no navegador, sem confirmação dela sobre a tela corrigida.",
+      "justificativa_confirmacao": "Laura Vieira confirmou o problema em 2026-11-09 e relatou que quase não viu o aviso. Depois da correção, disse que gostou e que ficou bom, e commitou ec78f9594bc1a03b35e0e7723469e6832000511a.",
       "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
       "correcao": {
         "rodada": "REV-05",
         "versao_codigo": {
-          "frontend": "d0665d4579f9c12f4c0583a351ccf70f05a36db3",
+          "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
           "backend": null,
-          "alteracoes_locais": "src/pages/SchoolEditPage.js, src/pages/ClassEditPage.js, src/components/SchoolForm.js e src/components/ClassForm.js ainda sem commit. Patch em avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-correcao.patch."
+          "alteracoes_locais": "Nenhuma nas quatro fontes depois do commit. package-lock.json continua modificado e não faz parte desta correção. HANDOVER_front.md foi removido pela autora."
         },
-        "descricao": "O aviso Nenhuma alteração para salvar passou para imediatamente acima dos botões, na edição de escola e na edição de turma. O foco vai para a mensagem e a rolagem a centraliza. O cadastro não exibe esse aviso.",
-        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
-        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-correcao.patch e REV-05-FE-A002-aviso-verificacao.txt."
+        "descricao": "O aviso Nenhuma alteração para salvar passou para imediatamente acima dos botões, na edição de escola e na edição de turma. O foco vai para a mensagem e a rolagem a centraliza. O cadastro não exibe esse aviso. O commit ec78f9594bc1a03b35e0e7723469e6832000511a contém o mesmo patch verificado.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira. Commit de Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-antes.txt, REV-05-FE-A002-aviso-correcao.patch, REV-05-FE-A002-aviso-verificacao.txt e REV-05-FE-A002-aviso-vinculacao-ec78f95.txt."
       },
       "reavaliacao": {
         "rodada": "REV-05",
@@ -153,6 +153,32 @@
           },
           "resultado": "resolveu_no_recorte",
           "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-navegador-depois.json e REV-05-FE-A002-aviso-verificacao.txt."
+        },
+        {
+          "data": "2026-11-09T22:05:32-03:00",
+          "rodada": "REV-05",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": null
+          },
+          "resultado": "aprovou a tela corrigida. Disse que gostou e que ficou bom.",
+          "evidencia": "Pedido desta conversa em 2026-11-09."
+        },
+        {
+          "data": "2026-11-09T22:05:32-03:00",
+          "rodada": "REV-05",
+          "evento": "vinculacao_commit",
+          "responsavel": "Grok 4.7, no Cursor, a partir do commit informado por Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "Nenhuma nas quatro fontes. package-lock.json modificado e HANDOVER_front.md sem rastreamento ficam fora da correção."
+          },
+          "resultado": "o commit contém o patch verificado. Esta associação não repete o teste no navegador.",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A002-aviso-vinculacao-ec78f95.txt."
         }
       ]
     },
@@ -183,14 +209,115 @@
       "prioridade": "alta",
       "classificacao": "confirmado_em_execucao",
       "sugestao": "Definir para esses links uma cor com pelo menos 4,5:1 sobre branco e sobre o fundo do alerta de erro, em vez do azul padrão do Bootstrap 4.",
-      "verificacao_pendente": "Medir o link dentro do alerta de exclusão bloqueada, que não foi aberto nesta execução.",
-      "confirmacao_autora": "pendente",
-      "justificativa_confirmacao": null,
-      "situacao": "aguardando_confirmacao",
+      "verificacao_pendente": "A API estava fora na verificação. Nome do setor, Voltar ao setor, nome da escola e Voltar para a escola usam o mesmo componente, mas não foram vistos com dados carregados. O anúncio com NVDA fica para a etapa final.",
+      "confirmacao_autora": "confirmado",
+      "justificativa_confirmacao": "Laura Vieira confirmou em 2026-11-09 que o azul dos links de contexto estava mais claro. A regra global foi desfeita a pedido dela. A correção seguinte usa um componente só nesses links.",
+      "situacao": "resolvido_no_recorte",
       "duplicado_de": null,
-      "correcao": null,
-      "reavaliacao": null,
-      "historico": []
+      "correcao": {
+        "rodada": "REV-05",
+        "versao_codigo": {
+          "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+          "backend": null,
+          "alteracoes_locais": "src/components/ContextLink.js, src/pages/SectorPage.js, src/pages/SchoolPage.js e src/pages/ClassesPage.js sem commit. Patch REV-05-FE-A003-contexto-correcao.patch."
+        },
+        "descricao": "Voltar aos setores, o nome do setor, Voltar ao setor, o nome da escola e Voltar para a escola passaram a usar ContextLink, com #0069d9. A regra global de link não foi recolocada.",
+        "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contexto-correcao.patch e REV-05-FE-A003-contexto-verificacao.txt."
+      },
+      "reavaliacao": {
+        "rodada": "REV-05",
+        "versao_codigo": {
+          "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+          "backend": null,
+          "alteracoes_locais": "ContextLink e as três páginas, sem commit."
+        },
+        "metodo": "Cor computada no Chrome em /setor/2 e no erro de /escola/2. A API não respondeu, então as listas com dados não apareceram.",
+        "responsavel": "Grok 4.7, no Cursor.",
+        "resultado": "resolveu_no_recorte",
+        "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contexto-navegador-antes.json, REV-05-FE-A003-contexto-navegador-depois.json e REV-05-FE-A003-contexto-verificacao.txt. Voltar aos setores passou de rgb(0, 123, 255) para rgb(0, 105, 217). Marca, atalho e o botão Tentar novamente não mudaram."
+      },
+      "historico": [
+        {
+          "data": "2026-11-09T22:10:00-03:00",
+          "rodada": "REV-05",
+          "evento": "confirmacao_autora",
+          "responsavel": "Laura Vieira",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "Nenhuma alteração de código antes da confirmação."
+          },
+          "resultado": "confirmado. A autora conferiu e disse que o azul estava mais claro.",
+          "evidencia": "Pedido desta conversa em 2026-11-09."
+        },
+        {
+          "data": "2026-11-09T22:12:00-03:00",
+          "rodada": "REV-05",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "public/styles/styles.css sem commit."
+          },
+          "resultado": "azul dos links sem cor própria alterado para #0069d9.",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contraste-antes.txt e REV-05-FE-A003-contraste-correcao.patch."
+        },
+        {
+          "data": "2026-11-09T22:12:00-03:00",
+          "rodada": "REV-05",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "public/styles/styles.css sem commit."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contraste-navegador-depois.json e REV-05-FE-A003-contraste-verificacao.txt."
+        },
+        {
+          "data": "2026-11-09T22:18:00-03:00",
+          "rodada": "REV-05",
+          "evento": "reversao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "public/styles/styles.css igual ao commit. A regra a, a:visited foi removida."
+          },
+          "resultado": "persiste. A autora pediu desfazer porque a regra global trocou a cor de vários outros textos.",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contraste-reversao.txt."
+        },
+        {
+          "data": "2026-11-09T22:28:00-03:00",
+          "rodada": "REV-05",
+          "evento": "correcao",
+          "responsavel": "Grok 4.7, no Cursor, a pedido de Laura Vieira.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "ContextLink e as três páginas, sem commit."
+          },
+          "resultado": "só os links do achado usam #0069d9.",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contexto-correcao.patch."
+        },
+        {
+          "data": "2026-11-09T22:28:00-03:00",
+          "rodada": "REV-05",
+          "evento": "reavaliacao",
+          "responsavel": "Grok 4.7, no Cursor.",
+          "versao_codigo": {
+            "frontend": "ec78f9594bc1a03b35e0e7723469e6832000511a",
+            "backend": null,
+            "alteracoes_locais": "ContextLink e as três páginas, sem commit."
+          },
+          "resultado": "resolveu_no_recorte",
+          "evidencia": "avaliacao/rodadas/REV-05/evidencias/REV-05-FE-A003-contexto-verificacao.txt."
+        }
+      ]
     }
   ]
 }
+    

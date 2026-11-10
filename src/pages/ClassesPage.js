@@ -346,7 +346,11 @@ const ClassItem = styled(LinkContainer)`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
-  height: 100%;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 211px;
   width: 18rem;
 
   h2.card-title {
@@ -360,8 +364,8 @@ const StyledCard = styled(Card)`
   .add-class {
     align-items: center;
     display: flex;
-    height: 100%;
+    flex: 1 1 auto;
     justify-content: center;
-    min-height: 180px;
+    margin-bottom: 0;
   }
 `;
