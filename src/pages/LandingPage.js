@@ -1,45 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import {
-  Container, ListGroup,
+  Button, Container, ListGroup,
 } from 'react-bootstrap';
-import { BsPlusCircleFill } from 'react-icons/bs';
 import colorContrast from 'color-contrast';
 
 import Header from '../components/Header';
+import api from '../services/api';
 
 export default function LandingPage () {
   const [sectors, setSectors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const headingRef = useRef(null);
 
-  useEffect(getSectors, []);
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+    setLoadError(false);
 
-  function getSectors () {
-    const request = axios.get('http://localhost:3000/sectors');
-    request.then((response) => {
-      setSectors([...response.data]);
-    });
-    request.catch(() => alert('Erro ao buscar o setor selecionado'));
-  }
+    api.get('/sectors')
+      .then((response) => {
+        if (!active) return;
+        setSectors([...response.data]);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setSectors([]);
+        setLoadError(true);
+        setIsLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [loadAttempt]);
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = 'Setores | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && headingRef.current) headingRef.current.focus();
+  }, [isLoading]);
 
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
+      <Main id="conteudo-principal" tabIndex={-1}>
+      <PageTitle ref={headingRef} tabIndex={-1}>Setores</PageTitle>
 
-      {sectors.length === 0
-        ? <p>Carregando...</p>
-        : (
-          <StyledListGroup>
-            <SectorItem action href="/setor/novo" color="#fff" textColor="#000">
-              <span>
-                <BsPlusCircleFill />
-                Adicionar Setor
-              </span>
-            </SectorItem>
-            {sectors.map((sector) => <SectorCard key={sector.id} sector={sector} />)}
-          </StyledListGroup>
-        )}
+      {isLoading && <p role="status">Carregando...</p>}
+      {loadError && (
+        <QueryError>
+          <p role="alert">Não foi possível carregar os setores.</p>
+          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+            Tentar novamente
+          </Button>
+        </QueryError>
+      )}
+      {!isLoading && !loadError && sectors.length === 0 && <p>Nenhum setor cadastrado.</p>}
+      {!isLoading && !loadError && sectors.length > 0 && (
+        <StyledListGroup as="ul">
+          {sectors.map((sector) => (
+            <CollectionItem key={sector.id}>
+              <SectorCard sector={sector} />
+            </CollectionItem>
+          ))}
+        </StyledListGroup>
+      )}
+      </Main>
 
     </StyledContainer>
   );
@@ -48,8 +81,11 @@ export default function LandingPage () {
 function SectorCard (props) {
   const { sector } = props;
   const link = `/setor/${sector.id}`;
-  const contrast = colorContrast(sector.color, '#000');
-  const textColor = contrast > 7 ? '#000' : '#FFF';
+  const contrastWithBlack = colorContrast(sector.color, '#000');
+  const contrastWithWhite = colorContrast(sector.color, '#FFF');
+  const textColor = contrastWithBlack > 7
+    ? '#000'
+    : (contrastWithBlack >= contrastWithWhite ? '#000' : '#FFF');
 
   return (
     <SectorItem action href={link} color={sector.color} textColor={textColor}>
@@ -63,7 +99,48 @@ const StyledContainer = styled(Container)`
   padding-top: 100px;
 `;
 
-const StyledListGroup = styled(ListGroup)``;
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  color: var(--navy-blue);
+  font-size: 28px;
+  margin: 0 auto 20px;
+  width: 90vw;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
+`;
+
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 48px auto;
+  text-align: center;
+`;
+
+const StyledListGroup = styled(ListGroup)`
+  margin: 0;
+  padding: 0;
+`;
+
+const CollectionItem = styled.li`
+  display: contents;
+`;
 
 const SectorItem = styled(ListGroup.Item)`
   align-items: center;
@@ -75,16 +152,14 @@ const SectorItem = styled(ListGroup.Item)`
   width: 90vw;
   color: ${(props) => props.textColor};
 
-  :hover {
-    color: #000;
+  &&:hover,
+  &&:focus,
+  &&:active {
+    background-color: ${(props) => props.color};
+    color: ${(props) => props.textColor};
   }
 
   p {
     margin-bottom: 0;
-  }
-
-  svg {
-    font-size: 20px;
-    margin: 0 8px -3px -3px;
   }
 `;

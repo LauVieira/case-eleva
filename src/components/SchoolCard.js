@@ -7,21 +7,32 @@ import {
 } from 'react-bootstrap';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { BiEdit } from 'react-icons/bi';
-import { ImBin, ImInfo } from 'react-icons/im';
+import { ImBin } from 'react-icons/im';
+import { formatClassDate } from '../utils/classForm';
+import { formatSchoolName } from '../utils/schoolForm';
+
+function formatTotalCapacity (value) {
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+  if (typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value))) {
+    return String(Number(value));
+  }
+  return '';
+}
 
 export default function SchoolCard (props) {
-  const { schoolData } = props;
+  const { schoolData, onDelete, headingRef } = props;
   const {
-    address, headteacher, id, name, phone,
+    address, createdAt, headteacher, id, name, phone, totalCapacity, updatedAt,
   } = schoolData;
   const link = `/escola/${id}/classes`;
+  const editLink = id ? `/escola/${id}/editar` : null;
 
   return (
-    <StyledCard style={{ width: '50rem', maxWidth: '95%' }}>
+    <StyledCard>
 
       <Card.Body>
 
-        <Card.Title>{name}</Card.Title>
+        <Card.Title as="h1" ref={headingRef} tabIndex={-1}>{formatSchoolName(name || '')}</Card.Title>
 
         <CardText>
           Endereço: {address}
@@ -33,28 +44,32 @@ export default function SchoolCard (props) {
           Diretor(a): {headteacher}
         </CardText>
         <CardText>
-          Capacidade máxima de alunos: -
+          Limite de alunos: {formatTotalCapacity(totalCapacity)}
         </CardText>
         <CardText>
-          Vagas ocupadas: -
+          Criada em: {formatClassDate(createdAt)}
+        </CardText>
+        <CardText>
+          Atualizada em: {formatClassDate(updatedAt)}
         </CardText>
 
       </Card.Body>
 
-      <StyledListGroup className="list-group-flush">
+      <StyledListGroup className="list-group-flush" activeKey={null}>
 
         <SchoolItem action href={link}>
-          <SiGoogleclassroom /> Ver turmas
+          <SiGoogleclassroom aria-hidden="true" focusable="false" /> Ver turmas
         </SchoolItem>
-        <SchoolItem>
-          <ImInfo /> Dados avançados
-        </SchoolItem>
-        <SchoolItem>
-          <BiEdit /> Editar informações
-        </SchoolItem>
-        <SchoolItem>
-          <ImBin /> Apagar informações
-        </SchoolItem>
+        {editLink && (
+          <SchoolItem action href={editLink}>
+            <BiEdit aria-hidden="true" focusable="false" /> Editar escola
+          </SchoolItem>
+        )}
+        {id && onDelete && (
+          <SchoolItem action type="button" onClick={onDelete}>
+            <ImBin aria-hidden="true" focusable="false" /> Excluir escola
+          </SchoolItem>
+        )}
 
       </StyledListGroup>
 
@@ -68,11 +83,18 @@ const StyledListGroup = styled(ListGroup)`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 95%;
+  width: 50rem;
 
   .card-title {
-    font-size: 24px !important;
+    color: var(--navy-blue);
+    font-size: 28px !important;
+    font-weight: 500;
+    line-height: 1.2;
     margin-bottom: 25px;
+    margin-top: 0;
     text-align: center;
   }
 `;
@@ -81,6 +103,16 @@ const CardText = styled(Card.Text)``;
 
 const SchoolItem = styled(ListGroup.Item)`
   cursor: pointer;
+
+  &&,
+  &&:hover,
+  &&:focus,
+  &&:active,
+  &&.active {
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.125);
+    color: #495057;
+  }
 
   svg {
     margin: 0 5px -2px 0;

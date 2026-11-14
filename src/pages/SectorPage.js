@@ -1,61 +1,163 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  Card, CardDeck, Container, Row, Col,
+  Alert, Button, Card, Container,
 } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Header from '../components/Header';
+import ContextLink from '../components/ContextLink';
+import api from '../services/api';
+import { formatSchoolName } from '../utils/schoolForm';
 
 export default function SectorPage () {
   const { id } = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const [deletedSchool] = useState(() => location.state && location.state.deletedSchool);
+  const noticeRef = useRef(null);
+  const headingRef = useRef(null);
   const [schools, setSchools] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [schoolsMissing, setSchoolsMissing] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const [sector, setSector] = useState(null);
+  const [sectorState, setSectorState] = useState('loading');
+  const [sectorRequestId, setSectorRequestId] = useState(null);
 
-  if (id !== 'novo') useEffect(getSectors, []);
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+    setLoadError(false);
+    setSchoolsMissing(false);
 
-  function getSectors () {
-    const request = axios.get(`http://localhost:3000/sectors/${id}/schools`);
-    request.then((response) => {
-      setSchools([...response.data]);
-    });
-    request.catch(() => alert('Erro ao buscar as escolas do setor selecionado'));
-  }
+    api.get(`/sectors/${id}/schools`)
+      .then((response) => {
+        if (!active) return;
+        setSchools([...response.data]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (!active) return;
+        const status = error.response && error.response.status;
+        setSchools([]);
+        setSchoolsMissing(status === 404 || status === 422);
+        setLoadError(status !== 404 && status !== 422);
+        setIsLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [id, loadAttempt]);
+
+  useEffect(() => {
+    let active = true;
+    setSector(null);
+    setSectorState('loading');
+    setSectorRequestId(null);
+
+    api.get('/sectors')
+      .then((response) => {
+        if (!active) return;
+        const found = response.data.find((item) => String(item.id) === String(id));
+        setSector(found || null);
+        setSectorState(found ? 'found' : 'missing');
+        setSectorRequestId(String(id));
+      })
+      .catch(() => {
+        if (!active) return;
+        setSector(null);
+        setSectorState('error');
+        setSectorRequestId(String(id));
+      });
+
+    return () => { active = false; };
+  }, [id, loadAttempt]);
+
+  useEffect(() => {
+    if (deletedSchool && noticeRef.current) {
+      noticeRef.current.focus();
+      history.replace({ ...location, state: { ...location.state, deletedSchool: null } });
+    }
+  }, []);
+
+  const sectorMissing = schoolsMissing || sectorState === 'missing';
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    if (sector) document.title = `${sector.name} | Gestão Escolar`;
+    else if (sectorMissing) document.title = 'Setor não encontrado | Gestão Escolar';
+    else document.title = 'Setor | Gestão Escolar';
+    return () => { document.title = previousTitle; };
+  }, [sector, sectorMissing]);
+
+  useEffect(() => {
+    if (deletedSchool || String(sectorRequestId) !== String(id) || !headingRef.current) return;
+    headingRef.current.focus();
+  }, [deletedSchool, sectorRequestId, id]);
 
   return (
     <StyledContainer fluid>
-
+      <SkipLink href="#conteudo-principal">Ir para o conteúdo principal</SkipLink>
       <Header />
+      <Main id="conteudo-principal" tabIndex={-1}>
 
-      {schools.length === 0
-        ? <p>Carregando...</p>
-        : (
-          <StyledCardDeck>
+      {deletedSchool && (
+        <Alert variant="success" role="status" tabIndex={-1} ref={noticeRef}>
+          Escola <strong>{formatSchoolName(deletedSchool.name || '')}</strong> excluída com sucesso.
+        </Alert>
+      )}
 
-            <Container fluid style={{ marginBottom: '20px' }}>
-              <Row>
-                <Col md={3}>
-                  <SchoolItem href="/" tabIndex="0">
-                    <StyledCard>
-                      <Card.Text className="add-school">
-                        <BsPlusCircleFill />
-                        Adicionar Escola
-                      </Card.Text>
-                    </StyledCard>
-                  </SchoolItem>
-                </Col>
-                {
-                  schools.map((school) => (
-                    <Col md={3}>
-                      <SchoolCard key={school.id} school={school} />
-                    </Col>
-                  ))
-                }
-              </Row>
-            </Container>
+      <ContextBar>
+        <PageTitle ref={headingRef} tabIndex={-1}>
+          {sectorMissing && 'Setor não encontrado.'}
+          {!sectorMissing && sector && (
+            <>
+              Setor:
+              {' '}
+              <strong>{sector.name}</strong>
+              {' · '}
+              Código:
+              {' '}
+              <strong>{sector.code}</strong>
+            </>
+          )}
+          {!sectorMissing && !sector && 'Setor'}
+        </PageTitle>
+        {!sectorMissing && sectorState === 'loading' && <p role="status">Identificando o setor...</p>}
+        {!sectorMissing && sectorState === 'error' && <p role="alert">Não foi possível identificar o setor.</p>}
+        <ContextLink to="/">Voltar aos setores</ContextLink>
+      </ContextBar>
 
-          </StyledCardDeck>
+      {isLoading && !sectorMissing && <p role="status">Carregando...</p>}
+      {loadError && !sectorMissing && (
+        <QueryError>
+          <p role="alert">Não foi possível carregar as escolas.</p>
+          <Button type="button" onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+            Tentar novamente
+          </Button>
+        </QueryError>
+      )}
+      {!isLoading && !loadError && !sectorMissing && (
+          <CardGrid>
+            <CollectionItem>
+              <SchoolItem href={`/setor/${id}/escolas/nova`} tabIndex="0">
+                <StyledCard>
+                  <Card.Text className="add-school">
+                    <BsPlusCircleFill aria-hidden="true" focusable="false" />
+                    Adicionar Escola
+                  </Card.Text>
+                </StyledCard>
+              </SchoolItem>
+            </CollectionItem>
+            {schools.map((school) => (
+              <CollectionItem key={school.id}>
+                <SchoolCard school={school} />
+              </CollectionItem>
+            ))}
+          </CardGrid>
         )}
+      </Main>
 
     </StyledContainer>
   );
@@ -67,9 +169,9 @@ function SchoolCard (props) {
 
   return (
     <SchoolItem href={link} tabIndex="0">
-      <StyledCard style={{ width: '18rem' }}>
+      <StyledCard>
         <Card.Body>
-          <Card.Title>{school.name}</Card.Title>
+          <Card.Title as="h2">{formatSchoolName(school.name || '')}</Card.Title>
           <Card.Text>
             {school.address}
           </Card.Text>
@@ -83,15 +185,76 @@ const StyledContainer = styled(Container)`
   padding-top: 100px;
 `;
 
-const StyledCardDeck = styled(CardDeck)``;
+const Main = styled.main`
+  scroll-margin-top: 100px;
+`;
+
+const PageTitle = styled.h1`
+  color: var(--navy-blue);
+  flex: 1 0 100%;
+  font-size: 28px;
+  margin: 0 0 16px;
+`;
+
+const SkipLink = styled.a`
+  background-color: #FFF;
+  color: var(--navy-blue);
+  left: 16px;
+  padding: 12px;
+  position: fixed;
+  top: 8px;
+  transform: translateY(-200%);
+  z-index: 1100;
+
+  :focus {
+    transform: translateY(0);
+  }
+`;
+
+const ContextBar = styled.div`
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+
+  p {
+    margin: 0;
+  }
+`;
+
+const QueryError = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 48px auto;
+  text-align: center;
+`;
+
+const CardGrid = styled.ul`
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const CollectionItem = styled.li`
+  display: contents;
+`;
 
 const SchoolItem = styled.a`
+  color: initial;
   display: flex;
+  flex: 0 0 18rem;
   font-size: 18px;
   height: 200px;
+  max-width: 100%;
   text-align: center;
-  margin: 20px 0;
-  color: initial;
+  width: 18rem;
 
   :hover {
     color: initial;
@@ -110,6 +273,16 @@ const SchoolItem = styled.a`
 
 const StyledCard = styled(Card)`
   box-shadow: 3px 2px 10px 1px #B7B5B2;
+  height: 100%;
+  width: 18rem;
+
+  h2.card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
 
   .add-school {
     align-items: center;

@@ -6,6 +6,11 @@ import LandingPage from './pages/LandingPage';
 import SectorPage from './pages/SectorPage';
 import SchoolPage from './pages/SchoolPage';
 import ClassesPage from './pages/ClassesPage';
+import SchoolCreatePage from './pages/SchoolCreatePage';
+import SchoolEditPage from './pages/SchoolEditPage';
+import ClassCreatePage from './pages/ClassCreatePage';
+import ClassDetailPage from './pages/ClassDetailPage';
+import ClassEditPage from './pages/ClassEditPage';
 
 export default function App () {
   return (
@@ -13,8 +18,13 @@ export default function App () {
       <Switch>
         <Route path="/login" component={SignIn} exact />
         <Route path="/" component={LandingPage} exact />
+        <Route path="/setor/:id/escolas/nova" component={SchoolCreatePage} exact />
         <Route path="/setor/:id" component={SectorPage} exact />
+        <Route path="/escola/:id/editar" component={SchoolEditPage} exact />
         <Route path="/escola/:id" component={SchoolPage} exact />
+        <Route path="/escola/:id/classes/nova" component={ClassCreatePage} exact />
+        <Route path="/turma/:id/editar" component={ClassEditPage} exact />
+        <Route path="/turma/:id" component={ClassDetailPage} exact />
         <Route path="/escola/:id/classes" component={ClassesPage} exact />
       </Switch>
     </Router>
