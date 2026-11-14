@@ -1,7 +1,0 @@
-REV-03 / REV-03-FE-A009
-Data: 2026-11-08
-Comando: node --openssl-legacy-provider ./node_modules/webpack-cli/bin/cli.js --stats errors-warnings
-Diretório: C:/Users/laumt/OneDrive/Documentos/TCC/case-eleva
-Resultado: exit 0. webpack compiled successfully.
-Aviso preexistente, sem atualização de pacote: Browserslist: caniuse-lite is outdated.
-Nenhuma dependência foi instalada ou alterada por esta compilação.

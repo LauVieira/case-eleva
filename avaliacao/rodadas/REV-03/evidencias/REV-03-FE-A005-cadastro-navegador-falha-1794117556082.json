@@ -1,5 +1,0 @@
-{
-  "erro": "Error: Tempo esgotado: Page.enable\n    at Timeout._onTimeout (C:\\Users\\laumt\\OneDrive\\Documentos\\TCC\\case-eleva\\avaliacao\\rodadas\\REV-03\\evidencias\\REV-03-FE-A005-cadastro-navegador.cjs:51:14)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
-  "resultados": [],
-  "requisicoes_de_escrita": []
-}

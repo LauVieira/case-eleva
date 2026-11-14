@@ -1,5 +1,0 @@
-Comando: node --openssl-legacy-provider ./node_modules/webpack-cli/bin/cli.js --stats errors-warnings
-Data: 2026-11-08
-Exit: 0
-Observado: aviso do ambiente de que Browserslist/caniuse-lite está desatualizado; em seguida, webpack compiled successfully.
-Nenhuma dependência foi atualizada. O dev server em http://127.0.0.1:9000/ serviu o bundle contendo Editar turma.
